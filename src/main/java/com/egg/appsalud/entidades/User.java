@@ -5,7 +5,11 @@
  */
 package com.egg.appsalud.entidades;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 /**
@@ -14,8 +18,11 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 public class User {
-    
-    
+
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
     @Column(nullable = false)
     private String mail;
 

@@ -14,8 +14,8 @@ public class ObraSocial {
     private String nombre;
 
 /*
-    @OneToMany(mappedBy = "obra_social") //Una obra social puede tener muchos pacientes, pero un paciente sólo puede tener una OS
-    private List<Paciente> paciente;
+    @OneToMany(mappedBy = "obraSocial") //Una obra social puede tener muchos pacientes, pero un paciente sólo puede tener una OS. MappedBy usa el nombre de la variable en Java.
+    private List<Paciente> pacientes;
 
  */
 
