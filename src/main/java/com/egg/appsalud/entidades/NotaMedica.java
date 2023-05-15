@@ -22,4 +22,9 @@ public class NotaMedica {
     private Profesional profesional;
 
  */
+
+    public NotaMedica(Integer id, String descripcion) {
+        this.id = id;
+        this.descripcion = descripcion;
+    }
 }

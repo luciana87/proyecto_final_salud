@@ -17,7 +17,7 @@ import javax.persistence.MappedSuperclass;
  * @author franc
  */
 @MappedSuperclass
-public class User {
+public class Usuario {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -49,11 +49,11 @@ public class User {
     private long telefono;
     
 
-    public User() {
+    public Usuario() {
     }
 
 
-    public User(String mail, String password, String nombre, String apellido, String dni, Integer edad, long telefono) {
+    public Usuario(String mail, String password, String nombre, String apellido, String dni, Integer edad, long telefono) {
         this.mail = mail;
         this.password = password;
         this.nombre = nombre;

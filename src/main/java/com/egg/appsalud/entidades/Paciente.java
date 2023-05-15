@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "paciente")
-public class Paciente extends User implements Serializable{
+public class Paciente extends Usuario implements Serializable{
 
 //    @ManyToOne //Muchos pacientes pueden tener una misma OS
 //    @JoinColumn(name = "obra_social_id") //

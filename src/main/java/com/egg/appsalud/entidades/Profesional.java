@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table (name = "profesional")
-public class Profesional extends User implements Serializable {
+public class Profesional extends Usuario implements Serializable {
 
 /*
     @OneToMany (mappedBy = "profesional")
