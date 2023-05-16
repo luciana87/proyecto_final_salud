@@ -10,6 +10,7 @@ public class NotaMedica {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column(nullable = false, length = 40)
     private String descripcion;
 
 /*

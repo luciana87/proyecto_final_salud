@@ -6,10 +6,10 @@ import com.egg.appsalud.servicios.PacienteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -18,10 +18,17 @@ public class PacienteControlador {
 
     @Autowired
     private PacienteServicio pacienteServicio;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: año-mes-dia del LocalDate
+    @PostMapping("/registro")
+    public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail, @RequestParam String password, @RequestParam String fechaNacimiento, @RequestParam String dni, @RequestParam Long telefono, ModelMap modelo) {
+        System.out.println("Se registro");
+        LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter); //Convierte el String de fechaNacimiento a LocalDate, si pongo directamente tipo LocalDate genera conflicto
+        return "index.html";
+    }
 
     @GetMapping("/registrar") //Retorna vista para registrarse
     public String registrar(){
-        return "paciente_form.html";
+        return "registro.html";
     }
 
     @GetMapping("/lista")

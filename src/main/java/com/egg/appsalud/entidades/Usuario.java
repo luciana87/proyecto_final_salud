@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import java.time.LocalDate;
 
 /**
  *
@@ -39,7 +40,7 @@ public class Usuario {
     private String dni;
 
     @Column(nullable = false)
-    private Integer edad;
+    private LocalDate fechaNacimiento;
 
 
 //    @Column(nullable = false)
@@ -53,13 +54,13 @@ public class Usuario {
     }
 
 
-    public Usuario(String mail, String password, String nombre, String apellido, String dni, Integer edad, long telefono) {
+    public Usuario(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, long telefono) {
         this.mail = mail;
         this.password = password;
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
-        this.edad = edad;
+        this.fechaNacimiento = fechaNacimiento;
         this.telefono = telefono;
     }
 
@@ -87,12 +88,12 @@ public class Usuario {
         this.dni = dni;
     }
 
-    public int getEdad() {
-        return edad;
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setEdad(int edad) {
-        this.edad = edad;
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public long getTelefono() {
