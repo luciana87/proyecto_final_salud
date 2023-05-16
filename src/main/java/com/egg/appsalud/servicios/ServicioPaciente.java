@@ -26,7 +26,7 @@ public class ServicioPaciente {
     private PacienteRepositorio pacienteRepo;
 
     @Transactional
-    public void CrearPaciente(String mail, String password, String nombre, String apellido, String dni, Integer edad) throws MiException {
+    public void CrearPaciente(String mail, String password, String nombre, String apellido, String dni, Integer edad, Long telefono) throws MiException {
 
         validar(mail, password, nombre, apellido, dni, edad);
 
@@ -38,7 +38,7 @@ public class ServicioPaciente {
         paciente.setEdad(edad);
         paciente.setMail(mail);
         paciente.setPassword(password);
-        
+        paciente.setTelefono(telefono);
         pacienteRepo.save(paciente);
 
     }
@@ -52,12 +52,12 @@ public class ServicioPaciente {
     }
 
     @Transactional
-    public void modificarPaciente(String idPaciente, String mail, String password, String nombre,
-            String apellido, String dni, Integer edad, Long telefono) throws MiException {
+    public void modificarPaciente(String id_paciente, String mail, String password, String nombre,
+            String apellido, String dni, Integer edad, long telefono) throws MiException {
         
         validar(mail, password, nombre, apellido, dni, edad);
         
-        Optional<Paciente> pacienteOptional = pacienteRepo.findById(idPaciente);
+        Optional<Paciente> pacienteOptional = pacienteRepo.findById(id_paciente);
 
         if (pacienteOptional.isPresent()) {
             Paciente paciente = pacienteOptional.get();
@@ -72,9 +72,7 @@ public class ServicioPaciente {
 
             pacienteRepo.save(paciente);
             
-        } else {
-            throw new MiException("No se encontró el paciente con el ID: " + idPaciente);
-        }
+        } 
     }
 
     public Paciente getOne(String id_paciente) {

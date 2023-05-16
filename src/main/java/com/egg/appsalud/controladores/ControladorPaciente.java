@@ -6,16 +6,12 @@ import com.egg.appsalud.servicios.ServicioPaciente;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/paciente")
@@ -32,12 +28,12 @@ public class ControladorPaciente {
     @PostMapping("/ingreso")
     public String registro(@RequestParam String nombre,
             @RequestParam String apellido, @RequestParam String dni, @RequestParam Integer edad, @RequestParam String mail,
-            @RequestParam String password, @RequestParam Long telefono, ModelMap modelo) throws MiException{
+            @RequestParam String password, @RequestParam Long telefono, ModelMap modelo) throws MiException {
 
         try {
-            pacienteSer.CrearPaciente(mail, password, nombre, apellido, dni, edad);
+            pacienteSer.CrearPaciente(mail, password, nombre, apellido, dni, edad, telefono);
             modelo.put("exito", "la noticia fue cargada correctamente");
-
+            return "index.html";
         } catch (MiException ex) {
 
             modelo.put("error", ex.getMessage());
@@ -45,9 +41,8 @@ public class ControladorPaciente {
 
         }
 
-        return "index.html";
     }
-    
+
     @GetMapping("/mostrarTodas")
     public String pacienteMostrar(ModelMap modelo) {
 
@@ -57,24 +52,26 @@ public class ControladorPaciente {
         return "lista_pacientes.html";
     }
 
-    @GetMapping("/modificar/{id}")
-    public String mostrarFormularioModificar(@PathVariable("id") String idPaciente, Model model) throws MiException {
-        Paciente paciente = pacienteSer.getOne(idPaciente);
-        model.addAttribute("paciente", paciente);
+    @GetMapping("/modificar/{id_paciente}")
+    public String mostrarFormularioModificar(@PathVariable String id_paciente, ModelMap model){
+        
+        model.put("paciente", pacienteSer.getOne(id_paciente));
         return "paraModificar.html";
     }
 
-    @PatchMapping("/modificar/{id}")
-    public String modificarPaciente(@PathVariable("id") String idPaciente, @ModelAttribute Paciente paciente, RedirectAttributes redirectAttributes) {
+    @PostMapping("/modificar/{id_paciente}")
+    public String modificarPaciente(@PathVariable String id_paciente, String mail, String password, String nombre, String apellido,
+            String dni, Integer edad, long telefono, ModelMap modelo) {
         try {
-            pacienteSer.modificarPaciente(idPaciente, paciente.getMail(), paciente.getPassword(),
-                    paciente.getNombre(), paciente.getApellido(), paciente.getDni(), paciente.getEdad(), paciente.getTelefono());
-            redirectAttributes.addFlashAttribute("exito", "Paciente modificado con éxito");
-            return "redirect:/mostrarTodas";
-        } catch (MiException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/paciente/modificar/{id}";
+            pacienteSer.modificarPaciente(id_paciente, mail, password,
+                    nombre, apellido, dni, edad, telefono);
+            modelo.put("exito", "la noticia fue cargada correctamente");
+            
+        } catch (MiException ex) {
+            modelo.put("error", ex.getMessage());
+            return "paraModificar.html";
         }
+        return "lista_pacientes.html";
     }
 
 //@GetMapping("/modificar/{id_paciente}")

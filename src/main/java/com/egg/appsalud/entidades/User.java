@@ -25,12 +25,12 @@ public class User {
 //    @Column(name = "rol", nullable = false)
 //    private Rol rol;
     @Column(name = "telefono", nullable = false)
-    private Long telefono;
+    private long telefono;
     
     public User() {
     }
 
-    public User(String mail, String password, String nombre, String apellido, String dni, int edad, long telefono) {
+    public User(String mail, String password, String nombre, String apellido, String dni, int edad, Long telefono) {
         this.mail = mail;
         this.password = password;
         this.nombre = nombre;
@@ -76,7 +76,7 @@ public class User {
         return telefono;
     }
 
-    public void setTelefono(long telefono) {
+    public void setTelefono(Long telefono) {
         this.telefono = telefono;
     }
 
