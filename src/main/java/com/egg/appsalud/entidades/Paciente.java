@@ -6,61 +6,40 @@
 package com.egg.appsalud.entidades;
 
 import java.io.Serializable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
  * @author franc
  */
 @Entity
-@Table(name = "User_paciente")
-public class Paciente extends User implements Serializable{
-    @Column(name = "id_paciente", nullable = false)
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id_paciente;
-//    @Column(name = "obra_social", nullable = true)
-//    @OneToOne
+@Table(name = "paciente")
+public class Paciente extends Usuario implements Serializable{
+
+//    @ManyToOne //Muchos pacientes pueden tener una misma OS
+//    @JoinColumn(name = "obra_social_id") //
 //    private ObraSocial obraSocial;
+
 //    @Column(name = "nro_obra_social", nullable = true)
-//    private long Nro obraSocial;
-//    @Column(name = "img", nullable = true)
+//    private String NroObraSocial;
+
+//    @Column(nullable = true)
 //    private Imagen img;
-//    @onetomany
-//    private List<Turno>listaDeTurnos;
-    
-    
-    
+
+//    @OneToMany (mappedBy = "paciente") //Usando mappedBy (mappedBy: indica cuál entidad es dueña del uno a muchos de forma única) indicas que la relación es unidireccional. Un ‘Paciente’ tiene muchos ‘Turnos’ pero un ‘Turno’ no tiene muchos pacientes.
+//    @Column (name = "historial_turnos")
+//    private List<Turno> listaDeTurnos;
+
+//    @OneToOne //Un paciente tiene una historia clínica
+//    @JoinColumn (name = "historia_clinica_id") //Foreign Key: historia_clinica_id
+//    private HistoriaClinica historiaClinica ;
+
 
     public Paciente() {
-        super();
     }
 
-    public Paciente(int id_paciente) {
-        this.id_paciente = id_paciente;
-    }
-
-    public Paciente(int id_paciente, String mail, String password, String nombre, String apellido, String dni, int edad, long telefono) {
+    public Paciente(String mail, String password, String nombre, String apellido, String dni, Integer edad, long telefono) {
         super(mail, password, nombre, apellido, dni, edad, telefono);
-        this.id_paciente = id_paciente;
     }
-
-    public int getId_paciente() {
-        return id_paciente;
-    }
-
-    public void setId_paciente(int id_paciente) {
-        this.id_paciente = id_paciente;
-    }
-
-    
-    
-    
 }
