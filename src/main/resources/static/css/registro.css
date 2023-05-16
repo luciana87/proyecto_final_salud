@@ -1,5 +1,5 @@
 html {
-    background: url("fregistro.jpg") no-repeat;
+    background: url("../img/fregistro.jpg") no-repeat;
 
     background-size: cover;
     min-height: 50%;
@@ -8,6 +8,11 @@ html {
 
 body {
     background: none;
+
+}
+
+.container {
+    
 
 }
 
