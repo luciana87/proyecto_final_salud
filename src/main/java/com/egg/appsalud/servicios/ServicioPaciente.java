@@ -44,23 +44,23 @@ public class ServicioPaciente {
     
     private void validar(String mail,String password, String nombre, String apellido, String dni, LocalDate edad) throws MiException{
         if(nombre.isEmpty() || nombre == null){
-            throw new MiException("El titulo no puede ser nulo o estar vacio");
+            throw new MiException("El Nombre no puede ser nulo o estar vacio");
         }
         
         if(password.isEmpty() || password == null){
             throw new MiException("El cuerpo no puede ser nulo o estar vacio");
         }
         if(mail.isEmpty() || mail == null){
-            throw new MiException("El titulo no puede ser nulo o estar vacio");
+            throw new MiException("El Mail no puede ser nulo o estar vacio");
         }
         if(apellido.isEmpty() || apellido == null){
-            throw new MiException("El titulo no puede ser nulo o estar vacio");
+            throw new MiException("El Apellido no puede ser nulo o estar vacio");
         }
         if(dni.isEmpty() || dni == null){
-            throw new MiException("El titulo no puede ser nulo o estar vacio");
+            throw new MiException("El Dni no puede ser nulo o estar vacio");
         }
-        //if(edad < 0 || edad == null){
-        //    throw new MiException("El titulo no puede ser nulo o estar vacio");
-        //}
+        if( edad == null){
+            throw new MiException("La edad no puede ser nulo o estar vacio");
+        }
     }
 }
