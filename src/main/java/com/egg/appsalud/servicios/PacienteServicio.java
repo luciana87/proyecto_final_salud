@@ -12,15 +12,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+
 /**
  *
  * @author franc
  */
 @Service
-public class ServicioPaciente {
+public class PacienteServicio {
     
     @Autowired
-    private PacienteRepositorio pacienteRepo;
+    private PacienteRepositorio pacienteRepositorio;
     
     @Transactional
     public void CrearPaciente(String mail,String password, String nombre, String apellido, String dni, int edad) throws MiException{
@@ -36,8 +41,22 @@ public class ServicioPaciente {
         paciente.setMail(mail);
         paciente.setPassword(password);
         
-        pacienteRepo.save(paciente);
+        pacienteRepositorio.save(paciente);
         
+    }
+
+    public List<Paciente> listarPacientes() {
+
+        List<Paciente> pacientes = pacienteRepositorio.findAll();
+        return pacientes.stream().collect(Collectors.toList());
+    }
+
+    public Paciente buscarPorId(String idPaciente) throws MiException {
+        Optional<Paciente> paciente = pacienteRepositorio.findById(idPaciente);
+        if (!paciente.isPresent()){
+            throw new MiException("Paciente no encontrado.");
+        }
+        return paciente.get();
     }
     
     private void validar(String mail,String password, String nombre, String apellido, String dni, Integer edad) throws MiException{
@@ -61,4 +80,6 @@ public class ServicioPaciente {
             throw new MiException("El titulo no puede ser nulo o estar vacio");
         }
     }
+
+
 }

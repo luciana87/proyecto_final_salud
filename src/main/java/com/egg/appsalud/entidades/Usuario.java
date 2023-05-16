@@ -5,44 +5,55 @@
  */
 package com.egg.appsalud.entidades;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
  * @author franc
  */
 @MappedSuperclass
-public class User {
-    
-    
-    @Column(name = "user_mail", nullable = false)
+public class Usuario {
+
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
+    @Column(nullable = false)
     private String mail;
-    
-    @Column(name = "user_password", nullable = false)
+
+    @Column(nullable = false, length = 40)
     private String password;
-    @Column(name = "nombre", nullable = false)
+
+    @Column(nullable = false, length = 30)
     private String nombre;
-    @Column(name = "apellido", nullable = false)
+
+    @Column(nullable = false, length = 50)
     private String apellido;
-    @Column(name = "dni", nullable = false)
+
+    @Column(nullable = false, length = 40)
     private String dni;
-    @Column(name = "edad", nullable = false)
+
+    @Column(nullable = false)
     private Integer edad;
-//    @Column(name = "rol", nullable = false)
+
+
+//    @Column(nullable = false)
 //    private Rol rol;
-    @Column(name = "telefono", nullable = false)
+
+    @Column(nullable = false)
     private long telefono;
     
 
-    public User() {
+    public Usuario() {
     }
 
 
-    public User(String mail, String password, String nombre, String apellido, String dni, int edad, long telefono) {
+    public Usuario(String mail, String password, String nombre, String apellido, String dni, Integer edad, long telefono) {
         this.mail = mail;
         this.password = password;
         this.nombre = nombre;
@@ -92,7 +103,6 @@ public class User {
         this.telefono = telefono;
     }
 
-    
 
     public String getMail() {
         return mail;
