@@ -43,14 +43,6 @@ public class ServicioPaciente {
 
     }
 
-    public List<Paciente> listarPacientes() {
-        List<Paciente> pacientes = new ArrayList();
-
-        pacientes = pacienteRepo.findAll();
-
-        return pacientes;
-    }
-
     @Transactional
     public void modificarPaciente(String id_paciente, String mail, String password, String nombre,
             String apellido, String dni, Integer edad, long telefono) throws MiException {
@@ -78,6 +70,7 @@ public class ServicioPaciente {
     public Paciente getOne(String id_paciente) {
         return pacienteRepo.getOne(id_paciente);
     }
+    
     private void validar(String mail, String password, String nombre, String apellido, String dni, Integer edad) throws MiException {
         if (nombre.isEmpty() || nombre == null) {
             throw new MiException("El titulo no puede ser nulo o estar vacio");
