@@ -23,7 +23,7 @@ public class ServicioPaciente {
     private PacienteRepositorio pacienteRepo;
     
     @Transactional
-    public void CrearPaciente(String mail,String password, String nombre, String apellido, String dni, int edad) throws MiException{
+    public void CrearPaciente(String mail,String password, String nombre, String apellido, String dni, int edad, long telefono) throws MiException{
         
         validar(mail, password, nombre, apellido, dni, edad);
         
@@ -35,6 +35,7 @@ public class ServicioPaciente {
         paciente.setEdad(edad);
         paciente.setMail(mail);
         paciente.setPassword(password);
+        paciente.setTelefono(telefono);
         
         pacienteRepo.save(paciente);
         
