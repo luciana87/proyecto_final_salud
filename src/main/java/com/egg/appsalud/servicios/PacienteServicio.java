@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,16 +29,16 @@ public class PacienteServicio {
     private PacienteRepositorio pacienteRepositorio;
     
     @Transactional
-    public void CrearPaciente(String mail,String password, String nombre, String apellido, String dni, int edad) throws MiException{
+    public void CrearPaciente(String mail,String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento) throws MiException{
         
-        validar(mail, password, nombre, apellido, dni, edad);
+        validar(mail, password, nombre, apellido, dni, fechaNacimiento);
         
         Paciente paciente = new Paciente();
         
         paciente.setNombre(nombre);
         paciente.setApellido(apellido);
         paciente.setDni(dni);
-        paciente.setEdad(edad);
+        paciente.setFechaNacimiento(fechaNacimiento);
         paciente.setMail(mail);
         paciente.setPassword(password);
         
@@ -59,25 +60,25 @@ public class PacienteServicio {
         return paciente.get();
     }
     
-    private void validar(String mail,String password, String nombre, String apellido, String dni, Integer edad) throws MiException{
+    private void validar(String mail,String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento) throws MiException{
         if(nombre.isEmpty() || nombre == null){
-            throw new MiException("El titulo no puede ser nulo o estar vacio");
+            throw new MiException("El nombre no puede ser nulo o estar vacio");
         }
         
         if(password.isEmpty() || password == null){
-            throw new MiException("El cuerpo no puede ser nulo o estar vacio");
+            throw new MiException("La contraseña no puede ser nulo o estar vacio");
         }
         if(mail.isEmpty() || mail == null){
-            throw new MiException("El titulo no puede ser nulo o estar vacio");
+            throw new MiException("El correo no puede ser nulo o estar vacio");
         }
         if(apellido.isEmpty() || apellido == null){
-            throw new MiException("El titulo no puede ser nulo o estar vacio");
+            throw new MiException("El apellido no puede ser nulo o estar vacio");
         }
         if(dni.isEmpty() || dni == null){
-            throw new MiException("El titulo no puede ser nulo o estar vacio");
+            throw new MiException("El DNI no puede ser nulo o estar vacio");
         }
-        if(edad < 0 || edad == null){
-            throw new MiException("El titulo no puede ser nulo o estar vacio");
+        if(fechaNacimiento == null){
+            throw new MiException("La fecha de naciemiento no puede ser nulo o estar vacio");
         }
     }
 
