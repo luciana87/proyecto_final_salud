@@ -23,7 +23,7 @@ public class PacienteControlador {
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail, @RequestParam String password, @RequestParam String fechaNacimiento, @RequestParam String dni, @RequestParam Long telefono, ModelMap modelo) {
         System.out.println("Se registro");
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter); //Convierte el String de fechaNacimiento a LocalDate, si pongo directamente tipo LocalDate genera conflicto
-        return "index.html";
+        return "redirect:/";
     }
 
     @GetMapping("/registrar") //Retorna vista para registrarse
