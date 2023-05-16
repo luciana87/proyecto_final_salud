@@ -1,42 +1,66 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.egg.appsalud.entidades;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import org.hibernate.annotations.GenericGenerator;
+import java.time.LocalDate;
 
+/**
+ *
+ * @author franc
+ */
 @MappedSuperclass
-public class User {
-    
-    @Column(name = "user_mail", nullable = false)
+public class Usuario {
+
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
+    @Column(nullable = false)
     private String mail;
-    
-    @Column(name = "user_password", nullable = false)
+
+    @Column(nullable = false, length = 40)
     private String password;
-    @Column(name = "nombre", nullable = false)
+
+    @Column(nullable = false, length = 30)
     private String nombre;
-    @Column(name = "apellido", nullable = false)
+
+    @Column(nullable = false, length = 50)
     private String apellido;
-    @Column(name = "dni", nullable = false)
+
+    @Column(nullable = false, length = 40)
     private String dni;
-    @Column(name = "edad", nullable = false)
-    private Integer edad;
-//    @Column(name = "rol", nullable = false)
+
+    @Column(nullable = false)
+    private LocalDate fechaNacimiento;
+
+
+//    @Column(nullable = false)
 //    private Rol rol;
-    @Column(name = "telefono", nullable = false)
+
+    @Column(nullable = false)
     private long telefono;
     
-    public User() {
+
+    public Usuario() {
     }
 
-    public User(String mail, String password, String nombre, String apellido, String dni, int edad, Long telefono) {
+
+    public Usuario(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, long telefono) {
         this.mail = mail;
         this.password = password;
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
-        this.edad = edad;
+        this.fechaNacimiento = fechaNacimiento;
         this.telefono = telefono;
     }
 
@@ -64,21 +88,22 @@ public class User {
         this.dni = dni;
     }
 
-    public int getEdad() {
-        return edad;
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setEdad(int edad) {
-        this.edad = edad;
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Long telefono) {
+    public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
+
 
     public String getMail() {
         return mail;
@@ -95,4 +120,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    
+    
 }

@@ -8,9 +8,10 @@ package com.egg.appsalud.servicios;
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.repositorios.PacienteRepositorio;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,33 +24,47 @@ import org.springframework.transaction.annotation.Transactional;
 public class ServicioPaciente {
 
     @Autowired
-    private PacienteRepositorio pacienteRepo;
+    private PacienteRepositorio pacienteRepositorio;
 
     @Transactional
-    public void CrearPaciente(String mail, String password, String nombre, String apellido, String dni, Integer edad, Long telefono) throws MiException {
+    public void CrearPaciente(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, Long telefono) throws MiException {
 
-        validar(mail, password, nombre, apellido, dni, edad);
+        validar(mail, password, nombre, apellido, dni, fechaNacimiento);
 
         Paciente paciente = new Paciente();
 
         paciente.setNombre(nombre);
         paciente.setApellido(apellido);
         paciente.setDni(dni);
-        paciente.setEdad(edad);
+        paciente.setFechaNacimiento(fechaNacimiento);
         paciente.setMail(mail);
         paciente.setPassword(password);
         paciente.setTelefono(telefono);
-        pacienteRepo.save(paciente);
+        pacienteRepositorio.save(paciente);
 
     }
+    
+    public List<Paciente> listarPacientes() {
 
+        List<Paciente> pacientes = pacienteRepositorio.findAll();
+        return pacientes.stream().collect(Collectors.toList());
+    }
+    
+    public Paciente buscarPorId(String idPaciente) throws MiException {
+        Optional<Paciente> paciente = pacienteRepositorio.findById(idPaciente);
+        if (!paciente.isPresent()){
+            throw new MiException("Paciente no encontrado.");
+        }
+        return paciente.get();
+    }
+    
     @Transactional
     public void modificarPaciente(String id_paciente, String mail, String password, String nombre,
-            String apellido, String dni, Integer edad, long telefono) throws MiException {
+            String apellido, String dni, LocalDate fechaNacimiento, long telefono) throws MiException {
         
-        validar(mail, password, nombre, apellido, dni, edad);
+        validar(mail, password, nombre, apellido, dni, fechaNacimiento);
         
-        Optional<Paciente> pacienteOptional = pacienteRepo.findById(id_paciente);
+        Optional<Paciente> pacienteOptional = pacienteRepositorio.findById(id_paciente);
 
         if (pacienteOptional.isPresent()) {
             Paciente paciente = pacienteOptional.get();
@@ -59,19 +74,19 @@ public class ServicioPaciente {
             paciente.setNombre(nombre);
             paciente.setApellido(apellido);
             paciente.setDni(dni);
-            paciente.setEdad(edad);
+            paciente.setFechaNacimiento(fechaNacimiento);
             paciente.setTelefono(telefono);
 
-            pacienteRepo.save(paciente);
+            pacienteRepositorio.save(paciente);
             
         } 
     }
 
     public Paciente getOne(String id_paciente) {
-        return pacienteRepo.getOne(id_paciente);
+        return pacienteRepositorio.getOne(id_paciente);
     }
     
-    private void validar(String mail, String password, String nombre, String apellido, String dni, Integer edad) throws MiException {
+    private void validar(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento) throws MiException {
         if (nombre.isEmpty() || nombre == null) {
             throw new MiException("El titulo no puede ser nulo o estar vacio");
         }
@@ -88,7 +103,7 @@ public class ServicioPaciente {
         if (dni.isEmpty() || dni == null) {
             throw new MiException("El titulo no puede ser nulo o estar vacio");
         }
-        if (edad < 0 || edad == null) {
+        if (fechaNacimiento == null) {
             throw new MiException("El titulo no puede ser nulo o estar vacio");
         }
     }
