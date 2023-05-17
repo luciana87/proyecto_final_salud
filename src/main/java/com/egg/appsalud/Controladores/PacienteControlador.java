@@ -20,9 +20,16 @@ public class PacienteControlador {
     private PacienteServicio pacienteServicio;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: año-mes-dia del LocalDate
     @PostMapping("/registro")
-    public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail, @RequestParam String password, @RequestParam String fechaNacimiento, @RequestParam String dni, @RequestParam Long telefono, ModelMap modelo) {
+    public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail, @RequestParam String password, @RequestParam String fechaNacimiento, @RequestParam String dni, @RequestParam Long telefono, ModelMap modelo){
         System.out.println("Se registro");
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter); //Convierte el String de fechaNacimiento a LocalDate, si pongo directamente tipo LocalDate genera conflicto
+        try {
+        pacienteServicio.CrearPaciente(mail, password, nombre, apellido, dni, fechaNac,telefono);
+        modelo.put("exito", "El paciente fue creado correctamente");
+         } catch (MiException ex) {
+            modelo.put("error", ex.getMessage());
+            return "/registro";
+        }
         return "redirect:/";
     }
 
