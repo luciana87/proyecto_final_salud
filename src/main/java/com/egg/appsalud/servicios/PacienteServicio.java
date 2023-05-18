@@ -29,9 +29,9 @@ public class PacienteServicio {
     private PacienteRepositorio pacienteRepositorio;
     
     @Transactional
-    public void crearPaciente(String mail,String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento) throws MiException{
-        
-        validar(mail, password, nombre, apellido, dni, fechaNacimiento);
+    public void CrearPaciente(String mail,String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento,long telefono) throws MiException{
+
+        validar(mail, password, nombre, apellido, dni, fechaNacimiento, telefono);
         
         Paciente paciente = new Paciente();
         
@@ -41,7 +41,8 @@ public class PacienteServicio {
         paciente.setFechaNacimiento(fechaNacimiento);
         paciente.setMail(mail);
         paciente.setPassword(password);
-        
+        paciente.setTelefono(telefono);
+
         pacienteRepositorio.save(paciente);
         
     }
@@ -60,7 +61,7 @@ public class PacienteServicio {
         return paciente.get();
     }
     
-    private void validar(String mail,String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento) throws MiException{
+    private void validar(String mail,String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, long telefono) throws MiException{
         if(nombre.isEmpty() || nombre == null){
             throw new MiException("El nombre no puede ser nulo o estar vacio");
         }
@@ -79,6 +80,9 @@ public class PacienteServicio {
         }
         if(fechaNacimiento == null){
             throw new MiException("La fecha de naciemiento no puede ser nulo o estar vacio");
+        }
+        if(telefono == 0){
+            throw new MiException("Debe inicar un telefono valido");
         }
     }
 

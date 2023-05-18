@@ -23,6 +23,9 @@ public class ObraSocial {
     private Profesional  medico; //Posible tabla intermedia por relacion muchos a muchos entre profesional y obra social
  */
 
+    public ObraSocial() {
+    }
+
     public ObraSocial(Integer id, String nombre) {
         this.id = id;
         this.nombre = nombre;
