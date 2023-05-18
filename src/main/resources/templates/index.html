@@ -1,6 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
+=======
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>>>>>>> develop
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,7 +43,11 @@
             <div class="collapse navbar-collapse navbar-right" id="myNavbar">
               <ul class="nav navbar-nav">
                 <li class="active"><a href="#banner">Inicio</a></li>
+
                 <li class=""><a th:href="@{paciente/registrar}">Registro</a></li>
+
+                <li class=""><a href="/paciente/registrar">Registro</a></li>
+
                 <li class=""><a href="#service">Servicios</a></li>
                 <li class=""><a href="#about">Nosotros</a></li>
                 <li class=""><a href="#testimonial">Testimonios</a></li>
@@ -57,7 +66,7 @@
             <div class="banner-text text-center">
               <h1 class="white">Atencion medica desde su hogar!!!</h1>
               <p>Somos un conjunto de profesionales de la salud auto-organizados <br>con nuestra propia plataforma de atención a pacientes</p>
-              <a href="login.html" class="btn btn-appoint">Inicie su consulta</a>
+              <a href="/usuario/login" class="btn btn-appoint">Inicie su consulta</a>
             </div>
             <div class="overlay-detail text-center">
               <a href="#service"><i class="fa fa-angle-down"></i></a>
@@ -299,7 +308,7 @@
           </div>
           <div class="testi-info">
             <!-- User Image -->
-            <a href="#"><img src="../static/img/thumb2.png" alt="" class="img-responsive"></a>
+            <a href="#"><img src="img/thumb2.png" alt="" class="img-responsive"></a>
             <!-- User Name -->
             <h3>Rocio<span>Avil</span></h3>
           </div>
@@ -311,7 +320,7 @@
           </div>
           <div class="testi-info">
             <!-- User Image -->
-            <a href="#"><img src="../static/img/thumb3.png" alt="" class="img-responsive"></a>
+            <a href="#"><img src="img/thumb3.png" alt="" class="img-responsive"></a>
             <!-- User Name -->
             <h3>Agus<span>Rizzo</span></h3>
           </div>
@@ -440,8 +449,9 @@
                 You can delete the links only if you purchased the pro version.
                 Licensing information: https://bootstrapmade.com/license/
                 Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Medilab
-              -->
               Diseñado por Grupo 2 PF GyL 2023</a>
+              -->
+                <a>Diseñado por Grupo 2 PF GyL 2023</a>
             </div>
           </div>
         </div>
@@ -450,11 +460,11 @@
   </footer>
   <!--/ footer-->
 
-  <script src="../static/js/jquery.min.js"></script>
-  <script src="../static/js/jquery.easing.min.js"></script>
-  <script src="../static/js/bootstrap.min.js"></script>
-  <script src="../static/js/custom.js"></script>
-  <script src="../static/contactform/contactform.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery.easing.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/custom.js"></script>
+  <script src="contactform/contactform.js"></script>
 
 </body>
 

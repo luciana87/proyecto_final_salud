@@ -9,9 +9,11 @@ import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.repositorios.PacienteRepositorio;
 import java.time.LocalDate;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +29,7 @@ public class ServicioPaciente {
     private PacienteRepositorio pacienteRepositorio;
 
     @Transactional
-    public void CrearPaciente(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, Long telefono) throws MiException {
+    public void CrearPaciente(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, long telefono) throws MiException {
 
         validar(mail, password, nombre, apellido, dni, fechaNacimiento);
 
@@ -43,32 +45,32 @@ public class ServicioPaciente {
         pacienteRepositorio.save(paciente);
 
     }
-    
+
     public List<Paciente> listarPacientes() {
 
         List<Paciente> pacientes = pacienteRepositorio.findAll();
         return pacientes.stream().collect(Collectors.toList());
     }
-    
+
     public Paciente buscarPorId(String idPaciente) throws MiException {
         Optional<Paciente> paciente = pacienteRepositorio.findById(idPaciente);
-        if (!paciente.isPresent()){
+        if (!paciente.isPresent()) {
             throw new MiException("Paciente no encontrado.");
         }
         return paciente.get();
     }
-    
+
     @Transactional
     public void modificarPaciente(String id_paciente, String mail, String password, String nombre,
             String apellido, String dni, LocalDate fechaNacimiento, long telefono) throws MiException {
-        
+
         validar(mail, password, nombre, apellido, dni, fechaNacimiento);
-        
+
         Optional<Paciente> pacienteOptional = pacienteRepositorio.findById(id_paciente);
 
         if (pacienteOptional.isPresent()) {
             Paciente paciente = pacienteOptional.get();
-            
+
             paciente.setMail(mail);
             paciente.setPassword(password);
             paciente.setNombre(nombre);
@@ -78,14 +80,14 @@ public class ServicioPaciente {
             paciente.setTelefono(telefono);
 
             pacienteRepositorio.save(paciente);
-            
-        } 
+
+        }
     }
 
     public Paciente getOne(String id_paciente) {
         return pacienteRepositorio.getOne(id_paciente);
     }
-    
+
     private void validar(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento) throws MiException {
         if (nombre.isEmpty() || nombre == null) {
             throw new MiException("El titulo no puede ser nulo o estar vacio");
@@ -106,5 +108,7 @@ public class ServicioPaciente {
         if (fechaNacimiento == null) {
             throw new MiException("El titulo no puede ser nulo o estar vacio");
         }
+    
     }
+
 }
