@@ -29,7 +29,7 @@ public class PacienteServicio {
     private PacienteRepositorio pacienteRepositorio;
     
     @Transactional
-    public void CrearPaciente(String mail,String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento) throws MiException{
+    public void crearPaciente(String mail,String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento) throws MiException{
         
         validar(mail, password, nombre, apellido, dni, fechaNacimiento);
         
