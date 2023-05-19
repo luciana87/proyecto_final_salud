@@ -2,7 +2,7 @@ package com.egg.appsalud.Controladores;
 
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.excepciones.MiException;
-import com.egg.appsalud.servicios.PacienteServicio;
+import com.egg.appsalud.servicios.ServicioPaciente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,8 +17,9 @@ import java.util.List;
 public class PacienteControlador {
 
     @Autowired
-    private PacienteServicio pacienteServicio;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: año-mes-dia del LocalDate
+    private ServicioPaciente pacienteServicio;
+    
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: aÃ±o-mes-dia del LocalDate
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail, @RequestParam String password, @RequestParam String fechaNacimiento, @RequestParam String dni, @RequestParam Long telefono, ModelMap modelo){
         System.out.println("Se registro");
@@ -52,7 +53,7 @@ public class PacienteControlador {
         try {
 
             Paciente paciente = pacienteServicio.buscarPorId(idPaciente);
-            modelo.put("paciente", paciente);//No deberia mostrasr usuario y contraseña
+            modelo.put("paciente", paciente);//No deberia mostrasr usuario y contraseÃ±a
             return "datos_paciente.html";
 
         } catch (MiException e){
@@ -61,5 +62,31 @@ public class PacienteControlador {
             return "index.html";//Retorna vista a definir
 
         }
+    }
+    
+    @GetMapping("/modificar/{id_paciente}")
+    public String mostrarFormularioModificar(@PathVariable String id_paciente, ModelMap model){
+        
+        model.put("paciente", pacienteServicio.getOne(id_paciente));
+        return "paraModificar.html";
+    }
+
+    @PostMapping("/modificar/{id_paciente}")
+    public String modificarPaciente(@PathVariable String id_paciente, String mail, String password, String nombre, String apellido,
+            String dni, String fechaNacimiento, long telefono, ModelMap modelo) {
+        
+        LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter);
+        
+        try {
+            
+            pacienteServicio.modificarPaciente(id_paciente, mail, password,
+                    nombre, apellido, dni, fechaNac, telefono);
+            modelo.put("exito", "la noticia fue cargada correctamente");
+            
+        } catch (MiException ex) {
+            modelo.put("error", ex.getMessage());
+            return "paraModificar.html";
+        }
+        return "lista_pacientes.html";
     }
 }

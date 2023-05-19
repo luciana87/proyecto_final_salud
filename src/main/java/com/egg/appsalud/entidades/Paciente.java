@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package com.egg.appsalud.entidades;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.Entity;
@@ -43,4 +42,5 @@ public class Paciente extends Usuario implements Serializable{
     public Paciente(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, long telefono) {
         super(mail, password, nombre, apellido, dni, fechaNacimiento, telefono);
     }
+
 }
