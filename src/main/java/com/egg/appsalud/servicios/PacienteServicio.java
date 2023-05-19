@@ -5,6 +5,7 @@
  */
 package com.egg.appsalud.servicios;
 
+import com.egg.appsalud.Enumerativos.Rol;
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.repositorios.PacienteRepositorio;
@@ -13,9 +14,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 /**
@@ -23,7 +32,7 @@ import java.util.stream.Collectors;
  * @author franc
  */
 @Service
-public class PacienteServicio {
+public class PacienteServicio implements UserDetailsService {
     
     @Autowired
     private PacienteRepositorio pacienteRepositorio;
@@ -40,8 +49,9 @@ public class PacienteServicio {
         paciente.setDni(dni);
         paciente.setFechaNacimiento(fechaNacimiento);
         paciente.setMail(mail);
-        paciente.setPassword(password);
+        paciente.setPassword(new BCryptPasswordEncoder().encode(password));
         paciente.setTelefono(telefono);
+        paciente.setRol(Rol.PACIENTE);
         
         pacienteRepositorio.save(paciente);
         
@@ -84,6 +94,28 @@ public class PacienteServicio {
         if(telefono == 0){
             throw new MiException("Debe inicar un telefono valido");
         }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
+        
+        Paciente paciente = pacienteRepositorio.BuscarPorEmail(mail);
+        
+        if (paciente != null){
+            
+            List<GrantedAuthority> permisos = new ArrayList();
+            
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_"+ paciente.getRol().toString());
+            
+            permisos.add(p);
+            
+            return new User(paciente.getMail(), paciente.getPassword(), permisos);
+        
+        }
+        else{
+            return null;
+        }
+    
     }
 
 

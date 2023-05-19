@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @Controller
 @RequestMapping("/paciente")
@@ -19,7 +20,7 @@ public class PacienteControlador {
     @Autowired
     private PacienteServicio pacienteServicio;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: año-mes-dia del LocalDate
-    @PostMapping("/registro")
+   @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail, @RequestParam String password, @RequestParam String fechaNacimiento, @RequestParam String dni, @RequestParam Long telefono, ModelMap modelo){
         System.out.println("Se registro");
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter); //Convierte el String de fechaNacimiento a LocalDate, si pongo directamente tipo LocalDate genera conflicto
@@ -32,11 +33,13 @@ public class PacienteControlador {
         }
         return "redirect:/";
     }
-
+    
+    
     @GetMapping("/registrar") //Retorna vista para registrarse
     public String registrar(){
         return "registro.html";
     }
+   
 
     @GetMapping("/lista")
     public String listar(ModelMap modelo){
