@@ -30,7 +30,7 @@ public class Usuario {
     @Column(nullable = false)
     private String mail;
 
-    @Column(nullable = false, length = 40)
+    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false, length = 30)
@@ -45,8 +45,7 @@ public class Usuario {
     @Column(nullable = false)
     private LocalDate fechaNacimiento;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)    
     private Rol rol;
 
     @Column(nullable = false)

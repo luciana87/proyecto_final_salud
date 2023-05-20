@@ -71,7 +71,7 @@ public class PacienteServicio implements UserDetailsService {
         return paciente.get();
     }
     
-    private void validar(String mail,String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, long telefono) throws MiException{
+    private void validar(String mail,String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, long telefono) throws MiException{       
         if(nombre.isEmpty() || nombre == null){
             throw new MiException("El nombre no puede ser nulo o estar vacio");
         }
