@@ -20,7 +20,8 @@ public class ObraSocial {
  */
 
 /*
-    private Profesional  medico; //Posible tabla intermedia por relacion muchos a muchos entre profesional y obra social
+    @ManyToMany(mappedBy="obraSocial")
+    private List<Profesional> medicos; //Tabla intermedia por relacion muchos a muchos entre profesional y obra social
  */
 
     public ObraSocial() {
