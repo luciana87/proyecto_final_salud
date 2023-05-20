@@ -5,9 +5,12 @@
  */
 package com.egg.appsalud.servicios;
 
+import com.egg.appsalud.entidades.Imagen;
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.repositorios.PacienteRepositorio;
+
+import java.awt.*;
 import java.time.LocalDate;
 
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -28,8 +32,11 @@ public class PacienteServicio {
     @Autowired
     private PacienteRepositorio pacienteRepositorio;
 
+    @Autowired
+    private ImagenServicio imagenServicio;
+
     @Transactional
-    public void CrearPaciente(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, Long telefono) throws MiException {
+    public void CrearPaciente(MultipartFile archivo, String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, Long telefono) throws MiException {
 
         validar(mail, password, nombre, apellido, dni, fechaNacimiento);
 
@@ -42,6 +49,10 @@ public class PacienteServicio {
         paciente.setMail(mail);
         paciente.setPassword(password);
         paciente.setTelefono(telefono);
+
+        Imagen imagen = imagenServicio.guardar(archivo);
+        paciente.setImagen(imagen);
+
         pacienteRepositorio.save(paciente);
 
     }
@@ -61,7 +72,7 @@ public class PacienteServicio {
     }
 
     @Transactional
-    public void modificarPaciente(String id_paciente, String mail, String password, String nombre,
+    public void modificarPaciente(MultipartFile archivo, String id_paciente, String mail, String password, String nombre,
             String apellido, String dni, LocalDate fechaNacimiento, Long telefono) throws MiException {
 
         validar(mail, password, nombre, apellido, dni, fechaNacimiento);
@@ -78,6 +89,13 @@ public class PacienteServicio {
             paciente.setDni(dni);
             paciente.setFechaNacimiento(fechaNacimiento);
             paciente.setTelefono(telefono);
+
+            String idImagen = null;
+            if (paciente.getImagen() != null){
+                idImagen = paciente.getImagen().getId();
+            }
+            Imagen imagen = imagenServicio.actualizarImagen(archivo, idImagen);
+            paciente.setImagen(imagen);
 
             pacienteRepositorio.save(paciente);
 

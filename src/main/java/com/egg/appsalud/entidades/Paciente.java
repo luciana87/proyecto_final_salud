@@ -7,10 +7,7 @@ package com.egg.appsalud.entidades;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  *
@@ -19,6 +16,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "paciente")
 public class Paciente extends Usuario implements Serializable{
+
+      @OneToOne
+      private Imagen imagen;
 
 //    @ManyToOne //Muchos pacientes pueden tener una misma OS
 //    @JoinColumn(name = "obra_social_id") //
@@ -46,4 +46,19 @@ public class Paciente extends Usuario implements Serializable{
         super(mail, password, nombre, apellido, dni, fechaNacimiento, telefono);
     }
 
+    public Imagen getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
+    }
+
+    public List<Turno> getListaDeTurnos() {
+        return listaDeTurnos;
+    }
+
+    public void setListaDeTurnos(List<Turno> listaDeTurnos) {
+        this.listaDeTurnos = listaDeTurnos;
+    }
 }

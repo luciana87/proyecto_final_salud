@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,11 +22,14 @@ public class PacienteControlador {
     
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: aÃ±o-mes-dia del LocalDate
     @PostMapping("/registro")
-    public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail, @RequestParam String password, @RequestParam String fechaNacimiento, @RequestParam String dni, @RequestParam Long telefono, ModelMap modelo){
+    public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
+                           @RequestParam String password, @RequestParam String fechaNacimiento, @RequestParam String dni,
+                           @RequestParam Long telefono, ModelMap modelo, MultipartFile archivo){
+
         System.out.println("Se registro");
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter); //Convierte el String de fechaNacimiento a LocalDate, si pongo directamente tipo LocalDate genera conflicto
         try {
-        pacienteServicio.CrearPaciente(mail, password, nombre, apellido, dni, fechaNac,telefono);
+        pacienteServicio.CrearPaciente(archivo,mail, password, nombre, apellido, dni, fechaNac,telefono);
         modelo.put("exito", "El paciente fue creado correctamente");
          } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
@@ -73,13 +77,13 @@ public class PacienteControlador {
 
     @PostMapping("/modificar/{id_paciente}")
     public String modificarPaciente(@PathVariable String id_paciente, String mail, String password, String nombre, String apellido,
-            String dni, String fechaNacimiento, long telefono, ModelMap modelo) {
+            String dni, String fechaNacimiento, long telefono, ModelMap modelo, MultipartFile archivo) {
         
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter);
         
         try {
             
-            pacienteServicio.modificarPaciente(id_paciente, mail, password,
+            pacienteServicio.modificarPaciente(archivo,id_paciente, mail, password,
                     nombre, apellido, dni, fechaNac, telefono);
             modelo.put("exito", "Los datos fueron actualizados correctamente.");
             
