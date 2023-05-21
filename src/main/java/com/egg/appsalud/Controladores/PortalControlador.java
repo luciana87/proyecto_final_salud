@@ -40,4 +40,12 @@ public class PortalControlador {
         }
         return "login.html";
     }
+    
+    @GetMapping("/inicio")
+    public String inicio(){
+        return "inicio_paciente.html";
+    }
+    
+    
+    
 }
