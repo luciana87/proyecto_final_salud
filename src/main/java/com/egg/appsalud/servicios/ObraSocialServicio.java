@@ -11,12 +11,14 @@ import com.egg.appsalud.repositorios.ObraSocialRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author franc
  */
+@Service
 public class ObraSocialServicio {
     @Autowired
     private ObraSocialRepositorio obraSocialRepositorio;

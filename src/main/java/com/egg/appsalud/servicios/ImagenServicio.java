@@ -18,16 +18,16 @@ public class ImagenServicio {
     public Imagen guardar(MultipartFile archivo) throws MiException{
 
         if (archivo != null) {
-            try {
+//            try {
                 Imagen imagen = new Imagen();
                 imagen.setMime(archivo.getContentType());
                 imagen.setNombre(archivo.getName());
-                imagen.setContenido(archivo.getBytes());
+//                imagen.setContenido(archivo.getBytes());
                 return imagenRepositorio.save(imagen);
 
-            } catch (MiException e) {
-                System.err.println(e.getMessage());
-            }
+//            } catch (MiException e) {
+//                System.err.println(e.getMessage());
+//            }
         }
 
         return null;
@@ -35,7 +35,7 @@ public class ImagenServicio {
 
     public Imagen actualizarImagen (MultipartFile archivo, String idImagen) throws MiException{
         if (archivo != null) {
-            try {
+//            try {
                 Imagen imagen = new Imagen();
 
                 if (idImagen != null) {
@@ -47,12 +47,12 @@ public class ImagenServicio {
 
                 imagen.setMime(archivo.getContentType());
                 imagen.setNombre(archivo.getName());
-                imagen.setContenido(archivo.getBytes());
+//                imagen.setContenido(archivo.getBytes());
                 return imagenRepositorio.save(imagen);
-
-            } catch (MiException e) {
-                System.err.println(e.getMessage());
-            }
+//
+//            } catch (MiException e) {
+//                System.err.println(e.getMessage());
+//            }
         }
 
         return null;

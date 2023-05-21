@@ -33,7 +33,7 @@ public class PacienteControlador {
         modelo.put("exito", "El paciente fue creado correctamente");
          } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            return "/registro";
+            return "/registro.html";
         }
         return "redirect:/";
     }

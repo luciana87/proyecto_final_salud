@@ -18,8 +18,38 @@ public class ProfesionalServicio {
     private ProfesionalRepositorio profesionalRepositorio;
 
     @Transactional
+    public void crearProfesional(String mail, String password, String nombre, String apellido,
+                                 String dni, LocalDate fechaNacimiento, Long telefono, String matricula,
+                                 String especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException {
+
+
+            validar(mail, password, nombre, apellido, dni, fechaNacimiento);
+
+            Profesional profesional = new Profesional();
+
+            profesional.setNombre(nombre);
+            profesional.setApellido(apellido);
+            profesional.setDni(dni);
+            profesional.setFechaNacimiento(fechaNacimiento);
+            profesional.setMail(mail);
+            profesional.setPassword(password);
+            profesional.setTelefono(telefono);
+            profesional.setMatricula(matricula);
+            profesional.setEspecialidad(especialidad);
+            profesional.setValorConsulta(valorConsulta);
+            profesional.setDescripcionEspecialidad(descripcionEspecialidad);
+
+//            En caso de tener foto de perfil:
+//            Imagen imagen = imagenServicio.guardar(archivo);
+//            profesional.setImagen(imagen);
+
+            profesionalRepositorio.save(profesional);
+    }
+
+
+    @Transactional
     public void modificarProfesional(String idProfesional, String mail, String password, String nombre, String apellido,
-                                     String dni, LocalDate fechaNacimiento, Long telefono, String matricula, Especialidad especialidad,
+                                     String dni, LocalDate fechaNacimiento, Long telefono, String matricula, String especialidad,
                                      Double valorConsulta, String descripcionEspecialidad) throws MiException {
 
         validar(mail, password, nombre, apellido, dni, fechaNacimiento);
@@ -37,7 +67,7 @@ public class ProfesionalServicio {
             profesional.setFechaNacimiento(fechaNacimiento);
             profesional.setTelefono(telefono);
             profesional.setMatricula(matricula);
-        //    profesional.setEspecialidad(Enum.valueOf());
+            profesional.setEspecialidad(especialidad);
             profesional.setValorConsulta(valorConsulta);
             profesional.setDescripcionEspecialidad(descripcionEspecialidad);
 
@@ -71,5 +101,4 @@ public class ProfesionalServicio {
             throw new MiException("La fecha de naciemiento no puede ser nulo o estar vacia");
         }
     }
-
 }

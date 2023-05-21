@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="../static/css/registro.css" rel="stylesheet" type="text/css">
+        <title>Registro Profesional</title>
+    </head>
+    <body class="container">
+        <div class="container" id="advanced-search-form">
+            <h2 class="text-center header">Registro Profesional</h2>
+            <form action="/profesional/registroP" method="POST">
+                <div class="form-group">
+                    <label for="first-name">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" placeholder="" id="first-name">
+                </div>
+                <div class="form-group">
+                    <label for="surname">Apellido</label>
+                    <input type="text" class="form-control" name="apellido" placeholder="" id="surname">
+                </div>
+                <div class="form-group">
+                    <label for="dni">DNI</label>
+                    <input type="text" class="form-control" name="dni" placeholder="" id="dni">
+                </div>
+                <div class="form-group">
+                    <label for="age">Fecha de nacimiento</label>
+                    <input type="date" class="form-control"  name="fechaNacimiento" placeholder="" id="age">
+                </div>
+                <div class="form-group">
+                    <label for="matricula">Matricula</label>
+                    <input type="text" class="form-control" name="matricula" placeholder="" id="matricula">
+                </div>
+                <div class="form-group">
+                    <label for="especialidad">Especialidad</label>
+                    <input type="text" class="form-control" name="especialidad" placeholder="" id="especialidad">
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="number" class="form-control" name="telefono" placeholder="" id="telefono">
+                </div>
+                <div class="form-group">
+                    <label for="correo">Email</label>
+                    <input type="email" class="form-control" name="mail" placeholder="" id="correo">
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Contraseña</label>
+                    <input type="password" class="form-control" name="password" placeholder="" id="last-name">
+                </div>
+               <!-- <div class="form-group">
+                    <label for="obra-social">Obra Social</label>
+                    <input type="text" class="form-control" name="" placeholder="" id="obra-social">
+                </div>-->
+                <div class="form-group">
+                    <label for="valor-consulta">Valor consulta</label>
+                    <input type="number" class="form-control" name="valorConsulta" placeholder="" id="valor-consulta">
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripción especialidad:</label>
+                    <input type="text" class="form-control" name="descripcionEspecialidad" placeholder="" id="descripcion">
+                </div>
+                <div class="clearfix"></div>
+                <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>
+                    Registrar</button>
+        </form>
+        </div>
+    </body>
+</html>

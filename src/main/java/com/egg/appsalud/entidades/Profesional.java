@@ -15,9 +15,9 @@ public class Profesional extends Usuario implements Serializable {
     private String matricula;
 
     @Column(nullable = false)
-    private Especialidad especialidad;
+    private String especialidad;
 
-    @Column(nullable = false)
+    @Column
     private Double reputacion;
 
     @Column(name = "valor_consulta", nullable = false)
@@ -52,7 +52,7 @@ public class Profesional extends Usuario implements Serializable {
     public Profesional() {
     }
 
-    public Profesional(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, long telefono, String matricula, Especialidad especialidad, Double reputacion, Double valorConsulta, String descripcionEspecialidad) {
+    public Profesional(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, long telefono, String matricula, String especialidad, Double reputacion, Double valorConsulta, String descripcionEspecialidad) {
         super(mail, password, nombre, apellido, dni, fechaNacimiento, telefono);
         this.matricula = matricula;
         this.especialidad = especialidad;
@@ -69,11 +69,11 @@ public class Profesional extends Usuario implements Serializable {
         this.matricula = matricula;
     }
 
-    public Especialidad getEspecialidad() {
+    public String getEspecialidad() {
         return especialidad;
     }
 
-    public void setEspecialidad(Especialidad especialidad) {
+    public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
     }
 
