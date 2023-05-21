@@ -5,11 +5,8 @@
  */
 package com.egg.appsalud.entidades;
 
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDate;
 
@@ -20,10 +17,6 @@ import java.time.LocalDate;
 @MappedSuperclass
 public class Usuario {
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
     @Column(nullable = false)
     private String mail;
 
@@ -47,14 +40,14 @@ public class Usuario {
 //    private Rol rol;
 
     @Column(nullable = false)
-    private long telefono;
+    private Long telefono;
     
 
     public Usuario() {
     }
 
 
-    public Usuario(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, long telefono) {
+    public Usuario(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, Long telefono) {
         this.mail = mail;
         this.password = password;
         this.nombre = nombre;
@@ -96,11 +89,11 @@ public class Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public long getTelefono() {
+    public Long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(long telefono) {
+    public void setTelefono(Long telefono) {
         this.telefono = telefono;
     }
 
