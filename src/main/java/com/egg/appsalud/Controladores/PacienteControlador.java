@@ -1,7 +1,9 @@
 package com.egg.appsalud.Controladores;
 
+import com.egg.appsalud.entidades.ObraSocial;
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.excepciones.MiException;
+import com.egg.appsalud.servicios.ObraSocialServicio;
 import com.egg.appsalud.servicios.PacienteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,28 +21,36 @@ public class PacienteControlador {
 
     @Autowired
     private PacienteServicio pacienteServicio;
+    @Autowired
+    private ObraSocialServicio obraSocialServicio;
     
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: aÃ±o-mes-dia del LocalDate
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
-                           @RequestParam String password, @RequestParam String fechaNacimiento, @RequestParam String dni,
+                           @RequestParam String password,@RequestParam String idObraSocial, @RequestParam String nroObraSocial ,
+                           @RequestParam String fechaNacimiento, @RequestParam String dni,
                            @RequestParam Long telefono, ModelMap modelo, MultipartFile archivo){
 
-        System.out.println("Se registro");
+        Integer idObraSocialInt = Integer.valueOf(idObraSocial);
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter); //Convierte el String de fechaNacimiento a LocalDate, si pongo directamente tipo LocalDate genera conflicto
+
         try {
-        pacienteServicio.CrearPaciente(archivo,mail, password, nombre, apellido, dni, fechaNac,telefono);
+        pacienteServicio.CrearPaciente(archivo,mail, password, idObraSocialInt, nroObraSocial, nombre, apellido, dni, fechaNac,telefono);
         modelo.put("exito", "El paciente fue creado correctamente");
          } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            return "/registro.html";
+            return "/registro-paciente.html";
         }
         return "redirect:/";
     }
 
     @GetMapping("/registrar") //Retorna vista para registrarse
-    public String registrar(){
-        return "registro.html";
+    public String registrar(ModelMap modelo){
+
+        List<ObraSocial> obrasSociales = obraSocialServicio.listarObraSocial();
+        modelo.addAttribute("obrasSociales", obrasSociales);
+
+        return "registro-paciente.html";
     }
 
     @GetMapping("/lista")
@@ -48,7 +58,7 @@ public class PacienteControlador {
         List<Paciente> pacientes = pacienteServicio.listarPacientes();
         modelo.addAttribute("pacientes", pacientes);
 
-        return "lista_paciente.html"; //Retorna vista con todos los pacientes persistidos en la DB (tabla, o card de pacientes)
+        return "lista-paciente.html"; //Retorna vista con todos los pacientes persistidos en la DB (tabla, o card de pacientes)
     }
 
 
@@ -70,9 +80,13 @@ public class PacienteControlador {
     
     @GetMapping("/modificar/{id_paciente}")
     public String mostrarFormularioModificar(@PathVariable String id_paciente, ModelMap model){
-        
+
+        List<ObraSocial> obrasSociales = obraSocialServicio.listarObraSocial();
+
         model.put("paciente", pacienteServicio.getOne(id_paciente));
-        return "vista_form_modificar_profesional.html";
+        model.put("obrasSociales", obrasSociales);
+
+        return "modificar-paciente.html";
     }
 
     @PostMapping("/modificar/{id_paciente}")
@@ -89,8 +103,8 @@ public class PacienteControlador {
             
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            return "vista_form_modificar_profesional.html";
+            return "modificar-paciente.html";
         }
-        return "vista_inicio_paciente.html";
+        return "redirect:../lista";
     }
 }

@@ -5,11 +5,8 @@
  */
 package com.egg.appsalud.entidades;
 
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDate;
 
@@ -20,10 +17,6 @@ import java.time.LocalDate;
 @MappedSuperclass
 public class Usuario {
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
     @Column(nullable = false)
     private String mail;
 

@@ -6,6 +6,7 @@
 package com.egg.appsalud.servicios;
 
 import com.egg.appsalud.entidades.Imagen;
+import com.egg.appsalud.entidades.ObraSocial;
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.repositorios.PacienteRepositorio;
@@ -34,14 +35,17 @@ public class PacienteServicio {
 
     @Autowired
     private ImagenServicio imagenServicio;
+    @Autowired
+    private ObraSocialServicio obraSocialServicio;
 
     @Transactional
-    public void CrearPaciente(MultipartFile archivo, String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, Long telefono) throws MiException {
+    public void CrearPaciente(MultipartFile archivo, String mail, String password, Integer idObraSocial,
+                              String nroObraSocial, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
+                              Long telefono) throws MiException {
 
         validar(mail, password, nombre, apellido, dni, fechaNacimiento);
 
         Paciente paciente = new Paciente();
-
         paciente.setNombre(nombre);
         paciente.setApellido(apellido);
         paciente.setDni(dni);
@@ -49,6 +53,12 @@ public class PacienteServicio {
         paciente.setMail(mail);
         paciente.setPassword(password);
         paciente.setTelefono(telefono);
+
+        if (idObraSocial != null){
+            ObraSocial obraSocial = obraSocialServicio.getOne(idObraSocial);
+            paciente.setObraSocial(obraSocial);
+            paciente.setNroObraSocial(nroObraSocial);
+        }
 
         Imagen imagen = imagenServicio.guardar(archivo);
         paciente.setImagen(imagen);

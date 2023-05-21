@@ -44,11 +44,9 @@ public class ObraSocialServicio {
     public void EliminarObraSocial(Integer id) {
 
         obraSocialRepositorio.deleteById(id);
-
-
     }
 
-    public List<ObraSocial> ListarObraSocial() {
+    public List<ObraSocial> listarObraSocial() {
 
         List<ObraSocial> listaObraSocial = new ArrayList();
 

@@ -1,6 +1,7 @@
 package com.egg.appsalud.Controladores;
 
 import com.egg.appsalud.Enumerativos.Especialidad;
+import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.servicios.ProfesionalServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class ProfesionalControlador {
 
     @GetMapping("/registrar") //Retorna vista para registrarse
     public String registrar(){
-        return "registroP.html";
+        return "registro-profesional.html";
     }
 
 
@@ -42,7 +43,7 @@ public class ProfesionalControlador {
             modelo.put("exito", "El profesional fue creado correctamente");
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            return "/registroP.html";
+            return "/registro-profesional.html";
         }
         return "redirect:/";
     }
@@ -50,30 +51,30 @@ public class ProfesionalControlador {
 
 
 
+    @GetMapping("/modificar/{id}")
+    public String mostrarFormularioModificar(@PathVariable String id, ModelMap model){
 
-    @GetMapping("/modificar/{idProfesional}")
-    public String mostrarFormularioModificarProfesional(@PathVariable String idProfesional, ModelMap model){
-
-        model.put("profesional", profesionalServicio.getOne(idProfesional));
-        return "vista_modificar_profesional.html";
+        Profesional profesional = profesionalServicio.getOne(id);
+        model.put("profesional", profesional);
+        return "modificar-profesional.html";
     }
-    @PostMapping("/modificar/{idProfesional}")
-    public String modificarProfesional(@PathVariable String idProfesioanl, String mail, String password, String nombre, String apellido,
+    @PostMapping("/modificar/{id}")
+    public String modificarProfesional(@PathVariable String id, String mail, String password, String nombre, String apellido,
                                        String dni, String fechaNacimiento, Long telefono, String matricula, String especialidad,
                                        Double valorConsulta, String descripcionEspecialidad, ModelMap modelo) {
 
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter);
 
         try {
-            profesionalServicio.modificarProfesional(idProfesioanl, mail, password,
+            profesionalServicio.modificarProfesional(id, mail, password,
                     nombre, apellido, dni, fechaNac, telefono, matricula, especialidad, valorConsulta, descripcionEspecialidad);
             modelo.put("exito", "Los datos fueron actualizados correctamente.");
 
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            return "vista_modificar_profesional.html";
+            return "modificar-profesional.html";
         }
-        return "vista_inicio_profesional.html";
+        return "index.html";//Vista inicio profesional no index
     }
 
 }

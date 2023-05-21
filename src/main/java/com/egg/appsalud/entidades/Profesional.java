@@ -1,6 +1,7 @@
 package com.egg.appsalud.entidades;
 
 import com.egg.appsalud.Enumerativos.Especialidad;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +11,10 @@ import java.util.List;
 @Entity
 @Table (name = "profesional")
 public class Profesional extends Usuario implements Serializable {
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
 
     @Column(nullable = false)
     private String matricula;
@@ -59,6 +64,10 @@ public class Profesional extends Usuario implements Serializable {
         this.reputacion = reputacion;
         this.valorConsulta = valorConsulta;
         this.descripcionEspecialidad = descripcionEspecialidad;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getMatricula() {

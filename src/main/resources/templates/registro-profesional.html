@@ -12,6 +12,20 @@
         <div class="container" id="advanced-search-form">
             <h2 class="text-center header">Registro Profesional</h2>
             <form action="/profesional/registroP" method="POST">
+
+                <div th:if="${error != null}" class="card text-white bg-danger mb-3" >
+                    <div class="card-body">
+                        <h5 class="card-title">Error 👎</h5>
+                        <p class="card-text" th:text="${error}"></p>
+                    </div>
+                </div>
+                <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3" >
+                    <div class="card-body">
+                        <h5 class="card-title">Exito!</h5>
+                        <p class="card-text" th:text="${exito}"></p>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="first-name">Nombre</label>
                     <input type="text" class="form-control" name="nombre" placeholder="" id="first-name">

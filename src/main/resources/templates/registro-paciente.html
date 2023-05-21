@@ -12,6 +12,20 @@
 <div class="container" id="advanced-search-form">
     <h2 class="text-center header">Registro Paciente</h2>
     <form action="/paciente/registro" method="POST">
+
+        <div th:if="${error != null}" class="card text-white bg-danger mb-3" >
+            <div class="card-body">
+                <h5 class="card-title">Error 👎</h5>
+                <p class="card-text" th:text="${error}"></p>
+            </div>
+        </div>
+        <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3" >
+            <div class="card-body">
+                <h5 class="card-title">Exito!</h5>
+                <p class="card-text" th:text="${exito}"></p>
+            </div>
+        </div>
+
         <div class="form-group">
             <label for="first-name">Nombre</label>
             <input type="text" class="form-control" name="nombre" placeholder="" id="first-name">
@@ -28,13 +42,19 @@
             <label for="last-name">Contraseña</label>
             <input type="password" class="form-control" name="password" placeholder="" id="last-name">
         </div>
+
         <div class="form-group">
-             <label for="obra-social">Obra Social</label>
-             <input type="text" class="form-control" name="" placeholder="" id="obra-social">
+             <label>Obra Social</label>
+
+            <select name="idObraSocial">
+                <option>Seleccione obra social</option>
+                <option th:each="obraSocial : ${obrasSociales}" th:value="${obraSocial.id}" th:text="${obraSocial.nombre}" ></option>
+            </select>
          </div>
+
          <div class="form-group">
              <label for="nro-obra-social">N° Obra Social</label>
-             <input type="text" class="form-control" placeholder="" id="nro-obra-social">
+             <input name="nroObraSocial" type="text" class="form-control" placeholder="" id="nro-obra-social">
          </div>
         <div class="form-group">
             <label for="age">Fecha de nacimiento</label>

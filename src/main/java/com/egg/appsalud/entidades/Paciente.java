@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package com.egg.appsalud.entidades;
+import org.hibernate.annotations.GenericGenerator;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -16,16 +18,20 @@ import javax.persistence.*;
 @Entity
 @Table(name = "paciente")
 public class Paciente extends Usuario implements Serializable{
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
 
       @OneToOne
       private Imagen imagen;
 
-//    @ManyToOne //Muchos pacientes pueden tener una misma OS
-//    @JoinColumn(name = "obra_social_id") //
-//    private ObraSocial obraSocial;
+    @ManyToOne //Muchos pacientes pueden tener una misma OS
+    @JoinColumn(name = "obra_social_id") //
+    private ObraSocial obraSocial;
 
-//    @Column(name = "nro_obra_social", nullable = true)
-//    private String NroObraSocial;
+    @Column(name = "nro_obra_social")
+    private String nroObraSocial;
 
 //    @Column(nullable = true)
 //    private Imagen img;
@@ -42,8 +48,35 @@ public class Paciente extends Usuario implements Serializable{
     public Paciente() {
     }
 
-    public Paciente(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, Long telefono) {
+    public Paciente(String mail, String password, String nombre, String apellido, String dni,
+                    LocalDate fechaNacimiento, Long telefono, Imagen imagen, ObraSocial obraSocial,
+                    String nroObraSocial, List<Turno> listaDeTurnos) {
+
         super(mail, password, nombre, apellido, dni, fechaNacimiento, telefono);
+        this.imagen = imagen;
+        this.obraSocial = obraSocial;
+        this.nroObraSocial = nroObraSocial;
+        this.listaDeTurnos = listaDeTurnos;
+    }
+
+    public String getNroObraSocial() {
+        return nroObraSocial;
+    }
+
+    public void setNroObraSocial(String nroObraSocial) {
+        this.nroObraSocial = nroObraSocial;
+    }
+
+    public ObraSocial getObraSocial() {
+        return obraSocial;
+    }
+
+    public void setObraSocial(ObraSocial obraSocial) {
+        this.obraSocial = obraSocial;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public Imagen getImagen() {
