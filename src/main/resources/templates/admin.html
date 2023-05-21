@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="../static/css/registro.css">
+        <link rel="stylesheet" type="text/css" href="../css/registro.css">
         <title>Panel Administrador</title>
     </head>
     <body background="../static/img/fregistro.jpg">
@@ -19,12 +19,14 @@
             top: 0;
             right: 15%;
             border: 3px solid red;
-            margin-top: 10px
-                }
+            margin-top: 10px;
             
+            
+                }
+        
         .image-container img {
             width: 200px;
-            ;
+                       
             }
                 
         body {
@@ -39,7 +41,8 @@
             }
 
             .container{
-                margin-top: 100px;
+                margin-top: 120px;
+                
             }            
             .user-list {
               list-style: none;
@@ -85,9 +88,8 @@
             
         }
         
-        .form-select {
-            height: calc(2.25rem + 2px); 
-        }
+         
+        
         
        
     
@@ -99,31 +101,46 @@
         <div class="container" id="advanced-search-form">
             <h2 class="text-center header"  style="font-style: https://fonts.google.com/specimen/Candal?query=candal;,color: rgb(12, 58, 58);">Panel Administrador</h2>
             <form action="/paciente/registro" method="POST">
-                <div class="form-group">
-                    <label for="first-name"></label>
-                    <input type="text" class="form-control" name="nombre" placeholder="Nombre" id="first-name">
-                </div>
-                <div class="form-group">
-                    <label for="surname"></label>
-                    <input type="text" class="form-control" name="apellido" placeholder="Apellido" id="surname">
-                </div>
                 
-                <div class="form-group">
-                    <label for="dni"></label>
-                    <input type="text" class="form-control" name="dni" placeholder="DNI" id="dni">
-                </div>
-
-                <select class="form-select custom-select custom-select-sm">
-                    <option selected>"Rol (paciente o profesional)"</option>
+                <select class="form-select custom-select custom-select-lg" name="rol" th:field="*{rol}">
+                    <option selected>Rol (paciente o profesional)</option>
                     <option value="Profesional">Profesional</option>
                     <option value="Paciente">Paciente</option>
                 </select>
                 
+                <div class="form-group">
+                    <label for="first-name"></label>
+                    <input type="text" class="form-control" name="nombre" placeholder="Nombre" id="first-name"  th: text="${profesional.nombre}">
+                </div>
+                <div class="form-group">
+                    <label for="surname"></label>
+                    <input type="text" class="form-control" name="apellido" placeholder="Apellido" id="surname" th:text="*{profesional.apellido}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="dni"></label>
+                    <input type="text" class="form-control" name="dni" placeholder="DNI" id="dni" th:text="*{profesional.dni}">
+                </div>
+
+                <select class="form-select custom-select custom-select-lg" name="Especialiad" th:field="*{profesional.especialidad}">
+                    <option selected>Tipo de Especialiad</option>
+                    <option value="Clinica">Clinica</option>
+                    <option value="Pediatria">Pediatria</option>
+                    <option value="Cardiologia">Cardiologia</option>
+                    <option value="Ginecología">Ginecología</option>
+                </select>
+
+                
+                
                 <div class="clearfix"></div>
                 <button  onclick="mostrarMensaje()" type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>
                     Registrar</button>
+                <button onclick="mostrarMensaje3()" type="submit2" class="btn btn-warning btn-lg btn-responsive" id="search"> <span class=""></span>
+                        Modificar</button>
                 <button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive" id="search"> <span class=""></span>
-                        Eliminar</button>
+                            Eliminar</button>
+
+
         </form>
         </div>
     </body>
@@ -139,7 +156,9 @@
     function mostrarMensaje() {
             alert("¡El elemento ha sido agregado!");
     function mostrarMensaje2() {
-            alert("¡El elemento ha sido eliminado!");      
+            alert("¡El elemento ha sido eliminado!");  
+    function mostrarMensaje3() {
+            alert("¡El elemento ha sido modificado!");    
 
     const addUser = (event) => {
       event.preventDefault();
