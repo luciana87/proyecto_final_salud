@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package com.egg.appsalud.entidades;
+import com.egg.appsalud.Enumerativos.Rol;
 import org.hibernate.annotations.GenericGenerator;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -48,6 +48,7 @@ public class Paciente extends Usuario implements Serializable{
     public Paciente() {
     }
 
+
     public Paciente(String mail, String password, String nombre, String apellido, String dni,
                     LocalDate fechaNacimiento, Long telefono, Imagen imagen, ObraSocial obraSocial,
                     String nroObraSocial, List<Turno> listaDeTurnos) {
@@ -57,6 +58,7 @@ public class Paciente extends Usuario implements Serializable{
         this.obraSocial = obraSocial;
         this.nroObraSocial = nroObraSocial;
         this.listaDeTurnos = listaDeTurnos;
+
     }
 
     public String getNroObraSocial() {

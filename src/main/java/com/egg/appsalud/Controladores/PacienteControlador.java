@@ -15,15 +15,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+
 @Controller
 @RequestMapping("/paciente")
 public class PacienteControlador {
 
     @Autowired
+
     private PacienteServicio pacienteServicio;
     @Autowired
     private ObraSocialServicio obraSocialServicio;
-    
+
+     
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: aÃ±o-mes-dia del LocalDate
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
@@ -41,9 +44,10 @@ public class PacienteControlador {
             modelo.put("error", ex.getMessage());
             return "/registro-paciente.html";
         }
-        return "redirect:/";
+        return "redirect:/inicio";
     }
-
+    
+    
     @GetMapping("/registrar") //Retorna vista para registrarse
     public String registrar(ModelMap modelo){
 
@@ -52,6 +56,7 @@ public class PacienteControlador {
 
         return "registro-paciente.html";
     }
+   
 
     @GetMapping("/lista")
     public String listar(ModelMap modelo){
