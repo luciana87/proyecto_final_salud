@@ -45,7 +45,7 @@ public class PortalControlador {
     @PreAuthorize("hasAnyRole('ROLE_PACIENTE', 'ROLE_ADMIN')")
     @GetMapping("/inicio")
     public String inicio(){
-        return "inicio_paciente.html";
+        return "inicio_paciente_2.html";
     }
     
     
