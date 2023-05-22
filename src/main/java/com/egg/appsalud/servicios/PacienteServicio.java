@@ -59,11 +59,11 @@ public class PacienteServicio implements UserDetailsService {
         paciente.setTelefono(telefono);
         paciente.setRol(Rol.PACIENTE);
         
-//        if (idObraSocial != null){
-//            ObraSocial obraSocial = obraSocialServicio.getOne(idObraSocial);
-//            paciente.setObraSocial(obraSocial);
-//            paciente.setNroObraSocial(nroObraSocial);
-//        }
+        if (idObraSocial != null){
+            ObraSocial obraSocial = obraSocialServicio.getOne(idObraSocial);
+            paciente.setObraSocial(obraSocial);
+            paciente.setNroObraSocial(nroObraSocial);
+        }
 
         Imagen imagen = imagenServicio.guardar(archivo);
         paciente.setImagen(imagen);
