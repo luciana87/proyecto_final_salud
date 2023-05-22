@@ -23,8 +23,6 @@ public class PortalControlador {
         return "index.html"; //Retorna vista del index.html
     }
     
-<<<<<<< HEAD
-=======
 //    @GetMapping("/registrar")
 //    public String registrar(){
 //        return "registro.html";
@@ -52,7 +50,7 @@ public class PortalControlador {
     
     
     
->>>>>>> 0b9a7584298f059f5c52945f4800ad627e9a6b0a
+
 }
         
     
