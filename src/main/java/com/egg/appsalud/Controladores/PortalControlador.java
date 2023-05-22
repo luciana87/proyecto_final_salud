@@ -8,6 +8,8 @@ import com.egg.appsalud.servicios.PacienteServicio;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -48,10 +50,10 @@ public class PortalControlador {
         return "login.html";
     }
     
-    @PreAuthorize("hasAnyRole('ROLE_PACIENTE', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_PACIENTE', 'ROLE_ADMIN', 'ROLE_PROFESIONAL')")
     @GetMapping("/inicio")
     public String inicio(HttpSession session){
-        Usuario logueado = (Usuario) session.getAttribute("pacientesession");
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
 
         if (logueado.getRol().toString().equals("PROFESIONAL")) {
             return "inicio-profesional.html";
@@ -62,6 +64,14 @@ public class PortalControlador {
         }
 
         return "redirect:/admin/dashboard";
+    }
+
+    @GetMapping("/lista")
+    public String listar(ModelMap modelo){
+        List<Paciente> pacientes = pacienteServicio.listarPacientes();
+        modelo.addAttribute("pacientes", pacientes);
+
+        return "lista-paciente.html"; //Retorna vista con todos los pacientes persistidos en la DB (tabla, o card de pacientes)
     }
 }
 
