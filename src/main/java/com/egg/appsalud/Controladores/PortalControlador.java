@@ -13,4 +13,7 @@ public class PortalControlador {
     public String index(){
         return "index.html"; //Retorna vista del index.html
     }
+    
 }
+        
+    
