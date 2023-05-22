@@ -15,46 +15,34 @@ public class ImagenServicio {
     @Autowired
     private ImagenRepositorio imagenRepositorio;
 
-    public Imagen guardar(MultipartFile archivo) throws MiException{
-
+    public Imagen guardar(MultipartFile archivo) throws MiException, IOException {
         if (archivo != null) {
-//            try {
-                Imagen imagen = new Imagen();
-                imagen.setMime(archivo.getContentType());
-                imagen.setNombre(archivo.getName());
-//                imagen.setContenido(archivo.getBytes());
-                return imagenRepositorio.save(imagen);
-
-//            } catch (MiException e) {
-//                System.err.println(e.getMessage());
-//            }
+            Imagen imagen = new Imagen();
+            imagen.setMime(archivo.getContentType());
+            imagen.setNombre(archivo.getName());
+            imagen.setContenido(archivo.getBytes());
+            return imagenRepositorio.save(imagen);
         }
-
+//Todo: lance ioexcception y saque try and catch para foto
         return null;
     }
 
-    public Imagen actualizarImagen (MultipartFile archivo, String idImagen) throws MiException{
+    public Imagen actualizarImagen (MultipartFile archivo, String idImagen) throws MiException, IOException {
         if (archivo != null) {
-//            try {
-                Imagen imagen = new Imagen();
+            Imagen imagen = new Imagen();
 
-                if (idImagen != null) {
-                    Optional<Imagen> imagenOptional = imagenRepositorio.findById(idImagen);
-                    if (imagenOptional.isPresent()){
-                        imagen = imagenOptional.get();
-                    }
+            if (idImagen != null) {
+                Optional<Imagen> imagenOptional = imagenRepositorio.findById(idImagen);
+                if (imagenOptional.isPresent()) {
+                    imagen = imagenOptional.get();
                 }
+            }
 
-                imagen.setMime(archivo.getContentType());
-                imagen.setNombre(archivo.getName());
-//                imagen.setContenido(archivo.getBytes());
-                return imagenRepositorio.save(imagen);
-//
-//            } catch (MiException e) {
-//                System.err.println(e.getMessage());
-//            }
+            imagen.setMime(archivo.getContentType());
+            imagen.setNombre(archivo.getName());
+            imagen.setContenido(archivo.getBytes());
+            return imagenRepositorio.save(imagen);
         }
-
         return null;
     }
 }

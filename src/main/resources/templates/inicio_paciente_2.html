@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -28,9 +28,11 @@
             <div class="bg-white shadow rounded-lg d-block d-sm-flex">
                 <div class="profile-tab-nav border-right">
                     <div class="p-4">
-                        <div class="img-circle text-center mb-3">
-                            <img src="/img/user.png" alt="Image" class="shadow">
+
+                        <div class="img-circle text-center mb-3" >
+                            <img class="logo"  th:src="@{/imagen/perfil/__${session.pacientesession.id}__}" >
                         </div>
+
                         <h4 class="text-center">Paciente</h4>
                     </div>
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
