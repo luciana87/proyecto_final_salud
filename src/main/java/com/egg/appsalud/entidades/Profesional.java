@@ -1,8 +1,8 @@
 package com.egg.appsalud.entidades;
 
+import com.egg.appsalud.Enumerativos.Rol;
 import com.egg.appsalud.Enumerativos.Especialidad;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -56,6 +56,7 @@ public class Profesional extends Usuario implements Serializable {
 
     public Profesional() {
     }
+
 
     public Profesional(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, long telefono, String matricula, String especialidad, Double reputacion, Double valorConsulta, String descripcionEspecialidad) {
         super(mail, password, nombre, apellido, dni, fechaNacimiento, telefono);
