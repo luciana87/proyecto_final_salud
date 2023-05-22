@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  *
  * @author franc
  */
-@Repository
-public interface UsuarioRepositorio extends JpaRepository<Usuario,String>{
-   
-}
+//@Repository
+//public interface UsuarioRepositorio extends JpaRepository<Usuario,String>{
+//   
+//}

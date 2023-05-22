@@ -5,12 +5,9 @@
  */
 package com.egg.appsalud.entidades;
 
-<<<<<<< HEAD
+
 import com.egg.appsalud.Enumerativos.Rol;
 import org.hibernate.annotations.GenericGenerator;
-=======
->>>>>>> develop
-
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDate;
@@ -53,11 +50,8 @@ public class Usuario {
     }
 
 
-<<<<<<< HEAD
-    public Usuario(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, Rol rol, long telefono) {
-=======
     public Usuario(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, Long telefono) {
->>>>>>> develop
+
         this.mail = mail;
         this.password = password;
         this.nombre = nombre;
@@ -68,13 +62,13 @@ public class Usuario {
         this.telefono = telefono;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public void setId(String id) {
+//        this.id = id;
+//    }
 
     public String getMail() {
         return mail;
@@ -124,7 +118,7 @@ public class Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-<<<<<<< HEAD
+
     public Rol getRol() {
         return rol;
     }
@@ -134,9 +128,7 @@ public class Usuario {
     }
 
     public long getTelefono() {
-=======
-    public Long getTelefono() {
->>>>>>> develop
+
         return telefono;
     }
 

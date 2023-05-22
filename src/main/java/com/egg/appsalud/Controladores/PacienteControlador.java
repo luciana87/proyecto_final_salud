@@ -26,7 +26,7 @@ public class PacienteControlador {
     @Autowired
     private ObraSocialServicio obraSocialServicio;
 
-    
+     
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: aÃ±o-mes-dia del LocalDate
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
@@ -44,7 +44,7 @@ public class PacienteControlador {
             modelo.put("error", ex.getMessage());
             return "/registro-paciente.html";
         }
-        return "redirect:/";
+        return "redirect:/inicio";
     }
     
     
