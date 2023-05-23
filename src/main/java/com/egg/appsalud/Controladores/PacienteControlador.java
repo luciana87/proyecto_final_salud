@@ -6,11 +6,13 @@ import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.servicios.ObraSocialServicio;
 import com.egg.appsalud.servicios.PacienteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -25,7 +27,6 @@ public class PacienteControlador {
     private PacienteServicio pacienteServicio;
     @Autowired
     private ObraSocialServicio obraSocialServicio;
-
      
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: aÃ±o-mes-dia del LocalDate
     @PostMapping("/registro")
@@ -43,6 +44,8 @@ public class PacienteControlador {
          } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
             return "/registro-paciente.html";
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         return "redirect:/inicio";
     }
@@ -56,7 +59,6 @@ public class PacienteControlador {
 
         return "registro-paciente.html";
     }
-   
 
     @GetMapping("/lista")
     public String listar(ModelMap modelo){
@@ -109,6 +111,8 @@ public class PacienteControlador {
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
             return "modificar-paciente.html";
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         return "redirect:../lista";
     }

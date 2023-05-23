@@ -10,7 +10,8 @@ import com.egg.appsalud.entidades.ObraSocial;
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.repositorios.PacienteRepositorio;
-import java.awt.*;
+
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,7 +50,7 @@ public class PacienteServicio implements UserDetailsService {
     @Transactional
     public void CrearPaciente(MultipartFile archivo, String mail, String password, Integer idObraSocial,
                               String nroObraSocial, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
-                              Long telefono) throws MiException {
+                              Long telefono) throws MiException, IOException {
 
         validar(mail, password, nombre, apellido, dni, fechaNacimiento,telefono);
 
@@ -122,6 +127,12 @@ public class PacienteServicio implements UserDetailsService {
             GrantedAuthority p = new SimpleGrantedAuthority("ROLE_"+ paciente.getRol().toString());
             
             permisos.add(p);
+
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+            HttpSession session = attr.getRequest().getSession(true);
+
+            session.setAttribute("pacientesession", paciente);
             
             return new User(paciente.getMail(), paciente.getPassword(), permisos);
         
@@ -135,7 +146,7 @@ public class PacienteServicio implements UserDetailsService {
 
     @Transactional
     public void modificarPaciente(MultipartFile archivo, String id_paciente, String mail, String password, String nombre,
-            String apellido, String dni, LocalDate fechaNacimiento, Long telefono) throws MiException {
+            String apellido, String dni, LocalDate fechaNacimiento, Long telefono) throws MiException, IOException {
 
         validar(mail, password, nombre, apellido, dni, fechaNacimiento, telefono);
 
