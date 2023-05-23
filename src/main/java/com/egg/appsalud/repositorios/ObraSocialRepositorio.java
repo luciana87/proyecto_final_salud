@@ -5,20 +5,17 @@
  */
 package com.egg.appsalud.repositorios;
 
-import com.egg.appsalud.entidades.Paciente;
+import com.egg.appsalud.entidades.ObraSocial;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 /**
  *
  * @author franc
  */
 @Repository
-public interface PacienteRepositorio extends JpaRepository<Paciente,String>{
-    
-    @Query("SELECT p FROM Paciente p WHERE p.mail = :mail")
-    public Paciente BuscarPorEmail(@Param("mail") String mail);
-    
+public interface ObraSocialRepositorio extends JpaRepository<ObraSocial,Integer> {
+
 }

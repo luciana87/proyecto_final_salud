@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>OS</title>
+</head>
+<body>
+<form th:action="@{/obra-social/modificar/__${obraSocial.id}__}" method="POST">
+    <input hidden th:value= "${id}" name="id">
+    <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input th:value="${obraSocial.nombre}" type="text" class="form-control" name="nombre" placeholder="" id="nombre">
+    </div>
+    <div class="clearfix"></div>
+    <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>
+        Registrar</button>
+</form>
+</body>
+</html>

@@ -16,12 +16,10 @@ public class Turno {
     @Column(nullable = false, length = 50)
     private String horario;
 
-    /*
-    @ManytoOne //referencia a ‘Paciente’, muchos turnos puede tener un paciente.
+    @ManyToOne //referencia a ‘Paciente’, muchos turnos puede tener un paciente.
     @JoinColumn(name = "paciente_id") //columna con la que vamos a relacionar esta tabla con la tabla ‘Paciente’.
     private Paciente paciente;
 
-     */
 
     /*@ManyToOne
     @JoinColumn (name= "profesional_id")
