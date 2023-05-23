@@ -19,8 +19,9 @@ public class Profesional extends Usuario implements Serializable {
     @Column(nullable = false)
     private String matricula;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String especialidad;
+    private Especialidad especialidad;
 
     @Column
     private Double reputacion;
@@ -40,10 +41,6 @@ public class Profesional extends Usuario implements Serializable {
     private List<ObraSocial> atiendePor; //Tabla intermedia: profesional_obra_social por relación muchos a muchos entre profesional y obra social
 
     @OneToMany(mappedBy = "profesional")
-    @Column(name = "jornada_laboral")
-    private List<JornadaLaboral> jornadaLaboral;
-
-    @OneToMany(mappedBy = "profesional")
     @Column(name = "turnos_asignados")
     private List<Turno> turnosAsignados;
 */
@@ -53,11 +50,14 @@ public class Profesional extends Usuario implements Serializable {
     private List<NotaMedica> notas;
 
  */
-
+    @OneToMany(mappedBy = "profesional")
+    @Column(name = "jornada_laboral")
+    private List<JornadaLaboral> jornadaLaboral;
+    
     public Profesional() {
     }
 
-    public Profesional(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, long telefono, String matricula, String especialidad, Double reputacion, Double valorConsulta, String descripcionEspecialidad) {
+    public Profesional(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, long telefono, String matricula, Especialidad especialidad, Double reputacion, Double valorConsulta, String descripcionEspecialidad) {
         super(mail, password, nombre, apellido, dni, fechaNacimiento, telefono);
         this.matricula = matricula;
         this.especialidad = especialidad;
@@ -78,11 +78,11 @@ public class Profesional extends Usuario implements Serializable {
         this.matricula = matricula;
     }
 
-    public String getEspecialidad() {
+    public Especialidad getEspecialidad() {
         return especialidad;
     }
 
-    public void setEspecialidad(String especialidad) {
+    public void setEspecialidad(Especialidad especialidad) {
         this.especialidad = especialidad;
     }
 

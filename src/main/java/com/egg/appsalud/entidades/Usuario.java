@@ -6,6 +6,7 @@
 package com.egg.appsalud.entidades;
 
 
+import com.egg.appsalud.Enumerativos.Rol;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDate;
@@ -36,8 +37,8 @@ public class Usuario {
     private LocalDate fechaNacimiento;
 
 
-//    @Column(nullable = false)
-//    private Rol rol;
+    @Column(nullable = false)
+    private Rol rol;
 
     @Column(nullable = false)
     private Long telefono;
@@ -55,6 +56,7 @@ public class Usuario {
         this.dni = dni;
         this.fechaNacimiento = fechaNacimiento;
         this.telefono = telefono;
+        this.rol = rol;
     }
 
     public String getNombre() {
@@ -112,6 +114,14 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
     
     

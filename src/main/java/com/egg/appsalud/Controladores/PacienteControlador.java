@@ -5,6 +5,7 @@ import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.servicios.ObraSocialServicio;
 import com.egg.appsalud.servicios.PacienteServicio;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,7 +30,7 @@ public class PacienteControlador {
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
                            @RequestParam String password,@RequestParam String idObraSocial, @RequestParam String nroObraSocial ,
                            @RequestParam String fechaNacimiento, @RequestParam String dni,
-                           @RequestParam Long telefono, ModelMap modelo, MultipartFile archivo){
+                           @RequestParam Long telefono, ModelMap modelo, MultipartFile archivo) throws IOException{
 
         Integer idObraSocialInt = Integer.valueOf(idObraSocial);
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter); //Convierte el String de fechaNacimiento a LocalDate, si pongo directamente tipo LocalDate genera conflicto
@@ -40,8 +41,10 @@ public class PacienteControlador {
          } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
             return "/registro-paciente.html";
+        }catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return "redirect:/";
+        return "redirect:/inicio";
     }
 
     @GetMapping("/registrar") //Retorna vista para registrarse
@@ -63,7 +66,7 @@ public class PacienteControlador {
 
 
     @GetMapping("/obtener/{idPaciente}")
-    public String obtenerPorId (@PathVariable String idPaciente, ModelMap modelo) {
+    public String obtenerPorIdS(@PathVariable String idPaciente, ModelMap modelo) {
         try {
 
             Paciente paciente = pacienteServicio.buscarPorId(idPaciente);

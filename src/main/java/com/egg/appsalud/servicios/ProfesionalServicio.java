@@ -1,6 +1,7 @@
 package com.egg.appsalud.servicios;
 
 import com.egg.appsalud.Enumerativos.Especialidad;
+import com.egg.appsalud.Enumerativos.Rol;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.repositorios.ProfesionalRepositorio;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.Optional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
 public class ProfesionalServicio {
@@ -20,7 +22,7 @@ public class ProfesionalServicio {
     @Transactional
     public void crearProfesional(String mail, String password, String nombre, String apellido,
                                  String dni, LocalDate fechaNacimiento, Long telefono, String matricula,
-                                 String especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException {
+                                 Especialidad especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException {
 
 
             validar(mail, password, nombre, apellido, dni, fechaNacimiento);
@@ -32,12 +34,13 @@ public class ProfesionalServicio {
             profesional.setDni(dni);
             profesional.setFechaNacimiento(fechaNacimiento);
             profesional.setMail(mail);
-            profesional.setPassword(password);
+            profesional.setPassword(new BCryptPasswordEncoder().encode(password));
             profesional.setTelefono(telefono);
             profesional.setMatricula(matricula);
             profesional.setEspecialidad(especialidad);
             profesional.setValorConsulta(valorConsulta);
             profesional.setDescripcionEspecialidad(descripcionEspecialidad);
+            profesional.setRol(Rol.PROFESIONAL);
 
 //            En caso de tener foto de perfil:
 //            Imagen imagen = imagenServicio.guardar(archivo);
@@ -49,7 +52,7 @@ public class ProfesionalServicio {
 
     @Transactional
     public void modificarProfesional(String idProfesional, String mail, String password, String nombre, String apellido,
-                                     String dni, LocalDate fechaNacimiento, Long telefono, String matricula, String especialidad,
+                                     String dni, LocalDate fechaNacimiento, Long telefono, String matricula, Especialidad especialidad,
                                      Double valorConsulta, String descripcionEspecialidad) throws MiException {
 
         validar(mail, password, nombre, apellido, dni, fechaNacimiento);
