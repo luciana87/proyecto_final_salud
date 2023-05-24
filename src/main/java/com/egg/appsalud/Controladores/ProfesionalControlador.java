@@ -1,7 +1,6 @@
 package com.egg.appsalud.Controladores;
 
 import com.egg.appsalud.Enumerativos.Especialidad;
-import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.servicios.ProfesionalServicio;
