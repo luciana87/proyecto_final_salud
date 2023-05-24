@@ -1,6 +1,7 @@
 package com.egg.appsalud.Controladores;
 
 import com.egg.appsalud.Enumerativos.Especialidad;
+import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.servicios.ProfesionalServicio;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Controller
 @RequestMapping("/profesional")
@@ -77,4 +79,27 @@ public class ProfesionalControlador {
         return "index.html";//Vista inicio profesional no index
     }
 
+    @GetMapping("/lista")
+    public String listar(ModelMap modelo) {
+        List<Profesional> profesionales = profesionalServicio.listarProfesionales();
+        modelo.addAttribute("profesionales", profesionales);
+
+        return "lista-profesional.html"; //Retorna vista con todos los pacientes persistidos en la DB (tabla, o card de pacientes)
+    }
+
+    @GetMapping("/eliminar/{id_profesional}")
+    public String eliminarPaciente(@PathVariable String id_profesional, ModelMap modelo) {
+
+        try {
+            profesionalServicio.eliminarProfesional(id_profesional);
+            modelo.put("exito", "Se elimino el Paciente correctamente.");
+
+        } catch (MiException ex) {
+            modelo.put("error", ex.getMessage());
+            
+        }
+        return "redirect:../lista";
+    }
+
+    
 }

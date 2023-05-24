@@ -2,6 +2,7 @@ package com.egg.appsalud.servicios;
 
 import com.egg.appsalud.Enumerativos.Especialidad;
 import com.egg.appsalud.Enumerativos.Rol;
+import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.repositorios.ProfesionalRepositorio;
@@ -11,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProfesionalServicio {
@@ -104,4 +107,18 @@ public class ProfesionalServicio {
             throw new MiException("La fecha de naciemiento no puede ser nulo o estar vacia");
         }
     }
+    
+    public List<Profesional> listarProfesionales() {
+
+        List<Profesional> profesionales = profesionalRepositorio.findAll();
+        return profesionales.stream().collect(Collectors.toList());
+    }    
+    
+    @Transactional
+    public void eliminarProfesional(String id_profesional) throws MiException {
+        
+        profesionalRepositorio.deleteById(id_profesional);
+
+    }
+
 }
