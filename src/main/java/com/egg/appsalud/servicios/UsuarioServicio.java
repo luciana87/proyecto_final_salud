@@ -1,6 +1,5 @@
 package com.egg.appsalud.servicios;
 
-import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Usuario;
 import com.egg.appsalud.repositorios.PacienteRepositorio;
 import com.egg.appsalud.repositorios.ProfesionalRepositorio;

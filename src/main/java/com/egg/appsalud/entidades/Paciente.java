@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package com.egg.appsalud.entidades;
-import com.egg.appsalud.Enumerativos.Rol;
 import org.hibernate.annotations.GenericGenerator;
 import java.io.Serializable;
 import java.time.LocalDate;
