@@ -6,38 +6,23 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../css/registro.css">
-        <title>Panel Administrador</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <title style="text-align: center;">Panel Administrador</title>
+        <h1 style="text-align: center;">Panel Administrador</h1>
     </head>
     <body background="../static/img/fregistro.jpg">
         
         <style>
             /* Estilos CSS personalizados */
            
-        
-        .image-container{
-            position: fixed;
-            top: 0;
-            right: 15%;
-            border: 3px solid red;
-            margin-top: 10px;
-            
-            
-                }
-        
-        .image-container img {
-            width: 200px;
-                       
-            }
-                
+         
         body {
             margin-top: 20px;
               font-family: 'Arial Narrow Bold', sans-serif;
               padding: 20px;
-              background-size: 100%;
+              background-size: cover;
               background-repeat: no-repeat;
-              background-position: center;
-              
-              
+           
             }
 
             .container{
@@ -72,129 +57,139 @@
             margin-bottom: 15px; /* Margen inferior */
         }
         
-        .form-control,
-        .form-select {
-            display: block;
+        #opcion,#formulario
+         {
+            /*display: flex;*/
             width: 100%; 
             padding: 8px 12px; 
             font-size: 14px; 
             line-height: 1.5; 
             color: #495057; 
+            /*background-image:="../static/img/fregistro.jpg" ;*/
             background-color: #fff; 
             background-clip: padding-box; 
             border: 1px solid #ced4da; 
             border-radius: 4px; 
             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; 
+            width: 200px;
             
+            border-left: 50px;
+            width: 46%;
+            margin: 20px auto 0;
+            display: block;
+            outline: none;
         }
-        
-         
-        
-        
-       
-    
+
+        .form-control,
+        .form-select,.clearfix{
+            width: 200px;
+            border-left: 50px;
+            width: 46%;
+            margin: 20px auto 0;
+            display: block;
+            outline: none;
+        }
+            
           </style>
-          <div class="image-container">
-          <img src="../static/img/logo2.jpg" alt="" ></div>
-          
 
-        <div class="container" id="advanced-search-form">
-            <h2 class="text-center header"  style="font-style: https://fonts.google.com/specimen/Candal?query=candal; ,color: rgb(12, 58, 58);">Panel Administrador</h2>
-            <form action="/paciente/registro" method="POST">
-                
-                <select class="form-select custom-select custom-select-lg" name="rol" th:field="*{rol}">
-                    <option selected>Rol (paciente o profesional)</option>
-                    <option value="Profesional">Profesional</option>
-                    <option value="Paciente">Paciente</option>
-                </select>
-                
-                <div class="form-group">
-                    <label for="first-name"></label>
-                    <input type="text" class="form-control" name="nombre" placeholder="Nombre" id="first-name"  th: text="${profesional.nombre}">
-                </div>
-                <div class="form-group">
-                    <label for="surname"></label>
-                    <input type="text" class="form-control" name="apellido" placeholder="Apellido" id="surname" th:text="*{profesional.apellido}">
-                </div>
-                
-                <div class="form-group">
-                    <label for="dni"></label>
-                    <input type="text" class="form-control" name="dni" placeholder="DNI" id="dni" th:text="*{profesional.dni}">
-                </div>
+   
 
-                <select class="form-select custom-select custom-select-lg" name="Especialiad" th:field="*{profesional.especialidad}">
+<body>
+    <h2>Selecciona una opción:</h2>
+    <select id="opcion" onchange="mostrarFormulario()">
+        <option value="">Seleccione una opción</option>
+        <option value="opcion1">Profesional</option>
+        <option value="opcion2">Paciente</option>
+        <option value="opcion3">Obra social</option>
+    </select>
+
+    <div id="formularios">
+        <form id="formulario1" style="display: none;">
+            <h3>Profesional</h3>
+            <!-- Contenido del PROFESIONAL -->
+            <label for="first-name"></label>
+                        <input type="text" class="form-control" name="nombre" placeholder="Nombre" id="first-name"  th: text="${profesional.nombre}">
+            <label for="dni"></label>
+                        <input type="text" class="form-control" name="apellido" placeholder="Apellido" id="apellido" th:text="*{profesional.dni}">
+            <label for="dni"></label>
+                        <input type="text" class="form-control" name="dni" placeholder="DNI" id="dni" th:text="*{profesional.dni}">
+            
+             <select class="form-select custom-select custom-select-lg" name="Especialiad" th:field="*{profesional.especialidad}">
                     <option selected>Tipo de Especialiad</option>
                     <option value="Clinica">Clinica</option>
                     <option value="Pediatria">Pediatria</option>
                     <option value="Cardiologia">Cardiologia</option>
-                    <option value="Ginecología">Ginecología</option>
-                </select>
+                     <option value="Ginecología">Ginecología</option>
+             </select>
 
-                
-                
-                <div class="clearfix"></div>
+             <div class="clearfix">
                 <button  onclick="mostrarMensaje()" type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>
-                    Registrar</button>
+                    Crear</button>
                 <button onclick="mostrarMensaje3()" type="submit2" class="btn btn-warning btn-lg btn-responsive" id="search"> <span class=""></span>
-                        Modificar</button>
+                        Listar</button>
                 <button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive" id="search"> <span class=""></span>
                             Eliminar</button>
-
-
+                        </div>
         </form>
-        </div>
-    </body>
+
+        <form id="formulario2" style="display: none;">
+            <h3>Paciente</h3>
+            <!-- Contenido del PACIENTES -->
+            <label for="first-name"></label>
+            <input type="text" class="form-control" name="nombre" placeholder="Nombre" id="first-name"  th: text="${profesional.nombre}">
+
+            <label for="dni"></label>
+            <input type="text" class="form-control" name="apellido" placeholder="Apellido" id="apellido" th:text="*{profesional.dni}">
+
+            <label for="dni"></label>
+                        <input type="text" class="form-control" name="dni" placeholder="DNI" id="dni" th:text="*{profesional.dni}">
+
+                        <div class="clearfix">
+                <button  onclick="mostrarMensaje()" type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>
+                    Crear</button>
+                <button onclick="mostrarMensaje3()" type="submit2" class="btn btn-warning btn-lg btn-responsive" id="search"> <span class=""></span>
+                        Listar</button>
+                <button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive" id="search"> <span class=""></span>
+                            Eliminar</button>
+                        </div>
+        </form>
+
+        <form id="formulario3" style="display: none;">
+            <h3>Obra social</h3>
+            <!-- Contenido del OBRA SOCIAL -->
+            <label for="first-name"></label>
+                        <input type="text" class="form-control" name="nombre" placeholder="Nombre de Obra Social" id="first-name"  th: text="${profesional.nombre}">
+                        <div class="clearfix">
+                        <button  onclick="mostrarMensaje()" type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>
+                            Crear</button>
+                        <button onclick="mostrarMensaje3()" type="submit2" class="btn btn-warning btn-lg btn-responsive" id="search"> <span class=""></span>
+                                Listar</button>
+                        <button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive" id="search"> <span class=""></span>
+                                    Eliminar</button>
+                                </div>
+        </form>
+        
+    </div>
+
+    <script>
+        function mostrarFormulario() {
+            var opcionSeleccionada = document.getElementById("opcion").value;
+            var formularios = document.getElementById("formularios").getElementsByTagName("form");
+
+            // Oculta todos los formularios
+            for (var i = 0; i < formularios.length; i++) {
+                formularios[i].style.display = "none";
+            }
+
+            // Muestra el formulario correspondiente a la opción seleccionada
+            if (opcionSeleccionada === "opcion1") {
+                document.getElementById("formulario1").style.display = "block";
+            } else if (opcionSeleccionada === "opcion2") {
+                document.getElementById("formulario2").style.display = "block";
+            } else if (opcionSeleccionada === "opcion3") {
+                document.getElementById("formulario3").style.display = "block";
+            }
+        }
+    </script>
+</body>
 </html>
-
-
-<script>
- //Lógica JavaScript para interactuar con los elementos de la página
-    const userList = document.querySelector('.user-list');
-    const addUserForm = document.querySelector('.add-user-form');
-    
-    // Función para agregar un nuevo usuario
-    function mostrarMensaje() {
-            alert("¡El elemento ha sido agregado!");
-    function mostrarMensaje2() {
-            alert("¡El elemento ha sido eliminado!");  
-    function mostrarMensaje3() {
-            alert("¡El elemento ha sido modificado!");    
-
-    const addUser = (event) => {
-      event.preventDefault();
-      
-      const nameInput = addUserForm.querySelector('input[placeholder="Nombre"]');
-      const roleInput = addUserForm.querySelector('input[placeholder="Rol (paciente o profesional)"]');
-      
-      const newUserItem = document.createElement('li');
-      newUserItem.className = 'user-item';
-      
-      const userName = document.createElement('span');
-      userName.textContent = nameInput.value;
-      
-      const userRole = document.createElement('span');
-      userRole.textContent = roleInput.value;
-      
-      const removeUserBtn = document.createElement('button');
-      removeUserBtn.className = 'btn btn-danger remove-user-btn';
-      removeUserBtn.textContent = 'Dar de baja';
-      removeUserBtn.addEventListener('click', removeUser);
-      
-      newUserItem.appendChild(userName);
-      newUserItem.appendChild(userRole);
-      newUserItem.appendChild(removeUserBtn);
-      
-      userList.appendChild(newUserItem);
-      
-      nameInput.value = '';
-      roleInput.value = '';
-    };
-    
-    // Función para dar de baja un usuario
-    const removeUser = (event) => {
-      const userItem = event.target.closest('.user-item');
-      userList.removeChild(userItem);
-    };
-    
-    addUserForm.addEventListener('submit', addUser);
-</script>
