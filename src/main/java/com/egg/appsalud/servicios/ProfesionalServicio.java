@@ -1,10 +1,12 @@
 package com.egg.appsalud.servicios;
 
 import com.egg.appsalud.Enumerativos.Especialidad;
+import com.egg.appsalud.Enumerativos.Rol;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.repositorios.ProfesionalRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -32,12 +34,13 @@ public class ProfesionalServicio {
             profesional.setDni(dni);
             profesional.setFechaNacimiento(fechaNacimiento);
             profesional.setMail(mail);
-            profesional.setPassword(password);
+            profesional.setPassword(new BCryptPasswordEncoder().encode(password));
             profesional.setTelefono(telefono);
             profesional.setMatricula(matricula);
             profesional.setEspecialidad(especialidad);
             profesional.setValorConsulta(valorConsulta);
             profesional.setDescripcionEspecialidad(descripcionEspecialidad);
+            profesional.setRol(Rol.PROFESIONAL);
 
 //            En caso de tener foto de perfil:
 //            Imagen imagen = imagenServicio.guardar(archivo);
