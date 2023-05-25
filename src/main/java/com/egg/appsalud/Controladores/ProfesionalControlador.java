@@ -1,8 +1,10 @@
 package com.egg.appsalud.Controladores;
 
 import com.egg.appsalud.Enumerativos.Especialidad;
+import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.excepciones.MiException;
+import com.egg.appsalud.servicios.PacienteServicio;
 import com.egg.appsalud.servicios.ProfesionalServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Controller
 @RequestMapping("/profesional")
@@ -19,6 +22,8 @@ public class ProfesionalControlador {
 
     @Autowired
     private ProfesionalServicio profesionalServicio;
+    @Autowired
+    private PacienteServicio pacienteServicio;
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: aÃ±o-mes-dia del LocalDate
 
@@ -48,7 +53,13 @@ public class ProfesionalControlador {
         return "redirect:/";
     }
 
-
+    @GetMapping("/inicio")
+    public String inicio(ModelMap modelo){
+        List<Paciente> pacientes = pacienteServicio.listarPacientes();
+        modelo.addAttribute("pacientes", pacientes);
+        return "inicio-profesional.html";
+        
+    }
 
 
     @GetMapping("/modificar/{id}")
