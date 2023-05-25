@@ -1,0 +1,74 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+/* Estilos de fondo */
+body {
+    background-image: linear-gradient(to bottom, #f1f1f1, #e0e0e0);
+}
+
+/* Tabla de pacientes */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: RGBA(13, 70, 83, .4);
+    color: #000000;
+
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.acciones {
+    background-color: #337ab7;
+    color: #fff;
+    padding: 5px;
+}
+
+.btn-modificar,
+.btn-eliminar {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: -10px;
+    /* Espacio entre los botones */
+    width: 80px;
+}
+
+.btn-modificar {
+    background-color: #337ab7;
+    color: #fff;
+}
+
+.btn-eliminar {
+    background-color: #FF0000;
+    color: #fff;
+}
