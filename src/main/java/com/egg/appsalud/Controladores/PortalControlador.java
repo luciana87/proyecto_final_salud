@@ -73,6 +73,8 @@ public class PortalControlador {
 
         return "lista-paciente.html"; //Retorna vista con todos los pacientes persistidos en la DB (tabla, o card de pacientes)
     }
+
 }
+
 
 
