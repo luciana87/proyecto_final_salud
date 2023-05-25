@@ -16,11 +16,6 @@ h1 {
     text-align: center;
 }
 
-/* Estilos de fondo */
-body {
-    background-image: linear-gradient(to bottom, #f1f1f1, #e0e0e0);
-}
-
 /* Tabla de pacientes */
 table {
     width: 100%;
