@@ -22,18 +22,18 @@
             <h1 class="mb-5"
                 style="text-align: center;  transform: translateY(100%); font-family: 'Times New Roman', Times, serif">
                 PANEL
-                PACIENTE
+                PROFESIONAL
             </h1>
 
             <div class="bg-white shadow rounded-lg d-block d-sm-flex">
                 <div class="profile-tab-nav border-right">
                     <div class="p-4">
 
-                        <div class="img-circle text-center mb-3" >
-                            <img class="logo"  th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" >
-                        </div>
+<!--                        <div class="img-circle text-center mb-3" >-->
+<!--                            <img class="logo"  th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" >-->
+<!--                        </div>-->
 
-                        <h4 class="text-center">Paciente</h4>
+                        <h4 class="text-center">Profesional</h4>
                     </div>
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab"
@@ -49,7 +49,7 @@
                         <a class="nav-link" id="security-tab" data-toggle="pill" href="#security" role="tab"
                             aria-controls="security" aria-selected="false">
                             <i class="fa fa-user text-center mr-1"></i>
-                            Modificar Turno
+                            PACIENTES
                         </a>
                         <a class="nav-link" id="notification-tab" data-toggle="pill" href="#notification" role="tab"
                             aria-controls="notification" aria-selected="false">
@@ -64,12 +64,12 @@
                 </div>
                 <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
-                        <h3 class="mb-4">Paciente</h3>
+                        <h3 class="mb-4">Profesional</h3>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Nombre</label>
-                                    <input type="text" class="form-control" value="">
+                                    <input type="text" class="form-control" th:value="${session.usuariosession.nombre}">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -168,36 +168,42 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
-                        <h3 class="mb-4">Modificar Turno</h3>
+                        <h3 class="mb-4">Listado de pacientes</h3>
                         <div class="row">
-                            <table class="table">
+                            <table class="table table-dark">
                                 <thead>
-                                    <tr>
-                                        <th scope="col">Fecha</th>
-                                        <th scope="col">Episodio</th>
-                                        <th scope="col">Especialidad</th>
-                                        <th scope="col">Profesional</th>
-                                    </tr>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Apellido</th>
+                                    <th scope="col">DNI</th>
+                                    <th scope="col">Fecha de nacimiento</th>
+                                    <th scope="col">Teléfono</th>
+                                    <th scope="col">Obra social</th>
+                                    <th scope="col">Numero obra social</th>
+                                    <th scope="col">Acciones</th>
+
+                                </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row"></th>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"></th>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"></th>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                <tbody th:each="paciente : ${pacientes}">
+                                <tr>
+                                    <th scope="row" th:text="${paciente.id}"></th>
+                                    <!--      <th th:text="${paciente.imagen.contenido}"></th>-->
+                                    <td th:text="${paciente.nombre}"></td>
+                                    <td th:text="${paciente.apellido}"></td>
+                                    <td th:text="${paciente.dni}"></td>
+                                    <td th:text="${paciente.fechaNacimiento}"></td>
+                                    <td th:text="${paciente.telefono}"></td>
+                                    <td th:text="${paciente.obraSocial.nombre}"></td>
+                                    <td th:text="${paciente.nroObraSocial}"></td>
+                                    <td>
+                                        <a th:href= "@{/paciente/modificar/__${paciente.id}__}"><i class="fas fa-feather-alt"></i> Modificar </a> <!-- Ver de cambiar ruta th:hre="@{/paciente/perfil}" o @{/perfil} -->
+                                    </td>
+                                    <td>
+                                        <a th:href= "@{/paciente/eliminar/__${paciente.id}__}"><i class="fas fa-feather-alt"></i> Eliminar </a>
+                                    </td>
+                                </tr>
+
                                 </tbody>
                             </table>
 

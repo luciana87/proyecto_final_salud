@@ -11,7 +11,7 @@
 <body>
 <div class="container" id="advanced-search-form">
     <h2 class="text-center header">Registro Paciente</h2>
-    <form action="/paciente/registro" method="POST">
+    <form action="/paciente/registro" method="POST" enctype="multipart/form-data" >
 
         <div th:if="${error != null}" class="card text-white bg-danger mb-3" >
             <div class="card-body">
@@ -26,6 +26,9 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <input type="file" class="form-control" name="archivo" >
+        </div>
         <div class="form-group">
             <label for="first-name">Nombre</label>
             <input type="text" class="form-control" name="nombre" placeholder="" id="first-name">
