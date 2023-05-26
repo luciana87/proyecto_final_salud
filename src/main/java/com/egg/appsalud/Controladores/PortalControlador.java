@@ -52,7 +52,7 @@ public class PortalControlador {
     
     @PreAuthorize("hasAnyRole('ROLE_PACIENTE', 'ROLE_ADMIN', 'ROLE_PROFESIONAL')")
     @GetMapping("/inicio")
-    public String inicio(HttpSession session){
+    public String inicio(HttpSession session, ModelMap modelo){
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
 
         if (logueado.getRol().toString().equals("PROFESIONAL")) {
@@ -60,6 +60,10 @@ public class PortalControlador {
         }
 
         if (logueado.getRol().toString().equals("PACIENTE")) {
+
+            boolean tieneImagen= ((Paciente)logueado).tieneImagen(); //Casteo la variable 'logueado' de tipo usuario a tipo 'Paciente' para poder acceder al metodo 'tieneImagen()'
+            modelo.put("tieneImagen", tieneImagen); //Envío a la vista si posee o no imágen.
+
             return "inicio_paciente_2.html";
         }
 

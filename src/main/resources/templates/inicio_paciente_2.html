@@ -19,21 +19,20 @@
 
             </div>
 
-            <h1 class="mb-5"
-                style="text-align: center;  transform: translateY(100%); font-family: 'Times New Roman', Times, serif">
-                PANEL
-                PACIENTE
-            </h1>
+            <h1 class="mb-5" style="text-align: center;  transform: translateY(100%); font-family: 'Times New Roman', Times, serif">PANEL PACIENTE</h1>
 
             <div class="bg-white shadow rounded-lg d-block d-sm-flex">
                 <div class="profile-tab-nav border-right">
                     <div class="p-4">
 
                         <div class="img-circle text-center mb-3" >
-                            <img class="logo"  th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" >
+                            <img class="logo" th:if="${tieneImagen}" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" >
+                            <img class="logo" th:unless="${tieneImagen}" src="/img/img-default.jpg" >
+
                         </div>
 
-                        <h4 class="text-center">Paciente</h4>
+
+                        <h4 th:text="${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}" class="text-center"></h4>
                     </div>
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab"
@@ -58,7 +57,7 @@
                         </a>
                         <a class="nav-link" href="/logout" >
                             <i class="fa fa-bell text-center mr-1"></i>
-                            cerrar session
+                            Cerrar session
                         </a>
                     </div>
                 </div>

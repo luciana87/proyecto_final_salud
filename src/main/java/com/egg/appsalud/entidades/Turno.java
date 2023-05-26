@@ -17,20 +17,21 @@ public class Turno {
     private String horario;
 
     @ManyToOne //referencia a ‘Paciente’, muchos turnos puede tener un paciente.
-    @JoinColumn(name = "paciente_id") //columna con la que vamos a relacionar esta tabla con la tabla ‘Paciente’.
+    @JoinColumn(name = "paciente_id", nullable = false) //columna con la que vamos a relacionar esta tabla con la tabla ‘Paciente’.
     private Paciente paciente;
 
 
-    /*@ManyToOne
-    @JoinColumn (name= "profesional_id")
-    private Profesional medico; */
+    @ManyToOne
+    @JoinColumn (name= "profesional_id", nullable = false)
+    private Profesional medico;
+
     @Column(nullable = false)
     public EstadoTurno estado;
 
-    public Turno(int id, LocalDate fecha/*, Paciente paciente*/) {
+    public Turno(int id, LocalDate fecha, Paciente paciente) {
         this.id = id;
         this.fecha = fecha;
-        //this.paciente = paciente;
+        this.paciente = paciente;
         this.estado = EstadoTurno.RESERVADO;
     }
 
@@ -45,7 +46,7 @@ public class Turno {
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
-/*
+
     public Paciente getPaciente() {
         return paciente;
     }
@@ -53,7 +54,7 @@ public class Turno {
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
-*/
+
 
     public EstadoTurno getEstado() {
         return estado;

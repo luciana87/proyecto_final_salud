@@ -69,9 +69,10 @@ public class PacienteServicio implements UserDetailsService {
             paciente.setObraSocial(obraSocial);
             paciente.setNroObraSocial(nroObraSocial);
         }
-
-        Imagen imagen = imagenServicio.guardar(archivo);
-        paciente.setImagen(imagen);
+        if(!archivo.isEmpty()) {
+            Imagen imagen = imagenServicio.guardar(archivo);
+            paciente.setImagen(imagen);
+        }
         pacienteRepositorio.save(paciente);
 
     }

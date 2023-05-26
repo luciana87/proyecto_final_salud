@@ -39,7 +39,8 @@ public class Usuario {
     @Column(nullable = false)
     private LocalDate fechaNacimiento;
 
-    @Enumerated(EnumType.STRING)    
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Rol rol;
 
     @Column(nullable = false)

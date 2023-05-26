@@ -1,6 +1,5 @@
 package com.egg.appsalud.entidades;
 
-import com.egg.appsalud.Enumerativos.Rol;
 import com.egg.appsalud.Enumerativos.Especialidad;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
@@ -42,11 +41,11 @@ public class Profesional extends Usuario implements Serializable {
     @OneToMany(mappedBy = "profesional")
     @Column(name = "jornada_laboral")
     private List<JornadaLaboral> jornadaLaboral;
-
-    @OneToMany(mappedBy = "profesional")
+*/
+    @OneToMany(mappedBy = "medico")
     @Column(name = "turnos_asignados")
     private List<Turno> turnosAsignados;
-*/
+
 
 /*
     @OneToMany (mappedBy = "profesional")
@@ -58,13 +57,17 @@ public class Profesional extends Usuario implements Serializable {
     }
 
 
-    public Profesional(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, long telefono, String matricula, String especialidad, Double reputacion, Double valorConsulta, String descripcionEspecialidad) {
+    public Profesional(String mail, String password, String nombre, String apellido, String dni,
+                       LocalDate fechaNacimiento, Long telefono, String matricula, String especialidad,
+                       Double reputacion, Double valorConsulta, String descripcionEspecialidad, List<Turno> turnosAsignados) {
+
         super(mail, password, nombre, apellido, dni, fechaNacimiento, telefono);
         this.matricula = matricula;
         this.especialidad = especialidad;
         this.reputacion = reputacion;
         this.valorConsulta = valorConsulta;
         this.descripcionEspecialidad = descripcionEspecialidad;
+        this.turnosAsignados = turnosAsignados;
     }
 
     public String getId() {

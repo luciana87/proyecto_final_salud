@@ -35,7 +35,7 @@ public class Paciente extends Usuario implements Serializable{
 //    @Column(nullable = true)
 //    private Imagen img;
 
-    @OneToMany(mappedBy = "paciente") //Usando mappedBy (mappedBy: indica cuál entidad es dueña del uno a muchos de forma única) indicas que la relación es unidireccional. Un ‘Paciente’ tiene muchos ‘Turnos’ pero un ‘Turno’ no tiene muchos pacientes.
+    @OneToMany(mappedBy = "paciente") //Usando mappedBy (mappedBy: indica cuál atributo de la entidad Turno es dueña del uno a muchos de forma única) indicas que la relación es unidireccional. Un ‘Paciente’ tiene muchos ‘Turnos’ pero un ‘Turno’ no tiene muchos pacientes.
     @Column(name = "historial_turnos")
     private List<Turno> listaDeTurnos;
 
@@ -94,5 +94,10 @@ public class Paciente extends Usuario implements Serializable{
 
     public void setListaDeTurnos(List<Turno> listaDeTurnos) {
         this.listaDeTurnos = listaDeTurnos;
+    }
+
+
+    public boolean tieneImagen (){
+        return this.getImagen() != null;
     }
 }
