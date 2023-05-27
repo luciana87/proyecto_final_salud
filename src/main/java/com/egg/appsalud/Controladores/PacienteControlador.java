@@ -114,4 +114,20 @@ public class PacienteControlador {
         }
         return "redirect:../lista";
     }
+    
+    @GetMapping("/eliminar/{id_paciente}")
+    public String eliminarPaciente(@PathVariable String id_paciente, ModelMap modelo) {
+
+        try {
+            System.out.println("Estor recibiendo: "+id_paciente);
+            pacienteServicio.eliminarPaciente(id_paciente);
+            modelo.put("exito", "Se elimino el Paciente correctamente.");
+
+        } catch (MiException ex) {
+            modelo.put("error", ex.getMessage());
+            
+        }
+        return "redirect:../lista";
+    }
+
 }

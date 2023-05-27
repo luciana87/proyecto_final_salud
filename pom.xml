@@ -35,8 +35,14 @@
 
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
+<<<<<<< HEAD
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
 	</dependency>
+=======
+                        
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+		</dependency>
+>>>>>>> develop
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

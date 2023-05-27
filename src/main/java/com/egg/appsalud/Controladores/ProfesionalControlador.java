@@ -1,10 +1,17 @@
 package com.egg.appsalud.Controladores;
 
 import com.egg.appsalud.Enumerativos.Especialidad;
+<<<<<<< HEAD
 import com.egg.appsalud.entidades.JornadaLaboral;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.servicios.JornadaLaboralServicio;
+=======
+import com.egg.appsalud.entidades.Paciente;
+import com.egg.appsalud.entidades.Profesional;
+import com.egg.appsalud.excepciones.MiException;
+import com.egg.appsalud.servicios.PacienteServicio;
+>>>>>>> develop
 import com.egg.appsalud.servicios.ProfesionalServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +21,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.logging.Level;
 import java.util.logging.Logger;
+=======
+>>>>>>> develop
 
 @Controller
 @RequestMapping("/profesional")
@@ -23,6 +33,8 @@ public class ProfesionalControlador {
 
     @Autowired
     private ProfesionalServicio profesionalServicio;
+    @Autowired
+    private PacienteServicio pacienteServicio;
 
     @Autowired
     JornadaLaboralServicio jornadaServicio;
@@ -53,6 +65,18 @@ public class ProfesionalControlador {
         return "redirect:/";
     }
 
+<<<<<<< HEAD
+=======
+    @GetMapping("/inicio")
+    public String inicio(ModelMap modelo){
+        List<Paciente> pacientes = pacienteServicio.listarPacientes();
+        modelo.addAttribute("pacientes", pacientes);
+        return "inicio-profesional.html";
+        
+    }
+
+
+>>>>>>> develop
     @GetMapping("/modificar/{id}")
     public String mostrarFormularioModificar(@PathVariable String id, ModelMap model) {
 

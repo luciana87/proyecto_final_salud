@@ -56,7 +56,7 @@ public class PortalControlador {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
 
         if (logueado.getRol().toString().equals("PROFESIONAL")) {
-            return "inicio-profesional.html";
+            return "redirect:/profesional/inicio";
         }
 
         if (logueado.getRol().toString().equals("PACIENTE")) {
@@ -73,6 +73,8 @@ public class PortalControlador {
 
         return "lista-paciente.html"; //Retorna vista con todos los pacientes persistidos en la DB (tabla, o card de pacientes)
     }
+
 }
+
 
 
