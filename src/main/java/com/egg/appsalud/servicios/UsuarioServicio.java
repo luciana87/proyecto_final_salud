@@ -1,7 +1,8 @@
 package com.egg.appsalud.servicios;
 
-import com.egg.appsalud.entidades.Paciente;
+import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.entidades.Usuario;
+import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.repositorios.PacienteRepositorio;
 import com.egg.appsalud.repositorios.ProfesionalRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
-
 
     @Autowired
     private ProfesionalRepositorio profesionalRepositorio;
@@ -29,21 +30,20 @@ public class UsuarioServicio implements UserDetailsService {
     @Autowired
     private PacienteRepositorio pacienteRepositorio;
 
-
     @Override
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
 
         Usuario usuario = pacienteRepositorio.BuscarPorEmail(mail);
 
-        if (usuario == null){
+        if (usuario == null) {
             usuario = profesionalRepositorio.BuscarPorEmail(mail);
         }
 
-        if (usuario != null){
+        if (usuario != null) {
 
             List<GrantedAuthority> permisos = new ArrayList();
 
-            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_"+ usuario.getRol().toString());
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
 
             permisos.add(p);
 
@@ -55,11 +55,10 @@ public class UsuarioServicio implements UserDetailsService {
 
             return new User(usuario.getMail(), usuario.getPassword(), permisos);
 
-        }
-        else{
+        } else {
             return null;
         }
-
     }
+
 
 }

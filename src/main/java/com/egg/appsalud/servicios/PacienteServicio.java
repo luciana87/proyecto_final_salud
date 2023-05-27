@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.egg.appsalud.servicios;
+
 import com.egg.appsalud.Enumerativos.Rol;
 import com.egg.appsalud.entidades.Imagen;
 import com.egg.appsalud.entidades.ObraSocial;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -24,7 +27,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -39,6 +41,7 @@ import javax.servlet.http.HttpSession;
  */
 @Service
 public class PacienteServicio implements UserDetailsService {
+
     @Autowired
     private PacienteRepositorio pacienteRepositorio;
 
@@ -49,9 +52,9 @@ public class PacienteServicio implements UserDetailsService {
 
     @Transactional
     public void CrearPaciente(MultipartFile archivo, String mail, String password, Integer idObraSocial,
-                              String nroObraSocial, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
-                              Long telefono) throws MiException, IOException {
-
+            String nroObraSocial, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
+            Long telefono) throws MiException, IOException {
+                              
         validar(mail, password, nombre, apellido, dni, fechaNacimiento,telefono);
 
         Paciente paciente = new Paciente();
@@ -63,8 +66,8 @@ public class PacienteServicio implements UserDetailsService {
         paciente.setPassword(new BCryptPasswordEncoder().encode(password));
         paciente.setTelefono(telefono);
         paciente.setRol(Rol.PACIENTE);
-        
-        if (idObraSocial != null){
+
+       if (idObraSocial != null){
             ObraSocial obraSocial = obraSocialServicio.getOne(idObraSocial);
             paciente.setObraSocial(obraSocial);
             paciente.setNroObraSocial(nroObraSocial);
@@ -143,7 +146,6 @@ public class PacienteServicio implements UserDetailsService {
     
     }
 
-
     @Transactional
     public void modificarPaciente(MultipartFile archivo, String id_paciente, String mail, String password, String nombre,
             String apellido, String dni, LocalDate fechaNacimiento, Long telefono) throws MiException, IOException {
@@ -164,7 +166,7 @@ public class PacienteServicio implements UserDetailsService {
             paciente.setTelefono(telefono);
 
             String idImagen = null;
-            if (paciente.getImagen() != null){
+            if (paciente.getImagen() != null) {
                 idImagen = paciente.getImagen().getId();
             }
             Imagen imagen = imagenServicio.actualizarImagen(archivo, idImagen);
@@ -179,7 +181,29 @@ public class PacienteServicio implements UserDetailsService {
         return pacienteRepositorio.getOne(id_paciente);
     }
 
-@Transactional
+    private void validar(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento) throws MiException {
+        if (nombre.isEmpty() || nombre == null) {
+            throw new MiException("El nombre no puede ser nulo o estar vacio");
+        }
+        if (password.isEmpty() || password == null) {
+            throw new MiException("La contraseña no puede ser nulo o estar vacia");
+        }
+        if (mail.isEmpty() || mail == null) {
+            throw new MiException("El correo no puede ser nulo o estar vacio");
+        }
+        if (apellido.isEmpty() || apellido == null) {
+            throw new MiException("El apellido no puede ser nulo o estar vacio");
+        }
+        if (dni.isEmpty() || dni == null) {
+            throw new MiException("El DNI no puede ser nulo o estar vacio");
+        }
+        if (fechaNacimiento == null) {
+            throw new MiException("La fecha de naciemiento no puede ser nulo o estar vacia");
+        }
+
+    }
+
+    @Transactional
     public void eliminarPaciente(String id_paciente) throws MiException {
         
         pacienteRepositorio.deleteById(id_paciente);
