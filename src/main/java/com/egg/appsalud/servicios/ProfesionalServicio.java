@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProfesionalServicio {
@@ -21,7 +23,7 @@ public class ProfesionalServicio {
 
     @Transactional
     public void crearProfesional(String mail, String password, String nombre, String apellido,
-                                 String dni, LocalDate fechaNacimiento, Long telefono, String matricula,
+                                 String dni, LocalDate fechaNacimiento, String telefono, String matricula,
                                  String especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException {
 
 
@@ -48,11 +50,16 @@ public class ProfesionalServicio {
 
             profesionalRepositorio.save(profesional);
     }
+    
+    public List<Profesional> listarProfesionales() {
 
+            List<Profesional> profesionales = profesionalRepositorio.findAll();
+            return profesionales.stream().collect(Collectors.toList());
+    }
 
     @Transactional
     public void modificarProfesional(String idProfesional, String mail, String password, String nombre, String apellido,
-                                     String dni, LocalDate fechaNacimiento, Long telefono, String matricula, String especialidad,
+                                     String dni, LocalDate fechaNacimiento, String telefono, String matricula, String especialidad,
                                      Double valorConsulta, String descripcionEspecialidad) throws MiException {
 
         validar(mail, password, nombre, apellido, dni, fechaNacimiento);

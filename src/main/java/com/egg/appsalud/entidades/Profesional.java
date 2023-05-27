@@ -58,7 +58,7 @@ public class Profesional extends Usuario implements Serializable {
     }
 
 
-    public Profesional(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, long telefono, String matricula, String especialidad, Double reputacion, Double valorConsulta, String descripcionEspecialidad) {
+    public Profesional(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, String telefono, String matricula, String especialidad, Double reputacion, Double valorConsulta, String descripcionEspecialidad) {
         super(mail, password, nombre, apellido, dni, fechaNacimiento, telefono);
         this.matricula = matricula;
         this.especialidad = especialidad;
