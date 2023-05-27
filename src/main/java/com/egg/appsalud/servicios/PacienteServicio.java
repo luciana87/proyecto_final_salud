@@ -181,7 +181,6 @@ public class PacienteServicio implements UserDetailsService {
         return pacienteRepositorio.getOne(id_paciente);
     }
 
-<<<<<<< HEAD
     private void validar(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento) throws MiException {
         if (nombre.isEmpty() || nombre == null) {
             throw new MiException("El nombre no puede ser nulo o estar vacio");
@@ -204,9 +203,7 @@ public class PacienteServicio implements UserDetailsService {
 
     }
 
-}
-=======
-@Transactional
+    @Transactional
     public void eliminarPaciente(String id_paciente) throws MiException {
         
         pacienteRepositorio.deleteById(id_paciente);
@@ -215,4 +212,3 @@ public class PacienteServicio implements UserDetailsService {
 
     
 }
->>>>>>> develop
