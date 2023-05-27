@@ -122,60 +122,68 @@
                 <div class="clearfix"></div>
                 <button  onclick="mostrarMensaje()" type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>
                     Registrar</button>
-                <button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive" id="search"> <span class=""></span>
+                <button onclick="mostrarMensaje2()" type="submit" class="btn btn-danger btn-lg btn-responsive" id="search"> <span class=""></span>
                         Eliminar</button>
         </form>
         </div>
+          
+          
+          
+          
+          
     </body>
 </html>
 
 
 <script>
- //Lógica JavaScript para interactuar con los elementos de la página
+    // Lógica JavaScript para interactuar con los elementos de la página
     const userList = document.querySelector('.user-list');
     const addUserForm = document.querySelector('.add-user-form');
-    
+
     // Función para agregar un nuevo usuario
     function mostrarMensaje() {
-            alert("¡El elemento ha sido agregado!");
+        alert("¡El elemento ha sido agregado!");
+    }
+
     function mostrarMensaje2() {
-            alert("¡El elemento ha sido eliminado!");      
+        alert("¡El elemento ha sido eliminado!");
+    }
 
     const addUser = (event) => {
-      event.preventDefault();
-      
-      const nameInput = addUserForm.querySelector('input[placeholder="Nombre"]');
-      const roleInput = addUserForm.querySelector('input[placeholder="Rol (paciente o profesional)"]');
-      
-      const newUserItem = document.createElement('li');
-      newUserItem.className = 'user-item';
-      
-      const userName = document.createElement('span');
-      userName.textContent = nameInput.value;
-      
-      const userRole = document.createElement('span');
-      userRole.textContent = roleInput.value;
-      
-      const removeUserBtn = document.createElement('button');
-      removeUserBtn.className = 'btn btn-danger remove-user-btn';
-      removeUserBtn.textContent = 'Dar de baja';
-      removeUserBtn.addEventListener('click', removeUser);
-      
-      newUserItem.appendChild(userName);
-      newUserItem.appendChild(userRole);
-      newUserItem.appendChild(removeUserBtn);
-      
-      userList.appendChild(newUserItem);
-      
-      nameInput.value = '';
-      roleInput.value = '';
+        event.preventDefault();
+
+        const nameInput = addUserForm.querySelector('input[placeholder="Nombre"]');
+        const roleInput = addUserForm.querySelector('input[placeholder="Rol (paciente o profesional)"]');
+
+        const newUserItem = document.createElement('li');
+        newUserItem.className = 'user-item';
+
+        const userName = document.createElement('span');
+        userName.textContent = nameInput.value;
+
+        const userRole = document.createElement('span');
+        userRole.textContent = roleInput.value;
+
+        const removeUserBtn = document.createElement('button');
+        removeUserBtn.className = 'btn btn-danger remove-user-btn';
+        removeUserBtn.textContent = 'Dar de baja';
+        removeUserBtn.addEventListener('click', removeUser);
+
+        newUserItem.appendChild(userName);
+        newUserItem.appendChild(userRole);
+        newUserItem.appendChild(removeUserBtn);
+
+        userList.appendChild(newUserItem);
+
+        nameInput.value = '';
+        roleInput.value = '';
     };
-    
+
     // Función para dar de baja un usuario
     const removeUser = (event) => {
-      const userItem = event.target.closest('.user-item');
-      userList.removeChild(userItem);
+        const userItem = event.target.closest('.user-item');
+        userList.removeChild(userItem);
     };
-    
+
     addUserForm.addEventListener('submit', addUser);
 </script>
