@@ -39,8 +39,6 @@ public class PortalControlador {
     @Autowired
     private PacienteServicio pacienteServicio;
     
-//    DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: año-mes-dia del LocalDate
-    
     
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap modelo){

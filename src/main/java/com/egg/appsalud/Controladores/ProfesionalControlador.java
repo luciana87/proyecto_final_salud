@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -87,5 +88,22 @@ public class ProfesionalControlador {
         }
         return "index.html";//Vista inicio profesional no index
     }
+
+
+//    @PostMapping("/calificar/profesional/{id}")
+//    public String calificarMedico(@RequestParam String id, @RequestParam Integer calificacion, ModelMap modelo){
+//
+//
+//        try {
+//            pacienteServicio.calificar(id,calificacion);
+//            modelo.put("exito", "El profesional fue calificado correctamente");
+//        } catch (MiException ex) {
+//            modelo.put("error", ex.getMessage());
+//            return "/calificar-profesional.html";
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return "redirect:/inicio-paciente-2";
+//    }
 
 }

@@ -47,6 +47,10 @@ public class Profesional extends Usuario implements Serializable {
     private List<Turno> turnosAsignados;
 
 
+    @OneToMany(mappedBy = "medico")
+    private List<Calificacion> calificaciones;
+
+
 /*
     @OneToMany (mappedBy = "profesional")
     private List<NotaMedica> notas;

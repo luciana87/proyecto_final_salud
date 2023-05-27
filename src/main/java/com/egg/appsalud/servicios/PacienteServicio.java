@@ -5,9 +5,7 @@
  */
 package com.egg.appsalud.servicios;
 import com.egg.appsalud.Enumerativos.Rol;
-import com.egg.appsalud.entidades.Imagen;
-import com.egg.appsalud.entidades.ObraSocial;
-import com.egg.appsalud.entidades.Paciente;
+import com.egg.appsalud.entidades.*;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.repositorios.PacienteRepositorio;
 
@@ -47,6 +45,9 @@ public class PacienteServicio implements UserDetailsService {
     @Autowired
     private ObraSocialServicio obraSocialServicio;
 
+    @Autowired
+    private ProfesionalServicio profesionalServicio;
+
     @Transactional
     public void CrearPaciente(MultipartFile archivo, String mail, String password, Integer idObraSocial,
                               String nroObraSocial, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
@@ -64,12 +65,12 @@ public class PacienteServicio implements UserDetailsService {
         paciente.setTelefono(telefono);
         paciente.setRol(Rol.PACIENTE);
         
-        if (idObraSocial != null){
+        if (idObraSocial != null){  // Si cargó un O.S, se la setteo alpaciente.
             ObraSocial obraSocial = obraSocialServicio.getOne(idObraSocial);
             paciente.setObraSocial(obraSocial);
             paciente.setNroObraSocial(nroObraSocial);
         }
-        if(!archivo.isEmpty()) {
+        if(!archivo.isEmpty()) {  // Si cargó una imágen, se la setteo al paciente.
             Imagen imagen = imagenServicio.guardar(archivo);
             paciente.setImagen(imagen);
         }
@@ -91,30 +92,6 @@ public class PacienteServicio implements UserDetailsService {
         return paciente.get();
     }
     
-    private void validar(String mail,String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, long telefono) throws MiException{       
-        if(nombre.isEmpty() || nombre == null){
-            throw new MiException("El nombre no puede ser nulo o estar vacio");
-        }
-        
-        if(password.isEmpty() || password == null){
-            throw new MiException("La contraseña no puede ser nulo o estar vacio");
-        }
-        if(mail.isEmpty() || mail == null){
-            throw new MiException("El correo no puede ser nulo o estar vacio");
-        }
-        if(apellido.isEmpty() || apellido == null){
-            throw new MiException("El apellido no puede ser nulo o estar vacio");
-        }
-        if(dni.isEmpty() || dni == null){
-            throw new MiException("El DNI no puede ser nulo o estar vacio");
-        }
-        if(fechaNacimiento == null){
-            throw new MiException("La fecha de naciemiento no puede ser nulo o estar vacio");
-        }
-        if(telefono == 0){
-            throw new MiException("Debe inicar un telefono valido");
-        }
-    }
 
     @Override
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
@@ -180,12 +157,36 @@ public class PacienteServicio implements UserDetailsService {
         return pacienteRepositorio.getOne(id_paciente);
     }
 
-@Transactional
+    @Transactional
     public void eliminarPaciente(String id_paciente) throws MiException {
         
         pacienteRepositorio.deleteById(id_paciente);
 
     }
 
-    
+    private void validar(String mail,String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, long telefono) throws MiException{
+        if(nombre.isEmpty() || nombre == null){
+            throw new MiException("El nombre no puede ser nulo o estar vacio");
+        }
+
+        if(password.isEmpty() || password == null){
+            throw new MiException("La contraseña no puede ser nulo o estar vacio");
+        }
+        if(mail.isEmpty() || mail == null){
+            throw new MiException("El correo no puede ser nulo o estar vacio");
+        }
+        if(apellido.isEmpty() || apellido == null){
+            throw new MiException("El apellido no puede ser nulo o estar vacio");
+        }
+        if(dni.isEmpty() || dni == null){
+            throw new MiException("El DNI no puede ser nulo o estar vacio");
+        }
+        if(fechaNacimiento == null){
+            throw new MiException("La fecha de naciemiento no puede ser nulo o estar vacio");
+        }
+        if(telefono == 0){
+            throw new MiException("Debe inicar un telefono valido");
+        }
+    }
+
 }

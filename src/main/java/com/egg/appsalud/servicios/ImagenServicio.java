@@ -23,7 +23,7 @@ public class ImagenServicio {
             imagen.setContenido(archivo.getBytes());
             return imagenRepositorio.save(imagen);
         }
-//Todo: lance ioexcception y saque try and catch para foto
+
         return null;
     }
 

@@ -83,6 +83,7 @@ public class ProfesionalServicio {
         return profesionalRepositorio.getOne(idProfesional);
     }
 
+
     private void validar(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento) throws MiException {
 
         if (nombre.isEmpty() || nombre == null) {

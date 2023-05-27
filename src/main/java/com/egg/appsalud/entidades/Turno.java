@@ -28,6 +28,8 @@ public class Turno {
     @Column(nullable = false)
     public EstadoTurno estado;
 
+    public Turno() {}
+
     public Turno(int id, LocalDate fecha, Paciente paciente) {
         this.id = id;
         this.fecha = fecha;
@@ -62,5 +64,21 @@ public class Turno {
 
     public void setEstado(EstadoTurno estado) {
         this.estado = estado;
+    }
+
+    public Profesional getMedico() {
+        return medico;
+    }
+
+    public void setMedico(Profesional medico) {
+        this.medico = medico;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
     }
 }

@@ -7,6 +7,7 @@ package com.egg.appsalud.entidades;
 import org.hibernate.annotations.GenericGenerator;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -35,8 +36,7 @@ public class Paciente extends Usuario implements Serializable{
 //    @Column(nullable = true)
 //    private Imagen img;
 
-    @OneToMany(mappedBy = "paciente") //Usando mappedBy (mappedBy: indica cuál atributo de la entidad Turno es dueña del uno a muchos de forma única) indicas que la relación es unidireccional. Un ‘Paciente’ tiene muchos ‘Turnos’ pero un ‘Turno’ no tiene muchos pacientes.
-    @Column(name = "historial_turnos")
+    @OneToMany(mappedBy = "paciente", fetch = FetchType.LAZY) //Usando mappedBy (mappedBy: indica cuál atributo de la entidad Turno es dueña del uno a muchos de forma única) indicas que la relación es unidireccional. Un ‘Paciente’ tiene muchos ‘Turnos’ pero un ‘Turno’ no tiene muchos pacientes.
     private List<Turno> listaDeTurnos;
 
 //    @OneToOne //Un paciente tiene una historia clínica
@@ -45,6 +45,7 @@ public class Paciente extends Usuario implements Serializable{
 
 
     public Paciente() {
+        this.listaDeTurnos = new ArrayList<Turno>();
     }
 
 
