@@ -30,9 +30,11 @@ public class PacienteControlador {
 
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
+
             @RequestParam String password, @RequestParam String idObraSocial, @RequestParam String nroObraSocial,
             @RequestParam String fechaNacimiento, @RequestParam String dni,
-            @RequestParam Long telefono, ModelMap modelo, MultipartFile archivo) throws IOException {
+            @RequestParam String telefono, ModelMap modelo, MultipartFile archivo) throws IOException {
+
 
         Integer idObraSocialInt = Integer.valueOf(idObraSocial);
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter); //Convierte el String de fechaNacimiento a LocalDate, si pongo directamente tipo LocalDate genera conflicto
@@ -42,7 +44,9 @@ public class PacienteControlador {
             modelo.put("exito", "El paciente fue creado correctamente");
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            return "/registro-paciente.html";
+            List<ObraSocial> obrasSociales = obraSocialServicio.listarObraSocial();
+            modelo.addAttribute("obrasSociales", obrasSociales);//vuelvo a enviar la lista de obrasociales
+            return "registro-paciente.html";
         } catch (IOException e) {
 
             throw new RuntimeException(e);
@@ -96,14 +100,18 @@ public class PacienteControlador {
 
     @PostMapping("/modificar/{id_paciente}")
     public String modificarPaciente(@PathVariable String id_paciente, String mail, String password, String nombre, String apellido,
-            String dni, String fechaNacimiento, long telefono, ModelMap modelo, MultipartFile archivo) {
+
+            String dni, String fechaNacimiento, String telefono, String nroObraSocial, ModelMap modelo, MultipartFile archivo) {
+        
 
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter);
 
         try {
 
-            pacienteServicio.modificarPaciente(archivo, id_paciente, mail, password,
-                    nombre, apellido, dni, fechaNac, telefono);
+            
+            pacienteServicio.modificarPaciente(archivo,id_paciente, mail, password,
+                    nombre, apellido, dni, fechaNac, telefono,nroObraSocial);
+
             modelo.put("exito", "Los datos fueron actualizados correctamente.");
 
         } catch (MiException ex) {

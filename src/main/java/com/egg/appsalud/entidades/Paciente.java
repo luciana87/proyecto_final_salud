@@ -50,7 +50,7 @@ public class Paciente extends Usuario implements Serializable{
 
 
     public Paciente(String mail, String password, String nombre, String apellido, String dni,
-                    LocalDate fechaNacimiento, Long telefono, Imagen imagen, ObraSocial obraSocial,
+                    LocalDate fechaNacimiento, String telefono, Imagen imagen, ObraSocial obraSocial,
                     String nroObraSocial, List<Turno> listaDeTurnos) {
 
         super(mail, password, nombre, apellido, dni, fechaNacimiento, telefono);

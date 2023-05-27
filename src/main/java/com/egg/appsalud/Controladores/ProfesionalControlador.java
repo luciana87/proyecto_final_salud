@@ -42,9 +42,11 @@ public class ProfesionalControlador {
 
     @PostMapping("/registroP")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
+
             @RequestParam String password, @RequestParam String fechaNacimiento, @RequestParam String dni,
-            @RequestParam Long telefono, @RequestParam String matricula, @RequestParam Especialidad especialidad,
+            @RequestParam String telefono, @RequestParam String matricula, @RequestParam String especialidad,
             @RequestParam Double valorConsulta, @RequestParam String descripcionEspecialidad, ModelMap modelo/*, MultipartFile archivo*/) {
+
 
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter); //Convierte el String de fechaNacimiento a LocalDate, si pongo directamente tipo LocalDate genera conflicto
 
@@ -77,8 +79,10 @@ public class ProfesionalControlador {
 
     @PostMapping("/modificar/{id}")
     public String modificarProfesional(@PathVariable String id, String mail, String password, String nombre, String apellido,
-            String dni, String fechaNacimiento, Long telefono, String matricula, Especialidad especialidad,
+
+            String dni, String fechaNacimiento, String telefono, String matricula, Especialidad especialidad,
             Double valorConsulta, String descripcionEspecialidad, ModelMap modelo) {
+
 
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter);
 
