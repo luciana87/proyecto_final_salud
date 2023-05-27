@@ -1,5 +1,7 @@
 package com.egg.appsalud.servicios;
 
+
+import com.egg.appsalud.Enumerativos.Especialidad;
 import com.egg.appsalud.entidades.ObraSocial;
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Profesional;
@@ -19,15 +21,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
+import java.util.Optional;
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
-
 
     @Autowired
     private ProfesionalRepositorio profesionalRepositorio;
@@ -42,21 +43,20 @@ public class UsuarioServicio implements UserDetailsService {
     @Autowired
     private ObraSocialServicio obraSocialServicio;
 
-
     @Override
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
 
         Usuario usuario = pacienteRepositorio.BuscarPorEmail(mail);
 
-        if (usuario == null){
+        if (usuario == null) {
             usuario = profesionalRepositorio.BuscarPorEmail(mail);
         }
 
-        if (usuario != null){
+        if (usuario != null) {
 
             List<GrantedAuthority> permisos = new ArrayList();
 
-            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_"+ usuario.getRol().toString());
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
 
             permisos.add(p);
 
@@ -68,18 +68,17 @@ public class UsuarioServicio implements UserDetailsService {
 
             return new User(usuario.getMail(), usuario.getPassword(), permisos);
 
-        }
-        else{
+        } else {
             return null;
         }
-        
+
     }
     
 //------------------------------------Profesional-----------------------------------
     
     public void CrearProfesional(String mail, String password, String nombre, String apellido,
                                  String dni, LocalDate fechaNacimiento, String telefono, String matricula,
-                                 String especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException{
+                                 Especialidad especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException{
         
         profesionalServicio.crearProfesional(mail, password, nombre, apellido, dni, fechaNacimiento, telefono, matricula, especialidad, Double.NaN, descripcionEspecialidad);
     }
@@ -126,5 +125,6 @@ public class UsuarioServicio implements UserDetailsService {
         return obraSocialServicio.listarObraSocial();
     }
     
+
 
 }

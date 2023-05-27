@@ -7,6 +7,7 @@ package com.egg.appsalud.entidades;
 
 
 import com.egg.appsalud.Enumerativos.Rol;
+
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -39,6 +40,8 @@ public class Usuario {
     @Column(nullable = false)
     private LocalDate fechaNacimiento;
 
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)    
     private Rol rol;
 
@@ -60,6 +63,7 @@ public class Usuario {
         this.fechaNacimiento = fechaNacimiento;
         this.rol = rol;
         this.telefono = telefono;
+        this.rol = rol;
     }
 
 //    public String getId() {
@@ -136,5 +140,4 @@ public class Usuario {
         this.telefono = telefono;
     }
 
-    
 }

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.egg.appsalud.servicios;
+
 import com.egg.appsalud.Enumerativos.Rol;
 import com.egg.appsalud.entidades.Imagen;
 import com.egg.appsalud.entidades.ObraSocial;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -24,7 +27,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -39,6 +41,7 @@ import javax.servlet.http.HttpSession;
  */
 @Service
 public class PacienteServicio implements UserDetailsService {
+
     @Autowired
     private PacienteRepositorio pacienteRepositorio;
 
@@ -49,10 +52,11 @@ public class PacienteServicio implements UserDetailsService {
 
     @Transactional
     public void CrearPaciente(MultipartFile archivo, String mail, String password, Integer idObraSocial,
-                              String nroObraSocial, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
-                              String telefono) throws MiException, IOException {
-
+            String nroObraSocial, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
+            String telefono) throws MiException, IOException {
+                              
         validar(mail, password, nombre, apellido, dni, fechaNacimiento,telefono,nroObraSocial);
+
 
         Paciente paciente = new Paciente();
         paciente.setNombre(nombre);
@@ -63,8 +67,8 @@ public class PacienteServicio implements UserDetailsService {
         paciente.setPassword(new BCryptPasswordEncoder().encode(password));
         paciente.setTelefono(telefono);
         paciente.setRol(Rol.PACIENTE);
-        
-        if (idObraSocial != null){
+
+       if (idObraSocial != null){
             ObraSocial obraSocial = obraSocialServicio.getOne(idObraSocial);
             paciente.setObraSocial(obraSocial);
             paciente.setNroObraSocial(nroObraSocial);
@@ -153,7 +157,6 @@ public class PacienteServicio implements UserDetailsService {
     
     }
 
-
     @Transactional
     public void modificarPaciente(MultipartFile archivo, String id_paciente, String mail, String password, String nombre,
             String apellido, String dni, LocalDate fechaNacimiento, String telefono, String nroObraSocial) throws MiException, IOException {
@@ -174,7 +177,7 @@ public class PacienteServicio implements UserDetailsService {
             paciente.setTelefono(telefono);
 
             String idImagen = null;
-            if (paciente.getImagen() != null){
+            if (paciente.getImagen() != null) {
                 idImagen = paciente.getImagen().getId();
             }
             Imagen imagen = imagenServicio.actualizarImagen(archivo, idImagen);
@@ -189,7 +192,8 @@ public class PacienteServicio implements UserDetailsService {
         return pacienteRepositorio.getOne(id_paciente);
     }
 
-@Transactional
+    
+    @Transactional
     public void eliminarPaciente(String id_paciente) throws MiException {
         
         pacienteRepositorio.deleteById(id_paciente);

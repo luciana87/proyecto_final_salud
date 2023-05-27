@@ -5,10 +5,12 @@
  */
 package com.egg.appsalud.Controladores;
 
+import com.egg.appsalud.Enumerativos.Especialidad;
 import com.egg.appsalud.entidades.ObraSocial;
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.servicios.UsuarioServicio;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -51,6 +53,17 @@ public class AdminControlado {
     }
     
 //--------------------------------Profesional------------------------------------
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @GetMapping("/dashboard/crearProfesional")
+    public String crearProfesional(){
+        
+        return "registro-profesional.html";
+    }
+    
+    
+    
+    
+    
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/dashboard/listaProfesionales")
     public String listarProfesional(ModelMap modelo){
