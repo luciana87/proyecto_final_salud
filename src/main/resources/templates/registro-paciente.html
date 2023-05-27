@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/registro.css">
+    <link rel="stylesheet" type="text/css" href="/css/registro.css">
     <title>Registro Paciente</title>
 </head>
 <body>
 <div class="container" id="advanced-search-form">
     <h2 class="text-center header">Registro Paciente</h2>
-    <form action="/paciente/registro" method="POST">
+    <form action="/paciente/registro" method="POST" enctype="multipart/form-data" >
 
         <div th:if="${error != null}" class="card text-white bg-danger mb-3" >
             <div class="card-body">
@@ -26,6 +26,9 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <input type="file" class="form-control" name="archivo" >
+        </div>
         <div class="form-group">
             <label for="first-name">Nombre</label>
             <input type="text" class="form-control" name="nombre" placeholder="" id="first-name">

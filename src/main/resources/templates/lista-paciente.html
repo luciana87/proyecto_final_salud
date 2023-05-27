@@ -41,7 +41,7 @@
       <td th:text="${paciente.obraSocial.nombre}"></td>
       <td th:text="${paciente.nroObraSocial}"></td>
       <td>
-        <a th:href= "@{/paciente/modificar/__${paciente.id}__}"><i class="fas fa-feather-alt"></i> Modificar </a>
+        <a th:href= "@{/paciente/modificar/__${paciente.id}__}"><i class="fas fa-feather-alt"></i> Modificar </a> <!-- Ver de cambiar ruta th:hre="@{/paciente/perfil}" o @{/perfil} -->
       </td>
       <td>
         <a th:href= "@{/paciente/eliminar/__${paciente.id}__}"><i class="fas fa-feather-alt"></i> Eliminar </a>

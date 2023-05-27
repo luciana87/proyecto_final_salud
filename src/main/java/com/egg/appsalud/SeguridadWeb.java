@@ -31,8 +31,7 @@ public class SeguridadWeb extends  WebSecurityConfigurerAdapter{
         auth.userDetailsService(usuarioServicio)
                 .passwordEncoder(new BCryptPasswordEncoder());
     }
-    
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.csrf().disable()
@@ -51,12 +50,7 @@ public class SeguridadWeb extends  WebSecurityConfigurerAdapter{
                     .logoutUrl("/logout")
                     .logoutSuccessUrl("/")
                     .permitAll();
-                        
-                    
-                
-                
-                
-                
+              
     }
     
 }

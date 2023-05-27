@@ -7,9 +7,13 @@ package com.egg.appsalud.entidades;
 
 
 import com.egg.appsalud.Enumerativos.Rol;
+
+import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDate;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 /**
  *
@@ -21,7 +25,7 @@ public class Usuario {
     @Column(nullable = false)
     private String mail;
 
-    @Column(nullable = false, length = 40)
+    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false, length = 30)
@@ -38,6 +42,7 @@ public class Usuario {
 
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)    
     private Rol rol;
 
     @Column(nullable = false)
@@ -49,14 +54,40 @@ public class Usuario {
 
 
     public Usuario(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, Long telefono) {
+
         this.mail = mail;
         this.password = password;
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.fechaNacimiento = fechaNacimiento;
+        this.rol = rol;
         this.telefono = telefono;
         this.rol = rol;
+    }
+
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public void setId(String id) {
+//        this.id = id;
+//    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getNombre() {
@@ -91,30 +122,6 @@ public class Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Long getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(Long telefono) {
-        this.telefono = telefono;
-    }
-
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public Rol getRol() {
         return rol;
@@ -123,7 +130,14 @@ public class Usuario {
     public void setRol(Rol rol) {
         this.rol = rol;
     }
-    
-    
-    
+
+    public long getTelefono() {
+
+        return telefono;
+    }
+
+    public void setTelefono(Long telefono) {
+        this.telefono = telefono;
+    }
+
 }

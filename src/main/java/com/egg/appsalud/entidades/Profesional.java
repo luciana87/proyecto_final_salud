@@ -2,15 +2,17 @@ package com.egg.appsalud.entidades;
 
 import com.egg.appsalud.Enumerativos.Especialidad;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
-@Table (name = "profesional")
+@Table(name = "profesional")
 public class Profesional extends Usuario implements Serializable {
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -32,7 +34,7 @@ public class Profesional extends Usuario implements Serializable {
     @Column(name = "descripcion_especialidad", nullable = false)
     private String descripcionEspecialidad;
 
-/*
+    /*
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "profesional_obra_social",
@@ -43,17 +45,17 @@ public class Profesional extends Usuario implements Serializable {
     @OneToMany(mappedBy = "profesional")
     @Column(name = "turnos_asignados")
     private List<Turno> turnosAsignados;
-*/
+     */
 
-/*
+ /*
     @OneToMany (mappedBy = "profesional")
     private List<NotaMedica> notas;
 
- */
+     */
     @OneToMany(mappedBy = "profesional")
-    @Column(name = "jornada_laboral")
+    @Fetch(FetchMode.JOIN)
     private List<JornadaLaboral> jornadaLaboral;
-    
+
     public Profesional() {
     }
 
@@ -64,6 +66,14 @@ public class Profesional extends Usuario implements Serializable {
         this.reputacion = reputacion;
         this.valorConsulta = valorConsulta;
         this.descripcionEspecialidad = descripcionEspecialidad;
+    }
+
+    public void setJornadaLaboral(List<JornadaLaboral> jornadaLaboral) {
+        this.jornadaLaboral = jornadaLaboral;
+    }
+
+    public List<JornadaLaboral> getJornadaLaboral() {
+        return jornadaLaboral;
     }
 
     public String getId() {

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../static/css/registro.css">
+        <title>Panel Administrador</title>
+    </head>
+    <body background="../static/img/fregistro.jpg">
+        
+        <style>
+            /* Estilos CSS personalizados */
+           
+        
+        .image-container{
+            position: fixed;
+            top: 0;
+            right: 15%;
+            border: 3px solid red;
+            margin-top: 10px
+                }
+            
+        .image-container img {
+            width: 200px;
+            ;
+            }
+                
+        body {
+            margin-top: 20px;
+              font-family: 'Arial Narrow Bold', sans-serif;
+              padding: 20px;
+              background-size: 100%;
+              background-repeat: no-repeat;
+              background-position: center;
+              
+              
+            }
+
+            .container{
+                margin-top: 100px;
+            }            
+            .user-list {
+              list-style: none;
+              padding: 0;
+              margin-bottom: 20px;
+            }
+            
+            .user-item {
+              display: flex;
+              align-items: center;
+              margin-bottom: 10px;
+            }
+            
+            .user-item button {
+              margin-left: 10px;
+            }
+            
+            .add-user-form input {
+              margin-bottom: 10px;
+            }
+
+            text-center header{
+                
+            }
+
+            .form-group {
+            margin-bottom: 15px; /* Margen inferior */
+        }
+        
+        .form-control,
+        .form-select {
+            display: block;
+            width: 100%; 
+            padding: 8px 12px; 
+            font-size: 14px; 
+            line-height: 1.5; 
+            color: #495057; 
+            background-color: #fff; 
+            background-clip: padding-box; 
+            border: 1px solid #ced4da; 
+            border-radius: 4px; 
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; 
+            
+        }
+        
+        .form-select {
+            height: calc(2.25rem + 2px); 
+        }
+        
+       
+    
+          </style>
+          <div class="image-container">
+          <img src="../static/img/logo2.jpg" alt="" ></div>
+          
+
+        <div class="container" id="advanced-search-form">
+            <h2 class="text-center header"  style="font-style: https://fonts.google.com/specimen/Candal?query=candal; ,color: rgb(12, 58, 58);">Panel Administrador</h2>
+            <form action="/paciente/registro" method="POST">
+                <div class="form-group">
+                    <label for="first-name"></label>
+                    <input type="text" class="form-control" name="nombre" placeholder="Nombre" id="first-name">
+                </div>
+                <div class="form-group">
+                    <label for="surname"></label>
+                    <input type="text" class="form-control" name="apellido" placeholder="Apellido" id="surname">
+                </div>
+                
+                <div class="form-group">
+                    <label for="dni"></label>
+                    <input type="text" class="form-control" name="dni" placeholder="DNI" id="dni">
+                </div>
+
+                <select class="form-select custom-select custom-select-sm">
+                    <option selected>"Rol (paciente o profesional)"</option>
+                    <option value="Profesional">Profesional</option>
+                    <option value="Paciente">Paciente</option>
+                </select>
+                
+                <div class="clearfix"></div>
+                <button  onclick="mostrarMensaje()" type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>
+                    Registrar</button>
+                <button onclick="mostrarMensaje2()" type="submit" class="btn btn-danger btn-lg btn-responsive" id="search"> <span class=""></span>
+                        Eliminar</button>
+        </form>
+        </div>
+          
+          
+          
+          
+          
+    </body>
+</html>
+
+
+<script>
+    // Lógica JavaScript para interactuar con los elementos de la página
+    const userList = document.querySelector('.user-list');
+    const addUserForm = document.querySelector('.add-user-form');
+
+    // Función para agregar un nuevo usuario
+    function mostrarMensaje() {
+        alert("¡El elemento ha sido agregado!");
+    }
+
+    function mostrarMensaje2() {
+        alert("¡El elemento ha sido eliminado!");
+    }
+
+    const addUser = (event) => {
+        event.preventDefault();
+
+        const nameInput = addUserForm.querySelector('input[placeholder="Nombre"]');
+        const roleInput = addUserForm.querySelector('input[placeholder="Rol (paciente o profesional)"]');
+
+        const newUserItem = document.createElement('li');
+        newUserItem.className = 'user-item';
+
+        const userName = document.createElement('span');
+        userName.textContent = nameInput.value;
+
+        const userRole = document.createElement('span');
+        userRole.textContent = roleInput.value;
+
+        const removeUserBtn = document.createElement('button');
+        removeUserBtn.className = 'btn btn-danger remove-user-btn';
+        removeUserBtn.textContent = 'Dar de baja';
+        removeUserBtn.addEventListener('click', removeUser);
+
+        newUserItem.appendChild(userName);
+        newUserItem.appendChild(userRole);
+        newUserItem.appendChild(removeUserBtn);
+
+        userList.appendChild(newUserItem);
+
+        nameInput.value = '';
+        roleInput.value = '';
+    };
+
+    // Función para dar de baja un usuario
+    const removeUser = (event) => {
+        const userItem = event.target.closest('.user-item');
+        userList.removeChild(userItem);
+    };
+
+    addUserForm.addEventListener('submit', addUser);
+</script>
