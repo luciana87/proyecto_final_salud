@@ -158,6 +158,20 @@
                                 <option value="3">Dal Ponce</option>
                                 <option value="4">Luci Chaparro</option>
                             </select>
+                           <select class="custom-select custom-select-sm" style=" margin-left: 0px; width: 150px; margin-top: 10%;">
+                                <option selected>Fecha</option>
+                                <option value="1"></option>
+                                <option value="2"></option>
+                                <option value="3"></option>
+                                <option value="4"></option>
+                            </select>
+                            <select class="custom-select custom-select-sm" style=" margin-left: 40px; width: 150px;margin-top: 10%;">
+                                <option selected>Horario</option>
+                                <option value="1"></option>
+                                <option value="2"></option>
+                                <option value="3"></option>
+                                <option value="4"></option>
+                            </select>
                         </div>
                         <div class="row">
                         </div>
@@ -169,8 +183,9 @@
                     </div>
                     <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
                         <h3 class="mb-4">Modificar Turno</h3>
-                        <div class="row">
-                            <table class="table">
+                        <div class="row">  
+                                <button onclick="window.location.href='../templates/lista-paciente.html'" type="button" class="btn btn-warning btn-lg btn-responsive" id="search">Modificar</button>                          
+<!--                            <table class="table">
                                 <thead>
                                     <tr>
                                         <th scope="col">Fecha</th>
@@ -199,13 +214,13 @@
                                         <td></td>
                                     </tr>
                                 </tbody>
-                            </table>
+                            </table>-->
 
                         </div>
-                        <div>
-                            <button class="btn btn-primary">Cargar</button>
+                        <!--<div>
+                            <button class="btn btn-primary">Modificar</button>
                             <button class="btn btn-light">Cancelar</button>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="tab-pane fade" id="application" role="tabpanel" aria-labelledby="application-tab">
                         <h3 class="mb-4">Application Settings</h3>
