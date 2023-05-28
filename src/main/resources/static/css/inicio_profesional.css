@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+
+body {
+    /* background: #8fc8df; */
+    /* font-family: "Roboto", sans-serif; */
+    background: url(../img/fregistro.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+
+}
+
+.container {
+    margin: 0 auto;
+    width: 1200px;
+    height: 700px;
+    border-radius: 7px;
+    background-color: RGBA(13, 70, 83, .62);
+}
+
+.profile-tab-nav {
+    min-width: 300px;
+}
+
+.tab-content {
+    width: 1200px;
+    height: 500px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+
+.nav-pills a.nav-link {
+    padding: 15px 20px;
+    border-bottom: 1px solid #3a3636;
+    border-radius: 0;
+    color: #000000;
+}
+
+.nav-pills a.nav-link i {
+    width: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #4fc0d4;
+    color: #333;
+}
+
+tr:hover {
+    background-color: #9ce9f6a2;
+}
+
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 5px; 
+}
+
+.acciones a {
+    padding: 4px 6px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 4px;
+}
+
+.acciones a:hover {
+    background-color: #0056b3;
+}
