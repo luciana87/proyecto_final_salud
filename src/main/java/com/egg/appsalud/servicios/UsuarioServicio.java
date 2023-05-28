@@ -78,7 +78,7 @@ public class UsuarioServicio implements UserDetailsService {
     
     public void CrearProfesional(String mail, String password, String nombre, String apellido,
                                  String dni, LocalDate fechaNacimiento, String telefono, String matricula,
-                                 Especialidad especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException{
+                                 String especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException{
         
         profesionalServicio.crearProfesional(mail, password, nombre, apellido, dni, fechaNacimiento, telefono, matricula, especialidad, Double.NaN, descripcionEspecialidad);
     }
