@@ -44,7 +44,7 @@
                         <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
                             <h3 class="mb-4 text-center">Sus Datos</h3>
                             <div>
-                                <form method="POST">
+                                <form method="POST" th:action="@{/profesional/modificar/__${session.usuariosession.id}__}">
                                     <div class="row">
                                         <input hidden th:value="${id}" name="id">
                                         <div class="col-md-6">
@@ -143,7 +143,7 @@
                             <div>
                                 <div class="row justify-content-center">
                                     <div class="col-sm-6">
-                                        <form class="text-center p-3" method="post">
+                                        <form class="text-center p-3" method="POST" th:action="@{/profesional/modificar/__${session.usuariosession.id}__}">
                                             <div class="form-group">
                                                 <label for="inputPassword5" class="form-label">Contraseña
                                                     Actual</label>
@@ -179,12 +179,12 @@
                                             </tr>
                                         </thead>
                                         <tbody >
-                                            <tr>
-                                                <td th:text></td>
-                                                <td th:text</td>
+                                            <tr th:each="paciente : ${pacientes}">
+                                                <td th:text="${paciente.nombre}"></td>
+                                                <td th:text="${paciente.apellido}"</td>
                                                 <td>
-                                                    <a th:href>Modificar</a>
-                                                    <a th:href>Eliminar</a>
+                                                    <a class="" th:href= "@{/paciente/modificar/__${paciente.id}__}">Modificar</a>
+                                                    <a class="p-2" th:href= "@{/paciente/eliminar/__${paciente.id}__}">Eliminar</a>
                                                 </td> 
                                             </tr>
                                         </tbody>
