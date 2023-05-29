@@ -63,8 +63,13 @@ textarea {
 
 .logo {
   display: block;
-  margin: 20px auto;
-  width: 100px;
+  margin: 0 auto;
+  width: 290px;
+  height: 100px;
+}
+
+.img-logo {
+  width: 290px;
   height: 100px;
 }
 
@@ -109,6 +114,16 @@ button:hover{
 
 @media screen and (max-width: 600px) {
   .form-03-main {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .logo {
+    width: 100%;
+  }
+
+  .img-logo {
     width: 100%;
   }
 }

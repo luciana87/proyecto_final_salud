@@ -61,9 +61,8 @@ public class Usuario {
         this.apellido = apellido;
         this.dni = dni;
         this.fechaNacimiento = fechaNacimiento;
-        this.rol = rol;
         this.telefono = telefono;
-        this.rol = rol;
+        
     }
 
 //    public String getId() {
