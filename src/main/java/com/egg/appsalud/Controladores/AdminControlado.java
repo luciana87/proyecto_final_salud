@@ -31,7 +31,7 @@ public class AdminControlado {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/dashboard")
     public String panelAdministrativo(){
-        return "admin_prueba.html";
+        return "admin.html";
     }
     
     
@@ -84,6 +84,6 @@ public class AdminControlado {
     public String listarObraSociales(ModelMap modelo){
         List<ObraSocial> ObraSociales = usuarioServicio.listarObraSociales();
         modelo.addAttribute("obraSociales", ObraSociales);
-        return "lista-obraSocial";
+        return "lista-osocialAdmin.html";
     }
 }

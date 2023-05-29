@@ -30,7 +30,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="paciente : ${pacientes}">
+                        <tr th:each="paciente : ${/dashboard/listaObraSociales}">
                             <td th:text="${paciente.nombre}"></td>
                             <td th:text="${paciente.apellido}"></td>
                             <td th:text="${paciente.dni}"></td>

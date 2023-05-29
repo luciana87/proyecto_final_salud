@@ -169,6 +169,10 @@ public class ProfesionalServicio {
             jornadaServicio.eliminarJornada(profesional, id_jornada);
         }
     }
+
+    void crearProfesional(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, String telefono, String matricula, Especialidad especialidad, double NaN, String descripcionEspecialidad) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     
