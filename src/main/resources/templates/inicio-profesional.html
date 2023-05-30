@@ -44,7 +44,7 @@
                         <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
                             <h3 class="mb-4 text-center">Sus Datos</h3>
                             <div>
-                                <form method="POST" th:action="@{/profesional/modificar/__${session.usuariosession.id}__}">
+                                <form th:action="@{/profesional/inicio/__${session.usuariosession.id}__}" method="POST">
                                     <div class="row">
                                         <input hidden th:value="${id}" name="id">
                                         <div class="col-md-6">

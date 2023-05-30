@@ -8,12 +8,12 @@
     <link rel="stylesheet" type="text/css" href="../css/registro.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title style="text-align: center;">Panel Administrador</title>
-    <h1 style="text-align: center,">Panel Administrador</h1>
+    
 </head>
 
 <body background="../static/img/fregistro.jpg">
 
-    <style>
+   <style>
         /* Estilos CSS personalizados */
 
         h1 {
@@ -104,9 +104,8 @@
         }
     </style>
 
-<!------------------------------------------------------------------------------------------------------------------------------------->
 
-    <body>
+
         <h2>Selecciona una opción:</h2>
         <select id="opcion" onchange="mostrarFormulario()">
             <option value="">Seleccione una opción</option>
@@ -119,35 +118,34 @@
         <div id="formularios">
             <form id="formulario1" style="display: none;">
                 <h3>Profesional</h3>
-                <!-- Contenido del PROFESIONAL -->
-                <label for="first-name"></label>
-                <input type="text" class="form-control" name="nombre" placeholder="Nombre" id="first-name" th:
-                    text="${profesional.nombre}">
+                 Contenido del PROFESIONAL 
+                <label ></label>
+                <input type="text" class="form-control" name="nombre" placeholder="Nombre" id="first-name" 
+                    >
 
-                <label for="surname"></label>
+                <label></label>
                 <input type="text" class="form-control" name="apellido" placeholder="Apellido" id="apellido"
-                    th:text="*{profesional.apellido}">    
+                   >    
                 
-                <label for="Email"></label>
+                <label ></label>
                 <input type="text" class="form-control" name="Email" placeholder="Email" id="Email"
-                    th:text="*{profesional.email}">
+                  >
                     
-                <label for="Celular"></label>
+                <label ></label>
                 <input type="text" class="form-control" name="Celular" placeholder="Celular" id="Celular"
-                    th:text="*{profesional.celular}">  
+                    >  
 
                
-                <label for="dni"></label>
-                <input type="text" class="form-control" name="dni" placeholder="DNI" id="dni"
-                    th:text="*{profesional.dni}">
+                <label></label>
+                <input type="text" class="form-control" name="dni" placeholder="DNI" id="dni">
 
-                <label for="Fecha-nac"></label>
-                <input type="date" class="form-control" name="Fecha-nac" value="" id="Email"
-                    th:text="*{profesional.email}">
+                <label ></label>
+                <input type="date" class="form-control" name="Fecha-nac"  id="Email"
+                   >
                         
-            
+   
 
-                <label for="Obra Social"></label>
+                <label></label>
                     <select class="custom-select custom-select-lg mb-3"
                     id="obsocial">
                      <option selected>Obra Social</option>
@@ -159,7 +157,7 @@
                 </select>
 
                 <select class="form-select custom-select custom-select-lg" name="Especialiad"
-                    th:field="*{profesional.especialidad}">
+                   >
                     <option selected>Tipo de Especialiad</option>
                     <option value="Clinica">Clinica</option>
                     <option value="Pediatria">Pediatria</option>
@@ -169,49 +167,48 @@
 
                 <div class="clearfix">
                     <button onclick="mostrarMensaje()" type="submit" class="btn btn-info btn-lg btn-responsive"
-                        id="search"> <span class=""></span>
+                        id="search"> <span></span>
                         Crear</button>
                      
                     <button onclick="window.location.href='../templates/lista-profesionalAdmin.html'" type="button" class="btn btn-warning btn-lg btn-responsive"
-                        id="search"> <span class=""></span>
+                        id="search"> <span></span>
                         Listar</button> 
-                   <!-- <button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive"
-                        id="search"> <span class=""></span>
-                        Eliminar</button>  -->
+                    <button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive"
+                        id="search"> <span></span>
+                        Eliminar</button>  
                 </div>
             </form>
 
             <form id="formulario2" style="display: none;">
                 <h3>Paciente</h3>
-                <!-- Contenido del PACIENTES -->
-                <label for="first-name"></label>
-                <input type="text" class="form-control" name="nombre" placeholder="Nombre" id="first-name" th:
-                    text="${profesional.nombre}">
+                 Contenido del PACIENTES 
+                <label></label>
+                <input type="text" class="form-control" name="nombre" placeholder="Nombre" id="first-name" >
 
-                <label for="surname"></label>
+                <label></label>
                 <input type="text" class="form-control" name="apellido" placeholder="Apellido" id="apellido"
-                    th:text="*{profesional.apellido}">
+                    >
 
-                <label for="Email"></label>
+                <label></label>
                 <input type="text" class="form-control" name="Email" placeholder="Email" id="Email"
-                    th:text="*{profesional.email}">
+                   >
                 
-<<<<<<< HEAD
-                <label for="Celular"></label>
+
+                <label></label>
                 <input type="text" class="form-control" name="Celular" placeholder="Celular" id="Celular"
-                     th:text="*{profesional.celular}">    
+                     >    
                 
-                 <label for="dni"></label>
+                 <label></label>
                  <input type="text" class="form-control" name="dni" placeholder="DNI" id="dni"
-                     th:text="*{profesional.dni}">
+                    >
                 
-                <label for="Fecha-nac"></label>
+                <label></label>
                     <input type="date" class="form-control" name="Fecha-nac" value="" id="Email"
-                        th:text="*{profesional.email}">
+                       >
                         
-                <label for="N° Obra Social"></label>
-                    <input type="text" class="form-control" name="NdeObrasocial" name="NdeObrasocial" placeholder="N° Obra Social" id="NdeObrasocial"
-                    th:text="*{profesional.NdeObrasocial}">
+                <label ></label>
+                    <input type="text" class="form-control" name="NdeObrasocial"  placeholder="N° Obra Social" id="NdeObrasocial"
+                    >
 
                     <label for="Obra Social"></label>
                         <select class="custom-select custom-select-lg mb-3"
@@ -227,39 +224,39 @@
                                     
                 <div class="clearfix">
                     <button onclick="mostrarMensaje()" type="submit" class="btn btn-info btn-lg btn-responsive"
-                        id="search"> <span class=""></span>
+                        id="search"> <span></span>
                         Crear</button>
-                        <!-- Dirige a la LISTA PACIENTES-->
+                         Dirige a la LISTA PACIENTES
                       
                          <button onclick="window.location.href='../templates/lista-pacienteAdmin.html'" type="button" class="btn btn-warning btn-lg btn-responsive" id="search">
-                                <span class=""></span>
+                                <span></span>
                                 Listar
                          </button>
                            
                                    
 
-                  <!--  <button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive"
-                        id="search"> <span class=""></span>
-                        Eliminar</button> -->
+                    <button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive"
+                        id="search"> <span></span>
+                        Eliminar</button> 
                 </div>
             </form>
 
             <form id="formulario3" style="display: none;">
                 <h3>Obra social</h3>
-                <!-- Contenido del OBRA SOCIAL -->
-                <label for="first-name"></label>
+                 Contenido del OBRA SOCIAL 
+                <label></label>
                 <input type="text" class="form-control" name="nombre" placeholder="Nombre de Obra Social"
-                    id="first-name" th: text="${profesional.nombre}">
+                    id="first-name" >
                 <div class="clearfix">
                     <button onclick="mostrarMensaje()" type="submit" class="btn btn-info btn-lg btn-responsive"
-                        id="search"> <span class=""></span>
+                        id="search"> <span></span>
                         Crear</button>
                     <button onclick="window.location.href='../templates/lista-osocialAdmin.html'" type="button" class="btn btn-warning btn-lg btn-responsive"
-                        id="search"> <span class=""></span>
+                        id="search"> <span></span>
                         Listar</button>
-                    <!--<button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive"
-                        id="search"> <span class=""></span>
-                        Eliminar</button>-->
+                    <button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive"
+                        id="search"> <span></span>
+                        Eliminar</button>
                 </div>
             </form>
 
@@ -268,7 +265,7 @@
 
 
 
-<!--Javascript----------------------------------------------------------------------------------------------------------->
+
         <script>
             function mostrarFormulario() {
                 var opcionSeleccionada = document.getElementById("opcion").value;
@@ -298,11 +295,11 @@
 
 
         </script>
-=======
+
                 <div class="clearfix"></div>
-                <button  onclick="mostrarMensaje()" type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>
+                <button  onclick="mostrarMensaje()" type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span></span>
                     Registrar</button>
-                <button onclick="mostrarMensaje2()" type="submit" class="btn btn-danger btn-lg btn-responsive" id="search"> <span class=""></span>
+                <button onclick="mostrarMensaje2()" type="submit" class="btn btn-danger btn-lg btn-responsive" id="search"> <span></span>
                         Eliminar</button>
         </form>
         </div>
@@ -311,12 +308,10 @@
           
           
           
->>>>>>> develop
+
     </body>
 
-<<<<<<< HEAD
-</html>
-=======
+
 
 <script>
     // Lógica JavaScript para interactuar con los elementos de la página
@@ -370,4 +365,5 @@
 
     addUserForm.addEventListener('submit', addUser);
 </script>
->>>>>>> develop
+
+</html>
