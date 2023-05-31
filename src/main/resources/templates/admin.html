@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../css/registro.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title style="text-align: center;">Panel Administrador</title>
-    <h1 style="text-align: center,">Panel Administrador</h1>
+    <h1 style="text-align: center">Panel Administrador</h1>
 </head>
 
 <body background="../static/img/fregistro.jpg">
@@ -115,11 +115,11 @@
             <option value="opcion3">Obra social</option>
         </select>
         
-
+<!--
         <div id="formularios">
             <form action="#" th:action="@{/admin/dashboard}" method="post" id="formulario1" style="display: none;">
                 <h3>Profesional</h3>
-                <!-- Contenido del PROFESIONAL -->
+                 Contenido del PROFESIONAL 
                 <label for="first-name"></label>
                 <input type="text" class="form-control" name="nombre" placeholder="Nombre" id="first-name" th:
                     >
@@ -149,7 +149,7 @@
 
                 <label for="Obra Social"></label>
                     <select class="custom-select custom-select-lg mb-3"
-                    id="obsocial"  ><!--FALTA THYMELEAF a OBRA SOCIAL DEL MEDICO-->
+                    id="obsocial"  >        FALTA THYMELEAF a OBRA SOCIAL DEL MEDICO
                      <option selected>Obra Social</option>
                     <option value="1">OSDE</option>
                     <option value="2">Medicus</option>
@@ -167,23 +167,25 @@
                     <option value="Ginecología">Ginecología</option>
                 </select>
 
-                <div class="clearfix">
-                    <button th:href = "@{admin/dashboard/crearProfesional}" onclick="mostrarMensaje()" type="button" class="btn btn-info btn-lg btn-responsive"
-                        id="search"> <span class=""></span>
-                        Crear</button>
-                        
-                    <button th:href = "@{admin/dashboard/listaProfesionales}" type="button" class="btn btn-warning btn-lg btn-responsive"
-                        id="search"> <span class=""></span>
-                        Listar</button> 
-                   <!-- <button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive"
-                        id="search"> <span class=""></span>
-                        Eliminar</button>  -->
-                </div>
-            </form>
+                
+            </form>-->
 
-            <form action="#" th:action="@{/admin}" method="post" id="formulario2" style="display: none;">
+            <div id="bot1" class="clearfix">
+                <button th:href = "@{admin/dashboard/crearProfesional}" onclick="mostrarMensaje()" type="button" class="btn btn-info btn-lg btn-responsive"
+                    id="search"> <span class=""></span>
+                    Crear</button>
+                    
+                <button th:href = "@{admin/dashboard/listaProfesionales}" type="button" class="btn btn-warning btn-lg btn-responsive"
+                    id="search"> <span class=""></span>
+                    Listar</button> 
+               <!-- <button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive"
+                    id="search"> <span class=""></span>
+                    Eliminar</button>  -->
+            </div>
+
+            <!--<form action="#" th:action="@{/admin}" method="post" id="formulario2" style="display: none;">
                 <h3>Paciente</h3>
-                <!-- Contenido del PACIENTES -->
+                 Contenido del PACIENTES 
                 <label for="first-name"></label>
                 <input type="text" class="form-control" name="nombre" placeholder="Nombre" id="first-name" th:
                     >
@@ -225,43 +227,48 @@
 
               
                 
-                <div class="clearfix">
-                    <button th:href = "@{admin/dashboard/crearPaciente}"  onclick="mostrarMensaje()" type="button" class="btn btn-info btn-lg btn-responsive"
-                        id="search"> <span class=""></span>
-                        Crear</button>
-                        <!-- Dirige a la LISTA PACIENTES-->
-                      
-                         <button th:href = "@{admin/dashboard/listaPacientes}"   type="button" class="btn btn-warning btn-lg btn-responsive" id="search">
-                                <span class=""></span>
-                                Listar
-                         </button>
-                         
-                                   
+               
+            </form>-->
 
-                  <!--  <button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive"
-                        id="search"> <span class=""></span>
-                        Eliminar</button> -->
-                </div>
-            </form>
+            <div id="bot2" class="clearfix">
+                <button th:href = "@{admin/dashboard/crearPaciente}"  onclick="mostrarMensaje()" type="button" class="btn btn-info btn-lg btn-responsive"
+                    id="search"> <span class=""></span>
+                    Crear</button>
+                    <!-- Dirige a la LISTA PACIENTES-->
+                  
+                     <button th:href = "@{admin/dashboard/listaPacientes}"   type="button" class="btn btn-warning btn-lg btn-responsive" id="search">
+                            <span class=""></span>
+                            Listar
+                     </button>
+                     
+                               
 
-            <form id="formulario3" style="display: none;">
+              <!--  <button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive"
+                    id="search"> <span class=""></span>
+                    Eliminar</button> -->
+            </div>
+
+           <!-- <form id="formulario3" style="display: none;">
                 <h3>Obra social</h3>
-                <!-- Contenido del OBRA SOCIAL -->
+                 Contenido del OBRA SOCIAL 
                 <label for="first-name"></label>
                 <input type="text" class="form-control" name="nombre" placeholder="Nombre de Obra Social"
                     id="first-name" th: text="${profesional.nombre}">
-                <div class="clearfix">
-                    <button th:href = "@{admin/dashboard/CrearObraSocial}" onclick="mostrarMensaje()" type="button" class="btn btn-info btn-lg btn-responsive"
-                        id="search"> <span class=""></span>
-                        Crear</button>
-                    <button th:href = "@{admin/dashboard/listaObraSociales}" type="button" class="btn btn-warning btn-lg btn-responsive"
-                        id="search"> <span class=""></span>
-                        Listar</button>
-                    <!--<button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive"
-                        id="search"> <span class=""></span>
-                        Eliminar</button>-->
-                </div>
-            </form>
+                
+                
+                   
+            </form>-->
+            <div id="bot3" class="clearfix">
+                <button th:href = "@{admin/dashboard/CrearObraSocial}" onclick="mostrarMensaje()" type="button" class="btn btn-info btn-lg btn-responsive"
+                    id="search"> <span class=""></span>
+                    Crear</button>
+                <button th:href = "@{admin/dashboard/listaObraSociales}" type="button" class="btn btn-warning btn-lg btn-responsive"
+                    id="search"> <span class=""></span>
+                    Listar</button>
+                <!--<button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive"
+                    id="search"> <span class=""></span>
+                    Eliminar</button>-->
+            </div>
 
         </div>
 
@@ -271,25 +278,30 @@
 <!--Javascript----------------------------------------------------------------------------------------------------------->
         <script>
             function mostrarFormulario() {
-                var opcionSeleccionada = document.getElementById("opcion").value;
-                var formularios = document.getElementById("formularios").getElementsByTagName("form");
+    var opcionSeleccionada = document.getElementById("opcion").value;
 
-                // Oculta todos los formularios
-                for (var i = 0; i < formularios.length; i++) {
-                    formularios[i].style.display = "none";
-                }
+    // Ocultar todos los botones
+    document.getElementById("bot1").style.display = "none";
+    document.getElementById("bot2").style.display = "none";
+    document.getElementById("bot3").style.display = "none";
 
-                // Muestra el formulario correspondiente a la opción seleccionada
-                if (opcionSeleccionada === "opcion1") {
-                    document.getElementById("formulario1").style.display = "block";
-                } else if (opcionSeleccionada === "opcion2") {
-                    document.getElementById("formulario2").style.display = "block";
-                } else if (opcionSeleccionada === "opcion3") {
-                    document.getElementById("formulario3").style.display = "block";
-                }
+    // Mostrar los botones correspondientes a la opción seleccionada
+    if (opcionSeleccionada === "opcion1") {
+        document.getElementById("bot1").style.display = "block";
+    } else if (opcionSeleccionada === "opcion2") {
+        document.getElementById("bot2").style.display = "block";
+    } else if (opcionSeleccionada === "opcion3") {
+        document.getElementById("bot3").style.display = "block";
+    }
+}
 
-                
-            }
+// Ocultar los botones al cargar la página
+window.onload = function() {
+    mostrarFormulario();
+};
+
+
+
    
 
 
