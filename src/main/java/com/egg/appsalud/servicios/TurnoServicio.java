@@ -5,8 +5,10 @@ import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.entidades.Turno;
 
 import com.egg.appsalud.repositorios.TurnoRepositorio;
+import java.time.Duration;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,10 +78,17 @@ public class TurnoServicio {
             throw new IllegalArgumentException("Ya existe un turno en el mismo horario.");
         }
 
+        // Verificar la duración del turno
+        LocalDateTime inicio = turno.getFechaHoraInicio();
+        LocalDateTime fin = turno.getFechaHoraFin();
+        Duration duracion = Duration.between(inicio, fin);
+
+        if (duracion.toMinutes() > 30) {
+            throw new IllegalArgumentException("La duración del turno no puede superar los 30 minutos.");
+        }
+
         return turnoRepositorio.save(turno);
     }
-    
-    
     
     
     
