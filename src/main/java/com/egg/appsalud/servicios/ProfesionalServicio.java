@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +32,10 @@ public class ProfesionalServicio {
 
     @Transactional
     public void crearProfesional(String mail, String password, String nombre, String apellido,
-            String dni, LocalDate fechaNacimiento, Long telefono, String matricula,
-            Especialidad especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException {
+
+            String dni, LocalDate fechaNacimiento, String telefono, String matricula,
+            String especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException {
+
 
         validar(mail, password, nombre, apellido, dni, fechaNacimiento);
 
@@ -44,7 +49,7 @@ public class ProfesionalServicio {
         profesional.setPassword(new BCryptPasswordEncoder().encode(password));
         profesional.setTelefono(telefono);
         profesional.setMatricula(matricula);
-        profesional.setEspecialidad(especialidad);
+        profesional.setEspecialidad(Especialidad.CARDIOLOGIA);
         profesional.setValorConsulta(valorConsulta);
         profesional.setDescripcionEspecialidad(descripcionEspecialidad);
         profesional.setRol(Rol.PROFESIONAL);
@@ -54,11 +59,20 @@ public class ProfesionalServicio {
 //            profesional.setImagen(imagen);
         profesionalRepositorio.save(profesional);
     }
+    
+    public List<Profesional> listarProfesionales() {
 
+
+            List<Profesional> profesionales = profesionalRepositorio.findAll();
+            return profesionales.stream().collect(Collectors.toList());
+    }
+
+    
     @Transactional
     public void modificarProfesional(String idProfesional, String mail, String password, String nombre, String apellido,
-            String dni, LocalDate fechaNacimiento, Long telefono, String matricula, Especialidad especialidad,
+            String dni, LocalDate fechaNacimiento, String telefono, String matricula, Especialidad especialidad,
             Double valorConsulta, String descripcionEspecialidad) throws MiException {
+
 
         validar(mail, password, nombre, apellido, dni, fechaNacimiento);
 
@@ -75,7 +89,7 @@ public class ProfesionalServicio {
             profesional.setFechaNacimiento(fechaNacimiento);
             profesional.setTelefono(telefono);
             profesional.setMatricula(matricula);
-            profesional.setEspecialidad(especialidad);
+            profesional.setEspecialidad(Especialidad.CARDIOLOGIA);
             profesional.setValorConsulta(valorConsulta);
             profesional.setDescripcionEspecialidad(descripcionEspecialidad);
 
@@ -87,6 +101,7 @@ public class ProfesionalServicio {
     public Profesional getOne(String idProfesional) {
         return profesionalRepositorio.getOne(idProfesional);
     }
+
 
     private void validar(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento) throws MiException {
 
@@ -116,6 +131,7 @@ public class ProfesionalServicio {
     @Transactional
     public List<JornadaLaboral> crearJ(Profesional profesional, Integer diaSemana, LocalTime horaInicio, LocalTime horaFin, Integer duracion) throws MiException {
         if (profesional != null) {
+            
             List<JornadaLaboral> jornadas = new ArrayList();
             JornadaLaboral jornada = jornadaServicio.crearJornadaLaboral(profesional, diaSemana, horaInicio, horaFin, duracion);
             jornadas.add(jornada);
@@ -124,11 +140,10 @@ public class ProfesionalServicio {
             return null;
         }
     }
-
-    
+     
     //Listar las jornadas laborales de X profesional
     
-    public List<JornadaLaboral> listarJornadas(Profesional profesional) throws MiException {
+    public JornadaLaboral listarJornadas(Profesional profesional) throws MiException {
         
         if(profesional != null){
             return profesional.getJornadaLaboral();
