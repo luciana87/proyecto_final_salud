@@ -179,5 +179,13 @@ public class PacienteServicio implements UserDetailsService {
         return pacienteRepositorio.getOne(id_paciente);
     }
 
-
+    
+       public Optional<Paciente> obtenerPacientePorId(String id) {
+        return pacienteRepositorio.findById(id);
+    
+                }
+       
+       
+       
+       
 }

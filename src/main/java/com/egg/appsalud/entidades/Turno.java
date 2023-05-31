@@ -1,6 +1,6 @@
 package com.egg.appsalud.entidades;
 
-import com.egg.appsalud.Enumerativos.EstadoTurno;
+
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,29 +13,37 @@ public class Turno {
     private int id;
     @Column(nullable = false)
     private LocalDate fecha;
-    @Column(nullable = false, length = 50)
-    private String horario;
+  
 
-    @ManyToOne //referencia a ‘Paciente’, muchos turnos puede tener un paciente.
-    @JoinColumn(name = "paciente_id") //columna con la que vamos a relacionar esta tabla con la tabla ‘Paciente’.
+    @ManyToOne 
+    @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
 
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumn (name= "profesional_id")
-    private Profesional medico; */
+    private Profesional profesional; 
+    
     @Column(nullable = false)
-    public EstadoTurno estado;
+    public boolean estado;
 
-    public Turno(int id, LocalDate fecha/*, Paciente paciente*/) {
+    public Turno() {
+    }
+
+    public Turno(int id, LocalDate fecha, Paciente paciente, Profesional profesional, boolean estado) {
         this.id = id;
         this.fecha = fecha;
-        //this.paciente = paciente;
-        this.estado = EstadoTurno.RESERVADO;
+        this.paciente = paciente;
+        this.profesional = profesional;
+        this.estado = estado;
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public LocalDate getFecha() {
@@ -45,7 +53,7 @@ public class Turno {
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
-/*
+
     public Paciente getPaciente() {
         return paciente;
     }
@@ -53,13 +61,23 @@ public class Turno {
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
-*/
 
-    public EstadoTurno getEstado() {
+    public Profesional getProfesional() {
+        return profesional;
+    }
+
+    public void setProfesional(Profesional profesional) {
+        this.profesional = profesional;
+    }
+
+    public boolean isEstado() {
         return estado;
     }
 
-    public void setEstado(EstadoTurno estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    
+  
 }
