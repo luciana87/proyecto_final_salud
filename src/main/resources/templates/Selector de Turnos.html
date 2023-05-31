@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Calendario de Turnos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .calendar {
+            width: 400px;
+            margin: 0 auto;
+        }
+
+        .calendar-header {
+            background-color: #f2f2f2;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .calendar-select {
+            margin-bottom: 10px;
+        }
+
+        .calendar-select select {
+            width: 100%;
+            padding: 5px;
+        }
+
+        .calendar-time-slot {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="calendar">
+        <div class="calendar-header">
+            <h2>Calendario de Turnos</h2>
+        </div>
+        <div class="calendar-select">
+            <select id="selectDia">
+                <option value="">Seleccione un día</option>
+                <option value="lunes">Lunes</option>
+                <option value="martes">Martes</option>
+                <option value="miercoles">Miércoles</option>
+                <option value="jueves">Jueves</option>
+                <option value="viernes">Viernes</option>
+                <option value="sabado">Sábado</option>
+                <option value="domingo">Domingo</option>
+            </select>
+        </div>
+        <div class="calendar-select">
+            <select id="selectHorario">
+                <option value="">Seleccione un horario</option>
+                <option value="09:00 - 10:00">09:00 - 10:00</option>
+                <option value="10:00 - 11:00">10:00 - 11:00</option>
+                <option value="11:00 - 12:00">11:00 - 12:00</option>
+                <!-- Agrega más opciones de horarios aquí -->
+            </select>
+        </div>
+        <div class="calendar-time-slot" id="turnoSeleccionado" style="display: none;">
+            <h3>Turno Seleccionado</h3>
+            <p>Día: <span id="diaSeleccionado"></span></p>
+            <p>Horario: <span id="horarioSeleccionado"></span></p>
+            <button id="confirmarTurno">Confirmar Turno</button>
+        </div>
+    </div>
+
+    <script>
+        var selectDia = document.getElementById("selectDia");
+        var selectHorario = document.getElementById("selectHorario");
+        var turnoSeleccionado = document.getElementById("turnoSeleccionado");
+        var diaSeleccionado = document.getElementById("diaSeleccionado");
+        var horarioSeleccionado = document.getElementById("horarioSeleccionado");
+        var confirmarTurnoBtn = document.getElementById("confirmarTurno");
+
+        selectDia.addEventListener("change", function() {
+            // Restablecer el valor del horario seleccionado cuando se cambie el día
+            selectHorario.value = "";
+            turnoSeleccionado.style.display = "none";
+        });
+
+        selectHorario.addEventListener("change", function() {
+            // Mostrar el turno seleccionado
+            var dia = selectDia.value;
+            var horario = selectHorario.value;
+
+            if (dia && horario) {
+                diaSeleccionado.textContent = dia;
+                horarioSeleccionado.textContent = horario;
+                turnoSeleccionado.style.display = "block";
+            }
+        });
+
+        confirmarTurnoBtn.addEventListener("click", function() {
+            var dia = selectDia.value;
+            var horario = selectHorario.value;
+
+            if (dia && horario) {
+                // Ocultar el turno seleccionado
+                turnoSeleccionado.style.display = "none";
+
+                // Ocultar la opción de horario seleccionada
+                var opcionesHorario = selectHorario.options;
+                for (var i = 0; i < opcionesHorario.length; i++) {
+                    if (opcionesHorario[i].value === horario) {
+                        opcionesHorario[i].style.display = "none";
+                    }
+                }
+
+                // Restablecer los valores seleccionados
+                selectDia.value = "";
+                selectHorario.value = "";
+            }
+        });
+    </script>
+</body>
+</html>

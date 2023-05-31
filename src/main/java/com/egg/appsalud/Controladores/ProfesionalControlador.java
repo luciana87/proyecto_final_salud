@@ -55,7 +55,11 @@ public class ProfesionalControlador {
             @RequestParam Double valorConsulta, @RequestParam String descripcionEspecialidad, ModelMap modelo/*, MultipartFile archivo*/) {
 
 
+<<<<<<< HEAD
             LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter); //Convierte el String de fechaNacimiento a LocalDate, si pongo directamente tipo LocalDate genera conflicto
+=======
+        LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter); //Convierte el String de fechaNacimiento a LocalDate, si pongo directamente tipo LocalDate genera conflicto
+>>>>>>> develop
 
         try {
             profesionalServicio.crearProfesional(/*archivo,*/mail, password, nombre, apellido, dni, fechaNac, telefono,
@@ -86,8 +90,15 @@ public class ProfesionalControlador {
 
     @PostMapping("/modificar/{id}")
     public String modificarProfesional(@PathVariable String id, String mail, String password, String nombre, String apellido,
+<<<<<<< HEAD
                                        String dni, String fechaNacimiento, String telefono, String matricula, Especialidad especialidad,
                                        Double valorConsulta, String descripcionEspecialidad, ModelMap modelo) {
+
+=======
+
+            String dni, String fechaNacimiento, String telefono, String matricula, Especialidad especialidad,
+            Double valorConsulta, String descripcionEspecialidad, ModelMap modelo) {
+>>>>>>> develop
 
 
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter);

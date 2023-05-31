@@ -8,7 +8,7 @@
 
 - [Descripción del proyecto](#Descripción-del-proyecto)
 - [Tecnologías utilizadas](#Tecnologías-utilizadas)
-- [Equipo](#desarrolladores)
+- [Equipo](#Equipo)
 
 
 
