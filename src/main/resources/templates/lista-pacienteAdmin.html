@@ -39,10 +39,10 @@
                             <td th:text="${paciente.obraSocial.nombre}"></td>
                             <td th:text="${paciente.nroObraSocial}"></td>
                             <td>
-                                <a th:href= "@{/paciente/modificar/__${paciente.id}__}"><i class="fas fa-feather-alt"></i> Editar </a>
+                                <a th:href= "@{/admin/listaPacientes/modificar/__${paciente.id}__}"<i class="fas fa-feather-alt"></i> Editar </a>
                             </td>
                             <td>
-                             <a th:href= "@{/paciente/eliminar/__${paciente.id}__}"><i class="fas fa-feather-alt"></i> Eliminar </a>
+                             <a th:href= "@{/admin/listaPacientes/eliminar/__${paciente.id}__}"><i class="fas fa-feather-alt"></i> Eliminar </a>
                             </td>
                         </tr>
                     </tbody>

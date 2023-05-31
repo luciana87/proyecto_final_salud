@@ -120,7 +120,7 @@ public class PacienteControlador {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return "redirect:../lista";
+        return "redirect:/inicio";
     }
     
     @GetMapping("/eliminar/{id_paciente}")
