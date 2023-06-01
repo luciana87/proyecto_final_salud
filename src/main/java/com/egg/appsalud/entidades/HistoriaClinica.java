@@ -11,18 +11,50 @@ public class HistoriaClinica {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-
-    //OneToOne: se indica que será una relación bidireccional indicando en la clase HistoriaClinica
-    // el objeto Paciente correspondiente. MappedBy: historiaClinica = es el atributo por el cual mapeas la relacion
-    /*
     @OneToOne (mappedBy = "historiaClinica")
     private Paciente paciente;
 
-    @OneToMany (mappedBy = "Historiaclinica")
-    private List<NotaMedica> notas;*/
+    @OneToMany (mappedBy = "historiaClinica")
+    private List<NotaMedica> notas;
 
 
     public HistoriaClinica(Integer id) {
         this.id = id;
     }
+    public HistoriaClinica() {
+    }
+
+    public HistoriaClinica(Integer id, Paciente paciente, List<NotaMedica> notas) {
+        this.id = id;
+        this.paciente = paciente;
+        this.notas = notas;
+    }
+
+    
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    public List<NotaMedica> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(List<NotaMedica> notas) {
+        this.notas = notas;
+    }
+    
+    
 }

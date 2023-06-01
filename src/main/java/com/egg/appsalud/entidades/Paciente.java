@@ -40,9 +40,9 @@ public class Paciente extends Usuario implements Serializable{
     @Column(name = "historial_turnos")
     private List<Turno> listaDeTurnos;
 
-//    @OneToOne //Un paciente tiene una historia clínica
-//    @JoinColumn (name = "historia_clinica_id") //Foreign Key: historia_clinica_id
-//    private HistoriaClinica historiaClinica ;
+    @OneToOne //Un paciente tiene una historia clínica
+    @JoinColumn (name = "historia_clinica_id") //Foreign Key: historia_clinica_id
+    private HistoriaClinica historiaClinica ;
 
 
     public Paciente() {
@@ -96,4 +96,13 @@ public class Paciente extends Usuario implements Serializable{
     public void setListaDeTurnos(List<Turno> listaDeTurnos) {
         this.listaDeTurnos = listaDeTurnos;
     }
+
+    public HistoriaClinica getHistoriaClinica() {
+        return historiaClinica;
+    }
+
+    public void setHistoriaClinica(HistoriaClinica historiaClinica) {
+        this.historiaClinica = historiaClinica;
+    }
+    
 }
