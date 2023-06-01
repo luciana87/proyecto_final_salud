@@ -62,6 +62,14 @@ public class PacienteControlador {
 
         return "registro-paciente.html";
     }
+    
+    
+    @GetMapping("/inicio")
+    public String inicio(ModelMap modelo){
+        List<Paciente> pacientes = pacienteServicio.listarPacientes();
+        modelo.addAttribute("pacientes", pacientes);
+        return "inicio_paciente_2.html";
+    }
 
     @GetMapping("/lista")
     public String listar(ModelMap modelo) {
@@ -120,7 +128,7 @@ public class PacienteControlador {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return "redirect:../lista";
+        return "redirect:/inicio";
     }
     
     @GetMapping("/eliminar/{id_paciente}")
