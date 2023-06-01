@@ -12,40 +12,43 @@ public class Turno {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
-   
+
     @Column(nullable = false)
     private LocalDate fecha;
-    
+
     @Column(nullable = false)
     private LocalTime horario;
-    
+
 
     @ManyToOne //referencia a ‘Paciente’, muchos turnos puede tener un paciente.
     @JoinColumn(name = "paciente_id") //columna con la que vamos a relacionar esta tabla con la tabla ‘Paciente’.
     private Paciente paciente;
 
+
     @ManyToOne
-    @JoinColumn (name= "profesional_id")
-    private Profesional medico; 
-    
+    @JoinColumn (name= "profesional_id", nullable = false)
+    private Profesional medico;
+
     @Column(nullable = false)
     public EstadoTurno estado;
 
-    public Turno() {
-    }
-    
-    
+    public Turno() {}
 
-    public Turno( Integer id,LocalDate fecha, Paciente paciente) { 
+    public Turno(Integer id, LocalDate fecha, Paciente paciente) {
         this.id = id;
         this.fecha = fecha;
         this.paciente = paciente;
         this.estado = EstadoTurno.RESERVADO;
     }
 
-    public Integer getIdTurno() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public LocalDate getFecha() {
@@ -64,7 +67,6 @@ public class Turno {
         this.paciente = paciente;
     }
 
-
     public EstadoTurno getEstado() {
         return estado;
     }
@@ -72,7 +74,7 @@ public class Turno {
     public void setEstado(EstadoTurno estado) {
         this.estado = estado;
     }
-    
+
     public LocalTime getHorario() {
         return horario;
     }
@@ -93,7 +95,5 @@ public class Turno {
     public String toString() {
         return "Turno{" + "id_turno=" + id + ", fecha=" + fecha + ", horario=" + horario + ", paciente=" + paciente + ", medico=" + medico + ", estado=" + estado + '}';
     }
-
-
 
 }

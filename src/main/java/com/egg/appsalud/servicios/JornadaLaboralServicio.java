@@ -19,7 +19,8 @@ public class JornadaLaboralServicio {
     private JornadaLaboralRepositorio jornadaLRepositorio;
 
     @Transactional
-    public JornadaLaboral crearJornadaLaboral(Profesional profesional, String diaSemana, LocalTime horaInicio, LocalTime horaFin, Long duracionTurno) {
+    public JornadaLaboral crearJornadaLaboral(Profesional profesional, String diaSemana, LocalTime horaInicio,
+                                              LocalTime horaFin, Long duracionTurno) {
 
         JornadaLaboral jornadaLaboral = new JornadaLaboral();
 

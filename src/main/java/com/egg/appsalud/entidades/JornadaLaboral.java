@@ -28,8 +28,9 @@ public class JornadaLaboral {
     public JornadaLaboral() {
     }
 
-    public JornadaLaboral( Profesional profesional, String diaSemana, LocalTime horaInicio, LocalTime horaFin, Long duracionTurno) {
-        
+    public JornadaLaboral(Profesional profesional, String diaSemana,
+                          LocalTime horaInicio, LocalTime horaFin, Long duracionTurno) {
+
         this.profesional = profesional;
         this.diaSemana = diaSemana;
         this.horaInicio = horaInicio;
@@ -37,7 +38,8 @@ public class JornadaLaboral {
         this.duracionTurno = duracionTurno;
     }
 
-    public String getId_jornada() {
+
+    public String getId() {
         return id_jornada;
     }
 
@@ -59,10 +61,6 @@ public class JornadaLaboral {
 
     public Long getDuracionTurno() {
         return duracionTurno;
-    }
-
-    public void setId_jornada(String id_jornada) {
-        this.id_jornada = id_jornada;
     }
 
     public void setProfesional(Profesional profesional) {

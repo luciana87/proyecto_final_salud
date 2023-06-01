@@ -50,6 +50,9 @@ public class PacienteServicio implements UserDetailsService {
     @Autowired
     private ObraSocialServicio obraSocialServicio;
 
+    @Autowired
+    private ProfesionalServicio profesionalServicio;
+
     @Transactional
     public void CrearPaciente(MultipartFile archivo, String mail, String password, Integer idObraSocial,
             String nroObraSocial, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
@@ -73,9 +76,10 @@ public class PacienteServicio implements UserDetailsService {
             paciente.setObraSocial(obraSocial);
             paciente.setNroObraSocial(nroObraSocial);
         }
-
-        Imagen imagen = imagenServicio.guardar(archivo);
-        paciente.setImagen(imagen);
+        if(!archivo.isEmpty()) {  // Si cargó una imágen, se la setteo al paciente.
+            Imagen imagen = imagenServicio.guardar(archivo);
+            paciente.setImagen(imagen);
+        }
         pacienteRepositorio.save(paciente);
 
     }
@@ -111,7 +115,7 @@ public class PacienteServicio implements UserDetailsService {
         if(dni.isEmpty() || !ComprobarString(dni, "^\\d{8}$")){
             throw new MiException("Ingrese un dni valido");
         }
-        //crear la logica para validar que sea mayo de edad
+        //crear la logica para validar que sea mayor de edad
         if(fechaNacimiento == null){
             throw new MiException("La fecha de naciemiento no puede ser nulo o estar vacio");
         }
@@ -161,7 +165,7 @@ public class PacienteServicio implements UserDetailsService {
     public void modificarPaciente(MultipartFile archivo, String id_paciente, String mail, String password, String nombre,
             String apellido, String dni, LocalDate fechaNacimiento, String telefono, String nroObraSocial) throws MiException, IOException {
 
-        validar(mail, password, nombre, apellido, dni, fechaNacimiento, telefono,nroObraSocial);
+        validar(mail, password, nombre, apellido, dni, fechaNacimiento, telefono, nroObraSocial);
 
         Optional<Paciente> pacienteOptional = pacienteRepositorio.findById(id_paciente);
 
