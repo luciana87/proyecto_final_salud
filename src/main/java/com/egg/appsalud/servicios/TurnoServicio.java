@@ -135,11 +135,12 @@ public class TurnoServicio {
     
     
     
-
-    public List<Turno> listarTurnosPorPacientes(Paciente paciente){
-        List<Turno> turnos = turnoRepositorio.BuscarPorPaciente(paciente);
-        return turnos.stream().collect(Collectors.toList());
-    }
+//tira error en el repo
+    
+//    public List<Turno> listarTurnosPorPacientes(Paciente paciente){
+//        List<Turno> turnos = turnoRepositorio.BuscarPorPaciente(paciente);
+//        return turnos.stream().collect(Collectors.toList());
+//    }
 
 
     @Transactional
