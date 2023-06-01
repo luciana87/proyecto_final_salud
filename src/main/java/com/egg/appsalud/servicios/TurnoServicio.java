@@ -24,15 +24,31 @@ import java.util.stream.Stream;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.egg.appsalud.entidades.Paciente;
+import com.egg.appsalud.entidades.Profesional;
+import com.egg.appsalud.entidades.Turno;
+import com.egg.appsalud.excepciones.MiException;
+import com.egg.appsalud.repositorios.PacienteRepositorio;
+import com.egg.appsalud.repositorios.TurnoRepositorio;
+import java.time.LocalDate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.List;
+//import javax.transaction.Transactional;
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 public class TurnoServicio {
 
     @Autowired
     private TurnoRepositorio turnoRepositorio;
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy"); //Formato de fecha elegido
-
+    
     @Autowired
     private PacienteRepositorio pacienteRepositorio;
+    
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     @Autowired
     private ProfesionalRepositorio profesionalRepositorio;
@@ -53,9 +69,6 @@ public class TurnoServicio {
     public void crearTurno(String id, LocalDate inicioRango, LocalDate finRango) throws MiException {
 
         Optional<Profesional> respProfesional = profesionalRepositorio.findById(id);
-
-
-
 
         if (respProfesional.isPresent()) {
             Profesional profesional = respProfesional.get();
@@ -97,13 +110,21 @@ public class TurnoServicio {
 
 
     }
+    
+    @Transactional
+    public void SelecionarTurnoPaciente(String pacieteId, Integer idTurno){
+        Paciente paciente = pacienteRepositorio.getOne(pacieteId);
+        Turno turno = turnoRepositorio.getOne(idTurno);
+        turno.setEstado(EstadoTurno.RESERVADO);
+        turno.setPaciente(paciente);
+        turnoRepositorio.save(turno);
+    }
 
     public List<Turno> listarTurnosPorPacientes(Paciente paciente) {
 
         List<Turno> turnos = turnoRepositorio.BuscarPorPaciente(paciente);
         return turnos.stream().collect(Collectors.toList());
     }
-
 
     private List<LocalDate> listarFechasSegunRango (LocalDate inicioRango, LocalDate finRango){
         List<LocalDate> dates = Stream.iterate(inicioRango, date -> date.plusDays(1))
@@ -112,5 +133,25 @@ public class TurnoServicio {
 
         return dates;
     }
-
+    
+    public List<Turno> listarTurnos() {
+        List<Turno> turnos = turnoRepositorio.findAll();
+        System.out.println("Turnos "+turnos.get(0).getPaciente().getNombre());
+     return turnos.stream().collect(Collectors.toList());
+    }    
+    
+    public Turno listarTurnosporId(Integer idTurno) {
+        Optional<Turno> condicion = turnoRepositorio.findById(idTurno);
+        Turno turno = new Turno();
+        if (condicion.isPresent()) {
+            
+           turno = condicion.get();
+           
+        }
+        
+        return turno;
+    }
+    public Turno buscarPorId(Integer id) {
+        return turnoRepositorio.findById(id).orElse(null);
+    }
 }

@@ -12,6 +12,7 @@ public class Turno {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
 
     @Column(nullable = false)
@@ -46,6 +47,10 @@ public class Turno {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public LocalDate getFecha() {
         return fecha;
     }
@@ -61,7 +66,6 @@ public class Turno {
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
-
 
     public EstadoTurno getEstado() {
         return estado;
@@ -91,7 +95,5 @@ public class Turno {
     public String toString() {
         return "Turno{" + "id_turno=" + id + ", fecha=" + fecha + ", horario=" + horario + ", paciente=" + paciente + ", medico=" + medico + ", estado=" + estado + '}';
     }
-
-
 
 }

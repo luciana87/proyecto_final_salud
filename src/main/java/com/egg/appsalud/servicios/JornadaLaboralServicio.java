@@ -46,13 +46,13 @@ public class JornadaLaboralServicio {
 
     }
 
-    public JornadaLaboral obtenerJornadaPorId(Integer id) {
+    public JornadaLaboral obtenerJornadaPorId(String id) {
         Optional<JornadaLaboral> jornadaOptional = jornadaLRepositorio.findById(id);
         return jornadaOptional.orElse(null);
     }
 
     @Transactional
-    public void modificarJornada(Profesional profesional, Integer id_jornada, String diaSemana, LocalTime horaInicio,
+    public void modificarJornada(Profesional profesional, String id_jornada, String diaSemana, LocalTime horaInicio,
             LocalTime horaFin, Long duracionTurno) throws MiException {
 
         Optional<JornadaLaboral> jornadasOptional = jornadaLRepositorio.findById(id_jornada);
@@ -70,7 +70,7 @@ public class JornadaLaboralServicio {
     }
 
     @Transactional
-    public void eliminarJornada(Profesional profesional, Integer id_jornada) throws MiException{
+    public void eliminarJornada(Profesional profesional, String id_jornada) throws MiException{
 
         Optional<JornadaLaboral> jornada = jornadaLRepositorio.findById(id_jornada);
         

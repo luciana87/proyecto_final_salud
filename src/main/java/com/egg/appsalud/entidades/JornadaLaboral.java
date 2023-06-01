@@ -13,8 +13,9 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class JornadaLaboral {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id_jornada;
     
     @ManyToOne
     @JoinColumn(name = "id_profesional")
@@ -38,8 +39,8 @@ public class JornadaLaboral {
     }
 
 
-    public Integer getId() {
-        return id;
+    public String getId() {
+        return id_jornada;
     }
 
     public Profesional getProfesional() {

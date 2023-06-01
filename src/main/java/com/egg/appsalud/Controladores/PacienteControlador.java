@@ -144,7 +144,6 @@ public class PacienteControlador {
     public String eliminarPaciente(@PathVariable String id_paciente, ModelMap modelo) {
 
         try {
-            System.out.println("Estor recibiendo: "+id_paciente);
             pacienteServicio.eliminarPaciente(id_paciente);
             modelo.put("exito", "Se elimino el Paciente correctamente.");
 
