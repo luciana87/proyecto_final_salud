@@ -109,6 +109,10 @@ public class UsuarioServicio implements UserDetailsService {
        pacienteServicio.modificarPaciente(archivo, id_paciente, mail, password, nombre, apellido, dni, fechaNacimiento, telefono, nroObraSocial);
     }
     
+    public Paciente getOne(String id_paciente){
+        return pacienteServicio.getOne(id_paciente);
+    }
+    
     public void eliminarPaciente(String id_paciente) throws MiException{
         pacienteServicio.eliminarPaciente(id_paciente);
     }

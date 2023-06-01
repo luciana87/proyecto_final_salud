@@ -9,7 +9,7 @@
 <body>
     <main layout:fragment="contenido">
         <div class="col-12">
-            <h2>Lista de Pacientes</h2>
+            <h2 style="text-align: center;">Historia Clinica</h2>
 <!--            <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
                 th:text="${mensaje}" class="alert">
             </div>-->
@@ -18,31 +18,18 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>DNI</th>
-                            <th>Fecha de Nacimiento</th>
-                            <th>Contacto</th>
-                            <th>Obra Social</th>
-                            <th>N° Obra Social</th>
-                            <th>Editar</th>
-                            <th>Eliminar</th>
+                            <th>Nombre Del Paciente</th>
+                            <th>Nota Medica</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="paciente : ${pacientes}">
-                            <td th:text="${paciente.nombre}"></td>
-                            <td th:text="${paciente.apellido}"></td>
-                            <td th:text="${paciente.dni}"></td>
-                            <td th:text="${paciente.fechaNacimiento}"></td>
-                            <td th:text="${paciente.telefono}"></td>
-                            <td th:text="${paciente.obraSocial.nombre}"></td>
-                            <td th:text="${paciente.nroObraSocial}"></td>
+                        <tr th:each="historiaClinica : ${historiaClinica}">
+                            <td th:text="${historiaClinica.paciente.nombre}"></td>
                             <td>
-                                <a th:href= "@{/admin/listaPacientes/modificar/__${paciente.id}__}"<i class="fas fa-feather-alt"></i> Editar </a>
-                            </td>
-                            <td>
-                             <a th:href= "@{/admin/listaPacientes/eliminar/__${paciente.id}__}"><i class="fas fa-feather-alt"></i> Eliminar </a>
+                                <span th:each="notaMedica : ${historiaClinica.notas}">
+                                    <label>Nota Medica</label>
+                                    <span th:text="${notaMedica.descripcion}"></span><br>
+                                </span>
                             </td>
                         </tr>
                     </tbody>

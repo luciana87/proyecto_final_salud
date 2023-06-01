@@ -9,40 +9,31 @@
 <body>
     <main layout:fragment="contenido">
         <div class="col-12">
-            <h2 style="text-align: center;">Lista de pacientes</h2>
+            <h2>Listado de turnos</h2>
 <!--            <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
                 th:text="${mensaje}" class="alert">
             </div>-->
-<!--            <a class="btn btn-primary mb-2" th:href="@{/pacientes/agregar}">Agregar</a>-->
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>DNI</th>
-                            <th>Fecha de Nacimiento</th>
-                            <th>Contacto</th>
-                            <th>Obra Social</th>
-                            <th>N° Obra Social</th>
-                            <th>Editar</th>
-                            <th>Eliminar</th>
+                            <th>Profesional</th>
+                            <th>Día</th>
+                            <th>Hora</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="paciente : ${pacientes}">
-                            <td th:text="${paciente.nombre}"></td>
-                            <td th:text="${paciente.apellido}"></td>
-                            <td th:text="${paciente.dni}"></td>
-                            <td th:text="${paciente.fechaNacimiento}"></td>
-                            <td th:text="${paciente.telefono}"></td>
-                            <td th:text="${paciente.obraSocial.nombre}"></td>
-                            <td th:text="${paciente.nroObraSocial}"></td>
+                        <tr th:each="turno : ${turnos}">
+                            <td th:text="${turno.medico.nombre} + ' ' + ${turno.medico.apellido}"></td>
+                            <td th:text="${turno.fecha}"></td>
+                            <td th:text="${turno.horario}"></td>
+                            <td th:text="${turno.estado}"></td>
                             <td>
-                                <a th:href= "@{/paciente/modificar/__${paciente.id}__}"><i class="fas fa-feather-alt"></i> Editar </a>
-                            </td>
-                            <td>
-                             <a th:href= "@{/paciente/eliminar/__${paciente.id}__}"><i class="fas fa-feather-alt"></i> Eliminar </a>
+                                <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).RESERVADO}" th:href= "@{/turno/eliminar/__${turno.id}__}"><i class="fas fa-feather-alt"></i> Cancelar </a> <!--Elimina el turno-->
+                                <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).ASISTIO}" th:href= "@{/calificacion/registrar/__${turno.id}__}"><i class="fas fa-feather-alt"></i> Calificar </a>
+                                <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).DISPONIBLE}" th:href= "@{/paciente/turno/reservar/__${turno.id}__}"><i class="fas fa-feather-alt"></i> Reservar </a>
                             </td>
                         </tr>
                     </tbody>

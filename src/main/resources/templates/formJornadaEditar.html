@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Modificar Jornada Laboral</title>
+</head>
+
+<body>
+<!--    <h1 th:if="${session.usuariosession != null}" th:text="${session.usuariosession.mail}"></h1>-->
+
+    <!--<form th:action="@{/profesional/modificandoJornada/{id_jornada}(id_jornada=${jornada.id_jornada})}"-->
+        <!--method="post">-->
+        <form th:action="@{/profesional/modificandoJornada/__${id_jornada}__}"
+        method="post">
+
+        <input type="hidden" name="id_jornada" th:value="${jornada.id_jornada}">
+        <input type="number" name="diaSemana" th:value="${jornada.diaSemana}">
+        <input type="time" name="horaInicio" th:value="${jornada.horaInicio}">
+        <input type="time" name="horaFin" th:value="${jornada.horaFin}">
+        <input type="number" name="duracionTurno" th:value="${jornada.duracionTurno}">
+        
+        <button type="submit">Modificar</button>
+
+        <div th:if="${exito} != null" class="card text-white bg-success mb-3 mt-3 mensajeExito">
+            <div class="card-body">
+                <h5 class="card-title">Éxito</h5>
+                <p class="card-text" th:text="${exito}"></p>
+            </div>
+        </div>
+
+        <div th:if="${error} != null" class="card text-white bg-danger mb-3 mensajeError">
+            <div class="card-body">
+                <h5 class="card-title">Error</h5>
+                <p class="card-text" th:text="${error}"></p>
+            </div>
+        </div>
+    </form>
+
+</body>
+
+</html>

@@ -2,6 +2,7 @@ package com.egg.appsalud.Controladores;
 
 import com.egg.appsalud.entidades.ObraSocial;
 import com.egg.appsalud.entidades.Paciente;
+import com.egg.appsalud.entidades.Usuario;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.servicios.ObraSocialServicio;
 import com.egg.appsalud.servicios.PacienteServicio;
@@ -11,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -61,6 +63,21 @@ public class PacienteControlador {
         modelo.addAttribute("obrasSociales", obrasSociales);
 
         return "registro-paciente.html";
+    }
+
+
+    @GetMapping("/inicio")
+    public String inicio(HttpSession session, ModelMap modelo){
+        //TODO: eliminar esto cuando este el listado de turnos es una prueba para ver si funciona
+        List<Paciente> pacientes = pacienteServicio.listarPacientes();
+        modelo.addAttribute("pacientes", pacientes);
+
+        //obtengo el usuario logueado
+        Paciente logueado = (Paciente) session.getAttribute("usuariosession");
+        boolean tieneImagen= ((Paciente)logueado).tieneImagen(); //Casteo la variable 'logueado' de tipo usuario a tipo 'Paciente' para poder acceder al metodo 'tieneImagen()'
+        modelo.put("tieneImagen", tieneImagen); //Envío a la vista si posee o no imágen.
+
+        return "inicio_paciente_2.html";
     }
 
     @GetMapping("/lista")
@@ -120,14 +137,13 @@ public class PacienteControlador {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return "redirect:../lista";
+        return "redirect:/inicio";
     }
     
     @GetMapping("/eliminar/{id_paciente}")
     public String eliminarPaciente(@PathVariable String id_paciente, ModelMap modelo) {
 
         try {
-            System.out.println("Estor recibiendo: "+id_paciente);
             pacienteServicio.eliminarPaciente(id_paciente);
             modelo.put("exito", "Se elimino el Paciente correctamente.");
 

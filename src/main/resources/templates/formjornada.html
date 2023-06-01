@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1 th:if="${session.usuariosession != null}" th:text="${session.usuariosession.mail}"></h1>
+
+        <form th:method="POST" th:action="@{/profesional/jornadaLaboral}">
+            <input type="number" name="diaSemana">
+            <input type="time" name="horaInicio">
+            <input type="time" name="horaFin">
+            <input type="number" name="duracionTurno">
+            <button type="submit">Enviar</button>
+
+            <div th:if="${error != null}" class="card text-white bg-danger mb-3" >
+                <div class="card-body">
+                    <h5 class="card-title">Error 👎</h5>
+                    <p class="card-text" th:text="${error}"></p>
+                </div>
+            </div>
+            <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3" >
+                <div class="card-body">
+                    <h5 class="card-title">Exito!</h5>
+                    <p class="card-text" th:text="${exito}"></p>
+                </div>
+            </div>
+        </form>
+        
+    </body>
+</html>
