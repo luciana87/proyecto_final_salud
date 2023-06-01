@@ -9,10 +9,10 @@ import java.time.LocalTime;
 @Entity
 @Table(name = "turno")
 public class Turno {
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id_turno;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
    
     @Column(nullable = false)
     private LocalDate fecha;
@@ -38,14 +38,14 @@ public class Turno {
     
 
     public Turno( Integer id,LocalDate fecha, Paciente paciente) { 
-        this.id_turno = id;
+        this.id = id;
         this.fecha = fecha;
         this.paciente = paciente;
         this.estado = EstadoTurno.RESERVADO;
     }
 
     public Integer getIdTurno() {
-        return id_turno;
+        return id;
     }
 
     public LocalDate getFecha() {
@@ -91,9 +91,9 @@ public class Turno {
 
     @Override
     public String toString() {
-        return "Turno{" + "id_turno=" + id_turno + ", fecha=" + fecha + ", horario=" + horario + ", paciente=" + paciente + ", medico=" + medico + ", estado=" + estado + '}';
+        return "Turno{" + "id_turno=" + id + ", fecha=" + fecha + ", horario=" + horario + ", paciente=" + paciente + ", medico=" + medico + ", estado=" + estado + '}';
     }
 
-    
-    
+
+
 }
