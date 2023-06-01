@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TurnoRepositorio extends JpaRepository<Turno, Integer> {
 
-//    
-//    @Query("SELECT t FROM Turno t WHERE t.paciente = :paciente")
-//    public List<Turno> BuscarPorPaciente(@Param("paciente") Paciente paciente);
-    
+
+
+    @Query("SELECT t FROM Turno t WHERE t.paciente = :paciente")
+    public List<Turno> BuscarPorPaciente(@Param("paciente") Paciente paciente);
 }

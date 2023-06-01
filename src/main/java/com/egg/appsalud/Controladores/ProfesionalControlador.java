@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -85,8 +82,8 @@ public class ProfesionalControlador {
 
     @PostMapping("/modificar/{id}")
     public String modificarProfesional(@PathVariable String id, String mail, String password, String nombre, String apellido,
-            String dni, String fechaNacimiento, String telefono, String matricula, Especialidad especialidad,
-            Double valorConsulta, String descripcionEspecialidad, ModelMap modelo) {
+                                       String dni, String fechaNacimiento, String telefono, String matricula, Especialidad especialidad,
+                                       Double valorConsulta, String descripcionEspecialidad, ModelMap modelo) {
 
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter);
 
@@ -166,7 +163,8 @@ public class ProfesionalControlador {
 
 
     @GetMapping("/eliminar/{id_jornada}")
-    public String eliminarJornada(@SessionAttribute("usuariosession") Profesional profesional, @PathVariable("id_jornada") String id_jornada, ModelMap modelo) throws MiException{
+    public String eliminarJornada(@SessionAttribute("usuariosession") Profesional profesional,
+                                  @PathVariable("id_jornada") String id_jornada, ModelMap modelo) throws MiException {
         try {
             profesionalServicio.eliminarJornada(profesional, id_jornada);
             modelo.put("exito", "Jornada eliminada");
@@ -188,10 +186,6 @@ public class ProfesionalControlador {
         System.out.println("Llego llego " + inicioRango + " " + finRango);
         return "calificar-profesional.html";
     }
-
-
-
-
 
     //    @PostMapping("/calificar/turno/{id}")
 //    public String calificarMedico(@RequestParam String id, @RequestParam Integer calificacion, ModelMap modelo){

@@ -83,7 +83,7 @@ public class TurnoServicio {
                         for (JornadaLaboral jornada : jornadaLaboral)
                                 if (fecha.getDayOfWeek().toString().equals(jornada.getDiaSemana())){
                                     LocalTime tiempo = jornada.getHoraInicio();
-                                    while (tiempo.isBefore(jornada.getHoraFin())) {
+                                    while (tiempo.isBefore(jornada.getHoraFin()) || tiempo.equals(jornada.getHoraFin()) ) {
                                             Turno turno = new Turno();
                                             turno.setEstado(EstadoTurno.DISPONIBLE);
                                             turno.setFecha(fecha);
@@ -118,6 +118,12 @@ public class TurnoServicio {
         turno.setEstado(EstadoTurno.RESERVADO);
         turno.setPaciente(paciente);
         turnoRepositorio.save(turno);
+    }
+
+    public List<Turno> listarTurnosPorPacientes(Paciente paciente) {
+
+        List<Turno> turnos = turnoRepositorio.BuscarPorPaciente(paciente);
+        return turnos.stream().collect(Collectors.toList());
     }
 
     private List<LocalDate> listarFechasSegunRango (LocalDate inicioRango, LocalDate finRango){

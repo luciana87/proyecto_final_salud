@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface JornadaLaboralRepositorio extends JpaRepository<JornadaLaboral, String>{
-    
+
     @Query("SELECT e FROM JornadaLaboral e WHERE e.profesional.id = :id")
     public List<JornadaLaboral> jornadasL(@Param("id") String id);
     

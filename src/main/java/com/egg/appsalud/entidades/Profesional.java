@@ -47,6 +47,11 @@ public class Profesional extends Usuario implements Serializable {
     private List<Turno> turnosAsignados;
      */
 
+
+    @OneToMany(mappedBy = "medico")
+    private List<Calificacion> calificaciones;
+
+
  /*
     @OneToMany (mappedBy = "profesional")
     private List<NotaMedica> notas;
@@ -60,7 +65,9 @@ public class Profesional extends Usuario implements Serializable {
     }
 
 
-    public Profesional(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, String telefono, String matricula, Especialidad especialidad, Double reputacion, Double valorConsulta, String descripcionEspecialidad) {
+    public Profesional(String mail, String password, String nombre, String apellido, String dni,
+                       LocalDate fechaNacimiento, String telefono, String matricula, Especialidad especialidad,
+                       Double reputacion, Double valorConsulta, String descripcionEspecialidad) {
 
         super(mail, password, nombre, apellido, dni, fechaNacimiento, telefono);
         this.matricula = matricula;
