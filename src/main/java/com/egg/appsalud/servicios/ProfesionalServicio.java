@@ -143,7 +143,7 @@ public class ProfesionalServicio {
      
     //Listar las jornadas laborales de X profesional
     
-    public JornadaLaboral listarJornadas(Profesional profesional) throws MiException {
+    public List<JornadaLaboral> listarJornadas(Profesional profesional) throws MiException {
         
         if(profesional != null){
             return profesional.getJornadaLaboral();
