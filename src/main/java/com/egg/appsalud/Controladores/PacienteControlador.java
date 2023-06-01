@@ -62,6 +62,14 @@ public class PacienteControlador {
 
         return "registro-paciente.html";
     }
+    
+    
+    @GetMapping("/inicio")
+    public String inicio(ModelMap modelo){
+        List<Paciente> pacientes = pacienteServicio.listarPacientes();
+        modelo.addAttribute("pacientes", pacientes);
+        return "inicio_paciente_2.html";
+    }
 
     @GetMapping("/lista")
     public String listar(ModelMap modelo) {

@@ -104,8 +104,8 @@ public class ProfesionalControlador {
     }
 
     @PostMapping("/jornadaLaboral")
-    public String crearJornada(@RequestParam Integer diaSemana, @RequestParam LocalTime horaInicio, @RequestParam LocalTime horaFin,
-            @RequestParam Integer duracionTurno, ModelMap modelo, @SessionAttribute("usuariosession") Profesional profesional) throws MiException {
+    public String crearJornada(@RequestParam String diaSemana, @RequestParam LocalTime horaInicio, @RequestParam LocalTime horaFin,
+            @RequestParam Long duracionTurno, ModelMap modelo, @SessionAttribute("usuariosession") Profesional profesional) throws MiException {
 
         try {
             List<JornadaLaboral> jornadas = profesionalServicio.crearJ(profesional, diaSemana, horaInicio, horaFin, duracionTurno);
@@ -148,8 +148,8 @@ public class ProfesionalControlador {
 
     @PostMapping("/modificandoJornada/{id_jornada}")
     public String modificandoJornada(@SessionAttribute("usuariosession") Profesional profesional, @PathVariable("id_jornada") String id_jornada,
-            @RequestParam Integer diaSemana, @RequestParam LocalTime horaInicio, @RequestParam LocalTime horaFin,
-            @RequestParam Integer duracionTurno, ModelMap modelo) throws MiException {
+            @RequestParam String diaSemana, @RequestParam LocalTime horaInicio, @RequestParam LocalTime horaFin,
+            @RequestParam Long duracionTurno, ModelMap modelo) throws MiException {
         try {
             profesionalServicio.modificarJornada(profesional, id_jornada, diaSemana, horaInicio, horaFin, duracionTurno);
             modelo.put("exito", "exito");

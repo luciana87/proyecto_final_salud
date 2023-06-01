@@ -128,7 +128,7 @@ public class ProfesionalServicio {
     //Crear jornada laboral
     
     @Transactional
-    public List<JornadaLaboral> crearJ(Profesional profesional, Integer diaSemana, LocalTime horaInicio, LocalTime horaFin, Integer duracion) throws MiException {
+    public List<JornadaLaboral> crearJ(Profesional profesional, String diaSemana, LocalTime horaInicio, LocalTime horaFin, Long duracion) throws MiException {
         if (profesional != null) {
             List<JornadaLaboral> jornadas = new ArrayList();
             JornadaLaboral jornada = jornadaServicio.crearJornadaLaboral(profesional, diaSemana, horaInicio, horaFin, duracion);
@@ -152,8 +152,8 @@ public class ProfesionalServicio {
     }
 
     @Transactional
-    public void modificarJornada(Profesional profesional, String id_jornada, Integer diaSemana, 
-            LocalTime horaInicio, LocalTime horaFin, Integer duracionTurno) throws MiException{
+    public void modificarJornada(Profesional profesional, String id_jornada, String diaSemana, 
+            LocalTime horaInicio, LocalTime horaFin, Long duracionTurno) throws MiException{
         
         if(profesional != null){
             jornadaServicio.modificarJornada(profesional, id_jornada, diaSemana, horaInicio, horaFin, duracionTurno);

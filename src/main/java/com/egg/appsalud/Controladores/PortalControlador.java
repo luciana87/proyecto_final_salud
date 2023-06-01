@@ -60,7 +60,7 @@ public class PortalControlador {
         }
 
         if (logueado.getRol().toString().equals("PACIENTE")) {
-            return "inicio_paciente_2.html";
+            return "redirect:/paciente/inicio";
         }
 
         return "redirect:/admin/dashboard";

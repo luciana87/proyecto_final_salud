@@ -20,16 +20,16 @@ public class JornadaLaboral {
     @ManyToOne
     @JoinColumn(name = "id_profesional")
     private Profesional profesional;
-    private Integer diaSemana;
+    private String diaSemana;
     private LocalTime horaInicio;
     private LocalTime horaFin;
-    private Integer duracionTurno;
+    private Long duracionTurno;
 
     public JornadaLaboral() {
     }
 
-    public JornadaLaboral(String id_jornada, Profesional profesional, Integer diaSemana, LocalTime horaInicio, LocalTime horaFin, Integer duracionTurno) {
-        this.id_jornada = id_jornada;
+    public JornadaLaboral( Profesional profesional, String diaSemana, LocalTime horaInicio, LocalTime horaFin, Long duracionTurno) {
+        
         this.profesional = profesional;
         this.diaSemana = diaSemana;
         this.horaInicio = horaInicio;
@@ -45,7 +45,7 @@ public class JornadaLaboral {
         return profesional;
     }
 
-    public Integer getDiaSemana() {
+    public String getDiaSemana() {
         return diaSemana;
     }
 
@@ -57,7 +57,7 @@ public class JornadaLaboral {
         return horaFin;
     }
 
-    public Integer getDuracionTurno() {
+    public Long getDuracionTurno() {
         return duracionTurno;
     }
 
@@ -69,7 +69,7 @@ public class JornadaLaboral {
         this.profesional = profesional;
     }
 
-    public void setDiaSemana(Integer diaSemana) {
+    public void setDiaSemana(String diaSemana) {
         this.diaSemana = diaSemana;
     }
 
@@ -81,7 +81,7 @@ public class JornadaLaboral {
         this.horaFin = horaFin;
     }
 
-    public void setDuracionTurno(Integer duracionTurno) {
+    public void setDuracionTurno(Long duracionTurno) {
         this.duracionTurno = duracionTurno;
     }
     

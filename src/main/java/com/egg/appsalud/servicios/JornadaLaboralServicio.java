@@ -19,7 +19,7 @@ public class JornadaLaboralServicio {
     private JornadaLaboralRepositorio jornadaLRepositorio;
 
     @Transactional
-    public JornadaLaboral crearJornadaLaboral(Profesional profesional, Integer diaSemana, LocalTime horaInicio, LocalTime horaFin, Integer duracionTurno) {
+    public JornadaLaboral crearJornadaLaboral(Profesional profesional, String diaSemana, LocalTime horaInicio, LocalTime horaFin, Long duracionTurno) {
 
         JornadaLaboral jornadaLaboral = new JornadaLaboral();
 
@@ -51,8 +51,8 @@ public class JornadaLaboralServicio {
     }
 
     @Transactional
-    public void modificarJornada(Profesional profesional, String id_jornada, Integer diaSemana, LocalTime horaInicio,
-            LocalTime horaFin, Integer duracionTurno) throws MiException {
+    public void modificarJornada(Profesional profesional, String id_jornada, String diaSemana, LocalTime horaInicio,
+            LocalTime horaFin, Long duracionTurno) throws MiException {
 
         Optional<JornadaLaboral> jornadasOptional = jornadaLRepositorio.findById(id_jornada);
 
@@ -72,9 +72,9 @@ public class JornadaLaboralServicio {
     public void eliminarJornada(Profesional profesional, String id_jornada) throws MiException{
 
         Optional<JornadaLaboral> jornada = jornadaLRepositorio.findById(id_jornada);
-        System.out.println("entro2");
+        
         if (jornada.isPresent()) {
-            System.out.println("entro3");
+            
             jornadaLRepositorio.deleteById(id_jornada);
         }
     }
