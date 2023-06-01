@@ -26,47 +26,4 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/nota-medica")
 public class NotaMedicaControlador {
 
-    @Autowired
-    private NotaMedicaServicio notaMedicaServicio;
-    
-    @Autowired
-    private TurnoServicio turnoServicio;
-    
-    @GetMapping("/registrar/{TurnoId}") //Retorna vista para registrarse
-    public String registrar(@PathVariable Integer TurnoId, ModelMap modelo) throws MiException{
-        System.out.println("hISTORIAS: "+TurnoId);
-        
-        Turno turno = turnoServicio.listarTurnosporId(TurnoId);
-        //notaMedicaServicio.crearNotaMedica(turno.getProfesional().getId(), descripcion, turno.getPaciente().getId());
-        System.out.println("hISTORIANDO: "+ turno.getProfesional().getId());
-        modelo.addAttribute("turno", turno);
-
-        return "registro-nota-medica.html";
-    }
-    
-    @PostMapping("/registro/{TurnoId}")
-    public String registro(@PathVariable Integer TurnoId, @RequestParam String descripcion, ModelMap modelo){
-
-        //LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter); //Convierte el String de fechaNacimiento a LocalDate, si pongo directamente tipo LocalDate genera conflicto
-        System.out.println("Estoy en registro y: "+TurnoId);
-        
-        Turno turno = turnoServicio.listarTurnosporId(TurnoId);
-        System.out.println("estoy registro: "+turno.getProfesional().getApellido());
-        //notaMedicaServicio.crearNotaMedica(turno.getProfesional().getId(), descripcion, turno.getPaciente().getId());
-        //Turno turno = turnoServicio.listarTurnosporId(IdProfesional);
-        try {
-            //notaMedicaServicio.crearNotaMedica(IdProfesional, descripcion, IdPaciente);
-            notaMedicaServicio.crearNotaMedica(turno.getProfesional().getId(), descripcion, turno.getPaciente().getId());
-        
-        modelo.put("exito", "El paciente fue creado correctamente");
-         } catch (MiException ex) {
-            modelo.put("error", ex.getMessage());
-            return "/registro.html";
-        }
-        return "redirect:/inicio";
-    }  
-        
-    
-    
 }
-

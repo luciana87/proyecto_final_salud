@@ -40,6 +40,9 @@ public class Paciente extends Usuario implements Serializable{
     @Column(name = "historial_turnos")
     private List<Turno> listaDeTurnos;
 
+    
+    //Muchas historias
+    
     @OneToOne //Un paciente tiene una historia clínica
     @JoinColumn (name = "historia_clinica_id") //Foreign Key: historia_clinica_id
     private HistoriaClinica historiaClinica ;

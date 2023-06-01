@@ -11,24 +11,16 @@ import java.time.LocalTime;
 public class Turno {
 
     @Id
-<<<<<<< HEAD
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-=======
-    @GeneratedValue(strategy = GenerationType.AUTO)
->>>>>>> devCarlos
+
     private Integer id;
    
     @Column(nullable = false)
     private LocalDate fecha;
     
-<<<<<<< HEAD
     @Column(nullable = false)
     private LocalTime horario;
-=======
-    @Column(nullable = false, length = 50)
-    private String horario;
->>>>>>> devCarlos
-    
+
 
     @ManyToOne //referencia a ‘Paciente’, muchos turnos puede tener un paciente.
     @JoinColumn(name = "paciente_id") //columna con la que vamos a relacionar esta tabla con la tabla ‘Paciente’.
@@ -36,22 +28,16 @@ public class Turno {
 
     @ManyToOne
     @JoinColumn (name= "profesional_id")
-<<<<<<< HEAD
     private Profesional medico; 
-=======
-    private Profesional profesional; 
->>>>>>> devCarlos
+
     
     @Column(nullable = false)
     public EstadoTurno estado;
 
     public Turno() {
-<<<<<<< HEAD
     }
     
-    
-
-    public Turno( Integer id,LocalDate fecha, Paciente paciente) { 
+    public Turno(Integer id,LocalDate fecha, Paciente paciente) { 
         this.id = id;
         this.fecha = fecha;
         this.paciente = paciente;
@@ -59,20 +45,6 @@ public class Turno {
     }
 
     public Integer getIdTurno() {
-=======
-    }
-
-    public Turno(Integer id, LocalDate fecha, String horario, Paciente paciente, Profesional profesional, EstadoTurno estado) {
-        this.id = id;
-        this.fecha = fecha;
-        this.horario = horario;
-        this.paciente = paciente;
-        this.profesional = profesional;
-        this.estado = estado;
-    }
-
-    public Integer getId() {
->>>>>>> devCarlos
         return id;
     }
 
@@ -88,17 +60,6 @@ public class Turno {
         this.fecha = fecha;
     }
 
-<<<<<<< HEAD
-=======
-    public String getHorario() {
-        return horario;
-    }
-
-    public void setHorario(String horario) {
-        this.horario = horario;
-    }
-
->>>>>>> devCarlos
     public Paciente getPaciente() {
         return paciente;
     }
@@ -107,17 +68,6 @@ public class Turno {
         this.paciente = paciente;
     }
 
-<<<<<<< HEAD
-=======
-    public Profesional getProfesional() {
-        return profesional;
-    }
-
-    public void setProfesional(Profesional profesional) {
-        this.profesional = profesional;
-    }
->>>>>>> devCarlos
-
     public EstadoTurno getEstado() {
         return estado;
     }
@@ -125,7 +75,7 @@ public class Turno {
     public void setEstado(EstadoTurno estado) {
         this.estado = estado;
     }
-<<<<<<< HEAD
+
     
     public LocalTime getHorario() {
         return horario;
@@ -147,9 +97,5 @@ public class Turno {
     public String toString() {
         return "Turno{" + "id_turno=" + id + ", fecha=" + fecha + ", horario=" + horario + ", paciente=" + paciente + ", medico=" + medico + ", estado=" + estado + '}';
     }
-
-
-=======
->>>>>>> devCarlos
 
 }

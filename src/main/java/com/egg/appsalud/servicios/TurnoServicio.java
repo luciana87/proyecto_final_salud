@@ -1,7 +1,6 @@
 package com.egg.appsalud.servicios;
 
 import com.egg.appsalud.Enumerativos.EstadoTurno;
-<<<<<<< HEAD
 import com.egg.appsalud.entidades.*;
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Turno;
@@ -24,7 +23,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.springframework.transaction.annotation.Transactional;
-=======
+
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.entidades.Turno;
@@ -35,25 +34,21 @@ import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import javax.transaction.Transactional;
+//import javax.transaction.Transactional;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.stream.Collectors;
->>>>>>> devCarlos
 
 @Service
 public class TurnoServicio {
 
     @Autowired
     private TurnoRepositorio turnoRepositorio;
+    
     @Autowired
     private PacienteRepositorio pacienteRepositorio;
     
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
-<<<<<<< HEAD
-    @Autowired
-    private PacienteRepositorio pacienteRepositorio;
 
     @Autowired
     private ProfesionalRepositorio profesionalRepositorio;
@@ -74,9 +69,6 @@ public class TurnoServicio {
     public void crearTurno(String id, LocalDate inicioRango, LocalDate finRango) throws MiException {
 
         Optional<Profesional> respProfesional = profesionalRepositorio.findById(id);
-
-
-
 
         if (respProfesional.isPresent()) {
             Profesional profesional = respProfesional.get();
@@ -118,13 +110,15 @@ public class TurnoServicio {
 
 
     }
-
-//    public List<Turno> listarTurnosPorPacientes(Paciente paciente) {
-//
-//        List<Turno> turnos = turnoRepositorio.BuscarPorPaciente(paciente);
-//        return turnos.stream().collect(Collectors.toList());
-//    }
-
+    
+    @Transactional
+    public void SelecionarTurnoPaciente(String pacieteId, Integer idTurno){
+        Paciente paciente = pacienteRepositorio.getOne(pacieteId);
+        Turno turno = turnoRepositorio.getOne(idTurno);
+        turno.setEstado(EstadoTurno.RESERVADO);
+        turno.setPaciente(paciente);
+        turnoRepositorio.save(turno);
+    }
 
     private List<LocalDate> listarFechasSegunRango (LocalDate inicioRango, LocalDate finRango){
         List<LocalDate> dates = Stream.iterate(inicioRango, date -> date.plusDays(1))
@@ -133,25 +127,7 @@ public class TurnoServicio {
 
         return dates;
     }
-
-=======
-    @Transactional
-    public void crearTurno(Paciente paciente, Profesional profesional, LocalDate fechaTurno, String horario) throws MiException {
-        Turno turno = new Turno();
-        System.out.println("estoy en crear turno");
-        turno.setPaciente(paciente);
-        turno.setProfesional(profesional);
-        turno.setFecha(fechaTurno);
-        turno.setHorario(horario);
-        turno.setEstado(EstadoTurno.RESERVADO);
-        turnoRepositorio.save(turno);
-        List<Turno> listaDeTurnos= paciente.getListaDeTurnos();
-        listaDeTurnos.add(turno);
-        paciente.setListaDeTurnos(listaDeTurnos);
-        pacienteRepositorio.save(paciente);
-    }
     
-   
     public List<Turno> listarTurnos() {
         List<Turno> turnos = turnoRepositorio.findAll();
         System.out.println("Turnos "+turnos.get(0).getPaciente().getNombre());
@@ -172,5 +148,4 @@ public class TurnoServicio {
     public Turno buscarPorId(Integer id) {
         return turnoRepositorio.findById(id).orElse(null);
     }
->>>>>>> devCarlos
 }

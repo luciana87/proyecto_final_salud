@@ -14,15 +14,12 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-<<<<<<< HEAD
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-=======
->>>>>>> devCarlos
 
 @Service
 public class ProfesionalServicio {
@@ -35,10 +32,8 @@ public class ProfesionalServicio {
 
     @Transactional
     public void crearProfesional(String mail, String password, String nombre, String apellido,
-
             String dni, LocalDate fechaNacimiento, String telefono, String matricula,
             String especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException {
-
 
         validar(mail, password, nombre, apellido, dni, fechaNacimiento);
 
@@ -62,20 +57,16 @@ public class ProfesionalServicio {
 //            profesional.setImagen(imagen);
         profesionalRepositorio.save(profesional);
     }
-    
+
     public List<Profesional> listarProfesionales() {
-
-
-            List<Profesional> profesionales = profesionalRepositorio.findAll();
-            return profesionales.stream().collect(Collectors.toList());
+        List<Profesional> profesionales = profesionalRepositorio.findAll();
+        return profesionales.stream().collect(Collectors.toList());
     }
 
-    
     @Transactional
     public void modificarProfesional(String idProfesional, String mail, String password, String nombre, String apellido,
             String dni, LocalDate fechaNacimiento, String telefono, String matricula, Especialidad especialidad,
             Double valorConsulta, String descripcionEspecialidad) throws MiException {
-
 
         validar(mail, password, nombre, apellido, dni, fechaNacimiento);
 
@@ -105,7 +96,6 @@ public class ProfesionalServicio {
         return profesionalRepositorio.getOne(idProfesional);
     }
 
-
     private void validar(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento) throws MiException {
 
         if (nombre.isEmpty() || nombre == null) {
@@ -127,15 +117,12 @@ public class ProfesionalServicio {
             throw new MiException("La fecha de naciemiento no puede ser nulo o estar vacia");
         }
     }
-    
-<<<<<<< HEAD
-    
+
     //Crear jornada laboral
-    
     @Transactional
     public List<JornadaLaboral> crearJ(Profesional profesional, String diaSemana, LocalTime horaInicio, LocalTime horaFin, Long duracion) throws MiException {
         if (profesional != null) {
-            
+
             List<JornadaLaboral> jornadas = new ArrayList();
             JornadaLaboral jornada = jornadaServicio.crearJornadaLaboral(profesional, diaSemana, horaInicio, horaFin, duracion);
             jornadas.add(jornada);
@@ -144,63 +131,47 @@ public class ProfesionalServicio {
             return null;
         }
     }
-     
+
     //Listar las jornadas laborales de X profesional
-    
     public List<JornadaLaboral> listarJornadas(Profesional profesional) throws MiException {
-        
-        if(profesional != null){
+
+        if (profesional != null) {
             return profesional.getJornadaLaboral();
-        }else{
+        } else {
             throw new MiException("No disponible");
         }
     }
 
     @Transactional
-    public void modificarJornada(Profesional profesional, String id_jornada, String diaSemana, 
-            LocalTime horaInicio, LocalTime horaFin, Long duracionTurno) throws MiException{
-        
-        if(profesional != null){
+    public void modificarJornada(Profesional profesional, String id_jornada, String diaSemana,
+            LocalTime horaInicio, LocalTime horaFin, Long duracionTurno) throws MiException {
+
+        if (profesional != null) {
             jornadaServicio.modificarJornada(profesional, id_jornada, diaSemana, horaInicio, horaFin, duracionTurno);
         }
-        
+
     }
-    
+
     @Transactional
-    public void eliminarJornada(Profesional profesional, String id_jornada) throws MiException{
-        
-        if(profesional != null){
+    public void eliminarJornada(Profesional profesional, String id_jornada) throws MiException {
+
+        if (profesional != null) {
             System.out.println("entro");
             jornadaServicio.eliminarJornada(profesional, id_jornada);
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-=======
-    public List<Profesional> listarProfesionales() {
 
-        List<Profesional> profesionales = profesionalRepositorio.findAll();
-        return profesionales.stream().collect(Collectors.toList());
-    }    
-    
+//    public List<Profesional> listarProfesionales() {
+//
+//        List<Profesional> profesionales = profesionalRepositorio.findAll();
+//        return profesionales.stream().collect(Collectors.toList());
+//    }
+
     @Transactional
     public void eliminarProfesional(String id_profesional) throws MiException {
-        
+
         profesionalRepositorio.deleteById(id_profesional);
 
     }
 
->>>>>>> devCarlos
 }

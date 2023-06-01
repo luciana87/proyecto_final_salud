@@ -15,7 +15,7 @@ public class HistoriaClinica {
     private Paciente paciente;
 
     @OneToMany (mappedBy = "historiaClinica")
-    private List<NotaMedica> notas;
+    private List<NotaMedica> notaM;
 
 
     public HistoriaClinica(Integer id) {
@@ -24,10 +24,10 @@ public class HistoriaClinica {
     public HistoriaClinica() {
     }
 
-    public HistoriaClinica(Integer id, Paciente paciente, List<NotaMedica> notas) {
+    public HistoriaClinica(Integer id, Paciente paciente, List<NotaMedica> notaM) {
         this.id = id;
         this.paciente = paciente;
-        this.notas = notas;
+        this.notaM = notaM;
     }
 
     
@@ -48,12 +48,12 @@ public class HistoriaClinica {
         this.paciente = paciente;
     }
 
-    public List<NotaMedica> getNotas() {
-        return notas;
+    public List<NotaMedica> getNotaM() {
+        return notaM;
     }
 
-    public void setNotas(List<NotaMedica> notas) {
-        this.notas = notas;
+    public void setNotaM(List<NotaMedica> notas) {
+        this.notaM = notas;
     }
     
     

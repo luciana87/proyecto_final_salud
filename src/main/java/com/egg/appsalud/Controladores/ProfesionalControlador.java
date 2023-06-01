@@ -23,11 +23,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-<<<<<<< HEAD
 import java.util.logging.Level;
 import java.util.logging.Logger;
-=======
->>>>>>> devCarlos
 
 @Controller
 @RequestMapping("/profesional")
@@ -105,7 +102,6 @@ public class ProfesionalControlador {
         return "index.html";//Vista inicio profesional no index @PathVariable String id_profesional,
     }
 
-<<<<<<< HEAD
     @GetMapping("/crearJornada")
     public String crear() {
         return "formjornada.html";
@@ -137,7 +133,7 @@ public class ProfesionalControlador {
         try {
 
             if (profesional != null) {
-                JornadaLaboral jornadasLaborales = profesionalServicio.listarJornadas(profesional);
+                List<JornadaLaboral> jornadasLaborales = profesionalServicio.listarJornadas(profesional);
                 model.addAttribute("jornadasLaborales", jornadasLaborales);
             }
         } catch (MiException e) {
@@ -214,7 +210,6 @@ public class ProfesionalControlador {
 //    }
 
 
-=======
     @GetMapping("/lista")
     public String listar(ModelMap modelo) {
         List<Profesional> profesionales = profesionalServicio.listarProfesionales();
@@ -238,5 +233,4 @@ public class ProfesionalControlador {
     }
 
     
->>>>>>> devCarlos
 }
