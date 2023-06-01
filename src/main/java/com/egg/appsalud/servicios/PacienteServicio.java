@@ -169,7 +169,7 @@ public class PacienteServicio implements UserDetailsService {
             Paciente paciente = pacienteOptional.get();
 
             paciente.setMail(mail);
-            paciente.setPassword(password);
+            paciente.setPassword(new BCryptPasswordEncoder().encode(password));
             paciente.setNombre(nombre);
             paciente.setApellido(apellido);
             paciente.setDni(dni);
