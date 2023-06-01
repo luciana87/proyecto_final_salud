@@ -19,33 +19,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AppSaludApplication implements CommandLineRunner{
+public class AppSaludApplication{
     public static void main(String[] args) {
         SpringApplication.run(AppSaludApplication.class, args);
     }    
-
-    @Autowired
-    ProfesionalRepositorio profRepo;
-    @Autowired
-    TurnoServicio turnoServicio;
-    @Autowired
-    JornadaLaboralRepositorio jornadaLaboralRepositorio;
-   
-    @Override
-    public void run(String... args) throws Exception {
-        
-        Profesional profesional = profRepo.BuscarPorEmail("rivas@prueba.com");
-        JornadaLaboral jornada = new JornadaLaboral(profesional,"MONDAY", LocalTime.parse("06:00"), LocalTime.parse("09:00"),60l);
-        jornadaLaboralRepositorio.save(jornada);
-        
-        LocalDate inicioFecha = LocalDate.of(2023, 5, 1);
-        LocalDate finFecha = LocalDate.of(2023, 5, 31);
-        
-        
-        turnoServicio.crearTurno(profesional.getId(),inicioFecha,finFecha);
-        
-        
-    }
+  
 }
 
 
