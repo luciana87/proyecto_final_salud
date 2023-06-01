@@ -53,7 +53,9 @@ public class TurnoServicio {
     public void crearTurno(String id, LocalDate inicioRango, LocalDate finRango) throws MiException {
 
         Optional<Profesional> respProfesional = profesionalRepositorio.findById(id);
-        
+
+
+
 
         if (respProfesional.isPresent()) {
             Profesional profesional = respProfesional.get();
@@ -62,40 +64,30 @@ public class TurnoServicio {
                 List<JornadaLaboral> jornadaLaboral = profesional.getJornadaLaboral();
 
                 List<LocalDate> fechas = listarFechasSegunRango(inicioRango, finRango);
+                List<Turno> turnos = new ArrayList<>();
 
                 for (LocalDate fecha : fechas) {
                         for (JornadaLaboral jornada : jornadaLaboral)
                                 if (fecha.getDayOfWeek().toString().equals(jornada.getDiaSemana())){
                                     LocalTime tiempo = jornada.getHoraInicio();
-                                    while (tiempo.isBefore(jornada.getHoraFin())) { 
+                                    while (tiempo.isBefore(jornada.getHoraFin())) {
                                             Turno turno = new Turno();
-                                            tiempo = tiempo.plusMinutes(jornada.getDuracionTurno());
                                             turno.setEstado(EstadoTurno.DISPONIBLE);
                                             turno.setFecha(fecha);
                                             turno.setHorario(tiempo);
                                             turno.setMedico(profesional);
-                                            turnoRepositorio.save(turno);
+                                            turnos.add(turno);
+//                                            turnoRepositorio.save(turno);
+                                            tiempo = tiempo.plusMinutes(jornada.getDuracionTurno());
 
                                         }
                                 }
-                                            
-                                        
-                                                
-                                        
-                                        
-                    
-                    //Comparar dias de la semana de la jornada laboral con los dias del arreglo
                 }
-
-
+                    turnoRepositorio.saveAll(turnos);
+                }
             }
-
-
-//           Turno turno = new Turno(null, fecha, paciente, profesional);
-//            turnoRepositorio.save(turno);
         }
 
-    }
 
 //    public Profesional obtenerProfesionalPorId(String id_profesional) {
 //        return profesionalRepositorio.getById(id_profesional);

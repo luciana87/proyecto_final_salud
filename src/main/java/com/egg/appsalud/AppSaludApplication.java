@@ -4,6 +4,7 @@ package com.egg.appsalud;
 import com.egg.appsalud.entidades.JornadaLaboral;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.entidades.Turno;
+import com.egg.appsalud.repositorios.JornadaLaboralRepositorio;
 import com.egg.appsalud.repositorios.ProfesionalRepositorio;
 import com.egg.appsalud.servicios.JornadaLaboralServicio;
 import com.egg.appsalud.servicios.ProfesionalServicio;
@@ -27,13 +28,15 @@ public class AppSaludApplication implements CommandLineRunner{
     ProfesionalRepositorio profRepo;
     @Autowired
     TurnoServicio turnoServicio;
+    @Autowired
+    JornadaLaboralRepositorio jornadaLaboralRepositorio;
    
     @Override
     public void run(String... args) throws Exception {
         
-        Profesional profesional = profRepo.BuscarPorEmail("pruebajornada@gmail.com");
-        
-        
+        Profesional profesional = profRepo.BuscarPorEmail("rivas@prueba.com");
+        JornadaLaboral jornada = new JornadaLaboral(profesional,"MONDAY", LocalTime.parse("06:00"), LocalTime.parse("09:00"),60l);
+        jornadaLaboralRepositorio.save(jornada);
         
         LocalDate inicioFecha = LocalDate.of(2023, 5, 1);
         LocalDate finFecha = LocalDate.of(2023, 5, 31);
