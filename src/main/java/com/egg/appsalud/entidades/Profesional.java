@@ -6,10 +6,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
-@Table (name = "profesional")
+@Table(name = "profesional")
 public class Profesional extends Usuario implements Serializable {
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -18,8 +21,9 @@ public class Profesional extends Usuario implements Serializable {
     @Column(nullable = false)
     private String matricula;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String especialidad;
+    private Especialidad especialidad;
 
     @Column
     private Double reputacion;
@@ -55,14 +59,17 @@ public class Profesional extends Usuario implements Serializable {
     @OneToMany (mappedBy = "profesional")
     private List<NotaMedica> notas;
 
- */
+     */
+    @OneToMany(mappedBy = "profesional")
+    @Fetch(FetchMode.JOIN)
+    private List<JornadaLaboral> jornadaLaboral;
 
     public Profesional() {
     }
 
 
     public Profesional(String mail, String password, String nombre, String apellido, String dni,
-                       LocalDate fechaNacimiento, Long telefono, String matricula, String especialidad,
+                       LocalDate fechaNacimiento, String telefono, String matricula, Especialidad especialidad,
                        Double reputacion, Double valorConsulta, String descripcionEspecialidad, List<Turno> turnosAsignados) {
 
         super(mail, password, nombre, apellido, dni, fechaNacimiento, telefono);
@@ -72,6 +79,14 @@ public class Profesional extends Usuario implements Serializable {
         this.valorConsulta = valorConsulta;
         this.descripcionEspecialidad = descripcionEspecialidad;
         this.turnosAsignados = turnosAsignados;
+    }
+
+    public void setJornadaLaboral(List<JornadaLaboral> jornadaLaboral) {
+        this.jornadaLaboral = jornadaLaboral;
+    }
+
+    public List<JornadaLaboral> getJornadaLaboral() {
+        return jornadaLaboral;
     }
 
     public String getId() {
@@ -86,11 +101,11 @@ public class Profesional extends Usuario implements Serializable {
         this.matricula = matricula;
     }
 
-    public String getEspecialidad() {
+    public Especialidad getEspecialidad() {
         return especialidad;
     }
 
-    public void setEspecialidad(String especialidad) {
+    public void setEspecialidad(Especialidad especialidad) {
         this.especialidad = especialidad;
     }
 

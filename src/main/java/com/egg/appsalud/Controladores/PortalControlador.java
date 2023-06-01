@@ -24,6 +24,9 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/")
 public class PortalControlador {
 
+    @Autowired
+    private PacienteServicio pacienteServicio;
+
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: aÃ±o-mes-dia del LocalDate
 
     @GetMapping("/")
@@ -35,9 +38,6 @@ public class PortalControlador {
 //    public String registrar(){
 //        return "registro.html";
 //    }
-//    
-    @Autowired
-    private PacienteServicio pacienteServicio;
     
     
     @GetMapping("/login")
@@ -76,6 +76,21 @@ public class PortalControlador {
         return "lista-paciente.html"; //Retorna vista con todos los pacientes persistidos en la DB (tabla, o card de pacientes)
     }
 
+
+    @GetMapping("/prueba")
+    public String obtener(){
+        return "form-crear-turnos.html";
+    }
+
+    @PostMapping("/prueba")
+    public  String prueba(@RequestParam (required = false) String lunes, @RequestParam (required = false) String martes,
+                          @RequestParam (required = false) String miercoles){
+
+        String dias = lunes + martes + miercoles;
+
+        System.out.println(lunes +" "+ martes + miercoles);
+        return "form-crear-turnos.html";
+    }
 }
 
 

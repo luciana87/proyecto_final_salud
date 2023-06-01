@@ -8,13 +8,16 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "turno")
 public class Turno {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
     @Column(nullable = false)
     private LocalDate fecha;
+
     @Column(nullable = false, length = 50)
     private String horario;
+
 
     @ManyToOne //referencia a ‘Paciente’, muchos turnos puede tener un paciente.
     @JoinColumn(name = "paciente_id", nullable = false) //columna con la que vamos a relacionar esta tabla con la tabla ‘Paciente’.
@@ -30,14 +33,14 @@ public class Turno {
 
     public Turno() {}
 
-    public Turno(int id, LocalDate fecha, Paciente paciente) {
+    public Turno(Integer id, LocalDate fecha, Paciente paciente) {
         this.id = id;
         this.fecha = fecha;
         this.paciente = paciente;
         this.estado = EstadoTurno.RESERVADO;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
