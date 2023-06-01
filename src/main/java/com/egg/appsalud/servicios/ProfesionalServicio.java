@@ -14,12 +14,15 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+<<<<<<< HEAD
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+=======
+>>>>>>> devCarlos
 
 @Service
 public class ProfesionalServicio {
@@ -125,6 +128,7 @@ public class ProfesionalServicio {
         }
     }
     
+<<<<<<< HEAD
     
     //Crear jornada laboral
     
@@ -184,4 +188,19 @@ public class ProfesionalServicio {
     
     
     
+=======
+    public List<Profesional> listarProfesionales() {
+
+        List<Profesional> profesionales = profesionalRepositorio.findAll();
+        return profesionales.stream().collect(Collectors.toList());
+    }    
+    
+    @Transactional
+    public void eliminarProfesional(String id_profesional) throws MiException {
+        
+        profesionalRepositorio.deleteById(id_profesional);
+
+    }
+
+>>>>>>> devCarlos
 }
