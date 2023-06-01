@@ -53,7 +53,7 @@ public class TurnoServicio {
     public void crearTurno(String id, LocalDate inicioRango, LocalDate finRango) throws MiException {
 
         Optional<Profesional> respProfesional = profesionalRepositorio.findById(id);
-        Turno turno = new Turno();
+        
 
         if (respProfesional.isPresent()) {
             Profesional profesional = respProfesional.get();
@@ -67,7 +67,8 @@ public class TurnoServicio {
                         for (JornadaLaboral jornada : jornadaLaboral)
                                 if (fecha.getDayOfWeek().toString().equals(jornada.getDiaSemana())){
                                     LocalTime tiempo = jornada.getHoraInicio();
-                                    while (jornada.getHoraInicio().isBefore(jornada.getHoraFin())) {                                          
+                                    while (tiempo.isBefore(jornada.getHoraFin())) { 
+                                            Turno turno = new Turno();
                                             tiempo = tiempo.plusMinutes(jornada.getDuracionTurno());
                                             turno.setEstado(EstadoTurno.DISPONIBLE);
                                             turno.setFecha(fecha);
