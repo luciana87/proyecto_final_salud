@@ -89,7 +89,7 @@ public class ProfesionalServicio {
             profesional.setFechaNacimiento(fechaNacimiento);
             profesional.setTelefono(telefono);
             profesional.setMatricula(matricula);
-            profesional.setEspecialidad(especialidad);
+            profesional.setEspecialidad(Especialidad.CARDIOLOGIA);
             profesional.setValorConsulta(valorConsulta);
             profesional.setDescripcionEspecialidad(descripcionEspecialidad);
 
@@ -128,7 +128,8 @@ public class ProfesionalServicio {
     //Crear jornada laboral
     
     @Transactional
-    public List<JornadaLaboral> crearJ(Profesional profesional, String diaSemana, LocalTime horaInicio, LocalTime horaFin, Long duracion) throws MiException {
+    public List<JornadaLaboral> crearJ(Profesional profesional, String diaSemana, LocalTime horaInicio,
+                                       LocalTime horaFin, Long duracion) throws MiException {
         if (profesional != null) {
             List<JornadaLaboral> jornadas = new ArrayList();
             JornadaLaboral jornada = jornadaServicio.crearJornadaLaboral(profesional, diaSemana, horaInicio, horaFin, duracion);
@@ -152,7 +153,7 @@ public class ProfesionalServicio {
     }
 
     @Transactional
-    public void modificarJornada(Profesional profesional, String id_jornada, String diaSemana, 
+    public void modificarJornada(Profesional profesional, Integer id_jornada, String diaSemana,
             LocalTime horaInicio, LocalTime horaFin, Long duracionTurno) throws MiException{
         
         if(profesional != null){
@@ -162,8 +163,8 @@ public class ProfesionalServicio {
     }
     
     @Transactional
-    public void eliminarJornada(Profesional profesional, String id_jornada) throws MiException{
-        
+    public void eliminarJornada(Profesional profesional, Integer id_jornada) throws MiException{
+
         if(profesional != null){
             System.out.println("entro");
             jornadaServicio.eliminarJornada(profesional, id_jornada);

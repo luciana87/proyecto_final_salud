@@ -13,9 +13,8 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class JornadaLaboral {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id_jornada;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     
     @ManyToOne
     @JoinColumn(name = "id_profesional")
@@ -28,8 +27,9 @@ public class JornadaLaboral {
     public JornadaLaboral() {
     }
 
-    public JornadaLaboral( Profesional profesional, String diaSemana, LocalTime horaInicio, LocalTime horaFin, Long duracionTurno) {
-        
+    public JornadaLaboral(Profesional profesional, String diaSemana,
+                          LocalTime horaInicio, LocalTime horaFin, Long duracionTurno) {
+
         this.profesional = profesional;
         this.diaSemana = diaSemana;
         this.horaInicio = horaInicio;
@@ -37,8 +37,9 @@ public class JornadaLaboral {
         this.duracionTurno = duracionTurno;
     }
 
-    public String getId_jornada() {
-        return id_jornada;
+
+    public Integer getId() {
+        return id;
     }
 
     public Profesional getProfesional() {
@@ -59,10 +60,6 @@ public class JornadaLaboral {
 
     public Long getDuracionTurno() {
         return duracionTurno;
-    }
-
-    public void setId_jornada(String id_jornada) {
-        this.id_jornada = id_jornada;
     }
 
     public void setProfesional(Profesional profesional) {

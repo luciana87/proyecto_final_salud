@@ -19,21 +19,20 @@
 
             </div>
 
-            <h1 class="mb-5"
-                style="text-align: center;  transform: translateY(100%); font-family: 'Times New Roman', Times, serif">
-                PANEL
-                PACIENTE
-            </h1>
+            <h1 class="mb-5" style="text-align: center;  transform: translateY(100%); font-family: 'Times New Roman', Times, serif">PANEL PACIENTE</h1>
 
             <div class="bg-white shadow rounded-lg d-block d-sm-flex">
                 <div class="profile-tab-nav border-right">
                     <div class="p-4">
 
                         <div class="img-circle text-center mb-3" >
-                            <img class="logo"  th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" >
+                            <img class="logo" th:if="${tieneImagen}" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" >
+                            <img class="logo" th:unless="${tieneImagen}" src="/img/img-default.jpg" >
+
                         </div>
 
-                        <h4 class="text-center">Paciente</h4>
+
+                        <h4 th:text="${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}" class="text-center"></h4>
                     </div>
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab"
@@ -58,7 +57,7 @@
                         </a>
                         <a class="nav-link" href="/logout" >
                             <i class="fa fa-bell text-center mr-1"></i>
-                            cerrar session
+                            Cerrar session
                         </a>
                     </div>
                 </div>
@@ -183,9 +182,8 @@
                     </div>
                     <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
                         <h3 class="mb-4">Modificar Turno</h3>
-                        <div class="row">  
-                                <button onclick="window.location.href='../templates/lista-paciente.html'" type="button" class="btn btn-warning btn-lg btn-responsive" id="search">Modificar</button>                          
-<!--                            <table class="table">
+                        <div class="row">
+                            <table class="table">
                                 <thead>
                                     <tr>
                                         <th scope="col">Fecha</th>
@@ -214,11 +212,11 @@
                                         <td></td>
                                     </tr>
                                 </tbody>
-                            </table>-->
+                            </table>
 
                         </div>
-                        <!--<div>
-                            <button class="btn btn-primary">Modificar</button>
+                        <div>
+                            <button class="btn btn-primary">Cargar</button>
                             <button class="btn btn-light">Cancelar</button>
                         </div>-->
                     </div>
