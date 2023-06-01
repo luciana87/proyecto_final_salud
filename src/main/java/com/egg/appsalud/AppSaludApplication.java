@@ -35,7 +35,7 @@ public class AppSaludApplication implements CommandLineRunner{
     public void run(String... args) throws Exception {
         
         Profesional profesional = profRepo.BuscarPorEmail("rivas@prueba.com");
-        JornadaLaboral jornada = new JornadaLaboral(profesional,"MONDAY", LocalTime.parse("06:00"), LocalTime.parse("11:00"),45l);
+        JornadaLaboral jornada = new JornadaLaboral(profesional,"MONDAY", LocalTime.parse("06:00"), LocalTime.parse("09:00"),60l);
         jornadaLaboralRepositorio.save(jornada);
         
         LocalDate inicioFecha = LocalDate.of(2023, 5, 1);
