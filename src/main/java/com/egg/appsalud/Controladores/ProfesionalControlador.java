@@ -82,7 +82,7 @@ public class ProfesionalControlador {
 
     @PostMapping("/modificar/{id}")
     public String modificarProfesional(@PathVariable String id, String mail, String password, String nombre, String apellido,
-                                       String dni, String fechaNacimiento, String telefono, String matricula, Especialidad especialidad,
+                                       String dni, String fechaNacimiento, String telefono, String matricula, String especialidad,
                                        Double valorConsulta, String descripcionEspecialidad, ModelMap modelo) {
 
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter);
