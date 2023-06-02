@@ -9,73 +9,71 @@
   <title>Modificar datos del profesional</title>
 </head>
 <body class="container">
-
-  <div class="container" id="advanced-search-form">
-    <h2 class="text-center header">Modificar datos del perfil</h2>
-    <form th:action="@{/paciente/modificar/__${paciente.id}__}" method="POST">
+    <div class="container" id="advanced-search-form">
+      <h2 class="text-center header">Modificar datos del perfil</h2>
+      <form th:action="@{/paciente/modificar/__${paciente.id}__}" method="POST" enctype="multipart/form-data">
 <!--      <form th:action="@{/paciente/perfil/__${paciente.id}__}" method="POST">-->
-     <input hidden th:value= "${id_paciente}" name="id">
+        <input hidden th:value= "${paciente.id}" name="id">
+        <div class="form-group">
+            <input type="file" class="form-control" name="archivo" >
+        </div>
+        <div class="form-group">
+           <label for="nombre">Nombre</label>
+           <input th:value="${paciente.nombre}" type="text" class="form-control" name="nombre" placeholder="" id="nombre">
+        </div>
+        <div class="form-group">
+            <label for="surname">Apellido</label>
+            <input th:value="${paciente.apellido}" type="text" class="form-control" name="apellido" placeholder="" id="surname">
+        </div>
+        <div class="form-group">
+            <label for="mail">Email</label>
+            <input th:value="${paciente.mail}" type="email" class="form-control" name="mail" placeholder="" id="mail">
+        </div>
+        <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input th:value="${paciente.password}" type="password" class="form-control" name="password" placeholder="" id="password">
+        </div>
+        <div class="form-group">
+            <label>Obra Social</label>
+            <select name="idObraSocial">
+                <option>Seleccione obra social</option>
+                <option th:each="obraSocial : ${obrasSociales}" th:value="${obraSocial.id}" th:text="${obraSocial.nombre}" th:selected="(${obraSocial.id} == *{paciente.obraSocial.id})"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="nro-obra-social">N° Obra Social</label>
+            <input th:value="${paciente.nroObraSocial}" name="nroObraSocial" type="text" class="form-control" placeholder="" id="nro-obra-social">
+        </div>
+        <div class="form-group">
+            <label for="fechaNacimiento">Fecha de nacimiento</label>
+            <input th:value="${paciente.fechaNacimiento}" type="date" class="form-control"  name="fechaNacimiento" placeholder="" id="fechaNacimiento">
+        </div>
+        <div class="form-group">
+            <label for="dni">DNI</label>
+            <input th:value="${paciente.dni}" type="text" class="form-control" name="dni" placeholder="" id="dni">
+        </div>
+        <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input th:value="${paciente.telefono}" type="number" class="form-control" name="telefono" placeholder="" id="telefono">
+        </div>
 
-    <div class="form-group">
-      <label for="nombre">Nombre</label>
-      <input th:value="${paciente.nombre}" type="text" class="form-control" name="nombre" placeholder="" id="nombre">
+        <!-- ??? Qué es esta lína ??? -->
+        <div class="clearfix"></div>
+
+        <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>Actualizar</button>
+        <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3" >
+            <div class="card-body">
+                <h5 class="card-title">Exito 👍</h5>
+                <p class="card-text" th:text="${exito}"></p>
+            </div>
+        </div>
+        <div th:if="${error}!=null" class="card text-white bg-danger mb-3" >
+            <div class="card-body">
+                <h5 class="card-title">Error 👎</h5>
+                <p class="card-text" th:text="${error}"></p>
+            </div>
+        </div>
+      </form>
     </div>
-    <div class="form-group">
-      <label for="surname">Apellido</label>
-      <input th:value="${paciente.apellido}" type="text" class="form-control" name="apellido" placeholder="" id="surname">
-    </div>
-    <div class="form-group">
-           <label for="mail">Email</label>
-           <input th:value="${paciente.mail}" type="email" class="form-control" name="mail" placeholder="" id="mail">
-       </div>
-    <div class="form-group">
-           <label for="password">Contraseña</label>
-           <input th:value="${paciente.password}" type="password" class="form-control" name="password" placeholder="" id="password">
-       </div>
-    <div class="form-group">
-           <label>Obra Social</label>
-           <select name="idObraSocial">
-               <option>Seleccione obra social</option>
-               <option th:each="obraSocial : ${obrasSociales}" th:value="${obraSocial.id}" th:text="${obraSocial.nombre}" th:selected="(${obraSocial.id} == *{paciente.obraSocial.id})"></option>
-           </select>
-       </div>
-    <div class="form-group">
-           <label for="nro-obra-social">N° Obra Social</label>
-           <input th:value="${paciente.nroObraSocial}" name="nroObraSocial" type="text" class="form-control" placeholder="" id="nro-obra-social">
-       </div>
-    <div class="form-group">
-      <label for="fechaNacimiento">Fecha de nacimiento</label>
-      <input th:value="${paciente.fechaNacimiento}" type="date" class="form-control"  name="fechaNacimiento" placeholder="" id="fechaNacimiento">
-    </div>
-    <div class="form-group">
-           <label for="dni">DNI</label>
-           <input th:value="${paciente.dni}" type="text" class="form-control" name="dni" placeholder="" id="dni">
-       </div>
-    <div class="form-group">
-      <label for="telefono">Teléfono</label>
-      <input th:value="${paciente.telefono}" type="number" class="form-control" name="telefono" placeholder="" id="telefono">
-    </div>
-    <div class="clearfix"></div>
-    <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>
-      Actualizar</button>
-
-
-       <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3" >
-         <div class="card-body">
-           <h5 class="card-title">Exito 👍</h5>
-           <p class="card-text" th:text="${exito}"></p>
-         </div>
-       </div>
-       <div th:if="${error}!=null" class="card text-white bg-danger mb-3" >
-         <div class="card-body">
-           <h5 class="card-title">Error 👎</h5>
-           <p class="card-text" th:text="${error}"></p>
-         </div>
-       </div>
-  </form>
-
-
-
-</div>
 </body>
 </html>

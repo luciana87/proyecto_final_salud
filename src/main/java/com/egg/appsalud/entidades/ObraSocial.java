@@ -10,10 +10,6 @@ import java.util.List;
 @Table(name = "obra_social")
 public class ObraSocial {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Integer id;
-
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Integer id;

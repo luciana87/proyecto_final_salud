@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="/css/registro.css" rel="stylesheet" type="text/css">
+  <title>Registro Nota Medica</title>
+</head>
+<body class="container">
+
+  <div class="container" id="advanced-search-form">
+    <h2 class="text-center header">Agregar nota medica</h2>
+    <form th:action="@{/nota-medica/registro/__${turno.id}__}" method="POST">
+    <table class="table table-dark">
+     <thead>
+    <tr>
+      <th scope="col">Paciente</th>
+      <th scope="col">Profesional</th>
+      <th scope="col">Fecha del Turno</th>
+      <th scope="col">Horario</th>
+      
+    </tr>
+    </thead>
+     <tbody th:each="turno : ${turno}">
+    <tr>
+      <th scope="row" th:text="${turno.paciente.nombre}"></th>
+     
+      
+      <td th:text="${turno.profesional.nombre}"></td>
+      <td th:text="${turno.fecha}"></td>
+      <td th:text="${turno.horario}"></td>
+
+    </tr>
+
+    </tbody>
+    </table>
+ 
+    <div>
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" rows="4" cols="50"></textarea>
+    </div>
+    <div class="clearfix"></div>
+    <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>
+      Agregar Nota</button>
+
+
+       <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3" >
+         <div class="card-body">
+           <h5 class="card-title">Exito 👍</h5>
+           <p class="card-text" th:text="${exito}"></p>
+         </div>
+       </div>
+       <div th:if="${error}!=null" class="card text-white bg-danger mb-3" >
+         <div class="card-body">
+           <h5 class="card-title">Error 👎</h5>
+           <p class="card-text" th:text="${error}"></p>
+         </div>
+       </div>
+  </form>
+
+
+
+</div>
+</body>
+</html>
+

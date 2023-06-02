@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <table class="table table-dark">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Día de la semana</th>
+                            <th>Hora de inicio</th>
+                            <th>Hora de fin</th>
+                            <th>Duración</th>
+                            <th>Eliminar</th>
+                            <th>Modificar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="jornadas : ${jornadasLaborales}">
+                            <td th:text="${jornadas.id_jornada}"></td>
+                            <td th:text="${jornadas.diaSemana}"></td>
+                            <td th:text="${jornadas.horaInicio}"></td>
+                            <td th:text="${jornadas.horaFin}"></td>
+                            <td th:text="${jornadas.duracionTurno}"></td>
+
+
+                            <td><a th:href="@{/profesional/eliminar/__${jornadas.id_jornada}__}">Eliminar</a></td>
+
+                            <td><a th:href="@{/profesional/formularioModificar/__${jornadas.id_jornada}__}">Modificar</a></td>
+
+                    </tbody>
+                    <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+                    <div class="card-body">
+                        <h5 class="card-title">Éxito</h5>
+                        <p class="card-text" th:text="${exito}"></p>
+                    </div>
+                </div>
+                <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError" >
+                    <div class="card-body">
+                        <h5 class="card-title">Error</h5>
+                        <p class="card-text" th:text="${error}"></p>
+                    </div>
+                </div>
+                    
+                </table>
+                <button><a th:href="@{/profesional/crearJornada}">ir a crear jornada</a></button>
+                
+        </div>
+    </body>
+</html>

@@ -7,6 +7,7 @@ package com.egg.appsalud.entidades;
 
 
 import com.egg.appsalud.Enumerativos.Rol;
+
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -39,18 +40,20 @@ public class Usuario {
     @Column(nullable = false)
     private LocalDate fechaNacimiento;
 
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)    
     private Rol rol;
 
     @Column(nullable = false)
-    private Long telefono;
+    private String telefono;
     
 
     public Usuario() {
     }
 
 
-    public Usuario(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, Long telefono) {
+    public Usuario(String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNacimiento, String telefono) {
 
         this.mail = mail;
         this.password = password;
@@ -58,8 +61,8 @@ public class Usuario {
         this.apellido = apellido;
         this.dni = dni;
         this.fechaNacimiento = fechaNacimiento;
-        this.rol = rol;
         this.telefono = telefono;
+        
     }
 
 //    public String getId() {
@@ -127,14 +130,13 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public long getTelefono() {
+    public String getTelefono() {
 
         return telefono;
     }
 
-    public void setTelefono(Long telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    
 }
