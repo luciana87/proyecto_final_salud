@@ -63,6 +63,26 @@ public class PacienteControlador {
         return "registro-paciente.html";
     }
 
+<<<<<<< HEAD
+=======
+
+    @GetMapping("/inicio")
+    public String inicio(HttpSession session, ModelMap modelo){
+        //TODO: eliminar esto cuando este el listado de turnos es una prueba para ver si funciona
+        List<Paciente> pacientes = pacienteServicio.listarPacientes();
+        List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
+        modelo.addAttribute("pacientes", pacientes);
+        modelo.addAttribute("obraSociales", obraSociales);
+
+        //obtengo el usuario logueado
+        Paciente logueado = (Paciente) session.getAttribute("usuariosession");
+        boolean tieneImagen= ((Paciente)logueado).tieneImagen(); //Casteo la variable 'logueado' de tipo usuario a tipo 'Paciente' para poder acceder al metodo 'tieneImagen()'
+        modelo.put("tieneImagen", tieneImagen); //Envío a la vista si posee o no imágen.
+
+        return "inicio_paciente_2.html";
+    }
+
+>>>>>>> develop
     @GetMapping("/lista")
     public String listar(ModelMap modelo) {
         List<Paciente> pacientes = pacienteServicio.listarPacientes();
