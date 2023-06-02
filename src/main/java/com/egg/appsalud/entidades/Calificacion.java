@@ -15,7 +15,10 @@ public class Calificacion {
     @JoinColumn (name= "profesional_id", nullable = false)
     private Profesional medico;
 
-    public Calificacion( Integer puntaje, Profesional medico) {
+    public Calificacion() {
+    }
+
+    public Calificacion(Integer puntaje, Profesional medico) {
         this.puntaje = puntaje;
         this.medico = medico;
     }
