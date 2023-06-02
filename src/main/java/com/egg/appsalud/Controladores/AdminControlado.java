@@ -42,7 +42,7 @@ public class AdminControlado {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/dashboard")
     public String panelAdministrativo(){
-        return "admin.html";
+        return "admin_prueba.html";
     }
     
     

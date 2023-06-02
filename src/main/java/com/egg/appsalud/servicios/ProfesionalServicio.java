@@ -65,7 +65,7 @@ public class ProfesionalServicio {
 
     @Transactional
     public void modificarProfesional(String idProfesional, String mail, String password, String nombre, String apellido,
-            String dni, LocalDate fechaNacimiento, String telefono, String matricula, Especialidad especialidad,
+            String dni, LocalDate fechaNacimiento, String telefono, String matricula, String especialidad,
             Double valorConsulta, String descripcionEspecialidad) throws MiException {
 
         validar(mail, password, nombre, apellido, dni, fechaNacimiento);
@@ -76,7 +76,7 @@ public class ProfesionalServicio {
             Profesional profesional = profesionalOptional.get();
 
             profesional.setMail(mail);
-            profesional.setPassword(password);
+            profesional.setPassword(new BCryptPasswordEncoder().encode(password));
             profesional.setNombre(nombre);
             profesional.setApellido(apellido);
             profesional.setDni(dni);
