@@ -70,7 +70,9 @@ public class PacienteControlador {
     public String inicio(HttpSession session, ModelMap modelo){
         //TODO: eliminar esto cuando este el listado de turnos es una prueba para ver si funciona
         List<Paciente> pacientes = pacienteServicio.listarPacientes();
+        List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
         modelo.addAttribute("pacientes", pacientes);
+        modelo.addAttribute("obraSociales", obraSociales);
 
         //obtengo el usuario logueado
         Paciente logueado = (Paciente) session.getAttribute("usuariosession");
