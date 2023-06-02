@@ -90,6 +90,12 @@
 	  <version>5.6.3</version>
 	  <type>jar</type>
 	 </dependency>
+	 <dependency>
+	  <groupId>com.egg</groupId>
+	  <artifactId>app-salud</artifactId>
+	  <version>0.0.1-SNAPSHOT</version>
+	  <type>jar</type>
+	 </dependency>
 	</dependencies>
 
 	<build>
