@@ -1,294 +1,321 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Account Settings UI Design</title>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" type="text/css"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/inicio_paciente.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Panel</title>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="stylesheet" type="text/css"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/inicio_paciente.css">
+    </head>
 
-<body>
-    <section class="py-5 my-5">
-        <div class="container width: 50%; height: auto;">
-            <div style="display: flex; width: 10%;">
-                <img src="/img/logo1.png" alt="Image" class="shadow" style="opacity: 100%;">
+    <body>
+        <section class="py-5 my-5">
+            <div class="container">
+                <h1 class="mb-5"
+                    style="text-align: center;  transform: translateY(100%); font-family: 'Times New Roman', Times, serif">
+                    Bienvenido  !
+                </h1>
+                <div class="d-sm-flex">
+                    <div class="profile-tab-nav border-right">
+                        <div class="p-4">
 
-            </div>
+                            <div class="img-circle text-center mb-3" >
+                                <img class="logo"  th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" >
+                            </div>
 
-            <h1 class="mb-5"
-                style="text-align: center;  transform: translateY(100%); font-family: 'Times New Roman', Times, serif">
-                PANEL
-                PACIENTE
-            </h1>
-
-            <div class="bg-white shadow rounded-lg d-block d-sm-flex">
-                <div class="profile-tab-nav border-right">
-                    <div class="p-4">
-
-                        <div class="img-circle text-center mb-3" >
-                            <img class="logo"  th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" >
+                            <h4  th:text="${session.usuariosession.nombre}" class="text-center"></h4>
                         </div>
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab"
+                               aria-controls="account" aria-selected="true">
+                                <i class="fa fa-home text-center mr-1"></i>
+                                Cuenta
+                            </a>
+                            <a class="nav-link" id="password-tab" data-toggle="pill" href="#password" role="tab"
+                               aria-controls="password" aria-selected="false">
+                                <i class="fa fa-key text-center mr-1"></i>
+                                Turno
+                            </a>
+                            <a class="nav-link" id="security-tab" data-toggle="pill" href="#security" role="tab"
+                               aria-controls="security" aria-selected="false">
+                                <i class="fa fa-user text-center mr-1"></i>
+                                Modificar Turno
+                            </a>
 
-                        <h4 class="text-center">Paciente</h4>
-                    </div>
-                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab"
-                            aria-controls="account" aria-selected="true">
-                            <i class="fa fa-home text-center mr-1"></i>
-                            Cuenta
-                        </a>
-                        <a class="nav-link" id="password-tab" data-toggle="pill" href="#password" role="tab"
-                            aria-controls="password" aria-selected="false">
-                            <i class="fa fa-key text-center mr-1"></i>
-                            Turno
-                        </a>
-                        <a class="nav-link" id="security-tab" data-toggle="pill" href="#security" role="tab"
-                            aria-controls="security" aria-selected="false">
-                            <i class="fa fa-user text-center mr-1"></i>
-                            Modificar Turno
-                        </a>
-                        <a class="nav-link" id="notification-tab" data-toggle="pill" href="#notification" role="tab"
-                            aria-controls="notification" aria-selected="false">
-                            <i class="fa fa-bell text-center mr-1"></i>
-                            Recordatorio
-                        </a>
-                        <a class="nav-link" href="/logout" >
-                            <i class="fa fa-bell text-center mr-1"></i>
-                            cerrar session
-                        </a>
-                    </div>
-                </div>
-                <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
-                        <h3 class="mb-4">Paciente</h3>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Nombre</label>
-                                    <input type="text" class="form-control" value="">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Apellido</label>
-                                    <input type="text" class="form-control" value="">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="text" class="form-control" value="">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Celular</label>
-                                    <input type="text" class="form-control" value="">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>DNI</label>
-                                    <input type="text" class="form-control" value="">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Fecha Nacimiento</label>
-                                    <input type="date" class="form-control" value="">
-                                </div>
-                            </div>
-                            <select class="custom-select custom-select-lg mb-3"
-                                style="margin-top: 0.8%; margin-left: 15px; width: 367px;">
-                                <option selected>Obra Social</option>
-                                <option value="1">OSDE</option>
-                                <option value="2">Medicus</option>
-                                <option value="3">Dosuba</option>
-                                <option value="4">Ioma</option>
-                                <option value="5">No posee</option>
-                            </select>
-                            <div class="col-md-6">
-                                <div class="form-group" style="margin-top: -15px; margin-left: 15px; width: 370px;">
-                                    <label>N° Obra Social</label>
-                                    <input type="text" class="form-control" value="">
-                                </div>
-                            </div>
-                        </div>
+                            <a class="nav-link" id="notification-tab" data-toggle="pill" href="#notification" role="tab"
+                               aria-controls="notification" aria-selected="false">
+                                <i class="fa fa-bell text-center mr-1"></i>
+                                Cambiar Contraseña
+                            </a>
 
-                        <div>
-                            <button class="btn btn-primary">Editar</button>
-                            <button class="btn btn-light">Cancelar</button>
-                            <button class="btn btn-light" style="margin-left: 67.5%;">Eliminar</button>
+
+                            <a class="nav-link" href="/logout" >
+                                <i class="fa fa-bell text-center mr-1"></i>
+                                Cerrar Sesion
+                            </a>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
-                        <h3 class="mb-4">Sacar Turno</h3>
-                        <div class="row">
-                            <select class="custom-select custom-select-sm" style="margin-left: 0px; width: 150px;">
-                                <option selected>Especialidad</option>
-                                <option value="1">Pediatria</option>
-                                <option value="2">Ginecologia</option>
-                                <option value="3">Clinica</option>
-                                <option value="4">Cardiologia</option>
-                            </select>
-                            <select class="custom-select custom-select-sm" style="margin-left: 40px; width: 150px;">
-                                <option selected>Reputacion</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            <select class="custom-select custom-select-sm" style="margin-left: 40px; width: 150px;">
-                                <option selected>Obra Social</option>
-                                <option value="1">OSDE</option>
-                                <option value="2">Medicus</option>
-                                <option value="3">Dosuba</option>
-                                <option value="4">Ioma</option>
-                                <option value="5">No posee</option>
-                            </select>
-                            <select class="custom-select custom-select-sm" style=" margin-left: 40px; width: 150px;">
-                                <option selected>Profesional</option>
-                                <option value="1">Eze Lopez</option>
-                                <option value="2">Nico Fernandez</option>
-                                <option value="3">Dal Ponce</option>
-                                <option value="4">Luci Chaparro</option>
-                            </select>
-                        </div>
-                        <div class="row">
-                        </div>
-                        <div>
-                            <button class="btn btn-primary" style="margin-left: -2%; margin-top: 170px;">Cargar
-                                Turno</button>
-                            <button class="btn btn-light" style="margin-top: 170px;">Cancelar Turno</button>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
-                        <h3 class="mb-4">Modificar Turno</h3>
-                        <div class="row">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Fecha</th>
-                                        <th scope="col">Episodio</th>
-                                        <th scope="col">Especialidad</th>
-                                        <th scope="col">Profesional</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row"></th>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"></th>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"></th>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+                            <h3 class="mb-4">Paciente</h3>
+                            <div>
 
-                        </div>
-                        <div>
-                            <button class="btn btn-primary">Cargar</button>
-                            <button class="btn btn-light">Cancelar</button>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="application" role="tabpanel" aria-labelledby="application-tab">
-                        <h3 class="mb-4">Application Settings</h3>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="app-check">
-                                        <label class="form-check-label" for="app-check">
-                                            App check
-                                        </label>
+                                <form th:action="@{/profesional/inicio/${session.usuariosession.id}}" method="POST" >
+                                    <input hidden th:value="${id}" name="id">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Nombre</label>
+                                                <input  type="text" class="form-control" th:value="${session.usuariosession.nombre}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Apellido</label>
+                                                <input type="text" class="form-control" th:value="${session.usuariosession.apellido}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input type="text" class="form-control" th:value="${session.usuariosession.mail}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Telefono</label>
+                                                <input type="text" class="form-control" th:value="${session.usuariosession.telefono}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>DNI</label>
+                                                <input type="text" class="form-control" th:value="${session.usuariosession.dni}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Fecha Nacimiento</label>
+                                                <input type="date" class="form-control" th:value="${session.usuariosession.fechaNacimiento}">
+                                            </div>
+                                        </div>
+                                        <select name="idObraSocial">
+                                            <option>Seleccione obra social</option>
+                                            <option th:each="obraSocial : ${obrasSociales}" th:value="${obraSocial.id}" th:text="${obraSocial.nombre}" th:selected="(${obraSocial.id} == *{paciente.obraSocial.id})"></option>
+                                        </select>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin-top: -15px; margin-left: 15px; width: 370px;">
+                                                <label>N° Obra Social</label>
+                                                <input type="text" class="form-control" th:value="${session.usuariosession.nroObraSocial}">
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-                                        <label class="form-check-label" for="defaultCheck2">
 
-                                        </label>
+                                    <div>
+                                        <button class="btn btn-primary">Editar</button>
+                                        <button class="btn btn-light">Cancelar</button>
+                                        <button class="btn btn-light" style="margin-left: 67.5%;">Eliminar</button>
                                     </div>
-                                </div>
+                            </div> 
+                            </form> 
+                        </div>
+
+                        <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+                            <h3 class="mb-4">Sacar Turno</h3>
+                            <div class="row">
+                                <select class="custom-select custom-select-sm" style="margin-left: 0px; width: 150px;">
+                                    <option selected>Especialidad</option>
+                                    <option value="1">Pediatria</option>
+                                    <option value="2">Ginecologia</option>
+                                    <option value="3">Clinica</option>
+                                    <option value="4">Cardiologia</option>
+                                </select>
+                                <select class="custom-select custom-select-sm" style="margin-left: 40px; width: 150px;">
+                                    <option selected>Reputacion</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                                <select class="custom-select custom-select-sm" style="margin-left: 40px; width: 150px;">
+                                    <option selected>Obra Social</option>
+                                    <option value="1">OSDE</option>
+                                    <option value="2">Medicus</option>
+                                    <option value="3">Dosuba</option>
+                                    <option value="4">Ioma</option>
+                                    <option value="5">No posee</option>
+                                </select>
+                                <select class="custom-select custom-select-sm" style=" margin-left: 40px; width: 150px;">
+                                    <option selected>Profesional</option>
+                                    <option value="1">Eze Lopez</option>
+                                    <option value="2">Nico Fernandez</option>
+                                    <option value="3">Dal Ponce</option>
+                                    <option value="4">Luci Chaparro</option>
+                                </select>
+                                <select class="custom-select custom-select-sm" style=" margin-left: 0px; width: 150px; margin-top: 10%;">
+                                    <option selected>Fecha</option>
+                                    <option value="1"></option>
+                                    <option value="2"></option>
+                                    <option value="3"></option>
+                                    <option value="4"></option>
+                                </select>
+                                <select class="custom-select custom-select-sm" style=" margin-left: 40px; width: 150px;margin-top: 10%;">
+                                    <option selected>Horario</option>
+                                    <option value="1"></option>
+                                    <option value="2"></option>
+                                    <option value="3"></option>
+                                    <option value="4"></option>
+                                </select>
+                            </div>
+                            <div class="row">
+                            </div>
+                            <div>
+                                <button class="btn btn-primary" style="margin-left: -2%; margin-top: 170px;">Reservar</button>    
                             </div>
                         </div>
-                        <div>
-                            <button class="btn btn-primary">Update</button>
-                            <button class="btn btn-light">Cancel</button>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
-                        <h3 class="mb-4">Recordatorio</h3>
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <table class="table">
+                        <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+                            <h3 class="mb-4">Modificar Turno</h3>
+                            <div class="row">
+                                <div class="table-responsive-sm p-3">
+                                    <table class="table  table-bordered">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Fecha</th>
-                                                <th scope="col">Horario</th>
-                                                <th scope="col">Paciente</th>
-                                                <th scope="col">Estado</th>
                                                 <th scope="col">Profesional</th>
+                                                <th scope="col">Dia</th>
+                                                <th scope="col">Hora</th>
+                                                <th scope="col">Estado</th>
+                                                <th scope="col">Acciones</th>
+
                                             </tr>
+                                        <td>
+                                            <a class="" th:href= "@{/paciente/modificar/${paciente.id}}">Modificar</a>
+                                            <a class="p-2" th:href= "@{/paciente/eliminar/${paciente.id}}">Eliminar</a>
+                                        </td> 
+
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row"></th>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"></th>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"></th>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                            <tr th:each="paciente : ${pacientes}">
+                                                <td th:text="${paciente.nombre}"></td>
+                                                <td th:text="${paciente.apellido}"</td>
+                                                <td>
+                                                    <a class="" th:href= "@{/paciente/modificar/${paciente.id}}">Modificar</a>
+                                                    <a class="p-2" th:href= "@{/paciente/eliminar/${paciente.id}}">Eliminar</a>
+                                                </td> 
                                             </tr>
                                         </tbody>
                                     </table>
-
                                 </div>
+                                <!--                            <button href ="/lista" type="button" class="btn btn-warning btn-lg btn-responsive" id="search">Modificar</button>                          -->
+                                <!--                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">Fecha</th>
+                                                                        <th scope="col">Episodio</th>
+                                                                        <th scope="col">Especialidad</th>
+                                                                        <th scope="col">Profesional</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th scope="row"></th>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row"></th>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row"></th>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>-->
+
+                            </div>
+                            <!--                    <div>
+                                                        <button class="btn btn-primary">Modificar</button>
+                                                        <button class="btn btn-light">Cancelar</button>
+                                                    </div>-->
+                        </div>                
+                        <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
+                            <h3 class="mb-4">Cambiar Contraseña</h3>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <form class="text-center p-3" method="POST" th:action="@{/profesional/modificar/${session.usuariosession.id}}">
+                                        <div class="form-group">
+                                            <label for="inputPassword5" class="form-label">Contraseña
+                                                Actual</label>
+                                            <input type="password" id="inputPassword5" class="form-control"
+                                                   aria-labelledby="passwordHelpBlock">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword5" class="form-label">Nueva Contraseña</label>
+                                            <input type="password" id="inputPassword5" class="form-control"
+                                                   aria-labelledby="passwordHelpBlock">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword5" class="form-label">Confirmar Contraseña</label>
+                                            <input type="password" id="inputPassword5" class="form-control"
+                                                   aria-labelledby="passwordHelpBlock">
+                                        </div>
+                                        <button type="submit" class="btn btn-light mt-3">Cambiar</button>
+                                    </form>
+                                </div>
+                                <!--                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th scope="col">Fecha</th>
+                                                                                <th scope="col">Horario</th>
+                                                                                <th scope="col">Paciente</th>
+                                                                                <th scope="col">Estado</th>
+                                                                                <th scope="col">Profesional</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <th scope="row"></th>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th scope="row"></th>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th scope="row"></th>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>-->
+
                             </div>
                         </div>
-                        <div class="form-group">
-
-                        </div>
-                        <div class="form-group">
-
-                        </div>
-
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </div>  
+        </section>
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-</body>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    </body>
 
 </html>
