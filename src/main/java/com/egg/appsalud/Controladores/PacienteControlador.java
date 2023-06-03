@@ -81,9 +81,9 @@ public class PacienteControlador {
         
 
         //obtengo el usuario logueado
-        Paciente logueado = (Paciente) session.getAttribute("usuariosession");
-        boolean tieneImagen= ((Paciente)logueado).tieneImagen(); //Casteo la variable 'logueado' de tipo usuario a tipo 'Paciente' para poder acceder al metodo 'tieneImagen()'
-        modelo.put("tieneImagen", tieneImagen); //Envío a la vista si posee o no imágen.
+//        Paciente logueado = (Paciente) session.getAttribute("usuariosession");
+//        boolean tieneImagen= ((Paciente)logueado).tieneImagen(); //Casteo la variable 'logueado' de tipo usuario a tipo 'Paciente' para poder acceder al metodo 'tieneImagen()'
+//        modelo.put("tieneImagen", tieneImagen); //Envío a la vista si posee o no imágen.
 
         return "inicio_paciente_2.html";
     }
