@@ -76,7 +76,7 @@ public class ProfesionalServicio {
             Profesional profesional = profesionalOptional.get();
 
             profesional.setMail(mail);
-            profesional.setPassword(password);
+            profesional.setPassword(new BCryptPasswordEncoder().encode(password));
             profesional.setNombre(nombre);
             profesional.setApellido(apellido);
             profesional.setDni(dni);

@@ -126,6 +126,33 @@ public class PacienteServicio implements UserDetailsService {
             throw new MiException("Ingrese una Obra Social");
         //validar tambien el id de obra social que el ususario selecione una
     }
+    
+        private void validarModificar(String mail, String nombre, String apellido, String dni, LocalDate fechaNacimiento, String telefono, String nroObraSocial) throws MiException{       
+        if(nombre.isEmpty() || !ComprobarString(nombre, "^[a-zA-Z]+$")){
+            throw new MiException("Error en el formato de nombre, o es nulo");
+        }
+       
+        
+        if(mail.isEmpty() || !ComprobarString(mail, "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")){
+            throw new MiException("Ingrese un Email valido");
+        }
+        if(apellido.isEmpty() || !ComprobarString(apellido, "^[a-zA-ZñÑ]+$")){
+            throw new MiException("Error en el formato del apellido, o es nulo");
+        }
+        if(dni.isEmpty() || !ComprobarString(dni, "^\\d{8}$")){
+            throw new MiException("Ingrese un dni valido");
+        }
+        //crear la logica para validar que sea mayor de edad
+        if(fechaNacimiento == null){
+            throw new MiException("La fecha de naciemiento no puede ser nulo o estar vacio");
+        }
+        if(telefono.isEmpty() || !ComprobarString(telefono, "^(11|0|15)\\d{8}$") ){
+            throw new MiException("Debe inicar un telefono valido");
+        }
+        if(nroObraSocial.isEmpty() || nroObraSocial == null)// hay que validar bien al nro de ObraSocial
+            throw new MiException("Ingrese una Obra Social");
+        //validar tambien el id de obra social que el ususario selecione una
+    }
     //regex
     final boolean ComprobarString(String cadena, String regex){
         return cadena.matches(regex);
@@ -162,23 +189,25 @@ public class PacienteServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void modificarPaciente(MultipartFile archivo, String id_paciente, String mail, String password, String nombre,
-            String apellido, String dni, LocalDate fechaNacimiento, String telefono, String nroObraSocial) throws MiException, IOException {
+    public void modificarPaciente(MultipartFile archivo, String id_paciente, String mail, String nombre,
+            String apellido, String dni, LocalDate fechaNacimiento, String telefono, String nroObraSocial,Integer idObraSocial) throws MiException, IOException {
 
-        validar(mail, password, nombre, apellido, dni, fechaNacimiento, telefono, nroObraSocial);
+        validarModificar(mail, nombre, apellido, dni, fechaNacimiento, telefono, nroObraSocial);
 
         Optional<Paciente> pacienteOptional = pacienteRepositorio.findById(id_paciente);
 
         if (pacienteOptional.isPresent()) {
             Paciente paciente = pacienteOptional.get();
+            ObraSocial obraSocial = obraSocialServicio.getOne(idObraSocial);
 
             paciente.setMail(mail);
-            paciente.setPassword(new BCryptPasswordEncoder().encode(password));
+            
             paciente.setNombre(nombre);
             paciente.setApellido(apellido);
             paciente.setDni(dni);
             paciente.setFechaNacimiento(fechaNacimiento);
             paciente.setTelefono(telefono);
+            paciente.setObraSocial(obraSocial);
 
             String idImagen = null;
             if (paciente.getImagen() != null) {

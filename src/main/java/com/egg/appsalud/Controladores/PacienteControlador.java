@@ -4,6 +4,7 @@ import com.egg.appsalud.entidades.ObraSocial;
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Usuario;
 import com.egg.appsalud.excepciones.MiException;
+import com.egg.appsalud.repositorios.PacienteRepositorio;
 import com.egg.appsalud.servicios.ObraSocialServicio;
 import com.egg.appsalud.servicios.PacienteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class PacienteControlador {
     private PacienteServicio pacienteServicio;
     @Autowired
     private ObraSocialServicio obraSocialServicio;
+    @Autowired
+    private PacienteRepositorio pacienteRepositorio;
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: aÃ±o-mes-dia del LocalDate
 
@@ -71,8 +74,11 @@ public class PacienteControlador {
         //TODO: eliminar esto cuando este el listado de turnos es una prueba para ver si funciona
         List<Paciente> pacientes = pacienteServicio.listarPacientes();
         List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
+        Paciente paciente = pacienteRepositorio.BuscarPorEmail(session.getAttribute("mail").toString());
+        modelo.put("paciente", paciente);
         modelo.addAttribute("pacientes", pacientes);
         modelo.addAttribute("obraSociales", obraSociales);
+        
 
         //obtengo el usuario logueado
         Paciente logueado = (Paciente) session.getAttribute("usuariosession");
@@ -118,9 +124,9 @@ public class PacienteControlador {
     }
 
     @PostMapping("/modificar/{id_paciente}")
-    public String modificarPaciente(@PathVariable String id_paciente, String mail, String password, String nombre, String apellido,
+    public String modificarPaciente(@PathVariable String id_paciente, String mail, String nombre, String apellido,
 
-            String dni, String fechaNacimiento, String telefono, String nroObraSocial, ModelMap modelo, MultipartFile archivo) {
+            String dni, String fechaNacimiento, String telefono, String nroObraSocial, Integer idObraSocial, ModelMap modelo, MultipartFile archivo) {
         
 
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter);
@@ -128,8 +134,8 @@ public class PacienteControlador {
         try {
 
             
-            pacienteServicio.modificarPaciente(archivo,id_paciente, mail, password,
-                    nombre, apellido, dni, fechaNac, telefono,nroObraSocial);
+            pacienteServicio.modificarPaciente(archivo,id_paciente, mail,
+                    nombre, apellido, dni, fechaNac, telefono,nroObraSocial,idObraSocial);
 
             modelo.put("exito", "Los datos fueron actualizados correctamente.");
 
