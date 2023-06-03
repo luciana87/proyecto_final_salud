@@ -65,7 +65,7 @@ public class ProfesionalServicio {
 
     @Transactional
     public void modificarProfesional(String idProfesional, String mail, String password, String nombre, String apellido,
-            String dni, LocalDate fechaNacimiento, String telefono, String matricula, Especialidad especialidad,
+            String dni, LocalDate fechaNacimiento, String telefono, String matricula, String especialidad,
             Double valorConsulta, String descripcionEspecialidad) throws MiException {
 
         validar(mail, password, nombre, apellido, dni, fechaNacimiento);
@@ -176,4 +176,8 @@ public class ProfesionalServicio {
 
     }
 
+    public void actualizarReputacion(Double promedio, Profesional profesional) {
+        profesional.setReputacion(promedio);
+        profesionalRepositorio.save(profesional);
+    }
 }
