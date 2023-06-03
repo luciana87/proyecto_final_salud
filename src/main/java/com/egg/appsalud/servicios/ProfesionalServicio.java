@@ -176,4 +176,8 @@ public class ProfesionalServicio {
 
     }
 
+    public void actualizarReputacion(Double promedio, Profesional profesional) {
+        profesional.setReputacion(promedio);
+        profesionalRepositorio.save(profesional);
+    }
 }
