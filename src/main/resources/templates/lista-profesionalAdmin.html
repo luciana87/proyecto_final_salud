@@ -30,19 +30,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="profesional : ${profesionales}">
-                            <td th:text="${pprofesional.nombre}"></td>
-                            <td th:text="${pprofesional.apellido}"></td>
-                            <td th:text="${pprofesional.dni}"></td>
-                            <td th:text="${pprofesional.fechaNacimiento}"></td>
-                            <td th:text="${pprofesional.telefono}"></td>
-                            <td th:text="${pprofesional.obraSocial.nombre}"></td>
-                            <td th:text="${pprofesional.nroObraSocial}"></td>
+                        <tr th:each="paciente : ${pacientes}">
+                            <td th:text="${paciente.nombre}"></td>
+                            <td th:text="${paciente.apellido}"></td>
+                            <td th:text="${paciente.dni}"></td>
+                            <td th:text="${paciente.fechaNacimiento}"></td>
+                            <td th:text="${paciente.telefono}"></td>
+                            <td th:text="${paciente.obraSocial.nombre}"></td>
+                            <td th:text="${paciente.nroObraSocial}"></td>
                             <td>
-                                <a th:href= "@{/profesional/modificar/__${profesional.id}__}"><i class="fas fa-feather-alt"></i> Editar </a>
+                                <a th:href= "@{/paciente/modificar/__${paciente.id}__}"><i class="fas fa-feather-alt"></i> Editar </a>
                             </td>
                             <td>
-                             <a th:href= "@{/profesional/eliminar/__${profesional.id}__}"><i class="fas fa-feather-alt"></i> Eliminar </a>
+                             <a th:href= "@{/paciente/eliminar/__${paciente.id}__}"><i class="fas fa-feather-alt"></i> Eliminar </a>
                             </td>
                         </tr>
                     </tbody>

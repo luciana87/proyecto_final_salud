@@ -8,6 +8,7 @@ import com.egg.appsalud.Enumerativos.Rol;
 import org.hibernate.annotations.GenericGenerator;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -36,16 +37,19 @@ public class Paciente extends Usuario implements Serializable{
 //    @Column(nullable = true)
 //    private Imagen img;
 
-    @OneToMany(mappedBy = "paciente") //Usando mappedBy (mappedBy: indica cuál entidad es dueña del uno a muchos de forma única) indicas que la relación es unidireccional. Un ‘Paciente’ tiene muchos ‘Turnos’ pero un ‘Turno’ no tiene muchos pacientes.
-    @Column(name = "historial_turnos")
+    @OneToMany(mappedBy = "paciente", fetch = FetchType.LAZY) //Usando mappedBy (mappedBy: indica cuál atributo de la entidad Turno es dueña del uno a muchos de forma única) indicas que la relación es unidireccional. Un ‘Paciente’ tiene muchos ‘Turnos’ pero un ‘Turno’ no tiene muchos pacientes.
     private List<Turno> listaDeTurnos;
 
-//    @OneToOne //Un paciente tiene una historia clínica
-//    @JoinColumn (name = "historia_clinica_id") //Foreign Key: historia_clinica_id
-//    private HistoriaClinica historiaClinica ;
+    
+    //Muchas historias
+    
+    @OneToOne //Un paciente tiene una historia clínica
+    @JoinColumn (name = "historia_clinica_id") //Foreign Key: historia_clinica_id
+    private HistoriaClinica historiaClinica ;
 
 
     public Paciente() {
+        this.listaDeTurnos = new ArrayList<Turno>();
     }
 
 
@@ -97,7 +101,16 @@ public class Paciente extends Usuario implements Serializable{
         this.listaDeTurnos = listaDeTurnos;
     }
 
+    public HistoriaClinica getHistoriaClinica() {
+        return historiaClinica;
+    }
+
     public void setHistoriaClinica(HistoriaClinica historiaClinica) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.historiaClinica = historiaClinica;
+    }
+    
+
+    public boolean tieneImagen (){
+        return this.getImagen() != null;
     }
 }

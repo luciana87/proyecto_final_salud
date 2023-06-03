@@ -11,26 +11,50 @@ public class HistoriaClinica {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-
-    //OneToOne: se indica que será una relación bidireccional indicando en la clase HistoriaClinica
-    // el objeto Paciente correspondiente. MappedBy: historiaClinica = es el atributo por el cual mapeas la relacion
-    /*
     @OneToOne (mappedBy = "historiaClinica")
     private Paciente paciente;
 
-    @OneToMany (mappedBy = "Historiaclinica")
-    private List<NotaMedica> notas;*/
+    @OneToMany (mappedBy = "historiaClinica")
+    private List<NotaMedica> notaM;
 
 
     public HistoriaClinica(Integer id) {
         this.id = id;
     }
-
     public HistoriaClinica() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public HistoriaClinica(Integer id, Paciente paciente, List<NotaMedica> notaM) {
+        this.id = id;
+        this.paciente = paciente;
+        this.notaM = notaM;
+    }
+
+    
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
     }
 
     public void setPaciente(Paciente paciente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.paciente = paciente;
     }
+
+    public List<NotaMedica> getNotaM() {
+        return notaM;
+    }
+
+    public void setNotaM(List<NotaMedica> notas) {
+        this.notaM = notas;
+    }
+    
+    
 }

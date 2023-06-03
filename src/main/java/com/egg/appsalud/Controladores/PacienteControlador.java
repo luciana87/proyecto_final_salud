@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/paciente")
@@ -63,8 +64,6 @@ public class PacienteControlador {
         return "registro-paciente.html";
     }
 
-<<<<<<< HEAD
-=======
 
     @GetMapping("/inicio")
     public String inicio(HttpSession session, ModelMap modelo){
@@ -82,7 +81,7 @@ public class PacienteControlador {
         return "inicio_paciente_2.html";
     }
 
->>>>>>> develop
+
     @GetMapping("/lista")
     public String listar(ModelMap modelo) {
         List<Paciente> pacientes = pacienteServicio.listarPacientes();

@@ -80,7 +80,7 @@ public class UsuarioServicio implements UserDetailsService {
                                  String dni, LocalDate fechaNacimiento, String telefono, String matricula,
                                  String especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException{
         
-        profesionalServicio.crearProfesional(mail, password, nombre, apellido, dni, fechaNacimiento, telefono, matricula, especialidad, Double.NaN, descripcionEspecialidad);
+        profesionalServicio.crearProfesional(mail, password, nombre, apellido, dni, fechaNacimiento, telefono, matricula, especialidad, valorConsulta, descripcionEspecialidad);
     }
     
     public List<Profesional> listarProfesionales(){
@@ -107,6 +107,10 @@ public class UsuarioServicio implements UserDetailsService {
     public void modificarPaciente(MultipartFile archivo, String id_paciente, String mail, String password, String nombre,
             String apellido, String dni, LocalDate fechaNacimiento, String telefono, String nroObraSocial) throws MiException, IOException{
        pacienteServicio.modificarPaciente(archivo, id_paciente, mail, password, nombre, apellido, dni, fechaNacimiento, telefono, nroObraSocial);
+    }
+    
+    public Paciente getOne(String id_paciente){
+        return pacienteServicio.getOne(id_paciente);
     }
     
     public void eliminarPaciente(String id_paciente) throws MiException{
