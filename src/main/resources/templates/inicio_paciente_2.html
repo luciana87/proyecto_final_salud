@@ -28,18 +28,18 @@
 
 
                             <h4  th:text="${session.usuariosession.nombre}" class="text-center"></h4>
-<!--
-            <h1 class="mb-5" style="text-align: center;  transform: translateY(100%); font-family: 'Times New Roman', Times, serif">PANEL PACIENTE</h1>
-
-            <div class="bg-white shadow rounded-lg d-block d-sm-flex">
-                <div class="profile-tab-nav border-right">
-                    <div class="p-4">
-
-                        <div class="img-circle text-center mb-3" >
-                            <img class="logo" th:if="${tieneImagen}" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" >
-                            <img class="logo" th:unless="${tieneImagen}" src="/img/img-default.jpg" >
-
-            -->
+                            <!--
+                                        <h1 class="mb-5" style="text-align: center;  transform: translateY(100%); font-family: 'Times New Roman', Times, serif">PANEL PACIENTE</h1>
+                            
+                                        <div class="bg-white shadow rounded-lg d-block d-sm-flex">
+                                            <div class="profile-tab-nav border-right">
+                                                <div class="p-4">
+                            
+                                                    <div class="img-circle text-center mb-3" >
+                                                        <img class="logo" th:if="${tieneImagen}" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" >
+                                                        <img class="logo" th:unless="${tieneImagen}" src="/img/img-default.jpg" >
+                            
+                            -->
                         </div>
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                             <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab"
@@ -62,8 +62,6 @@
                                 <i class="fa fa-bell text-center mr-1"></i>
                                 Cambiar Contraseña
                             </a>
-
-
                             <a class="nav-link" href="/logout" >
                                 <i class="fa fa-bell text-center mr-1"></i>
                                 Cerrar Sesion
@@ -75,66 +73,86 @@
                             <h3 class="mb-4">Paciente</h3>
                             <div>
 
-                                <form th:action="@{/profesional/inicio/${session.usuariosession.id}}" method="POST" >
-                                    <input hidden th:value="${id}" name="id">
+                                <form  enctype="multipart/form-data" method="POST" th:action="@{/paciente/modificar/__${session.usuariosession.id}__} ">
+                                    <!--                                    <input hidden th:value="${id}" name="id">-->
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Nombre</label>
-                                                <input  type="text" class="form-control" th:value="${session.usuariosession.nombre}">
-                                            </div>
+
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
+                                                <label >Nombre</label>
+                                                <input name="nombre" id="nombre" type="text" class="form-control" th:value="${session.usuariosession.nombre}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin-top: -93px; width: 370px;">
                                                 <label>Apellido</label>
-                                                <input type="text" class="form-control" th:value="${session.usuariosession.apellido}">
+                                                <input  name="apellido" id="apellido" type="text" class="form-control" th:value="${session.usuariosession.apellido}" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Email</label>
-                                                <input type="text" class="form-control" th:value="${session.usuariosession.mail}">
+                                                <input name="mail" id="mail" type="text" class="form-control" th:value="${session.usuariosession.mail}"disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-group">
+                                            <div class="form-group" style="margin-top: -100px;">
                                                 <label>Telefono</label>
-                                                <input type="text" class="form-control" th:value="${session.usuariosession.telefono}">
+                                                <input name="telefono" id="telefono" type="text" class="form-control" th:value="${session.usuariosession.telefono}"disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-group">
+                                            <div class="form-group" style="margin-top: -10px;">
                                                 <label>DNI</label>
-                                                <input type="text" class="form-control" th:value="${session.usuariosession.dni}">
+                                                <input name="dni" id="dni" type="text" class="form-control" th:value="${session.usuariosession.dni}"disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-group">
+                                            <div class="form-group" style="margin-top: -93px;">
                                                 <label>Fecha Nacimiento</label>
-                                                <input type="date" class="form-control" th:value="${session.usuariosession.fechaNacimiento}">
+                                                <input name="fechaNacimiento" id="fechaNacimiento" type="date" class="form-control" th:value="${session.usuariosession.fechaNacimiento}"disabled>
                                             </div>
                                         </div>
-                                        <select name="idObraSocial">
-                                            <option>Seleccione obra social</option>
-                                            <option th:each="obraSocial : ${obrasSociales}" th:value="${obraSocial.id}" th:text="${obraSocial.nombre}" th:selected="(${obraSocial.id} == *{paciente.obraSocial.id})"></option>
+                                        <select name="idObraSocial" style="margin-top: 30px; margin-left: 15px ;width: 370px">
+                                            <option>Obra social</option>
+                                            <option name="obraSocial" th:each="obraSocial : ${obraSociales}" th:value="${obraSocial.id}" th:text="${obraSocial.nombre}" ></option>
                                         </select>
 
                                         <div class="col-md-6">
-                                            <div class="form-group" style="margin-top: -15px; margin-left: 15px; width: 370px;">
+                                            <div class="form-group" style="margin-top: -65px; margin-left: 0px; width: 370px;">
                                                 <label>N° Obra Social</label>
-                                                <input type="text" class="form-control" th:value="${session.usuariosession.nroObraSocial}">
+                                                <input name="nroObraSocial" id="nro-obra-social" type="text" class="form-control" th:value="${session.usuariosession.nroObraSocial}"disabled>
                                             </div>
+
+
+                                            <div class="form-group">
+                                                <label>Imagen</label>
+                                                <input  type="file" class="form-control" name="archivo" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+
+                                            <input name="password" style="display: none" type="password" class="form-control" id="nom"
+                                                   th:value="${session.usuariosession.password}" disabled>
                                         </div>
                                     </div>
 
                                     <div>
-                                        <button class="btn btn-primary">Editar</button>
-                                        <button class="btn btn-light">Cancelar</button>
-                                        <button class="btn btn-light" style="margin-left: 67.5%;">Eliminar</button>
-                                    </div>
+                                        <button type="submit" class="btn btn-light" id="guarda"
+                                                style="display: none;">Guardar</button>
+                                    </div> 
                             </div> 
                             </form> 
+                            <div class="row">
+                                <button class="btn btn-primary col-ms-6" id="habilita"
+                                        onclick="habilitarInput()" style="margin-left: 150px;">Editar</button>
+                                <div class="col-md-6 text-md-right">
+                                    <button class="btn btn-warning">Solicitar Baja</button>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
@@ -156,12 +174,8 @@
                                     <option value="5">5</option>
                                 </select>
                                 <select class="custom-select custom-select-sm" style="margin-left: 40px; width: 150px;">
-                                    <option selected>Obra Social</option>
-                                    <option value="1">OSDE</option>
-                                    <option value="2">Medicus</option>
-                                    <option value="3">Dosuba</option>
-                                    <option value="4">Ioma</option>
-                                    <option value="5">No posee</option>
+                                    <option>Obra social</option>
+                                    <option th:each="obraSocial : ${obraSociales}" th:value="${obraSocial.id}" th:text="${obraSocial.nombre}"></option>
                                 </select>
                                 <select class="custom-select custom-select-sm" style=" margin-left: 40px; width: 150px;">
                                     <option selected>Profesional</option>
@@ -170,23 +184,24 @@
                                     <option value="3">Dal Ponce</option>
                                     <option value="4">Luci Chaparro</option>
                                 </select>
-                                <select class="custom-select custom-select-sm" style=" margin-left: 0px; width: 150px; margin-top: 10%;">
-                                    <option selected>Fecha</option>
-                                    <option value="1"></option>
-                                    <option value="2"></option>
-                                    <option value="3"></option>
-                                    <option value="4"></option>
-                                </select>
-                                <select class="custom-select custom-select-sm" style=" margin-left: 40px; width: 150px;margin-top: 10%;">
-                                    <option selected>Horario</option>
-                                    <option value="1"></option>
-                                    <option value="2"></option>
-                                    <option value="3"></option>
-                                    <option value="4"></option>
-                                </select>
+                                <!--                                <div class="custom-select custom-select-sm" style=" margin-left: 0px; width: 150px; margin-top: 10%;"> </div>-->
+                                <div><label></label>
+                                    <input type="date" style="margin-top: 50px; margin-left: -5px; width: 150px">
+                                </div>
+
+                                <div> <label></label>
+                                    <input type="time" style="margin-top: 50px; margin-left: 35px; width: 150px">
+                                </div>
+
+
+                                <!--                                <div class="custom-select custom-select-sm" style=" margin-left: 40px; width: 150px;margin-top: 10%;">
+                                
+                                
+                                                                </div>-->
+
                             </div>
-                            <div class="row">
-                            </div>
+                            <!--                            <div class="row">
+                                                        </div>-->
                             <div>
                                 <button class="btn btn-primary" style="margin-left: -2%; margin-top: 170px;">Reservar</button>    
                             </div>
@@ -205,20 +220,30 @@
                                                 <th scope="col">Acciones</th>
 
                                             </tr>
-                                        <td>
-                                            <a class="" th:href= "@{/paciente/modificar/${paciente.id}}">Modificar</a>
-                                            <a class="p-2" th:href= "@{/paciente/eliminar/${paciente.id}}">Eliminar</a>
-                                        </td> 
+                                            <!--                                        <td>
+                                                                                        <a class="" th:href= "@{/paciente/modificar/${paciente.id}}">Modificar</a>
+                                                                                        <a class="p-2" th:href= "@{/paciente/eliminar/${paciente.id}}">Eliminar</a>
+                                                                                    </td> -->
 
                                         </thead>
                                         <tbody>
                                             <tr th:each="paciente : ${pacientes}">
                                                 <td th:text="${paciente.nombre}"></td>
                                                 <td th:text="${paciente.apellido}"</td>
+                                                <td></td>
+                                                <td></td>
                                                 <td>
-                                                    <a class="" th:href= "@{/paciente/modificar/${paciente.id}}">Modificar</a>
-                                                    <a class="p-2" th:href= "@{/paciente/eliminar/${paciente.id}}">Eliminar</a>
-                                                </td> 
+                                                    <div>
+                                                        <button class="btn btn-primary col-ms-6" id="habilita"
+                                                                onclick="habilitarInput()" style="margin-bottom: 10px; width: 100px">Calificar</button>
+                                                    </div>  
+                                                    <div>
+                                                        <button class="btn btn-primary col-ms-6" id="habilita"
+                                                                onclick="habilitarInput()" style="width: 100px">Cancelar</button>
+                                                        <!--                                                    <a class="" th:href= "@{/paciente/modificar/${paciente.id}}">Modificar</a>
+                                                                                                            <a class="p-2" th:href= "@{/paciente/eliminar/${paciente.id}}">Cancelar</a>-->
+                                                    </div>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -328,6 +353,28 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script>
+            function habilitarInput() {
+            let inputs = ["nombre", "apellido", "mail", "telefono", "dni", "fechaNacimiento", "nro-obra-social","idObraSocial","archivo"];
+            let habilita = document.getElementById("habilita");
+            let guardar = document.getElementById("guarda");
+
+            for (let i = 0; i < inputs.length; i++) {
+            let input = document.getElementById(inputs[i]);
+            input.disabled = !input.disabled;
+            }
+
+            if (habilita.innerText === "Editar") {
+
+            habilita.innerText = "Cancelar";
+            guardar.style.display = "inline-block";
+            } else {
+            habilita.innerText = "Editar";
+            guardar.style.display = "none";
+            }
+
+            }
+        </script>
     </body>
 
 </html>
