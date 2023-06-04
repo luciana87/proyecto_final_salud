@@ -6,11 +6,9 @@ body {
     background-repeat: no-repeat;
 }
 .container{
-    margin: 0 auto;
-    width: 1200px;
-    height: 700px;
     border-radius: 7px;
     background-color: RGBA(13, 70, 83, .62);
+    min-height: 680px;
     }
 .shadow {
     box-shadow:  2px 5px rgba(126, 1, 1, 0.1) !important;
@@ -33,7 +31,7 @@ body {
     padding: 15px 20px;
     border-bottom: 1px solid #3a3636;
     border-radius: 0;
-    color: #0557b6;
+    color: #000000;
 }
 
 .nav-pills a.nav-link i {

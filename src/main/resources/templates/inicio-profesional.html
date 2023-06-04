@@ -34,6 +34,10 @@
                                 <i class="bi bi-clipboard-check-fill"></i>
                                 Turnos
                             </a>
+                            <a class="nav-link" id="working-tab" data-toggle="pill" href="#working" role="tab" aria-controls="working" aria-selected="false">
+                                <i class="bi bi-calendar2-check-fill"></i>
+                                Horario Laboral
+                            </a>
                             <a class="nav-link" href="/logout">
                                 <i class="bi bi-box-arrow-right"></i>
                                 Cerrara Sesion
@@ -109,12 +113,6 @@
                                                 <input type="text" class="form-control" id="desc" name="descripcionEspecialidad"
                                                        th:value="${session.usuariosession.descripcionEspecialidad}" disabled>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="inputPassword5" class="form-label">Contraseña
-                                                    Actual</label>
-                                                <input type="password" id="inputPassword5" class="form-control" name="password"
-                                                       aria-labelledby="passwordHelpBlock">
-                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -123,23 +121,26 @@
                                                        th:value="${session.usuariosession.especialidad}" disabled>
                                             </div>
                                         </div>
-                                        <select name="idObraSocial">
-                                            <option>Obra social</option>
-                                            <option th:each="obraSocial : ${obraSociales}" th:value="${obraSocial.id}" th:text="${obraSocial.nombre}"></option>
-                                        </select>
-
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 text-center">
                                             <button type="submit" class="btn btn-light" id="guarda"
                                                     style="display: none;">Guardar</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <!--                                                <label for="inputPassword5" class="form-label">Contraseña
+                                                                                                    Actual</label>-->
+                                                <input type="password" id="inputPassword5" class="form-control" name="password"
+                                                       aria-labelledby="passwordHelpBlock" style="display: none; margin: 0px; padding: 0px">
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
                                 <div>
                                     <div class="row">
                                         <button class="btn btn-primary col-ms-6" id="habilita"
-                                                onclick="habilitarInput()" style="margin-left: 110px;">Editar</button>
+                                                onclick="habilitarInput()" style="margin-left: 110px; margin-top: 50px">Editar</button>
                                         <div class="col-md-6 text-md-right">
-                                            <button class="btn btn-warning">Solicitar Baja</button>
+                                            <button class="btn btn-warning" style="margin-top: 50px">Solicitar Baja</button>
                                         </div>
                                     </div>
                                 </div>
@@ -151,7 +152,7 @@
                                 <div class="row justify-content-center">
                                     <div class="col-sm-6">
                                         <form class="text-center p-3" method="POST" th:action="@{/profesional/modificar/__${session.usuariosession.id}__}">
-                                            <div class="form-group">
+                                            <div class="form-group mb-3">
                                                 <label for="inputPassword5" class="form-label">Contraseña
                                                     Actual</label>
                                                 <input type="password" id="inputPassword5" class="form-control"
@@ -180,23 +181,86 @@
                                     <table class="table  table-bordered">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Pac</th>
                                                 <th scope="col">Fecha</th>
+                                                <th scope="col">Horario</th>
+                                                <th scope="col">Profesional</th>
+                                                <th scope="col">Paciente</th>
                                                 <th scope="col">Acciones</th>
+
                                             </tr>
                                         </thead>
-                                        <tbody >
-                                            <tr th:each="paciente : ${pacientes}">
-                                                <td th:text="${paciente.nombre}"></td>
-                                                <td th:text="${paciente.apellido}"</td>
+                                        <tbody th:each="turno : ${turnos}">
+                                            <tr>
+                                                <th scope="row" th:text="${turno.fecha}"></th>
+                                                <!--      <th th:text="${paciente.imagen.contenido}"></th>
+                                                      <td th:text="${paciente.nombre}"></td>-->
+                                                <td th:text="${turno.horario}"></td>
+                                                <td th:text="${turno.profesional.nombre}"></td> 
+                                                <td th:text="${turno.paciente.nombre}"></td>
+
                                                 <td>
-                                                    <a class="" th:href= "@{/paciente/modificar/__${paciente.id}__}">Modificar</a>
-                                                    <a class="p-2" th:href= "@{/paciente/eliminar/__${paciente.id}__}">Eliminar</a>
-                                                </td> 
-                                            </tr>
+                                                    <a th:href= "@{/nota-medica/registrar/__${turno.id}__}"><i class="fas fa-feather-alt"></i> Agregar Nota Medica </a>
+                                                </td>
+
+
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="working" role="tabpanel" aria-labelledby="working-tab">
+                            <h3 class="mb-4 text-center">Horario Laboral</h3>
+                            <div>
+                                <form th:method="POST" th:action="@{/profesional/jornadaLaboral}">
+                                    <div class="row"> 
+                                        <!--                                        <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label>Profesional</label>
+                                                                                        <input class="form-control" type="text" name="profesional">
+                                                                                    </div>
+                                                                                </div>-->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Dia de la Semana</label>
+                                                <input class="form-control" type="number" name="diaSemana">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Horario Inicio</label>
+                                                <input class="form-control" type="time" name="horaInicio">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Horario Fin</label>
+                                                <input class="form-control" type="time" name="horaFin">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Duracion Turno</label>
+                                                <input class="form-control" type="number" name="duracionTurno">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 text-center">
+                                            <button class="btn-primary col-ms-6" type="submit">Enviar</button>
+                                        </div>
+
+                                        <div th:if="${error != null}" class="card text-white bg-danger mb-3" >
+                                            <div class="card-body">
+                                                <h5 class="card-title">Error 👎</h5>
+                                                <p class="card-text" th:text="${error}"></p>
+                                            </div>
+                                        </div>
+                                        <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3" >
+                                            <div class="card-body">
+                                                <h5 class="card-title">Exito!</h5>
+                                                <p class="card-text" th:text="${exito}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
