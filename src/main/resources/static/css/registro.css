@@ -17,6 +17,10 @@ body {
 
 }
 
+.text-centerrp{
+    background-color: RGBA(13, 70, 83, 0.8);
+}
+
 #advanced-search-form {
     background-color: #fff;
     max-width: 800px;

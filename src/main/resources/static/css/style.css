@@ -185,7 +185,7 @@ banner
 
 .overlay-detail a i {
     text-align: center;
-    position: absolute;
+    /* position: absolute; */
     bottom: 25px;
     font-size: 38px;
     color: #fff;

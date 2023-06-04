@@ -6,11 +6,20 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/registro.css">
+    <link th:href = "@{/css/headerstyle.css}" rel="stylesheet"> 
+    <link th:href = "@{/css/footerstyle.css}" rel="stylesheet"> 
+    <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+    
+    
     <title>Registro Paciente</title>
 </head>
+
+
 <body>
+    <header th:replace ="/fragments/header :: header"> </header> 
+    
 <div class="container" id="advanced-search-form">
-    <h2 class="text-center header">Registro Paciente</h2>
+    <h2 class="text-centerrp">Registro Paciente</h2>
     <form action="/paciente/registro" method="POST" enctype="multipart/form-data" >
 
         <div th:if="${error != null}" class="card text-white bg-danger mb-3" >
@@ -76,5 +85,6 @@
             Registrar</button>
     </form>
 </div>
+    <footer th:replace ="/fragments/footer :: footer"> </footer>
 </body>
 </html>
