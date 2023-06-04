@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="utf-8" >
+  <title>Lista de pacientes Egg</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+  <div class="container m-5" >
+
+    <table class="table table-dark">
+     <thead>
+    <tr>
+      <th scope="col">Fecha</th>
+      <th scope="col">Horario</th>
+      <th scope="col">Profesional</th>
+      <th scope="col">Paciente</th>
+      <th scope="col">Acciones</th>
+
+    </tr>
+    </thead>
+     <tbody th:each="turno : ${turnos}">
+    <tr>
+      <th scope="row" th:text="${turno.fecha}"></th>
+<!--      <th th:text="${paciente.imagen.contenido}"></th>
+      <td th:text="${paciente.nombre}"></td>-->
+      <td th:text="${turno.horario}"></td>
+      <td th:text="${turno.profesional.nombre}"></td> 
+      <td th:text="${turno.paciente.nombre}"></td>
+
+      <td>
+        <a th:href= "@{/nota-medica/registrar/__${turno.id}__}"><i class="fas fa-feather-alt"></i> Agregar Nota Medica </a>
+      </td>
+
+
+    </tbody>
+    </table>
+
+  <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+    <div class="card-body">
+      <h5 class="card-title">Éxito</h5>
+      <p class="card-text" th:text="${exito}"></p>
+    </div>
+  </div>
+  <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError" >
+    <div class="card-body">
+      <h5 class="card-title">Error</h5>
+      <p class="card-text" th:text="${error}"></p>
+    </div>
+  </div>
+
+<!--  <section class="py-5 text-center container">-->
+<!--    <div class="row py-lg-5">-->
+<!--      <div class="col-lg-6 col-md-8 mx-auto">-->
+<!--        <a th:href="@{/inicio}" class="btn btn-primary my-2">Volver</a>-->
+<!--        </p>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </section>-->
+
+</div>
+</body>
+
+</html>

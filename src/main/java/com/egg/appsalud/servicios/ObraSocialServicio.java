@@ -89,7 +89,7 @@ public class ObraSocialServicio {
 
         }
     }
-
+    
     private void validar(String nombre) throws MiException {
         if (nombre.isEmpty() || nombre == null) {
             throw new MiException("El Nombre no puede ser nulo o estar vacio");

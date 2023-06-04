@@ -1,13 +1,19 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
 
 body {
-    background: #8fc8df;
-    /* font-family: "Roboto", sans-serif; */
-
+    background : url(../img/fregistro.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
-
+.container{
+    margin: 0 auto;
+    width: 1200px;
+    height: 700px;
+    border-radius: 7px;
+    background-color: RGBA(13, 70, 83, .62);
+    }
 .shadow {
-    box-shadow: 0 2px 10px rgba(126, 1, 1, 0.1) !important;
+    box-shadow:  2px 5px rgba(126, 1, 1, 0.1) !important;
 }
 
 .profile-tab-nav {
@@ -35,8 +41,8 @@ body {
 }
 
 .img-circle img {
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
     border-radius: 100%;
-    border: 5px solid #181717;
+    border: 0px solid #181717;
 }
