@@ -74,7 +74,7 @@ public class ObraSocialServicio {
     }
 
     @Transactional
-    public void modificarPaciente(Integer id, String nombre) throws MiException {
+    public void modificarObraSocial(Integer id, String nombre) throws MiException {
 
         validar(nombre);
 
