@@ -65,6 +65,7 @@ public class UsuarioServicio implements UserDetailsService {
             HttpSession session = attr.getRequest().getSession(true);
 
             session.setAttribute("usuariosession", usuario);
+            session.setAttribute("mail", mail);
 
             return new User(usuario.getMail(), usuario.getPassword(), permisos);
 
@@ -104,9 +105,9 @@ public class UsuarioServicio implements UserDetailsService {
         return pacienteServicio.buscarPorId(idPaciente);
     }
     
-    public void modificarPaciente(MultipartFile archivo, String id_paciente, String mail, String password, String nombre,
-            String apellido, String dni, LocalDate fechaNacimiento, String telefono, String nroObraSocial) throws MiException, IOException{
-       pacienteServicio.modificarPaciente(archivo, id_paciente, mail, password, nombre, apellido, dni, fechaNacimiento, telefono, nroObraSocial);
+    public void modificarPaciente(MultipartFile archivo, String id_paciente, String mail, String nombre,
+            String apellido, String dni, LocalDate fechaNacimiento, String telefono, String nroObraSocial,Integer idObraSocial) throws MiException, IOException{
+       pacienteServicio.modificarPaciente(archivo, id_paciente, mail, nombre, apellido, dni, fechaNacimiento, telefono, nroObraSocial,idObraSocial);
     }
     
     public Paciente getOne(String id_paciente){

@@ -42,7 +42,13 @@ public class AdminControlado {
     
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/dashboard")
+<<<<<<< HEAD
     public String panelAdministrativo(){
+=======
+    public String panelAdministrativo(ModelMap modelo){
+        List<ObraSocial>ObrasSociales = obraSocialServicio.listarObraSocial();
+        modelo.put("obraSociales", ObrasSociales);
+>>>>>>> develop
         return "admin.html";
     }
     
@@ -78,14 +84,14 @@ public class AdminControlado {
             
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/listaPacientes/modificar/{id_paciente}")
-    public String modificarPaciente(@PathVariable String id_paciente, String mail, String password, String nombre, String apellido,
+    public String modificarPaciente(@PathVariable String id_paciente, String mail, String nombre, String apellido,
 
-            String dni, String fechaNacimiento, String telefono, String nroObraSocial, ModelMap modelo, MultipartFile archivo) throws MiException, IOException{
+            String dni, String fechaNacimiento, String telefono, String nroObraSocial,Integer idObraSocial, ModelMap modelo, MultipartFile archivo) throws MiException, IOException{
         
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter);
         
         try {
-        usuarioServicio.modificarPaciente(archivo, id_paciente, mail, password, nombre, apellido, dni, fechaNac, telefono, nroObraSocial);
+        usuarioServicio.modificarPaciente(archivo, id_paciente, mail, nombre, apellido, dni, fechaNac, telefono, nroObraSocial,idObraSocial);
         }catch (MiException ex){
             modelo.put("error", ex.getMessage());
             return "redirect:/admin/listaPacientes/modificar/{id_paciente}";
@@ -116,6 +122,26 @@ public class AdminControlado {
     public String crearProfesional(){
         
         return "registro-profesional.html";
+    }
+    
+    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PostMapping("/dashboard/crearProfesional")
+    public String crearProfesional(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
+
+            @RequestParam String password, @RequestParam String fechaNacimiento, @RequestParam String dni,
+            @RequestParam String telefono, @RequestParam String matricula, @RequestParam String especialidad,
+            @RequestParam Double valorConsulta, @RequestParam String descripcionEspecialidad, ModelMap modelo){
+        
+        LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter);
+        try {
+            usuarioServicio.CrearProfesional(mail, password, nombre, apellido, dni, fechaNac, telefono, matricula, especialidad, valorConsulta, descripcionEspecialidad);
+        } catch (MiException e) {
+            System.out.println(e.getMessage());
+            return "redirect:/inicio";
+        }
+        
+        return "redirect:/inicio";
     }
     
     
