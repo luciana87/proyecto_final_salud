@@ -128,9 +128,10 @@ public class AdminControlado {
         List<Profesional> profesionales = usuarioServicio.listarProfesionales();
         modelo.addAttribute("profesionales", profesionales);
 
-        return "lista-profesional.html"; 
+        return "lista-profesionalAdmin.html"; 
     }
     
+        
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/dashboard/crearProfesional")
     public String crearProfesional(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
@@ -161,6 +162,6 @@ public class AdminControlado {
     public String listarObraSociales(ModelMap modelo){
         List<ObraSocial> ObraSociales = usuarioServicio.listarObraSociales();
         modelo.addAttribute("obraSociales", ObraSociales);
-        return "lista-obraSocial";
+        return "lista-osocialAdmin.html";
     }
 }

@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -94,7 +95,7 @@
 
         .form-control,
         .form-select,
-        .clearfix,.custom-select{
+        .clearfix,.custom-select  {
             width: 200px;
             border-left: 50px;
             width: 46%;
@@ -103,26 +104,44 @@
             outline: none;
         }
 
-        
-        
+        .btn-listar-profesionales{
+            display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+        }
     </style>
 
-<!------------------------------------------------------------------------------------------------------------------------------------->
 
-    <body>
-        <h2>Selecciona una opción para crear:</h2>
-        <select id="opcion" onchange="mostrarFormulario()">
-            <option value="">Seleccione una opción</option>
-            <option value="opcion1">Profesional</option>
-            <option value="opcion2">Paciente</option>
-            <option value="opcion3">Obra social</option>
-        </select>
-        
+    <h2>Selecciona una opción para crear:</h2>
+    <select id="opcion" onchange="mostrarBotonListar()">
+        <option value="">Seleccione una opción</option>
+        <option value="opcion1">Profesional</option>
+        <option value="opcion2">Paciente</option>
+        <option value="opcion3">Obra social</option>
+    </select>
 
-        <div id="formularios">
+    <div id="formularios">
 
-            <form action="#" th:action="@{/admin/dashboard/crearProfesional}" method="post" id="formulario1" style="display: none;">
-                <h3>Profesional</h3>
+        <form action="#" th:action="@{/admin/dashboard/crearProfesional}" method="post" id="formulario1"
+            style="display: none;">
+            <!-- Formulario de Profesional -->
+            <h3>Profesional</h3>
                  
                <label for="first-name"></label>
                 <input type="text" class="form-control" name="nombre" placeholder="Nombre" id="first-name" 
@@ -168,16 +187,9 @@
                 </select>-->
 
                 <div id="bot1" class="clearfix">
-                   
                     <button  onclick="mostrarMensaje()" type="submit" class="btn btn-info btn-lg btn-responsive"
                         id="search"> <span class=""></span>
                         Crear</button>
-
-                        <a th:href = "@{/admin/dashboard/listaProfesionales}" type="submit" class="btn btn-warning btn-lg btn-responsive" id="btn-listar-profesionales"
-                       > <span class=""></span>
-                        Listar profesionales</a>
-                    
-                    
 
                 
                         
@@ -191,19 +203,16 @@
                         id="search"> <span class=""></span>
                         Eliminar</button>  -->
                 </div>
+        </form>
 
-                
+        <a th:href="@{/admin/dashboard/listaProfesionales}" type="submit"
+            class="btn btn-warning btn-lg btn-responsive" id="btn-listar-profesionales" style="display: none;">Listar profesionales</a>
 
-                
-            </form>
-            
-            
+        <form action="#" th:action="@{/admin/dashboard/crearPaciente}" method="post" id="formulario2"
+            style="display: none;">
+            <!-- Formulario de Paciente -->
 
-                   
-            <!--Formulario Paciente-->
-
-          <!-- <form action="#" th:action="@{/admin}" method="post" id="formulario2" style="display: none;">
-                <h3>Paciente</h3>
+            <h3>Paciente</h3>
                   
                 <label for="first-name"></label>
                 <input type="text" class="form-control" name="nombre" placeholder="Nombre" id="first-name" th:
@@ -249,93 +258,67 @@
                 <button th:href = "@{admin/dashboard/crearPaciente}"  onclick="mostrarMensaje()" type="button" class="btn btn-info btn-lg btn-responsive"
                     id="search"> <span class=""></span>
                     Crear</button>
-                     Dirige a la LISTA PACIENTES
+                    <!-- Dirige a la LISTA PACIENTES
                   
-                <a th:href = "@{/admin/dashboard/listaPacientes}" type="button" class="btn btn-warning btn-lg btn-responsive" id="search">
-                <span class=""></span> 
-                Listar Pacientes
-                    </a>
+                    
                  
                            
 
-           <!-- <button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive"
+          <!--  <button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive"
                 id="search"> <span class=""></span>
                 Eliminar</button> -->
         </div>
-               
-            </form>
+        </form>
 
-           
+        <a th:href="@{/admin/dashboard/listaPacientes}" type="button"
+            class="btn btn-warning btn-lg btn-responsive" id="btn-listar-pacientes" style="display: none;">Listar Pacientes</a>
 
-            
+        <form id="formulario3" style="display: none;">
+            <!-- Formulario de Obra social -->
+        </form>
 
-           <!-- <form id="formulario3" style="display: none;">
-                <h3>Obra social</h3>
-                 
-                <label for="first-name"></label>
-                <input type="text" class="form-control" name="nombre" placeholder="Nombre de Obra Social"
-                    id="first-name" th: text="${profesional.nombre}">
-                
-                    <div id="bot3" class="clearfix">
-                        <button th:href = "@{admin/dashboard/CrearObraSocial}" onclick="mostrarMensaje()" type="button" class="btn btn-info btn-lg btn-responsive"
-                            id="search"> <span class=""></span>
-                            Crear</button>
+        <a th:href="@{/admin/dashboard/listaObraSociales}" type="button"
+            class="btn btn-warning btn-lg btn-responsive" id="btn-listar-obra-sociales" style="display: none;">Listar Obra sociales</a>
+    </div>
 
-                        <a th:href = "@{/admin/dashboard/listaObraSociales}" type="button" class="btn btn-warning btn-lg btn-responsive"
-                        id="search"> <span class=""></span>
-                        Listar Obra sociales</a>
-                        
-                        <!--<button onclick="mostrarMensaje2()" type="submit2" class="btn btn-danger btn-lg btn-responsive"
-                            id="search"> <span class=""></span>
-                            Eliminar</button>-->
-                    </div>
-                   
-            </form>
+    <script>
+        function mostrarBotonListar() {
+            var opcionSeleccionada = document.getElementById("opcion").value;
 
-            
-            
+            var btnListarProfesionales = document.getElementById("btn-listar-profesionales");
+            var btnListarPacientes = document.getElementById("btn-listar-pacientes");
+            var btnListarObraSociales = document.getElementById("btn-listar-obra-sociales");
 
-        </div>
+            if (opcionSeleccionada === "opcion1") {
+                document.getElementById("formulario1").style.display = "block";
+                btnListarProfesionales.style.display = "block";
+                document.getElementById("formulario2").style.display = "none";
+                btnListarPacientes.style.display = "none";
+                document.getElementById("formulario3").style.display = "none";
+                btnListarObraSociales.style.display = "none";
+            } else if (opcionSeleccionada === "opcion2") {
+                document.getElementById("formulario1").style.display = "none";
+                btnListarProfesionales.style.display = "none";
+                document.getElementById("formulario2").style.display = "block";
+                btnListarPacientes.style.display = "block";
+                document.getElementById("formulario3").style.display = "none";
+                btnListarObraSociales.style.display = "none";
+            } else if (opcionSeleccionada === "opcion3") {
+                document.getElementById("formulario1").style.display = "none";
+                btnListarProfesionales.style.display = "none";
+                document.getElementById("formulario2").style.display = "none";
+                btnListarPacientes.style.display = "none";
+                document.getElementById("formulario3").style.display = "block";
+                btnListarObraSociales.style.display = "block";
+            } else {
+                document.getElementById("formulario1").style.display = "none";
+                btnListarProfesionales.style.display = "none";
+                document.getElementById("formulario2").style.display = "none";
+                btnListarPacientes.style.display = "none";
+                document.getElementById("formulario3").style.display = "none";
+                btnListarObraSociales.style.display = "none";
+            }
+        }
+    </script>
+</body>
 
-
-
-
-<!--Javascript----------------------------------------------------------------------------------------------------------->
-        <script>
-              function mostrarFormulario() {
-                var opcionSeleccionada = document.getElementById("opcion").value;
-                var formularios = document.getElementById("formularios").getElementsByTagName("form");
-
-                // Oculta todos los formularios
-                for (var i = 0; i < formularios.length; i++) {
-                    formularios[i].style.display = "none";
-                }
-
-                // Muestra el formulario correspondiente a la opción seleccionada
-                if (opcionSeleccionada === "opcion1") {
-                    document.getElementById("formulario1").style.display = "block";
-                } else if (opcionSeleccionada === "opcion2") {
-                    document.getElementById("formulario2").style.display = "block";
-                } else if (opcionSeleccionada === "opcion3") {
-                    document.getElementById("formulario3").style.display = "block";
-                }
-
-               /*function mostrarMensaje() {
-                var mensajeElement = document.getElementById("bot1");
-                mensajeElement.textContent = "¡Profesional ha sido creado!";
-                }*/
-            };
-
-
-            
-   
-
-
-        
-
-
-
-        </script>
-    </body>
-
-</html>
