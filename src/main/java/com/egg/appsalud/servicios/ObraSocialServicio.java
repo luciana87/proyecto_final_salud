@@ -95,6 +95,11 @@ public class ObraSocialServicio {
             throw new MiException("El Nombre no puede ser nulo o estar vacio");
         }
     }
+
+    @Transactional
+    public void eliminarObraSocial(Integer id) throws MiException{
+        obraSocialRepositorio.deleteById(id);
+    }
 }
 
 

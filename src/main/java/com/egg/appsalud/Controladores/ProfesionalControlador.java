@@ -61,7 +61,7 @@ public class ProfesionalControlador {
             modelo.put("error", ex.getMessage());
             return "/registro-profesional.html";
         }
-        return "redirect:/";
+        return "redirect:/inicio";
     }
 
     @GetMapping("/inicio")

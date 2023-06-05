@@ -2,6 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     
 <head th:replace="fragments/header :: stilos">
+
     
 </head>
 <body>
@@ -12,10 +13,11 @@
         <li><a th:href="@{/admin/dashboard/crearPaciente}">Crear paciente</a></li>
         <li><a th:href="@{/admin/dashboard/listaPacientes}">Listar Pacientes</a></li>
         <li><a th:href=@{/admin/dashboard/crearProfesional}>Crear Profesional</a></li>
-        <li><a th:href=@{/ruta}>Listar Profesionales</a></li>
+        <li><a th:href=@{/admin/dashboard/listaProfesionales}>Listar Profesionales</a></li>
         <li><a th:href=@{/admin/dashboard/CrearObraSocial}>Crear Obra Social</a></li>
         <li><a th:href=@{/admin/dashboard/listaObraSociales}>listar Obra Sociales</a></li>
         <li><a th:href=@{/ruta}>Listar Turnos</a></li>
     </ul>
 </body>
+
 </html>

@@ -2,9 +2,11 @@ package com.egg.appsalud.Controladores;
 
 import com.egg.appsalud.entidades.ObraSocial;
 import com.egg.appsalud.excepciones.MiException;
+import com.egg.appsalud.repositorios.ObraSocialRepositorio;
 import com.egg.appsalud.servicios.ObraSocialServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,8 @@ public class ObraSocialControlador {
     @Autowired
     ObraSocialServicio obraSocialServicio;
 
+    @Autowired
+    private ObraSocialRepositorio obraSocialRepositorio;
 
 
     @GetMapping("/registrar") //Retorna vista para registrarse

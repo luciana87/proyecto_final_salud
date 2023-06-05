@@ -232,7 +232,6 @@ public class PacienteServicio implements UserDetailsService {
 
     @Transactional
     public void eliminarPaciente(String id_paciente) throws MiException {
-
         pacienteRepositorio.deleteById(id_paciente);
 
     }
