@@ -41,14 +41,19 @@
                             <td th:text="${paciente.nombre}"></td>
                             <td th:text="${paciente.apellido}"></td>
                             <td th:text="${paciente.dni}"></td>
+                            <td th:text="${paciente.mail}"></td>
                             <td th:text="${paciente.fechaNacimiento}"></td>
                             <td th:text="${paciente.telefono}"></td>
                             <td th:text="${paciente.obraSocial.nombre}"></td>
                             <td th:text="${paciente.nroObraSocial}"></td>
                             <td class="botones-container">
-                                <a th:href= "@{/admin/listaPacientes/modificar/__${paciente.id}__}" class="btn btn-info btn-sm btn-responsive" id="search"> Editar </a>
+                                <button class="btn btn-info btn-sm editar-btn" data-toggle="modal" data-target="#editarModal"
+                                    data-nombre="Juan" data-apellido="Pérez" data-dni="12345678"
+                                    data-fecha-nacimiento="1990-01-01" data-telefono="123456789"
+                                    data-mail="juan@example.com" data-obrasocial="MEDIFE"
+                                    data-nroObraSocial="100100" >Editar</button>
                             
-                             <a th:href= "@{/admin/listaPacientes/eliminar/__${paciente.id}__}" class="btn btn-eliminar btn-sm btn-responsive" id="search"> Eliminar </a>
+                                <a th:href= "@{/admin/listaPacientes/eliminar/__${paciente.id}__}" class="btn btn-eliminar btn-sm btn-responsive" type="submit" id="search"> Eliminar </a>
 
                             </td>
                         </tr>
@@ -57,12 +62,96 @@
             </div>
         </div>
     </main>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-    crossorigin="anonymous"></script>
+ <!-- Modal de Edición -->
+ <div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel"
+ aria-hidden="true">
+ <div class="modal-dialog" role="document">
+     <div class="modal-content">
+         <div class="modal-header">
+             <h5 class="modal-title" id="editarModalLabel">Editar Paciente</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                 <span aria-hidden="true">&times;</span>
+             </button>
+         </div>
+         <div class="modal-body">
+             <form>
+                 <div class="form-group">
+                     <label for="nombre">Nombre:</label>
+                     <input type="text" class="form-control" id="nombre" name="nombre" required>
+                 </div>
+                 <div class="form-group">
+                     <label for="apellido">Apellido:</label>
+                     <input type="text" class="form-control" id="apellido" name="apellido" required>
+                 </div>
+                 <div class="form-group">
+                     <label for="dni">DNI:</label>
+                     <input type="text" class="form-control" id="dni" name="dni" required>
+                 </div>
+                 <div class="form-group">
+                     <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+                     <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" required>
+                 </div>
+                 <div class="form-group">
+                     <label for="telefono">Teléfono:</label>
+                     <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                 </div>
+                 <div class="form-group">
+                     <label for="mail">Email:</label>
+                     <input type="email" class="form-control" id="mail" name="mail" required>
+                 </div>
+                  <div class="form-group">
+                     <label for="obraSocial.nombre">Obra Social:</label>
+                     <input type="text" class="form-control" id="obraSocial.nombre" name="obraSocial.nombre"
+                         required>
+                 </div>
+                 <div class="form-group">
+                     <label for="nroObraSocial">Nro de Obra Social:</label>
+                     <input type="text" class="form-control" id="nroObraSocial" name="nroObraSocial" required>
+                 </div>
+                 
+             </form>
+         </div>
+         <div class="modal-footer">
+             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+             <button type="button" class="btn btn-primary">Guardar Cambios</button>
+         </div>
+     </div>
+ </div>
+</div>
 
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+ integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+ crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+ integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+ crossorigin="anonymous"></script>
+<script>
+ $(document).ready(function () {
+     $('.editar-btn').click(function () {
+         var nombre = $(this).data('nombre');
+         var apellido = $(this).data('apellido');
+         var dni = $(this).data('dni');
+         var fechaNacimiento = $(this).data('fecha-nacimiento');
+         var telefono = $(this).data('telefono');
+         var mail = $(this).data('mail');
+         var obraSocial = $(this).data('obraSocial.nombre');
+         var nroObraSocial = $(this).data('nroObraSocial');
+         
+
+         $('#nombre').val(nombre);
+         $('#apellido').val(apellido);
+         $('#dni').val(dni);
+         $('#fechaNacimiento').val(fechaNacimiento);
+         $('#telefono').val(telefono);
+         $('#mail').val(mail);
+         $('#obraSocial.nombre').val(obraSocial.nombre);
+         $('#nroObraSocial').val(nroObraSocial);
+         
+     });
+ });
+</script>
+</body>
 </html>
+
+
+

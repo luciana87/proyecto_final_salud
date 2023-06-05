@@ -129,6 +129,10 @@ public class UsuarioServicio implements UserDetailsService {
     public List<ObraSocial> listarObraSociales(){
         return obraSocialServicio.listarObraSocial();
     }
+
+    public void modificarPaciente(MultipartFile archivo, String id_paciente, String mail, String password, String nombre, String apellido, String dni, LocalDate fechaNac, String telefono, String nroObraSocial) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 
 
