@@ -2,11 +2,13 @@ package com.egg.appsalud.Controladores;
 
 import com.egg.appsalud.entidades.ObraSocial;
 import com.egg.appsalud.entidades.Paciente;
+import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.entidades.Usuario;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.repositorios.PacienteRepositorio;
 import com.egg.appsalud.servicios.ObraSocialServicio;
 import com.egg.appsalud.servicios.PacienteServicio;
+import com.egg.appsalud.servicios.ProfesionalServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,6 +32,8 @@ public class PacienteControlador {
     private ObraSocialServicio obraSocialServicio;
     @Autowired
     private PacienteRepositorio pacienteRepositorio;
+    @Autowired
+    private ProfesionalServicio profesionalServicio;
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: aÃ±o-mes-dia del LocalDate
 
@@ -74,10 +78,12 @@ public class PacienteControlador {
         //TODO: eliminar esto cuando este el listado de turnos es una prueba para ver si funciona
         List<Paciente> pacientes = pacienteServicio.listarPacientes();
         List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
+        List<Profesional> profesionales = profesionalServicio.listarProfesionales();
         Paciente paciente = pacienteRepositorio.BuscarPorEmail(session.getAttribute("mail").toString());
         modelo.put("paciente", paciente);
         modelo.addAttribute("pacientes", pacientes);
         modelo.addAttribute("obraSociales", obraSociales);
+        modelo.addAttribute("profesionales", profesionales);
         
 
         //obtengo el usuario logueado
