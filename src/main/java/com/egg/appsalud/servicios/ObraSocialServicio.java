@@ -74,7 +74,7 @@ public class ObraSocialServicio {
     }
 
     @Transactional
-    public void modificarPaciente(Integer id, String nombre) throws MiException {
+    public void modificarObraSocial(Integer id, String nombre) throws MiException {
 
         validar(nombre);
 
@@ -94,6 +94,11 @@ public class ObraSocialServicio {
         if (nombre.isEmpty() || nombre == null) {
             throw new MiException("El Nombre no puede ser nulo o estar vacio");
         }
+    }
+
+    @Transactional
+    public void eliminarObraSocial(Integer id) throws MiException{
+        obraSocialRepositorio.deleteById(id);
     }
 }
 
