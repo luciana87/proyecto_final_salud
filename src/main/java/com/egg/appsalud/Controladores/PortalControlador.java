@@ -34,12 +34,6 @@ public class PortalControlador {
         return "index.html"; //Retorna vista del index.html
     }
     
-//    @GetMapping("/registrar")
-//    public String registrar(){
-//        return "registro.html";
-//    }
-//
-    
 //    DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: año-mes-dia del LocalDate
     
     

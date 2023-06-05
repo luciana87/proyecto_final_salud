@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
     integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
-<link rel="stylesheet" href="../static/css/paciente.css">
+<link rel="stylesheet" href="/css/paciente.css">
 
 <body>
     <main layout:fragment="contenido">
@@ -23,26 +23,23 @@
                             <th>DNI</th>
                             <th>Fecha de Nacimiento</th>
                             <th>Contacto</th>
-                            <th>Obra Social</th>
-                            <th>N° Obra Social</th>
-                            <th>Editar</th>
-                            <th>Eliminar</th>
+                            <th>Matrícula</th>
+                            <th>Especialidad</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="paciente : ${pacientes}">
-                            <td th:text="${paciente.nombre}"></td>
-                            <td th:text="${paciente.apellido}"></td>
-                            <td th:text="${paciente.dni}"></td>
-                            <td th:text="${paciente.fechaNacimiento}"></td>
-                            <td th:text="${paciente.telefono}"></td>
-                            <td th:text="${paciente.obraSocial.nombre}"></td>
-                            <td th:text="${paciente.nroObraSocial}"></td>
+                        <tr th:each="profesional : ${profesionales}">
+                            <td th:text="${profesional.nombre}"></td>
+                            <td th:text="${profesional.apellido}"></td>
+                            <td th:text="${profesional.dni}"></td>
+                            <td th:text="${profesional.fechaNacimiento}"></td>
+                            <td th:text="${profesional.telefono}"></td>
+                            <td th:text="${profesional.matricula}"></td>
+                            <td th:text="${profesional.especialidad}"></td>
                             <td>
-                                <a th:href= "@{/paciente/modificar/__${paciente.id}__}"><i class="fas fa-feather-alt"></i> Editar </a>
-                            </td>
-                            <td>
-                             <a th:href= "@{/paciente/eliminar/__${paciente.id}__}"><i class="fas fa-feather-alt"></i> Eliminar </a>
+                                <a th:href= "@{/admin/dashboard/listaProfesionales/modificar/__${profesional.id}__}"><i class="fas fa-feather-alt"></i> Editar </a>
+                                <a th:href= "@{/admin/dashboard/listaProfesionales/eliminar/__${profesional.id}__}"><i class="fas fa-feather-alt"></i> Eliminar </a>
                             </td>
                         </tr>
                     </tbody>
