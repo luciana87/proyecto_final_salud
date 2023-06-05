@@ -16,15 +16,15 @@ body {
     
 
 }
-
+/*
 .text-centerrp{
     background-color: RGBA(13, 70, 83, 0.8);
-}
+}*/
 
 #advanced-search-form {
     background-color: #fff;
     max-width: 800px;
-    margin: 160px auto 0;
+    margin: 0px auto 0;
     padding: 40px;
     color: #858b8e;
     box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.2);

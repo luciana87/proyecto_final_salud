@@ -9,9 +9,18 @@
               href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="/css/inicio_paciente.css">
+        
+        <link th:href = "@{/css/headerstyle.css}" rel="stylesheet"> 
+<link th:href = "@{/css/footerstyle.css}" rel="stylesheet"> 
+<script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+        
+        
     </head>
 
     <body>
+        
+        <header th:replace ="/fragments/header :: header"> </header> 
+        
         <section class="py-5 my-5">
             <div class="container">
                 <h1 class="mb-5"
@@ -350,6 +359,8 @@
                     </div>
                 </div>  
         </section>
+        
+        <footer th:replace ="/fragments/footer :: footer"> </footer>
 
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
