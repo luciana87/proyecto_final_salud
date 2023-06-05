@@ -19,7 +19,8 @@
                 <div class="d-sm-flex">
                     <div class="profile-tab-nav border-right">
                         <div class="p-4">
-                            <h4 class="text-center">Profesional</h4>
+                            <!--                            <h4 class="text-center">Profesional</h4>-->
+                            <h4  th:text="${session.usuariosession.nombre}" class="text-center"></h4>
                         </div>
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                             <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">
@@ -38,6 +39,10 @@
                                 <i class="bi bi-calendar2-check-fill"></i>
                                 Horario Laboral
                             </a>
+<!--                            <a class="nav-link" id="work-tab" data-toggle="pill" href="#work" role="tab" aria-controls="work" aria-selected="false">
+                                <i class="bi bi-calendar2-check-fill"></i>
+                                Jornada Laboral
+                            </a>-->
                             <a class="nav-link" href="/logout">
                                 <i class="bi bi-box-arrow-right"></i>
                                 Cerrara Sesion
@@ -220,10 +225,17 @@
                                                                                     </div>
                                                                                 </div>-->
                                         <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Dia de la Semana</label>
-                                                <input class="form-control" type="number" name="diaSemana">
-                                            </div>
+                                            <label>Dia de la Semana</label>
+                                            <select class="form-control">
+                                                <option value="MONDAY">Lunes</option>
+                                                <option value="TUESDAY">Martes</option>
+                                                <option value="WEDNESDAY">Miercoles</option>
+                                                <option value="THURSDAY">Jueves</option>
+                                                <option value="FRIDAY">Viernes</option>
+                                                <option value="SATURDAY">Sabado</option>
+                                                <option value="SUNDAY">Domingo</option>
+                                            </select>
+                                            <!--                                                <input class="form-control" type="number" name="diaSemana">-->
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -238,10 +250,16 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Duracion Turno</label>
-                                                <input class="form-control" type="number" name="duracionTurno">
-                                            </div>
+                                            <!--                                            <div class="form-group">-->
+                                            <label>Duracion Turno</label>
+                                            <select class="form-control">
+                                                <option value="15">15</option>
+                                                <option value="30">30</option>
+                                                <option value="45">45</option>
+                                                <option value="60">60</option>
+                                            </select>
+                                            <!--                                                <input class="form-control" type="number" name="duracionTurno">
+                                                                                        </div>-->
                                         </div>
                                         <div class="col-md-6 text-center">
                                             <button class="btn-primary col-ms-6" type="submit">Enviar</button>
@@ -261,9 +279,75 @@
                                         </div>
                                     </div>
                                 </form>
+                                <div class="row p-3">
+                                    <table class="table  table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Dia</th>
+                                                <th scope="col">Horario Inicio</th>
+                                                <th scope="col">Horario Fin</th>
+                                                <th scope="col">Duracion Turno</th>
+                                                <th scope="col">Acciones</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody th:each="turno : ${turnos}">
+                                            <tr>
+                                                <th scope="row" th:text="${turno.fecha}"></th>
+                                                <!--      <th th:text="${paciente.imagen.contenido}"></th>
+                                                      <td th:text="${paciente.nombre}"></td>-->
+                                                <td th:text="${turno.horario}"></td>
+                                                <td th:text="${turno.profesional.nombre}"></td> 
+                                                <td th:text="${turno.paciente.nombre}"></td>
+
+                                                <td>
+                                                    <a th:href= "@{/nota-medica/registrar/__${turno.id}__}"><i class="fas fa-feather-alt"></i> Agregar Nota Medica </a>
+                                                </td>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
                             </div>
                         </div>
+<!--                        <div class="tab-pane fade" id="work" role="tabpanel" aria-labelledby="work-tab">
+                            <h3 class="mb-4 text-center">Jornada Laboral</h3>
+                            <div>
+                                <div class="table-responsive-sm p-3">
+                                    <table class="table  table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Dia</th>
+                                                <th scope="col">Horario Inicio</th>
+                                                <th scope="col">Horario Fin</th>
+                                                <th scope="col">Duracion Turno</th>
+                                                <th scope="col">Acciones</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody th:each="turno : ${turnos}">
+                                            <tr>
+                                                <th scope="row" th:text="${turno.fecha}"></th>
+                                                      <th th:text="${paciente.imagen.contenido}"></th>
+                                                      <td th:text="${paciente.nombre}"></td>
+                                                <td th:text="${turno.horario}"></td>
+                                                <td th:text="${turno.profesional.nombre}"></td> 
+                                                <td th:text="${turno.paciente.nombre}"></td>
+
+                                                <td>
+                                                    <a th:href= "@{/nota-medica/registrar/__${turno.id}__}"><i class="fas fa-feather-alt"></i> Agregar Nota Medica </a>
+                                                </td>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>-->
                     </div>
+
                 </div>
             </div>
         </section>
