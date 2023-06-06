@@ -187,23 +187,6 @@ public class ProfesionalControlador {
         return "calificar-profesional.html";
     }
 
-    //    @PostMapping("/calificar/turno/{id}")
-//    public String calificarMedico(@RequestParam String id, @RequestParam Integer calificacion, ModelMap modelo){
-//
-//
-//        try {
-//            pacienteServicio.calificar(id,calificacion);
-//            modelo.put("exito", "El profesional fue calificado correctamente");
-//        } catch (MiException ex) {
-//            modelo.put("error", ex.getMessage());
-//            return "/calificar-profesional.html";
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return "redirect:/inicio-paciente-2";
-//    }
-
-
     @GetMapping("/lista")
     public String listar(ModelMap modelo) {
         List<Profesional> profesionales = profesionalServicio.listarProfesionales();

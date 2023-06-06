@@ -4,16 +4,14 @@ import com.egg.appsalud.Enumerativos.EstadoTurno;
 import com.egg.appsalud.entidades.*;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.repositorios.PacienteRepositorio;
-import com.egg.appsalud.servicios.ObraSocialServicio;
-import com.egg.appsalud.servicios.PacienteServicio;
-import com.egg.appsalud.servicios.ProfesionalServicio;
-import com.egg.appsalud.servicios.TurnoServicio;
+import com.egg.appsalud.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -37,9 +35,21 @@ public class PacienteControlador {
     private ProfesionalServicio profesionalServicio;
 
     @Autowired
+    private CalificacionServicio calificacionServicio;
+
+    @Autowired
     private TurnoServicio turnoServicio;
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: aÃ±o-mes-dia del LocalDate
+
+    @GetMapping("/registrar") //Retorna vista para registrarse
+    public String registrar(ModelMap modelo) {
+
+        List<ObraSocial> obrasSociales = obraSocialServicio.listarObraSocial();
+        modelo.addAttribute("obrasSociales", obrasSociales);
+
+        return "registro-paciente.html";
+    }
 
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
@@ -67,15 +77,6 @@ public class PacienteControlador {
         return "redirect:/inicio";
     }
 
-    @GetMapping("/registrar") //Retorna vista para registrarse
-    public String registrar(ModelMap modelo) {
-
-        List<ObraSocial> obrasSociales = obraSocialServicio.listarObraSocial();
-        modelo.addAttribute("obrasSociales", obrasSociales);
-
-        return "registro-paciente.html";
-    }
-
 
     @GetMapping("/inicio")
     public String inicio(HttpSession session, ModelMap modelo){
@@ -98,12 +99,12 @@ public class PacienteControlador {
         return "inicio_paciente_2.html";
     }
 
-    @GetMapping("/lista")
-    public String listar(ModelMap modelo) {
-        List<Paciente> pacientes = pacienteServicio.listarPacientes();
-        modelo.addAttribute("pacientes", pacientes);
+    @GetMapping("/historialTurnos/{id}")
+    public String listar(@PathVariable String id, ModelMap modelo) {
+        List<Turno> turnos = turnoServicio.listarTurnosPaciente(id);
+        modelo.addAttribute("turnos", turnos);
 
-        return "lista-paciente.html"; //Retorna vista con todos los pacientes persistidos en la DB (tabla, o card de pacientes)
+        return "historial-turnos-paciente.html";
     }
 
     @GetMapping("/obtener/{idPaciente}")
@@ -185,7 +186,7 @@ public class PacienteControlador {
     }
 
 
-    //-------------------------- LISTA TURNOS PACIENTE ------------------------------
+    //-------------------------- TURNOS PACIENTE ------------------------------
 
     @GetMapping("/listaTurno")
     public String listarTurnos (ModelMap modelo) {
@@ -222,4 +223,21 @@ public class PacienteControlador {
         return "lista-turnos.html";
 
     }
+
+    @GetMapping("/calificar/turno/{id}")
+    public String calificarMedico (@PathVariable Integer id, ModelMap modelo){
+        Turno turno = turnoServicio.getOne(id);
+        modelo.addAttribute("turno", turno);
+        return "calificar-profesional.html";
+
+    }
+
+    @PostMapping("/calificar/turno/{id}")
+    public String calificarMedico(@PathVariable Integer id, Integer calificacion, ModelMap modelo){
+        calificacionServicio.crearCalificacion(id,calificacion);
+        modelo.put("exito", "El profesional fue calificado correctamente");
+
+        return "redirect:/inicio";
+    }
+
 }

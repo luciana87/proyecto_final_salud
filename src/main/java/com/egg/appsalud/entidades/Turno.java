@@ -12,7 +12,6 @@ public class Turno {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Integer id;
 
     @Column(nullable = false)
