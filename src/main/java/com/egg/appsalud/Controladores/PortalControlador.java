@@ -1,12 +1,11 @@
 package com.egg.appsalud.Controladores;
 
+import com.egg.appsalud.Enumerativos.Especialidad;
 import com.egg.appsalud.entidades.Paciente;
+import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.entidades.Usuario;
-import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.servicios.PacienteServicio;
 
-import java.io.IOException;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -15,9 +14,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import org.springframework.ui.Model;
 
 
 @Controller
@@ -90,6 +89,8 @@ public class PortalControlador {
         System.out.println(lunes +" "+ martes + miercoles);
         return "form-crear-turnos.html";
     }
+    
+
 }
 
 

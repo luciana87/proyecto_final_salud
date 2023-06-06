@@ -30,6 +30,8 @@ public class ProfesionalServicio {
     @Autowired
     private JornadaLaboralServicio jornadaServicio;
 
+//    @Autowired
+//    private ProfesionalServicio profesionalServicio;
     @Transactional
     public void crearProfesional(String mail, String password, String nombre, String apellido,
             String dni, LocalDate fechaNacimiento, String telefono, String matricula,
@@ -121,7 +123,7 @@ public class ProfesionalServicio {
     //Crear jornada laboral
     @Transactional
     public List<JornadaLaboral> crearJ(Profesional profesional, String diaSemana, LocalTime horaInicio,
-                                       LocalTime horaFin, Long duracion) throws MiException {
+            LocalTime horaFin, Long duracion) throws MiException {
         if (profesional != null) {
 
             List<JornadaLaboral> jornadas = new ArrayList();
@@ -168,7 +170,6 @@ public class ProfesionalServicio {
 //        List<Profesional> profesionales = profesionalRepositorio.findAll();
 //        return profesionales.stream().collect(Collectors.toList());
 //    }
-
     @Transactional
     public void eliminarProfesional(String id_profesional) throws MiException {
 
@@ -179,5 +180,22 @@ public class ProfesionalServicio {
     public void actualizarReputacion(Double promedio, Profesional profesional) {
         profesional.setReputacion(promedio);
         profesionalRepositorio.save(profesional);
+    }
+
+    // FILTRO DE BUSQUEDA
+    // Buscar por especialidad al profesional (Lo uso desde paciente)
+    public List<Profesional> buscarPorfesional(Especialidad especialidad, Double valorConsulta, Double reputacion){
+
+        if (especialidad != null) {
+            return profesionalRepositorio.buscarPorEspecialidadValorConsultaReputacion(especialidad, valorConsulta, reputacion);
+        }else{
+            return null;
+        }
+
+    }
+    
+    public Profesional seleccionarProfesional(String id_profesional){
+        Profesional profes = profesionalRepositorio.getOne(id_profesional);
+        return profes;
     }
 }

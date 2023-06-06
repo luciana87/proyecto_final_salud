@@ -5,10 +5,12 @@
  */
 package com.egg.appsalud.servicios;
 
+import com.egg.appsalud.Enumerativos.Especialidad;
 import com.egg.appsalud.Enumerativos.Rol;
 import com.egg.appsalud.entidades.Imagen;
 import com.egg.appsalud.entidades.ObraSocial;
 import com.egg.appsalud.entidades.Paciente;
+import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.repositorios.PacienteRepositorio;
 
@@ -47,6 +49,7 @@ public class PacienteServicio implements UserDetailsService {
 
     @Autowired
     private ImagenServicio imagenServicio;
+
     @Autowired
     private ObraSocialServicio obraSocialServicio;
 
@@ -236,4 +239,21 @@ public class PacienteServicio implements UserDetailsService {
 
     }
 
+    // FILTRO DE BUSQUEDA
+    
+    // Buscar profesionales
+//    public List<Profesional> buscarProfesionales(Especialidad especialidad, Double valorConsulta, Double reputacion) {
+//
+//        List<Profesional> profesionales = profesionalServicio.buscarPorfesional(especialidad, valorConsulta, reputacion);
+//
+//        return profesionales;
+//
+//    }
+//    
+//    // Uso el id del profesional seleccionado para buscarlo en la DB 
+//    public Profesional seleccionarProfesional(String id_profesional){
+//        Profesional pro = profesionalServicio.seleccionarProfesional(id_profesional);
+//        
+//        return pro;
+//    }
 }

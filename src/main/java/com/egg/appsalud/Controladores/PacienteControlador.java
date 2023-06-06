@@ -1,12 +1,14 @@
 package com.egg.appsalud.Controladores;
 
+import com.egg.appsalud.Enumerativos.Especialidad;
 import com.egg.appsalud.entidades.ObraSocial;
 import com.egg.appsalud.entidades.Paciente;
-import com.egg.appsalud.entidades.Usuario;
+import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.repositorios.PacienteRepositorio;
 import com.egg.appsalud.servicios.ObraSocialServicio;
 import com.egg.appsalud.servicios.PacienteServicio;
+import com.egg.appsalud.servicios.ProfesionalServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/paciente")
@@ -30,16 +33,16 @@ public class PacienteControlador {
     private ObraSocialServicio obraSocialServicio;
     @Autowired
     private PacienteRepositorio pacienteRepositorio;
+    @Autowired
+    private ProfesionalServicio profesionalServicio;
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: aÃ±o-mes-dia del LocalDate
 
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
-
             @RequestParam String password, @RequestParam String idObraSocial, @RequestParam String nroObraSocial,
             @RequestParam String fechaNacimiento, @RequestParam String dni,
             @RequestParam String telefono, ModelMap modelo, MultipartFile archivo) throws IOException {
-
 
         Integer idObraSocialInt = Integer.valueOf(idObraSocial);
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter); //Convierte el String de fechaNacimiento a LocalDate, si pongo directamente tipo LocalDate genera conflicto
@@ -68,23 +71,28 @@ public class PacienteControlador {
         return "registro-paciente.html";
     }
 
-
     @GetMapping("/inicio")
-    public String inicio(HttpSession session, ModelMap modelo){
+    public String inicio(HttpSession session, ModelMap modelo, Especialidad especialidad, Double valorConsulta, Double reputacion) {
         //TODO: eliminar esto cuando este el listado de turnos es una prueba para ver si funciona
         List<Paciente> pacientes = pacienteServicio.listarPacientes();
         List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
         Paciente paciente = pacienteRepositorio.BuscarPorEmail(session.getAttribute("mail").toString());
+        List<Profesional> profesionales = profesionalServicio.listarProfesionales();
+
+        // BUSQUEDA DEL PROFESIONAL
+//        List<Profesional> profesionalesBuscar = pacienteServicio.buscarProfesionales(especialidad, valorConsulta, reputacion);
+
         modelo.put("paciente", paciente);
         modelo.addAttribute("pacientes", pacientes);
         modelo.addAttribute("obraSociales", obraSociales);
-        
+        modelo.addAttribute("profesionales", profesionales);
+
+//        modelo.addAttribute("profesionalesBuscar", profesionalesBuscar);
 
         //obtengo el usuario logueado
 //        Paciente logueado = (Paciente) session.getAttribute("usuariosession");
 //        boolean tieneImagen= ((Paciente)logueado).tieneImagen(); //Casteo la variable 'logueado' de tipo usuario a tipo 'Paciente' para poder acceder al metodo 'tieneImagen()'
 //        modelo.put("tieneImagen", tieneImagen); //Envío a la vista si posee o no imágen.
-
         return "inicio_paciente_2.html";
     }
 
@@ -125,17 +133,14 @@ public class PacienteControlador {
 
     @PostMapping("/modificar/{id_paciente}")
     public String modificarPaciente(@PathVariable String id_paciente, String mail, String nombre, String apellido,
-
             String dni, String fechaNacimiento, String telefono, String nroObraSocial, Integer idObraSocial, ModelMap modelo, MultipartFile archivo) {
-        
 
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter);
 
         try {
 
-            
-            pacienteServicio.modificarPaciente(archivo,id_paciente, mail,
-                    nombre, apellido, dni, fechaNac, telefono,nroObraSocial,idObraSocial);
+            pacienteServicio.modificarPaciente(archivo, id_paciente, mail,
+                    nombre, apellido, dni, fechaNac, telefono, nroObraSocial, idObraSocial);
 
             modelo.put("exito", "Los datos fueron actualizados correctamente.");
 
@@ -147,7 +152,7 @@ public class PacienteControlador {
         }
         return "redirect:/inicio";
     }
-    
+
     @GetMapping("/eliminar/{id_paciente}")
     public String eliminarPaciente(@PathVariable String id_paciente, ModelMap modelo) {
 
@@ -157,9 +162,43 @@ public class PacienteControlador {
 
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            
+
         }
         return "redirect:../lista";
     }
+
+    // Filtro de busqueda
+    // Por especialidad
+//    @GetMapping("/buscador")
+//    public String irABuscar() {
+//        return "inicio_paciente_2.html";
+//    }
+//
+//    @PostMapping("/buscar")
+//    public String buscarPorEspecialidad(Especialidad especialidad,Double valorConsulta, Double reputacion, ModelMap modelo) throws MiException {
+//
+//        List<Profesional> profesionales = pacienteServicio.buscarProfesionales(especialidad, valorConsulta, reputacion);
+//        modelo.addAttribute("profesionales", profesionales);
+//
+//        return "inicio_paciente_2.html";
+//    }
+    
+//    @PostMapping("/seleccionarProfesional/{id_profesional}")
+//    public String profesionalE(@PathVariable String id_profesional, ModelMap modelo) {
+//        Profesional profesional = pacienteServicio.seleccionarProfesional(id_profesional);
+//
+//        modelo.addAttribute("profesional", profesional);
+//        return "inicio_paciente_2.html";
+//
+//    }
+//
+//    @GetMapping("/paciente/seleccionarProfesional/{idProfesional}")
+//    public String seleccionarProfesional(@PathVariable String idProfesional, ModelMap model) {
+//        Profesional profesionalSeleccionado = profesionalServicio.getOne(idProfesional);
+//
+//        model.addAttribute("profesionalSeleccionado", profesionalSeleccionado);
+//
+//        return "busqueda-por-especialidad.html";
+//    }
 
 }
