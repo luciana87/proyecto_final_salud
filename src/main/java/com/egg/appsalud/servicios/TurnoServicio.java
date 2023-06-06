@@ -121,19 +121,12 @@ public class TurnoServicio {
     }
 
 
-
-
-    
-    
-    
     //fran
     public List<Turno> listarTurnosPaciente(String pacieteId){
         Paciente paciente = pacienteRepositorio.getOne(pacieteId);
         return turnoRepositorio.BuscarTurnosPaciente(paciente);
     }
-    
-    
-    
+
     
 //tira error en el repo
     
@@ -175,9 +168,7 @@ public class TurnoServicio {
         
         return turnoRepositorio.BuscarTurnosProfecional(profesional);
     }
-    
-    
-    
+
     
     private List<LocalDate> listarFechasSegunRango (LocalDate inicioRango, LocalDate finRango){
         List<LocalDate> dates = Stream.iterate(inicioRango, date -> date.plusDays(1))
@@ -206,5 +197,17 @@ public class TurnoServicio {
     }
     public Turno buscarPorId(Integer id) {
         return turnoRepositorio.findById(id).orElse(null);
+    }
+
+    public List<Turno>buscarTurnosFiltro( String idProfesional, LocalDate fecha, LocalTime horario,  String nombre,  Double valorConsulta, EstadoTurno estado){
+        Profesional medico = null;
+        Optional<Profesional> medicoOptional = profesionalRepositorio.findById(idProfesional);
+
+        if (medicoOptional.isPresent()){
+            medico = medicoOptional.get();
+        }
+
+        List<Turno>listaDeTurnos = turnoRepositorio.buscarTurnosFiltro(medico, fecha, horario, nombre, valorConsulta,estado);
+        return listaDeTurnos;
     }
 }

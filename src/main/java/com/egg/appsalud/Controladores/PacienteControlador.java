@@ -1,14 +1,13 @@
 package com.egg.appsalud.Controladores;
 
-import com.egg.appsalud.entidades.ObraSocial;
-import com.egg.appsalud.entidades.Paciente;
-import com.egg.appsalud.entidades.Profesional;
-import com.egg.appsalud.entidades.Usuario;
+import com.egg.appsalud.Enumerativos.EstadoTurno;
+import com.egg.appsalud.entidades.*;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.repositorios.PacienteRepositorio;
 import com.egg.appsalud.servicios.ObraSocialServicio;
 import com.egg.appsalud.servicios.PacienteServicio;
 import com.egg.appsalud.servicios.ProfesionalServicio;
+import com.egg.appsalud.servicios.TurnoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.hibernate.annotations.Parameter;
@@ -35,6 +35,9 @@ public class PacienteControlador {
     private PacienteRepositorio pacienteRepositorio;
     @Autowired
     private ProfesionalServicio profesionalServicio;
+
+    @Autowired
+    private TurnoServicio turnoServicio;
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: aÃ±o-mes-dia del LocalDate
 
@@ -169,7 +172,7 @@ public class PacienteControlador {
         return "redirect:../lista";
     }
     @PostMapping("cambiarcontasenia/{id}")
-    public String cambiarContrasenia(@PathVariable String id, String contraVieja, String contraNueva, String contraComparar, ModelMap modelo){
+    public String cambiarContrasenia(@PathVariable String id, String contraVieja, String contraNueva, String contraComparar, ModelMap modelo) {
         try {
             pacienteServicio.cambiarContrasenia(id, contraVieja, contraNueva, contraComparar);
         } catch (MiException e) {
@@ -178,8 +181,45 @@ public class PacienteControlador {
             return "redirect:/inicio";
         }
         return "redirect:/inicio";
-        
-        
+
     }
 
+
+    //-------------------------- LISTA TURNOS PACIENTE ------------------------------
+
+    @GetMapping("/listaTurno")
+    public String listarTurnos (ModelMap modelo) {
+        List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
+        List<Profesional> profesionales = profesionalServicio.listarProfesionales();
+        modelo.addAttribute("obraSociales", obraSociales);
+        modelo.addAttribute("profesionales", profesionales);
+
+        return "lista-turnos.html";
+    }
+    @PostMapping("/buscarTurnos")
+    public String buscarTurnos(String idProfesional,String fecha,String horario,  String nombre, Double valorConsulta, ModelMap modelo){
+
+        LocalTime horaioParse = null;
+        LocalDate fechaParse = null;
+
+
+        if(!fecha.isEmpty()){
+            fechaParse = LocalDate.parse(fecha, formatter);
+        }
+
+        if(!horario.isEmpty()){
+            horaioParse = LocalTime.parse(horario);
+        }
+
+
+        List<Turno>ListaTurnoFiltro = turnoServicio.buscarTurnosFiltro(idProfesional,fechaParse ,horaioParse , nombre, valorConsulta, EstadoTurno.DISPONIBLE);
+        List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
+        List<Profesional> profesionales = profesionalServicio.listarProfesionales();
+        modelo.addAttribute("turnos", ListaTurnoFiltro);
+        modelo.addAttribute("obraSociales", obraSociales);
+        modelo.addAttribute("profesionales", profesionales);
+
+        return "lista-turnos.html";
+
+    }
 }
