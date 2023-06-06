@@ -5,7 +5,7 @@
     <title>OS</title>
 </head>
 <body>
-<form th:action="@{/obra-social/modificar/__${obraSocial.id}__}" method="POST">
+<form th:action="@{/admin/dashboard/listaObraSociales/modificar/__${obraSocial.id}__}" method="POST">
     <input hidden th:value= "${id}" name="id">
     <div class="form-group">
         <label for="nombre">Nombre</label>
@@ -13,7 +13,7 @@
     </div>
     <div class="clearfix"></div>
     <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>
-        Registrar</button>
+        Actualizar</button>
 </form>
 </body>
 </html>

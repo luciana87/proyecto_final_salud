@@ -120,7 +120,7 @@
                                         </div>
                                         <select name="idObraSocial" style="margin-top: 30px; margin-left: 15px ;width: 370px">
                                             <option>Obra social</option>
-                                            <option name="obraSocial" th:each="obraSocial : ${obraSociales}" th:value="${obraSocial.id}" th:text="${obraSocial.nombre}" ></option>
+                                            <option name="obraSocial" th:each="obraSocial : ${obraSociales}" th:value="${obraSocial.id}" th:text="${obraSocial.nombre}" th:selected="${obraSocial.id == paciente.obraSocial.getId}"></option>
                                         </select>
 
                                         <div class="col-md-6">
@@ -347,6 +347,70 @@
                                                                     </tbody>
                                                                 </table>-->
 
+                                </div>
+                                <!--                    <div>
+                                                            <button class="btn btn-primary">Modificar</button>
+                                                            <button class="btn btn-light">Cancelar</button>
+                                                        </div>-->
+                            </div>                
+                            <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
+                                <h3 class="mb-4">Cambiar Contraseña</h3>
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <form class="text-center p-3" method="POST" th:action="@{/paciente/cambiarcontasenia/__${paciente.id}__}">
+                                            <div class="form-group">
+                                                <label for="inputPassword5" class="form-label">Contraseña
+                                                    Actual</label>
+                                                <input type="password" name="contraVieja" id="inputPassword5" class="form-control"
+                                                       aria-labelledby="passwordHelpBlock">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputPassword5" class="form-label">Nueva Contraseña</label>
+                                                <input type="password" name="contraNueva" id="inputPassword5" class="form-control"
+                                                       aria-labelledby="passwordHelpBlock">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputPassword5"   class="form-label">Confirmar Contraseña</label>
+                                                <input type="password" name="contraComparar" id="inputPassword5" class="form-control"
+                                                       aria-labelledby="passwordHelpBlock">
+                                            </div>
+                                            <button type="submit" class="btn btn-light mt-3">Cambiar</button>
+                                        </form>
+                                    </div>
+                                    <!--                                    <table class="table">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th scope="col">Fecha</th>
+                                                                                    <th scope="col">Horario</th>
+                                                                                    <th scope="col">Paciente</th>
+                                                                                    <th scope="col">Estado</th>
+                                                                                    <th scope="col">Profesional</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <th scope="row"></th>
+                                                                                    <td></td>
+                                                                                    <td></td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th scope="row"></th>
+                                                                                    <td></td>
+                                                                                    <td></td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th scope="row"></th>
+                                                                                    <td></td>
+                                                                                    <td></td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>-->
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

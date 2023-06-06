@@ -4,6 +4,7 @@ import com.egg.appsalud.Enumerativos.Especialidad;
 import com.egg.appsalud.entidades.ObraSocial;
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Profesional;
+
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.repositorios.PacienteRepositorio;
 import com.egg.appsalud.servicios.ObraSocialServicio;
@@ -20,7 +21,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import org.springframework.web.servlet.ModelAndView;
+
 
 @Controller
 @RequestMapping("/paciente")
@@ -72,22 +73,17 @@ public class PacienteControlador {
     }
 
     @GetMapping("/inicio")
-    public String inicio(HttpSession session, ModelMap modelo, Especialidad especialidad, Double valorConsulta, Double reputacion) {
+    public String inicio(HttpSession session, ModelMap modelo) {
         //TODO: eliminar esto cuando este el listado de turnos es una prueba para ver si funciona
         List<Paciente> pacientes = pacienteServicio.listarPacientes();
         List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
-        Paciente paciente = pacienteRepositorio.BuscarPorEmail(session.getAttribute("mail").toString());
         List<Profesional> profesionales = profesionalServicio.listarProfesionales();
-
-        // BUSQUEDA DEL PROFESIONAL
-//        List<Profesional> profesionalesBuscar = pacienteServicio.buscarProfesionales(especialidad, valorConsulta, reputacion);
+        Paciente paciente = pacienteRepositorio.BuscarPorEmail(session.getAttribute("mail").toString());
 
         modelo.put("paciente", paciente);
         modelo.addAttribute("pacientes", pacientes);
         modelo.addAttribute("obraSociales", obraSociales);
         modelo.addAttribute("profesionales", profesionales);
-
-//        modelo.addAttribute("profesionalesBuscar", profesionalesBuscar);
 
         //obtengo el usuario logueado
 //        Paciente logueado = (Paciente) session.getAttribute("usuariosession");
@@ -165,6 +161,19 @@ public class PacienteControlador {
 
         }
         return "redirect:../lista";
+    }
+    @PostMapping("cambiarcontasenia/{id}")
+    public String cambiarContrasenia(@PathVariable String id, String contraVieja, String contraNueva, String contraComparar, ModelMap modelo){
+        try {
+            pacienteServicio.cambiarContrasenia(id, contraVieja, contraNueva, contraComparar);
+        } catch (MiException e) {
+            System.out.println(e.getMessage());
+            modelo.put("error", e.getMessage());
+            return "redirect:/inicio";
+        }
+        return "redirect:/inicio";
+        
+        
     }
 
     // Filtro de busqueda

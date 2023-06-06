@@ -5,6 +5,7 @@
  */
 package com.egg.appsalud.servicios;
 
+import com.egg.appsalud.Enumerativos.EstadoTurno;
 import com.egg.appsalud.entidades.HistoriaClinica;
 import com.egg.appsalud.entidades.NotaMedica;
 import com.egg.appsalud.entidades.Profesional;
@@ -66,17 +67,29 @@ public class NotaMedicaServicio {
             notaMedica.setHistoriaClinica(historiaC);
             notaMedica.setProfesional(profesional);
             notaMedica.setDescripcion(descripcion);
-            
+            turno.setEstado(EstadoTurno.ASISTIO);
             notaMedicaRepositorio.save(notaMedica);
 
             System.out.println("SE CREÓ UNA NUEVA HISTORIA");
         } else {
             notaMedica.setHistoriaClinica(hist);
-
             notaMedica.setProfesional(profesional);
+            turno.setEstado(EstadoTurno.ASISTIO);
             notaMedica.setDescripcion(descripcion);
             notaMedicaRepositorio.save(notaMedica);
         }
 
+    }
+    @Transactional
+    public void editarNotaMedica(Integer idNotaMedica, String descripcion){
+        
+        NotaMedica notaMedica = notaMedicaRepositorio.getOne(idNotaMedica);
+        notaMedica.setDescripcion(descripcion);
+        notaMedicaRepositorio.save(notaMedica);
+    }
+    
+    @Transactional
+    public void eliminarNotaMedica(Integer idNotaMedica){
+        notaMedicaRepositorio.deleteById(idNotaMedica);
     }
 }

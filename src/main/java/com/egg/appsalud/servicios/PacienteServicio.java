@@ -149,7 +149,7 @@ public class PacienteServicio implements UserDetailsService {
         if (fechaNacimiento == null) {
             throw new MiException("La fecha de naciemiento no puede ser nulo o estar vacio");
         }
-        if (telefono.isEmpty() || !ComprobarString(telefono, "^(11|0|15)\\d{8}$")) {
+        if (telefono.isEmpty() || !ComprobarString(telefono, "^[0-9]+$")) {
             throw new MiException("Debe inicar un telefono valido");
         }
         if (nroObraSocial.isEmpty() || nroObraSocial == null)// hay que validar bien al nro de ObraSocial
@@ -196,22 +196,23 @@ public class PacienteServicio implements UserDetailsService {
             String apellido, String dni, LocalDate fechaNacimiento, String telefono, String nroObraSocial, Integer idObraSocial) throws MiException, IOException {
 
         validarModificar(mail, nombre, apellido, dni, fechaNacimiento, telefono, nroObraSocial);
-
+       
         Optional<Paciente> pacienteOptional = pacienteRepositorio.findById(id_paciente);
-
+        
         if (pacienteOptional.isPresent()) {
             Paciente paciente = pacienteOptional.get();
             ObraSocial obraSocial = obraSocialServicio.getOne(idObraSocial);
-
+                
+                
+            
             paciente.setMail(mail);
-
+            paciente.setObraSocial(obraSocial);
             paciente.setNombre(nombre);
             paciente.setApellido(apellido);
             paciente.setDni(dni);
             paciente.setFechaNacimiento(fechaNacimiento);
             paciente.setTelefono(telefono);
-            paciente.setObraSocial(obraSocial);
-
+            
             String idImagen = null;
             if (paciente.getImagen() != null) {
                 idImagen = paciente.getImagen().getId();
@@ -234,7 +235,6 @@ public class PacienteServicio implements UserDetailsService {
 
     @Transactional
     public void eliminarPaciente(String id_paciente) throws MiException {
-
         pacienteRepositorio.deleteById(id_paciente);
 
     }
@@ -256,4 +256,27 @@ public class PacienteServicio implements UserDetailsService {
 //        
 //        return pro;
 //    }
+
+    @Transactional
+    public void cambiarContrasenia(String idPaciente, String contraVieja, String contraNueva, String contraComparar) throws MiException{
+        
+             Paciente paciente = pacienteRepositorio.getOne(idPaciente);
+             validarContraseña(contraVieja, paciente.getPassword(), contraNueva, contraComparar);
+             
+             paciente.setPassword(new BCryptPasswordEncoder().encode(contraNueva));
+             
+             pacienteRepositorio.save(paciente);
+           
+    }
+    
+    private void validarContraseña(String contraVieja,String contraBS, String contraNueva, String contraComparar) throws MiException {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if(!passwordEncoder.matches(contraVieja, contraBS)){
+            throw new MiException("Ingrese devuelta su contraseña");
+        }
+        if(!contraNueva.equals(contraComparar)){
+            throw new MiException("No coiciden las nuevas contraseñas");
+        }
+    }
 }
+
