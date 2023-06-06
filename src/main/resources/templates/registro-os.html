@@ -1,18 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>OS</title>
-</head>
-<body>
-<form action="/obra-social/registro-os" method="POST">
-    <div class="form-group">
-        <label for="nombre">Nombre</label>
-        <input type="text" class="form-control" name="nombre" placeholder="" id="nombre">
-    </div>
-    <div class="clearfix"></div>
-    <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>
-        Registrar</button>
-</form>
-</body>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="master">
+    <head>
+        <meta charset="UTF-8">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+              integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        <link th:href = "@{/css/headerstyle.css}" rel="stylesheet"> 
+
+
+        <title>OS</title>
+    </head>
+    <body>
+
+        <header th:replace ="/fragments/header :: header"> </header>
+
+        <h2 style="text-align: center">Crear Obra Social</h2>
+        <form style="text-align: center" action="/admin/dashboard/crearObraSocial" method="POST">
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input  style="display: table-caption;
+                        width: 50%"   type="text" class="form-control" name="nombre" placeholder="" id="nombre">
+            </div>
+            <div class="clearfix"></div>
+            <br>
+            <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>
+                Registrar</button>
+        </form>
+    </body>
 </html>

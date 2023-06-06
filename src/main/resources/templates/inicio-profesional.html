@@ -10,9 +10,15 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         <link rel="stylesheet" type="text/css" href="/css/inicio_profesional.css">
+        
+        <link th:href = "@{/css/headerstyle.css}" rel="stylesheet">
+        
     </head>
 
     <body>
+        
+        <header th:replace ="/fragments/header :: header"> </header>
+        
         <section class="py-5 my-5">
             <!--            <h1 class="mb-5 text-center">Account Settings</h1>-->
             <div class="container">
@@ -129,12 +135,12 @@
                                         </div>
                                     </div>
                                 </form>
-                                <div>
+                                <div style="margin-top: -15px">
                                     <div class="row">
-                                        <button class="btn btn-primary col-ms-6" id="habilita"
+                                        <button class="btn btn-warning col-ms-6" id="habilita"
                                                 onclick="habilitarInput()" style="margin-left: 110px;">Editar</button>
                                         <div class="col-md-6 text-md-right">
-                                            <button class="btn btn-warning">Solicitar Baja</button>
+                                            <button class="btn btn-danger">Solicitar Baja</button>
                                         </div>
                                     </div>
                                 </div>
