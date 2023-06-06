@@ -2,5 +2,5 @@ package com.egg.appsalud.Enumerativos;
 
 public enum EstadoTurno
 {
-    ASISTIO, CANCELADO, RESERVADO, DISPONIBLE
+    ASISTIO, CANCELADO, RESERVADO, DISPONIBLE, CALIFICADO
 }

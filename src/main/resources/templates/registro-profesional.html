@@ -4,80 +4,87 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
+
+<!--Estilo footer y header fragment-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+              integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+        <link th:href = "@{/css/headerstyle.css}" rel="stylesheet">
+        <link th:href = "@{/css/footerstyle.css}" rel="stylesheet">
+
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link href="../static/css/registro.css" rel="stylesheet" type="text/css">
+        <link href="/css/registro.css" rel="stylesheet" type="text/css">
         <title>Registro Profesional</title>
     </head>
     <body class="container">
-        <div class="container" id="advanced-search-form">
-            <h2 class="text-center header">Registro Profesional</h2>
-            <form action="/profesional/registroP" method="POST">
+        <header th:include="fragments/header :: header"> </header>
+        <main>
+            <div class="container" id="advanced-search-form">
+                <h2 class="text-center header">Registro Profesional</h2>
+                <form action="/profesional/registroP" method="POST">
 
-                <div th:if="${error != null}" class="card text-white bg-danger mb-3" >
-                    <div class="card-body">
-                        <h5 class="card-title">Error 👎</h5>
-                        <p class="card-text" th:text="${error}"></p>
+                    <div th:if="${error != null}" class="card text-white bg-danger mb-3" >
+                        <div class="card-body">
+                            <h5 class="card-title">Error 👎</h5>
+                            <p class="card-text" th:text="${error}"></p>
+                        </div>
                     </div>
-                </div>
-                <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3" >
-                    <div class="card-body">
-                        <h5 class="card-title">Exito!</h5>
-                        <p class="card-text" th:text="${exito}"></p>
+                    <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3" >
+                        <div class="card-body">
+                            <h5 class="card-title">Exito!</h5>
+                            <p class="card-text" th:text="${exito}"></p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="first-name">Nombre</label>
-                    <input type="text" class="form-control" name="nombre" placeholder="" id="first-name">
-                </div>
-                <div class="form-group">
-                    <label for="surname">Apellido</label>
-                    <input type="text" class="form-control" name="apellido" placeholder="" id="surname">
-                </div>
-                <div class="form-group">
-                    <label for="dni">DNI</label>
-                    <input type="text" class="form-control" name="dni" placeholder="" id="dni">
-                </div>
-                <div class="form-group">
-                    <label for="age">Fecha de nacimiento</label>
-                    <input type="date" class="form-control"  name="fechaNacimiento" placeholder="" id="age">
-                </div>
-                <div class="form-group">
-                    <label for="matricula">Matricula</label>
-                    <input type="text" class="form-control" name="matricula" placeholder="" id="matricula">
-                </div>
-                <div class="form-group">
-                    <label for="especialidad">Especialidad</label>
-                    <input type="text" class="form-control" name="especialidad" placeholder="" id="especialidad">
-                </div>
-                <div class="form-group">
-                    <label for="telefono">Teléfono</label>
-                    <input type="number" class="form-control" name="telefono" placeholder="" id="telefono">
-                </div>
-                <div class="form-group">
-                    <label for="correo">Email</label>
-                    <input type="email" class="form-control" name="mail" placeholder="" id="correo">
-                </div>
-                <div class="form-group">
-                    <label for="last-name">Contraseña</label>
-                    <input type="password" class="form-control" name="password" placeholder="" id="last-name">
-                </div>
-               <!-- <div class="form-group">
-                    <label for="obra-social">Obra Social</label>
-                    <input type="text" class="form-control" name="" placeholder="" id="obra-social">
-                </div>-->
-                <div class="form-group">
-                    <label for="valor-consulta">Valor consulta</label>
-                    <input type="number" class="form-control" name="valorConsulta" placeholder="" id="valor-consulta">
-                </div>
-                <div class="form-group">
-                    <label for="descripcion">Descripción especialidad:</label>
-                    <input type="text" class="form-control" name="descripcionEspecialidad" placeholder="" id="descripcion">
-                </div>
-                <div class="clearfix"></div>
-                <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>
-                    Registrar</button>
-        </form>
-        </div>
+                    <div class="form-group">
+                        <label for="first-name">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" placeholder="" id="first-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="surname">Apellido</label>
+                        <input type="text" class="form-control" name="apellido" placeholder="" id="surname">
+                    </div>
+                    <div class="form-group">
+                        <label for="dni">DNI</label>
+                        <input type="text" class="form-control" name="dni" placeholder="" id="dni">
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Fecha de nacimiento</label>
+                        <input type="date" class="form-control"  name="fechaNacimiento" placeholder="" id="age">
+                    </div>
+                    <div class="form-group">
+                        <label for="matricula">Matricula</label>
+                        <input type="text" class="form-control" name="matricula" placeholder="" id="matricula">
+                    </div>
+                    <div class="form-group">
+                        <label for="especialidad">Especialidad</label>
+                        <input type="text" class="form-control" name="especialidad" placeholder="" id="especialidad">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="number" class="form-control" name="telefono" placeholder="" id="telefono">
+                    </div>
+                    <div class="form-group">
+                        <label for="correo">Email</label>
+                        <input type="email" class="form-control" name="mail" placeholder="" id="correo">
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name">Contraseña</label>
+                        <input type="password" class="form-control" name="password" placeholder="" id="last-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="valor-consulta">Valor consulta</label>
+                        <input type="number" class="form-control" name="valorConsulta" placeholder="" id="valor-consulta">
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripción especialidad:</label>
+                        <input type="text" class="form-control" name="descripcionEspecialidad" placeholder="" id="descripcion">
+                    </div>
+                    <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>
+                        Registrar</button>
+                </form>
+            </div>
+        </main>
+        <footer th:replace ="/fragments/footer :: footer"></footer>
     </body>
 </html>
