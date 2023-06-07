@@ -1,13 +1,11 @@
 package com.egg.appsalud.Controladores;
 
-import com.egg.appsalud.Enumerativos.Especialidad;
 import com.egg.appsalud.entidades.JornadaLaboral;
-import com.egg.appsalud.entidades.Profesional;
-import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.servicios.JornadaLaboralServicio;
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.excepciones.MiException;
+import com.egg.appsalud.repositorios.ProfesionalRepositorio;
 import com.egg.appsalud.servicios.PacienteServicio;
 import com.egg.appsalud.servicios.ProfesionalServicio;
 import com.egg.appsalud.servicios.TurnoServicio;
@@ -22,6 +20,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 @Controller
 @RequestMapping("/profesional")
@@ -37,6 +37,9 @@ public class ProfesionalControlador {
     @Autowired
     private TurnoServicio turnoServicio;
 
+    @Autowired
+    private ProfesionalRepositorio profesionalRepositorio;
+
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: aÃ±o-mes-dia del LocalDate
 
     @GetMapping("/registrar") //Retorna vista para registrarse
@@ -46,7 +49,6 @@ public class ProfesionalControlador {
 
     @PostMapping("/registroP")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
-
             @RequestParam String password, @RequestParam String fechaNacimiento, @RequestParam String dni,
             @RequestParam String telefono, @RequestParam String matricula, @RequestParam String especialidad,
             @RequestParam Double valorConsulta, @RequestParam String descripcionEspecialidad, ModelMap modelo/*, MultipartFile archivo*/) {
@@ -65,11 +67,12 @@ public class ProfesionalControlador {
     }
 
     @GetMapping("/inicio")
-    public String inicio(ModelMap modelo){
+    public String inicio(HttpSession session, ModelMap modelo) {
+        
         List<Paciente> pacientes = pacienteServicio.listarPacientes();
         modelo.addAttribute("pacientes", pacientes);
         return "inicio-profesional.html";
-        
+
     }
 
     @GetMapping("/modificar/{id}")
@@ -82,8 +85,8 @@ public class ProfesionalControlador {
 
     @PostMapping("/modificar/{id}")
     public String modificarProfesional(@PathVariable String id, String mail, String password, String nombre, String apellido,
-                                       String dni, String fechaNacimiento, String telefono, String matricula, String especialidad,
-                                       Double valorConsulta, String descripcionEspecialidad, ModelMap modelo) {
+            String dni, String fechaNacimiento, String telefono, String matricula, String especialidad,
+            Double valorConsulta, String descripcionEspecialidad, ModelMap modelo) {
 
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter);
 
@@ -161,10 +164,9 @@ public class ProfesionalControlador {
         }
     }
 
-
     @GetMapping("/eliminar/{id_jornada}")
     public String eliminarJornada(@SessionAttribute("usuariosession") Profesional profesional,
-                                  @PathVariable("id_jornada") String id_jornada, ModelMap modelo) throws MiException {
+            @PathVariable("id_jornada") String id_jornada, ModelMap modelo) throws MiException {
         try {
             profesionalServicio.eliminarJornada(profesional, id_jornada);
             modelo.put("exito", "Jornada eliminada");
@@ -180,8 +182,7 @@ public class ProfesionalControlador {
         LocalDate inicioRango = LocalDate.parse(inicio, formatter);
         LocalDate finRango = LocalDate.parse(fin, formatter);
 
-        turnoServicio.crearTurno(session.getId(), inicioRango,finRango);
-
+        turnoServicio.crearTurno(session.getId(), inicioRango, finRango);
 
         System.out.println("Llego llego " + inicioRango + " " + finRango);
         return "calificar-profesional.html";
@@ -204,10 +205,27 @@ public class ProfesionalControlador {
 
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            
+
         }
         return "redirect:../lista";
     }
 
-    
+    // Cambiar contraseña
+    @GetMapping("/formCambiarContrasenia")
+    public String formCambiarContrasenia() {
+        return "cambiar-contrasenia.html";
+    }
+
+    @PostMapping("cambiarcontasenia/{id}")
+    public String cambiarContrasenia(@PathVariable String id, String contraVieja, String contraNueva, String contraComparar, ModelMap modelo) {
+        try {
+            profesionalServicio.cambiarContrasenia(id, contraVieja, contraNueva, contraComparar);
+        } catch (MiException e) {
+            System.out.println(e.getMessage());
+            modelo.put("error", e.getMessage());
+            return "cambiar-contrasenia.html";
+        }
+        return "inicio-profesional.html";
+
+    }
 }

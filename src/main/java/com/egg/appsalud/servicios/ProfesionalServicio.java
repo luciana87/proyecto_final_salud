@@ -184,18 +184,42 @@ public class ProfesionalServicio {
 
     // FILTRO DE BUSQUEDA
     // Buscar por especialidad al profesional (Lo uso desde paciente)
-    public List<Profesional> buscarPorfesional(Especialidad especialidad, Double valorConsulta, Double reputacion){
+    public List<Profesional> buscarPorfesional(Especialidad especialidad, Double valorConsulta, Double reputacion) {
 
         if (especialidad != null) {
             return profesionalRepositorio.buscarPorEspecialidadValorConsultaReputacion(especialidad, valorConsulta, reputacion);
-        }else{
+        } else {
             return null;
         }
 
     }
-    
-    public Profesional seleccionarProfesional(String id_profesional){
+
+    public Profesional seleccionarProfesional(String id_profesional) {
         Profesional profes = profesionalRepositorio.getOne(id_profesional);
         return profes;
+    }
+
+    // Cambiar contraseña
+    
+    @Transactional
+    public void cambiarContrasenia(String idProfesional, String contraVieja, String contraNueva, String contraComparar) throws MiException {
+
+        Profesional profesional = profesionalRepositorio.getOne(idProfesional);
+        validarContraseña(contraVieja, profesional.getPassword(), contraNueva, contraComparar);
+
+        profesional.setPassword(new BCryptPasswordEncoder().encode(contraNueva));
+
+        profesionalRepositorio.save(profesional);
+
+    }
+
+    private void validarContraseña(String contraVieja, String contraBS, String contraNueva, String contraComparar) throws MiException {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if (!passwordEncoder.matches(contraVieja, contraBS)) {
+            throw new MiException("Ingrese devuelta su contraseña");
+        }
+        if (!contraNueva.equals(contraComparar)) {
+            throw new MiException("No coiciden las nuevas contraseñas");
+        }
     }
 }

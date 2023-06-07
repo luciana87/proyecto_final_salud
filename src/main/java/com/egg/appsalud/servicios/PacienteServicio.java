@@ -276,5 +276,9 @@ public class PacienteServicio implements UserDetailsService {
             throw new MiException("No coiciden las nuevas contraseñas");
         }
     }
+    
+    private void solicitarBaja(String idPaciente){
+        
+    }
 }
 

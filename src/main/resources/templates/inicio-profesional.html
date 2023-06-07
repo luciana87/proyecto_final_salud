@@ -36,10 +36,12 @@
                             </a>
                             <a class="nav-link" href="/logout">
                                 <i class="bi bi-box-arrow-right"></i>
-                                Cerrara Sesion
+                                Cerrar Sesion
                             </a>
                         </div>
                     </div>
+                    <a href="/paciente/formCambiarContrasenia" style="margin-right: 20px; padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff;"><i class="fa fa-key" style="margin-right: 5px;"></i>Cambiar contraseña</a>
+
                     <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
                         <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
                             <h3 class="mb-4 text-center">Sus Datos</h3>
@@ -204,26 +206,26 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script>
-            function habilitarInput() {
-            let inputs = ["nom", "apel", "corr", "cel", "dni", "fnac", "mat", "vcon", "desc", "esp"];
-            let habilita = document.getElementById("habilita");
-            let guardar = document.getElementById("guarda");
+                                                    function habilitarInput() {
+                                                        let inputs = ["nom", "apel", "corr", "cel", "dni", "fnac", "mat", "vcon", "desc", "esp"];
+                                                        let habilita = document.getElementById("habilita");
+                                                        let guardar = document.getElementById("guarda");
 
-            for (let i = 0; i < inputs.length; i++) {
-            let input = document.getElementById(inputs[i]);
-            input.disabled = !input.disabled;
-            }
+                                                        for (let i = 0; i < inputs.length; i++) {
+                                                            let input = document.getElementById(inputs[i]);
+                                                            input.disabled = !input.disabled;
+                                                        }
 
-            if (habilita.innerText === "Editar") {
+                                                        if (habilita.innerText === "Editar") {
 
-            habilita.innerText = "Cancelar";
-            guardar.style.display = "inline-block";
-            } else {
-            habilita.innerText = "Editar";
-            guardar.style.display = "none";
-            }
+                                                            habilita.innerText = "Cancelar";
+                                                            guardar.style.display = "inline-block";
+                                                        } else {
+                                                            habilita.innerText = "Editar";
+                                                            guardar.style.display = "none";
+                                                        }
 
-            }
+                                                    }
         </script>
     </body>
 

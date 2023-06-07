@@ -170,6 +170,12 @@ public class PacienteControlador {
         }
         return "redirect:../lista";
     }
+    
+    @GetMapping("/formCambiarContrasenia")
+    public String formCambiarContrasenia(){
+        return "cambiar-contrasenia.html";
+    }
+    
     @PostMapping("cambiarcontasenia/{id}")
     public String cambiarContrasenia(@PathVariable String id, String contraVieja, String contraNueva, String contraComparar, ModelMap modelo) {
         try {
@@ -177,7 +183,8 @@ public class PacienteControlador {
         } catch (MiException e) {
             System.out.println(e.getMessage());
             modelo.put("error", e.getMessage());
-            return "redirect:/inicio";
+//            return "redirect:/inicio";
+            return "cambiar-contrasenia.html";
         }
         return "redirect:/inicio";
 
