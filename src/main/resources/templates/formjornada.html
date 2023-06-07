@@ -5,6 +5,9 @@
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Fontawesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous"
+              referrerpolicy="no-referrer"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
               integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
         <link th:href = "@{/css/headerstyle.css}" rel="stylesheet">
@@ -12,7 +15,7 @@
     </head>
     <body>
         <header th:replace ="/fragments/header :: header"></header>
-        <h1 th:if="${session.usuariosession != null}" th:text="${session.usuariosession.mail}"></h1>
+        <h1 th:if="${session.usuariosession != null}" th:text="${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}"></h1>
         <h2>Cargar Jornada</h2>
 
         <form th:method="POST" th:action="@{/profesional/jornadaLaboral}">
@@ -69,7 +72,7 @@
                     <td th:text="${jornada.getHoraFin}"></td>
                     <td th:text="${jornada.getDuracionTurno}"></td>
                     <td>
-                    <a th:href="@{/profesional/eliminar/jornada/__${jornada.getId}__}"><i class="fas fa-feather-alt"></i> Eliminar Jornada</a>
+                    <a th:href="@{/profesional/eliminar/jornada/__${jornada.getId}__}"><i class="fa-regular fa-trash-can"></i> Eliminar</a>
                     </td>
                 </tr>
             </tbody>
@@ -100,10 +103,10 @@
                         <td th:text="${turno.horario}"></td>
                         <td th:text="${turno.estado}"></td>
                         <td>
-                            <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).ASISTIO}" th:href= "@{/profesional/finalizarTurno/__${turno.id}__}"><i class="fas fa-feather-alt"></i> Finalizar Turno </a> <!--Elimina el turno-->
-                            <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).RESERVADO}" th:href= "@{/profesional/CargarNotaMedica/__${turno.id}__}"><i class="fas fa-feather-alt"></i> Crear Nota Medica </a>
-                            <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).DISPONIBLE}" th:href= "@{/profesional/borrarTurno/__${turno.id}__}"><i class="fas fa-feather-alt"></i> Borrar Turno </a>
-                            <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).ASISTIO}" th:href= "@{/profesional/buscarHistoriaClinica/__${turno.paciente.id}__}"><i class="fas fa-feather-alt"></i> Historia Clinica </a>
+                            <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).ASISTIO}" th:href= "@{/profesional/finalizarTurno/__${turno.id}__}"><i class="fa-regular fa-square-check"></i> Finalizar Turno </a> <!--Elimina el turno-->
+                            <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).RESERVADO}" th:href= "@{/profesional/CargarNotaMedica/__${turno.id}__}"><i class="fa-regular fa-square-plus"></i> Crear Nota Medica </a>
+                            <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).DISPONIBLE}" th:href= "@{/profesional/borrarTurno/__${turno.id}__}"><i class="fa-regular fa-trash-can"></i>Eliminar</a>
+                            <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).ASISTIO}" th:href= "@{/profesional/buscarHistoriaClinica/__${turno.paciente.id}__}"><i class="fa-solid fa-right-to-bracket"></i> Historia Clinica </a>
                         </td>
                     </tr>
                 </tbody>
