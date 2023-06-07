@@ -2,7 +2,7 @@ html {
     background: url("../IMG/fregistro.jpg") no-repeat;
 
     background-size: cover;
-    min-height: 50%;
+    min-height: 50%; 
 
 }
 
@@ -13,8 +13,9 @@ body {
 }
 
 .container {
-    
 
+    background: url("../IMG/fregistro.jpg") no-repeat;
+    background-size: cover;
 }
 /*
 .text-centerrp{
@@ -25,10 +26,10 @@ body {
     background-color: #fff;
     max-width: 800px;
     margin: 0px auto 0;
-    padding: 40px;
-    color: #858b8e;
-    box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.2);
-    color: #000000;
+    padding: 10px;
+    /*color: #858b8e;*/
+    box-shadow: 6px 6px 6px  rgba(0, 0, 0, 0.3), -6px 6px 6px  rgba(0, 0, 0, 0.3);
+    /*color: #000000;*/
 
 }
 
