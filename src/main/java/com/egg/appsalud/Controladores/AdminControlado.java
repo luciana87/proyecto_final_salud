@@ -5,16 +5,19 @@
  */
 package com.egg.appsalud.Controladores;
 
+
+import com.egg.appsalud.Enumerativos.Especialidad;
+import com.egg.appsalud.Enumerativos.EstadoTurno;
 import com.egg.appsalud.entidades.ObraSocial;
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Profesional;
+import com.egg.appsalud.entidades.Turno;
 import com.egg.appsalud.excepciones.MiException;
-import com.egg.appsalud.servicios.ObraSocialServicio;
-import com.egg.appsalud.servicios.PacienteServicio;
-import com.egg.appsalud.servicios.ProfesionalServicio;
-import com.egg.appsalud.servicios.UsuarioServicio;
+import com.egg.appsalud.servicios.*;
+
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +42,9 @@ public class AdminControlado {
 
     @Autowired
     private ProfesionalServicio profesionalServicio;
+
+    @Autowired
+    private TurnoServicio turnoServicio;
     
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     
@@ -295,5 +301,61 @@ public class AdminControlado {
         }
         return "redirect:/admin/dashboard/listaObraSociales";
     }
+
+
+    //--------------------------------TURNOS------------------------------------
+
+    @GetMapping("/dashboard/listaTurno")
+    public String listarTurnos (ModelMap modelo) {
+        List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
+        List<Profesional> profesionales = profesionalServicio.listarProfesionales();
+        modelo.addAttribute("obraSociales", obraSociales);
+        modelo.addAttribute("profesionales", profesionales);
+
+        return "lista-turnosAdmin.html";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @GetMapping("/dashboard/listaTurno/eliminar/{id}")
+    public String eliminarTurno(@PathVariable Integer id, ModelMap modelo){
+        try {
+            turnoServicio.eliminarTurno(id);
+            modelo.put("exito", "Se eliminó el turno correctamente.");
+        } catch (MiException ex) {
+            modelo.put("error", ex.getMessage());
+            return "redirect:/admin/dashboard/listaTurno";
+        }
+        return "redirect:/admin/dashboard/listaTurno";
+    }
+
+    @PostMapping("/dashboard/buscarTurnos")
+    public String buscarTurnos(String idProfesional,String fecha,String horario,  String nombre, Double valorConsulta, ModelMap modelo){
+
+        LocalTime horaioParse = null;
+        LocalDate fechaParse = null;
+
+
+        if(!fecha.isEmpty()){
+            fechaParse = LocalDate.parse(fecha, formatter);
+        }
+
+        if(!horario.isEmpty()){
+            horaioParse = LocalTime.parse(horario);
+        }
+
+
+        List<Turno>ListaTurnoFiltro = turnoServicio.buscarTurnosFiltro(idProfesional,fechaParse ,horaioParse , nombre, valorConsulta, EstadoTurno.DISPONIBLE);
+        List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
+        List<Profesional> profesionales = profesionalServicio.listarProfesionales();
+        modelo.addAttribute("turnos", ListaTurnoFiltro);
+        modelo.addAttribute("obraSociales", obraSociales);
+        modelo.addAttribute("profesionales", profesionales);
+        modelo.addAttribute("profesionalId", idProfesional);
+
+        return "lista-turnosAdmin.html";
+
+    }
+
+
 
 }
