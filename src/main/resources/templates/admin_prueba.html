@@ -7,6 +7,7 @@
 <!--    <link th:href = "@{/css/headerstyle.css}" rel="stylesheet">-->
     <link href="/css/headerstyle.css" rel="stylesheet">
     <link th:href = "@{/css/footerstyle.css}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
 <!--    <link rel="stylesheet" href="/css/paciente.css">-->
     <style>
@@ -74,29 +75,7 @@
     </style>
 </head>
 <body>
-<!--    <header th:include="fragments/header :: header"> </header>-->
-    <header class="header">
-        <div class="logoth">
-            <img src="/img/logo5t.png" alt="Logo de la marca">
-        </div>
-        <nav>
-            <ul class="nav-links">
-                <li><a th:href="@{/}">Inicio</a></li>
-
-                <li><a href="#">Login</a></li>
-            </ul>
-        </nav>
-        <a class="btnth" href="/logout"><button>Cerrar Sesión</button></a>
-    </header>
-<!--    <ul>-->
-<!--        <li><a th:href="@{/admin/dashboard/crearPaciente}">Crear paciente</a></li>-->
-<!--        <li><a th:href="@{/admin/dashboard/listaPacientes}">Listar Pacientes</a></li>-->
-<!--        <li><a th:href=@{/admin/dashboard/crearProfesional}>Crear Profesional</a></li>-->
-<!--        <li><a th:href=@{/admin/dashboard/listaProfesionales}>Listar Profesionales</a></li>-->
-<!--        <li><a th:href=@{/admin/dashboard/CrearObraSocial}>Crear Obra Social</a></li>-->
-<!--        <li><a th:href=@{/admin/dashboard/listaObraSociales}>listar Obra Sociales</a></li>-->
-<!--        <li><a th:href=@{/ruta}>Listar Turnos</a></li>-->
-<!--    </ul>-->
+    <header th:replace ="/fragments/header :: header"></header>
     <main>
         <h1>Panel de Administración</h1>
         <ul class="list-container" style="background: #8d9294;">
@@ -121,7 +100,7 @@
             <li class="list1"><a href="">TURNOS</a>
                 <ul class="sublist1">
                     <li class="li2"><a href="">Cargar turnos</a></li>
-                    <li class="li2"><a href="">Lista turnos</a></li>
+                    <li class="li2"><a th:href="@{/admin/dashboard/listaTurno}">Lista turnos</a></li>
                 </ul>
             </li>
             <li class="list1"><a href="">PERFIL</a>

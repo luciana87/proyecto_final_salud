@@ -189,14 +189,22 @@ public class PacienteControlador {
     //-------------------------- TURNOS PACIENTE ------------------------------
 
     @GetMapping("/listaTurno")
-    public String listarTurnos (ModelMap modelo) {
+    public String listarTurnos (@SessionAttribute("usuariosession") Paciente paciente, ModelMap modelo) {
+        List<Turno> turnos = turnoServicio.listarTurnosPaciente(paciente.getId());
+        modelo.addAttribute("turnos", turnos);
+
+        return "historial-turnos-paciente.html";
+    }
+
+    @GetMapping("/buscarTurno")
+    public String buscarTurnos(ModelMap modelo) {
         List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
         List<Profesional> profesionales = profesionalServicio.listarProfesionales();
         modelo.addAttribute("obraSociales", obraSociales);
         modelo.addAttribute("profesionales", profesionales);
-
         return "lista-turnos.html";
     }
+
     @PostMapping("/buscarTurnos")
     public String buscarTurnos(String idProfesional,String fecha,String horario,  String nombre, Double valorConsulta, ModelMap modelo){
 

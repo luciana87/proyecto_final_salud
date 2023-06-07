@@ -210,4 +210,9 @@ public class TurnoServicio {
         List<Turno>listaDeTurnos = turnoRepositorio.buscarTurnosFiltro(medico, fecha, horario, nombre, valorConsulta,estado);
         return listaDeTurnos;
     }
+
+    @Transactional
+    public void eliminarTurno(Integer id) throws MiException {
+        turnoRepositorio.deleteById(id);
+    }
 }

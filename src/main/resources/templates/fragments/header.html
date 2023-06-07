@@ -19,9 +19,9 @@
     </div>
     <nav>
         <ul class="nav-links">
-            <li><a th:href="@{/}">Inicio</a></li>
+            <li><a th:href="@{/inicio}">Inicio</a></li>
 
-            <li><a href="#">Login</a></li>
+            <li sec:authorize="isAnonymous()"><a href="#">Login</a></li>
         </ul>
     </nav>
     <a class="btnth" href="/logout"><button>Cerrar Sesión</button></a>

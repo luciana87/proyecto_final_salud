@@ -218,8 +218,6 @@ public class PacienteServicio implements UserDetailsService {
             if (!archivo.isEmpty()) {  // Si cargó una imágen, se la setteo al paciente.
                 Imagen imagen = imagenServicio.guardar(archivo);
                 paciente.setImagen(imagen);
-            } else {
-                paciente.setImagen(null);
             }
             pacienteRepositorio.save(paciente);
 
