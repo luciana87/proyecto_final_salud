@@ -238,38 +238,5 @@ public class PacienteControlador {
         return "redirect:/inicio";
     }
 
-    // Filtro de busqueda
-    // Por especialidad
-//    @GetMapping("/buscador")
-//    public String irABuscar() {
-//        return "inicio_paciente_2.html";
-//    }
-//
-//    @PostMapping("/buscar")
-//    public String buscarPorEspecialidad(Especialidad especialidad,Double valorConsulta, Double reputacion, ModelMap modelo) throws MiException {
-//
-//        List<Profesional> profesionales = pacienteServicio.buscarProfesionales(especialidad, valorConsulta, reputacion);
-//        modelo.addAttribute("profesionales", profesionales);
-//
-//        return "inicio_paciente_2.html";
-//    }
-    
-//    @PostMapping("/seleccionarProfesional/{id_profesional}")
-//    public String profesionalE(@PathVariable String id_profesional, ModelMap modelo) {
-//        Profesional profesional = pacienteServicio.seleccionarProfesional(id_profesional);
-//
-//        modelo.addAttribute("profesional", profesional);
-//        return "inicio_paciente_2.html";
-//
-//    }
-//
-//    @GetMapping("/paciente/seleccionarProfesional/{idProfesional}")
-//    public String seleccionarProfesional(@PathVariable String idProfesional, ModelMap model) {
-//        Profesional profesionalSeleccionado = profesionalServicio.getOne(idProfesional);
-//
-//        model.addAttribute("profesionalSeleccionado", profesionalSeleccionado);
-//
-//        return "busqueda-por-especialidad.html";
-//    }
 
 }
