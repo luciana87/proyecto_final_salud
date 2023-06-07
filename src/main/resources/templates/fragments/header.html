@@ -5,12 +5,12 @@
         </div>
         <nav>
            <ul class="nav-links">
-                <li><a th:href="@{/}">Inicio</a></li>
+                <li><a th:href="@{/inicio}">Inicio</a></li>
                
-                <li><a href="#">Login</a></li>
+                
            </ul>            
         </nav>
-        <a class="btnth" href="#"><button>Cerrar Sesión</button></a>
+        <a class="btnth" th:href="@{/logout}"><button>Cerrar Sesión</button></a>
     </header>
 </body>
 

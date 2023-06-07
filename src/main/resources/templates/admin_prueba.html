@@ -1,23 +1,55 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-    
-<head th:replace="fragments/header :: stilos">
 
-    
-</head>
-<body>
-    <header th:include="fragments/header :: header"> </header>
-    
-    <h1>Panel de Administración</h1>
-    <ul>
-        <li><a th:href="@{/admin/dashboard/crearPaciente}">Crear paciente</a></li>
-        <li><a th:href="@{/admin/dashboard/listaPacientes}">Listar Pacientes</a></li>
-        <li><a th:href=@{/admin/dashboard/crearProfesional}>Crear Profesional</a></li>
-        <li><a th:href=@{/admin/dashboard/listaProfesionales}>Listar Profesionales</a></li>
-        <li><a th:href=@{/admin/dashboard/CrearObraSocial}>Crear Obra Social</a></li>
-        <li><a th:href=@{/admin/dashboard/listaObraSociales}>listar Obra Sociales</a></li>
-        <li><a th:href=@{/ruta}>Listar Turnos</a></li>
-    </ul>
-</body>
+    <!--<head th:replace="fragments/header :: stilos">-->
+    <head>
+        <!--<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">-->
+
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+        <meta charset="utf-8">
+        <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+        <!--<link rel="stylesheet" type="text/css" href="/css/registro.css">-->
+
+        <link th:href = "@{/css/headerstyle.css}" rel="stylesheet"> 
+        <link th:href = "@{/css/footerstyle.css}" rel="stylesheet"> 
+        <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+
+        <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+        <!--<title style="text-align: center;">Panel Administrador</title>-->
+
+    </head>
+
+
+    <body  style="margin: 0px;
+           padding: 0px;
+           box-sizing: border-box;
+           height: 100vh;
+           display: flex;
+           flex-direction: column;">
+
+
+        <header th:replace="fragments/header :: header"> </header>
+        <main style="display: flex;
+              flex-direction: column;
+              flex-grow: 1;
+              padding: 20px 30px;">
+            <h1  style="margin: 0;
+                 margin-bottom: 15px;" >Panel de Administración</h1>
+            <div>
+                <ul style="margin: 0;">
+                    <li><a th:href="@{/admin/dashboard/crearPaciente}">Crear paciente</a></li>
+                    <li><a th:href="@{/admin/dashboard/listaPacientes}">Listar Pacientes</a></li>
+                    <li><a th:href="@{/admin/dashboard/crearProfesional}">Crear Profesional</a></li>
+                    <li><a th:href="@{/admin/dashboard/listaProfesionales}">Listar Profesionales</a></li>
+                    <li><a th:href="@{/admin/dashboard/CrearObraSocial}">Crear Obra Social</a></li>
+                    <li><a th:href="@{/admin/dashboard/listaObraSociales}">listar Obra Sociales</a></li>
+                    <li><a th:href="@{/ruta}">Listar Turnos</a></li>
+                </ul>
+            </div>
+        </main>
+
+        <footer style="flex-shrink: 0" th:replace ="/fragments/footer :: footer"> </footer> 
+
+    </body>
 
 </html>

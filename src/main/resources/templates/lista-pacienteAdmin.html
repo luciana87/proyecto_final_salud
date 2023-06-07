@@ -6,7 +6,13 @@
 
 <link rel="stylesheet" href="/css/paciente.css">
 
+<link th:href = "@{/css/headerstyle.css}" rel="stylesheet"> 
+<link th:href = "@{/css/footerstyle.css}" rel="stylesheet"> 
+<script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+
 <body>
+    
+    <header th:replace ="/fragments/header :: header"> </header>
     <main layout:fragment="contenido">
         <div class="col-12">
             <h2>Lista de Pacientes</h2>
@@ -47,6 +53,8 @@
             </div>
         </div>
     </main>
+    
+    <footer th:replace ="/fragments/footer :: footer"> </footer> 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

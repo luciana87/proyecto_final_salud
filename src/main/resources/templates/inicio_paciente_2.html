@@ -9,15 +9,22 @@
               href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="/css/inicio_paciente.css">
+
+        <link th:href = "@{/css/headerstyle.css}" rel="stylesheet"> 
+        <link th:href = "@{/css/footerstyle.css}" rel="stylesheet"> 
+        <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+
+
+
     </head>
 
     <body>
+
+        <header th:replace ="/fragments/header :: header"> </header>
+
         <section class="py-5 my-5">
             <div class="container">
-                <h1 class="mb-5"
-                    style="text-align: center;  transform: translateY(100%); font-family: 'Times New Roman', Times, serif">
-                    Bienvenido  !
-                </h1>
+                <h1 id="welcomeBanner" class="mb-5" style="text-align: center; transform: translateY(100%); font-family: 'Times New Roman', Times, serif;">Bienvenido!</h1>
                 <div class="d-sm-flex">
                     <div class="profile-tab-nav border-right">
                         <div class="p-4">
@@ -25,7 +32,7 @@
                             <div class="img-circle text-center mb-3" >
                                 <img class="logo" th:if="${paciente.tieneImagen}" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" >
                                 <img class="logo" th:unless="${paciente.tieneImagen}" src="/img/img-default.jpg" >
-                     
+
                             </div>
 
 
@@ -118,9 +125,10 @@
                                                 <input name="fechaNacimiento" id="fechaNacimiento" type="date" class="form-control" th:value="${paciente.fechaNacimiento}"disabled>
                                             </div>
                                         </div>
+                                        
                                         <select name="idObraSocial" style="margin-top: 30px; margin-left: 15px ;width: 370px">
                                             <option>Obra social</option>
-                                            <option name="obraSocial" th:each="obraSocial : ${obraSociales}" th:value="${obraSocial.id}" th:text="${obraSocial.nombre}" th:selected="${obraSocial.id == paciente.obraSocial.getId}"></option>
+                                            <option name="obraSocial" th:each="obraSocial : ${obraSociales}" th:value="${obraSocial.id}" th:text="${obraSocial.nombre}" ></option>
                                         </select>
 
                                         <div class="col-md-6">
@@ -142,215 +150,216 @@
                                         </div>
                                     </div>
 
-                                        <div>
-                                            <button type="submit" class="btn btn-light" id="guarda"
-                                                    style="display: none;">Guardar</button>
-                                        </div>
-                                    </div> 
-                                </form> 
-                                <div class="row">
-                                    <button class="btn btn-primary col-ms-6" id="habilita"
-                                            onclick="habilitarInput()" style="margin-left: 150px;">Editar</button>
-                                    <div class="col-md-6 text-md-right">
-                                        <button class="btn btn-warning">Solicitar Baja</button>
+                                    <div>
+                                        <button type="submit" class="btn btn-light" id="guarda"
+                                                style="display: none;">Guardar</button>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
-                                <h3 class="mb-4">Sacar Turno</h3>
-                                <div class="row">
-                                    <select class="custom-select custom-select-sm" style="margin-left: 0px; width: 150px;">
-                                        <option selected>Especialidad</option>
-                                        <option value="1">Pediatria</option>
-                                        <option value="2">Ginecologia</option>
-                                        <option value="3">Clinica</option>
-                                        <option value="4">Cardiologia</option>
-                                    </select>
-                                    <select class="custom-select custom-select-sm" style="margin-left: 40px; width: 150px;">
-                                        <option selected>Reputacion</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                    <select class="custom-select custom-select-sm" style="margin-left: 40px; width: 150px;">
-                                        <option>Obra social</option>
-                                        <option th:each="obraSocial : ${obraSociales}" th:value="${obraSocial.id}" th:text="${obraSocial.nombre}"></option>
-                                    </select>
-                                    <select class="custom-select custom-select-sm" style=" margin-left: 40px; width: 150px;">
-                                        <option selected>Profesional</option>
-                                        <option value="1">Eze Lopez</option>
-                                        <option value="2">Nico Fernandez</option>
-                                        <option value="3">Dal Ponce</option>
-                                        <option value="4">Luci Chaparro</option>
-                                    </select>
-                                    <!--                                <div class="custom-select custom-select-sm" style=" margin-left: 0px; width: 150px; margin-top: 10%;"> </div>-->
-                                    <div><label></label>
-                                        <input type="date" style="margin-top: 50px; margin-left: -5px; width: 150px">
-                                    </div>
-
-                                    <div> <label></label>
-                                        <input type="time" style="margin-top: 50px; margin-left: 35px; width: 150px">
-                                    </div>
-
-
-                                    <!--                                <div class="custom-select custom-select-sm" style=" margin-left: 40px; width: 150px;margin-top: 10%;">
-                                    
-                                    
-                                                                    </div>-->
-
-                                </div>
-                                <!--                            <div class="row">
-                                                            </div>-->
-                                <div>
-                                    <button class="btn btn-primary" style="margin-left: -2%; margin-top: 170px;">Reservar</button>    
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
-                                <h3 class="mb-4">Modificar Turno</h3>
-                                <div class="row">
-                                    <div class="table-responsive-sm p-3">
-                                        <table class="table  table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Profesional</th>
-                                                    <th scope="col">Dia</th>
-                                                    <th scope="col">Hora</th>
-                                                    <th scope="col">Estado</th>
-                                                    <th scope="col">Acciones</th>
-
-                                                </tr>
-                                                <!--                                        <td>
-                                                                                            <a class="" th:href= "@{/paciente/modificar/${paciente.id}}">Modificar</a>
-                                                                                            <a class="p-2" th:href= "@{/paciente/eliminar/${paciente.id}}">Eliminar</a>
-                                                                                        </td> -->
-
-                                            </thead>
-                                            <tbody>
-                                                <tr th:each="paciente : ${pacientes}">
-                                                    <td th:text="${paciente.nombre}"></td>
-                                                    <td th:text="${paciente.apellido}"</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>
-                                                        <div>
-                                                            <button class="btn btn-primary col-ms-6" id="habilita"
-                                                                    onclick="habilitarInput()" style="margin-bottom: 10px; width: 100px">Calificar</button>
-                                                        </div>  
-                                                        <div>
-                                                            <button class="btn btn-primary col-ms-6" id="habilita"
-                                                                    onclick="habilitarInput()" style="width: 100px">Cancelar</button>
-                                                            <!--                                                    <a class="" th:href= "@{/paciente/modificar/${paciente.id}}">Modificar</a>
-                                                                                                                <a class="p-2" th:href= "@{/paciente/eliminar/${paciente.id}}">Cancelar</a>-->
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!--                            <button href ="/lista" type="button" class="btn btn-warning btn-lg btn-responsive" id="search">Modificar</button>                          -->
-                                    <!--                            <table class="table">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th scope="col">Fecha</th>
-                                                                            <th scope="col">Episodio</th>
-                                                                            <th scope="col">Especialidad</th>
-                                                                            <th scope="col">Profesional</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <th scope="row"></th>
-                                                                            <td></td>
-                                                                            <td></td>
-                                                                            <td></td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <th scope="row"></th>
-                                                                            <td></td>
-                                                                            <td></td>
-                                                                            <td></td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <th scope="row"></th>
-                                                                            <td></td>
-                                                                            <td></td>
-                                                                            <td></td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>-->
-
-                                </div>
-                                <!--                    <div>
-                                                            <button class="btn btn-primary">Modificar</button>
-                                                            <button class="btn btn-light">Cancelar</button>
-                                                        </div>-->
-                            </div>                
-                            <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
-                                <h3 class="mb-4">Cambiar Contraseña</h3>
-                                <div class="form-group">
-                                    <div class="col-sm-6">
-                                        <form class="text-center p-3" method="POST" th:action="@{/paciente/cambiarcontasenia/__${paciente.id}__}">
-                                            <div class="form-group">
-                                                <label for="inputPassword5" class="form-label">Contraseña
-                                                    Actual</label>
-                                                <input type="password" name="contraVieja" id="inputPassword5" class="form-control"
-                                                       aria-labelledby="passwordHelpBlock">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputPassword5" class="form-label">Nueva Contraseña</label>
-                                                <input type="password" name="contraNueva" id="inputPassword5" class="form-control"
-                                                       aria-labelledby="passwordHelpBlock">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputPassword5"   class="form-label">Confirmar Contraseña</label>
-                                                <input type="password" name="contraComparar" id="inputPassword5" class="form-control"
-                                                       aria-labelledby="passwordHelpBlock">
-                                            </div>
-                                            <button type="submit" class="btn btn-light mt-3">Cambiar</button>
-                                        </form>
-                                    </div>
-                                    <!--                                    <table class="table">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th scope="col">Fecha</th>
-                                                                                    <th scope="col">Horario</th>
-                                                                                    <th scope="col">Paciente</th>
-                                                                                    <th scope="col">Estado</th>
-                                                                                    <th scope="col">Profesional</th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <th scope="row"></th>
-                                                                                    <td></td>
-                                                                                    <td></td>
-                                                                                    <td></td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <th scope="row"></th>
-                                                                                    <td></td>
-                                                                                    <td></td>
-                                                                                    <td></td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <th scope="row"></th>
-                                                                                    <td></td>
-                                                                                    <td></td>
-                                                                                    <td></td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>-->
-
+                            </div> 
+                            </form> 
+                            <div class="row">
+                                <button class="btn btn-primary col-ms-6" id="habilita"
+                                        onclick="habilitarInput()" style="margin-left: 250px;">Editar</button>
+                                <div class="col-md-6 text-md-right">
+                                    <button class="btn btn-warning">Solicitar Baja</button>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+                            <h3 class="mb-4">Sacar Turno</h3>
+                            <div class="row">
+                                <select class="custom-select custom-select-sm" style="margin-left: 0px; width: 150px;">
+                                    <option selected>Especialidad</option>
+                                    <option value="1">Pediatria</option>
+                                    <option value="2">Ginecologia</option>
+                                    <option value="3">Clinica</option>
+                                    <option value="4">Cardiologia</option>
+                                </select>
+                                <select class="custom-select custom-select-sm" style="margin-left: 40px; width: 150px;">
+                                    <option selected>Reputacion</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                                <select class="custom-select custom-select-sm" style="margin-left: 40px; width: 150px;">
+                                    <option>Obra social</option>
+                                    <option th:each="obraSocial : ${obraSociales}" th:value="${obraSocial.id}" th:text="${obraSocial.nombre}"></option>
+                                </select>
+                                <select class="custom-select custom-select-sm" style=" margin-left: 40px; width: 150px;">
+                                    <option selected>Profesional</option>
+                                    <option value="1">Eze Lopez</option>
+                                    <option value="2">Nico Fernandez</option>
+                                    <option value="3">Dal Ponce</option>
+                                    <option value="4">Luci Chaparro</option>
+                                </select>
+                                <!--                                <div class="custom-select custom-select-sm" style=" margin-left: 0px; width: 150px; margin-top: 10%;"> </div>-->
+                                <div><label></label>
+                                    <input type="date" style="margin-top: 50px; margin-left: -5px; width: 150px">
+                                </div>
+
+                                <div> <label></label>
+                                    <input type="time" style="margin-top: 50px; margin-left: 35px; width: 150px">
+                                </div>
+
+
+                                <!--                                <div class="custom-select custom-select-sm" style=" margin-left: 40px; width: 150px;margin-top: 10%;">
+                                
+                                
+                                                                </div>-->
+
+                            </div>
+                            <!--                            <div class="row">
+                                                        </div>-->
+                            <div>
+                                <button class="btn btn-primary" style="margin-left: -2%; margin-top: 170px;">Reservar</button>    
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+                            <h3 class="mb-4">Modificar Turno</h3>
+                            <div class="row">
+                                <div style="height: 200px; overflow: auto;" class="table-responsive-sm p-3">
+                                    <table class="table  table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Profesional</th>
+                                                <th scope="col">Dia</th>
+                                                <th scope="col">Hora</th>
+                                                <th scope="col">Estado</th>
+                                                <th scope="col">Acciones</th>
+
+                                            </tr>
+                                            <!--                                        <td>
+                                                                                        <a class="" th:href= "@{/paciente/modificar/${paciente.id}}">Modificar</a>
+                                                                                        <a class="p-2" th:href= "@{/paciente/eliminar/${paciente.id}}">Eliminar</a>
+                                                                                    </td> -->
+
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="paciente : ${pacientes}">
+                                                <td th:text="${paciente.nombre}"></td>
+                                                <td th:text="${paciente.apellido}"</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <div>
+                                                        <button class="btn btn-primary col-ms-6" id="habilita"
+                                                                onclick="habilitarInput()" style="margin-bottom: 10px; width: 100px">Calificar</button>
+                                                    </div>  
+                                                    <div>
+                                                        <button class="btn btn-primary col-ms-6" id="habilita"
+                                                                onclick="habilitarInput()" style="width: 100px">Cancelar</button>
+                                                        <!--                                                    <a class="" th:href= "@{/paciente/modificar/${paciente.id}}">Modificar</a>
+                                                                                                            <a class="p-2" th:href= "@{/paciente/eliminar/${paciente.id}}">Cancelar</a>-->
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!--                            <button href ="/lista" type="button" class="btn btn-warning btn-lg btn-responsive" id="search">Modificar</button>                          -->
+                                <!--                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">Fecha</th>
+                                                                        <th scope="col">Episodio</th>
+                                                                        <th scope="col">Especialidad</th>
+                                                                        <th scope="col">Profesional</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th scope="row"></th>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row"></th>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row"></th>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>-->
+
+                            </div>
+                            <!--                    <div>
+                                                        <button class="btn btn-primary">Modificar</button>
+                                                        <button class="btn btn-light">Cancelar</button>
+                                                    </div>-->
+                        </div>                
+                        <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
+                            <h3 class="mb-4">Cambiar Contraseña</h3>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <form class="text-center p-3" method="POST" th:action="@{/profesional/modificar/${session.usuariosession.id}}">
+                                        <div class="form-group">
+                                            <label for="inputPassword5" class="form-label">Contraseña
+                                                Actual</label>
+                                            <input type="password" id="inputPassword5" class="form-control"
+                                                   aria-labelledby="passwordHelpBlock">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword5" class="form-label">Nueva Contraseña</label>
+                                            <input type="password" id="inputPassword5" class="form-control"
+                                                   aria-labelledby="passwordHelpBlock">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword5" class="form-label">Confirmar Contraseña</label>
+                                            <input type="password" id="inputPassword5" class="form-control"
+                                                   aria-labelledby="passwordHelpBlock">
+                                        </div>
+                                        <button type="submit" class="btn btn-light mt-3">Cambiar</button>
+                                    </form>
+                                </div>
+                                <!--                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th scope="col">Fecha</th>
+                                                                                <th scope="col">Horario</th>
+                                                                                <th scope="col">Paciente</th>
+                                                                                <th scope="col">Estado</th>
+                                                                                <th scope="col">Profesional</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <th scope="row"></th>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th scope="row"></th>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th scope="row"></th>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>-->
+
+                            </div>
+                        </div>
                     </div>
-                </div>  
+                </div>
+            </div>  
         </section>
 
+        <footer th:replace ="/fragments/footer :: footer"> </footer>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -376,7 +385,20 @@
             }
 
             }
+            <!--            // Obtén una referencia al elemento del cartel de bienvenida-->
+            var welcomeBanner = document.getElementById('welcomeBanner');
+
+            <!--            // Establece la visibilidad inicial del cartel de bienvenida-->
+            welcomeBanner.style.visibility = 'visible';
+
+            <!--            // Después de 5 segundos, oculta el cartel de bienvenida-->
+            setTimeout(function() {
+            welcomeBanner.style.visibility = 'hidden';
+            }, 5000);
         </script>
+
+
+
     </body>
 
 </html>

@@ -248,7 +248,7 @@ public class AdminControlado {
             System.out.println(e.getMessage());
             return "registro-os.html";
         }
-        return "redirect:/inicio";
+        return "redirect:/admin/dashboard";
     }
     
     @PreAuthorize ("hasAnyRole('ROLE_ADMIN')")

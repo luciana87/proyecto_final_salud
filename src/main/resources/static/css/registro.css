@@ -2,29 +2,34 @@ html {
     background: url("../IMG/fregistro.jpg") no-repeat;
 
     background-size: cover;
-    min-height: 50%;
+    min-height: 50%; 
 
 }
 
 body {
-    background: none;
+    /*background: none;*/
     /*background-color: RGBA(13, 70, 83, 0.8);*/
 
 }
 
 .container {
-    
 
+    background: url("../IMG/fregistro.jpg") no-repeat;
+    background-size: cover;
 }
+/*
+.text-centerrp{
+    background-color: RGBA(13, 70, 83, 0.8);
+}*/
 
 #advanced-search-form {
     background-color: #fff;
     max-width: 800px;
-    margin: 160px auto 0;
-    padding: 40px;
-    color: #858b8e;
-    box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.2);
-    color: #000000;
+    margin: 0px auto 0;
+    padding: 10px;
+    /*color: #858b8e;*/
+    box-shadow: 6px 6px 6px  rgba(0, 0, 0, 0.3), -6px 6px 6px  rgba(0, 0, 0, 0.3);
+    /*color: #000000;*/
 
 }
 
@@ -66,7 +71,7 @@ body {
     margin-top: 30px;
     padding-left: 20px;
     /* padding-top: 5px; */
-    padding-bottom: 555px;
+    padding-bottom: 55px;
 }
 
 #advanced-search-form .btn {
