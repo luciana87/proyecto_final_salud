@@ -9,24 +9,12 @@
               href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="/css/inicio_paciente.css">
-
-        <link th:href = "@{/css/headerstyle.css}" rel="stylesheet"> 
-        <link th:href = "@{/css/footerstyle.css}" rel="stylesheet"> 
-        <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
-
-
     </head>
 
     <body>
-
-        <header th:replace ="/fragments/header :: header"> </header> 
-
         <section class="py-5 my-5">
             <div class="container">
-                <h1 class="mb-5"
-                    style="text-align: center;  transform: translateY(100%); font-family: 'Times New Roman', Times, serif">
-                    Bienvenido  !
-                </h1>
+                <h1 id="welcomeBanner" class="mb-5" style="text-align: center; transform: translateY(100%); font-family: 'Times New Roman', Times, serif;">Bienvenido!</h1>
                 <div class="d-sm-flex">
                     <div class="profile-tab-nav border-right">
                         <div class="p-4">
@@ -220,7 +208,7 @@
                         <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
                             <h3 class="mb-4">Modificar Turno</h3>
                             <div class="row">
-                                <div class="table-responsive-sm p-3">
+                                <div style="height: 200px; overflow: auto;" class="table-responsive-sm p-3">
                                     <table class="table  table-bordered">
                                         <thead>
                                             <tr>
@@ -360,8 +348,6 @@
             </div>  
         </section>
 
-        <!--<footer th:replace ="/fragments/footer :: footer"> </footer>-->
-
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -387,7 +373,20 @@
             }
 
             }
+            <!--            // Obtén una referencia al elemento del cartel de bienvenida-->
+            var welcomeBanner = document.getElementById('welcomeBanner');
+
+            <!--            // Establece la visibilidad inicial del cartel de bienvenida-->
+            welcomeBanner.style.visibility = 'visible';
+
+            <!--            // Después de 5 segundos, oculta el cartel de bienvenida-->
+            setTimeout(function() {
+            welcomeBanner.style.visibility = 'hidden';
+            }, 5000);
         </script>
+
+
+
     </body>
 
 </html>

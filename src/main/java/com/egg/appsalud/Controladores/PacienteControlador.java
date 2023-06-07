@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import org.hibernate.annotations.Parameter;
 
 @Controller
 @RequestMapping("/paciente")
@@ -166,6 +167,19 @@ public class PacienteControlador {
             
         }
         return "redirect:../lista";
+    }
+    @PostMapping("cambiarcontasenia/{id}")
+    public String cambiarContrasenia(@PathVariable String id, String contraVieja, String contraNueva, String contraComparar, ModelMap modelo){
+        try {
+            pacienteServicio.cambiarContrasenia(id, contraVieja, contraNueva, contraComparar);
+        } catch (MiException e) {
+            System.out.println(e.getMessage());
+            modelo.put("error", e.getMessage());
+            return "redirect:/inicio";
+        }
+        return "redirect:/inicio";
+        
+        
     }
 
 }
