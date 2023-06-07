@@ -1,16 +1,13 @@
 package com.egg.appsalud.Controladores;
 
 import com.egg.appsalud.Enumerativos.Especialidad;
-import com.egg.appsalud.entidades.JornadaLaboral;
+import com.egg.appsalud.Enumerativos.EstadoTurno;
+import com.egg.appsalud.entidades.*;
+import com.egg.appsalud.excepciones.MiException;
+import com.egg.appsalud.repositorios.ProfesionalRepositorio;
+import com.egg.appsalud.servicios.*;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.excepciones.MiException;
-import com.egg.appsalud.servicios.JornadaLaboralServicio;
-import com.egg.appsalud.entidades.Paciente;
-import com.egg.appsalud.entidades.Profesional;
-import com.egg.appsalud.excepciones.MiException;
-import com.egg.appsalud.servicios.PacienteServicio;
-import com.egg.appsalud.servicios.ProfesionalServicio;
-import com.egg.appsalud.servicios.TurnoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,6 +26,9 @@ public class ProfesionalControlador {
 
     @Autowired
     private ProfesionalServicio profesionalServicio;
+
+    @Autowired
+    private ProfesionalRepositorio profesionalRepositorio;
     @Autowired
     private PacienteServicio pacienteServicio;
 
@@ -36,6 +36,9 @@ public class ProfesionalControlador {
     JornadaLaboralServicio jornadaServicio;
     @Autowired
     private TurnoServicio turnoServicio;
+
+    @Autowired
+    private ObraSocialServicio obraSocialServicio;
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: aÃ±o-mes-dia del LocalDate
 
@@ -59,16 +62,17 @@ public class ProfesionalControlador {
             modelo.put("exito", "El profesional fue creado correctamente");
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            return "/registro-profesional.html";
+            return "redirect:/profesional/inicio";
         }
-        return "redirect:/inicio";
+        return "redirect:/profesional/inicio";
     }
 
     @GetMapping("/inicio")
-    public String inicio(ModelMap modelo){
-        List<Paciente> pacientes = pacienteServicio.listarPacientes();
-        modelo.addAttribute("pacientes", pacientes);
-        return "inicio-profesional.html";
+    public String inicio(HttpSession session, ModelMap modelo){
+        Profesional profesional = profesionalRepositorio.BuscarPorEmail(session.getAttribute("mail").toString());
+
+        modelo.put("profesional", profesional);
+        return "inicio_profesional.html";
         
     }
 
@@ -81,22 +85,21 @@ public class ProfesionalControlador {
     }
 
     @PostMapping("/modificar/{id}")
-    public String modificarProfesional(@PathVariable String id, String mail, String password, String nombre, String apellido,
+    public String modificarProfesional(@PathVariable String id, String mail, String nombre, String apellido,
                                        String dni, String fechaNacimiento, String telefono, String matricula, String especialidad,
                                        Double valorConsulta, String descripcionEspecialidad, ModelMap modelo) {
 
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter);
 
         try {
-            profesionalServicio.modificarProfesional(id, mail, password,
-                    nombre, apellido, dni, fechaNac, telefono, matricula, especialidad, valorConsulta, descripcionEspecialidad);
+            profesionalServicio.modificarProfesional(id, mail, nombre, apellido, dni, fechaNac, telefono, matricula, especialidad, valorConsulta, descripcionEspecialidad);
             modelo.put("exito", "Los datos fueron actualizados correctamente.");
 
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            return "modificar-profesional.html";
+            return "redirect:/inicio";
         }
-        return "index.html";//Vista inicio profesional no index @PathVariable String id_profesional,
+        return "redirect:/inicio";//Vista inicio profesional
     }
 
     @GetMapping("/crearJornada")
@@ -175,39 +178,134 @@ public class ProfesionalControlador {
         }
     }
 
-    @PostMapping("/fechas")
-    private String calcularRangoFechas(@RequestParam String inicio, @RequestParam String fin, HttpSession session) throws MiException {
-        LocalDate inicioRango = LocalDate.parse(inicio, formatter);
-        LocalDate finRango = LocalDate.parse(fin, formatter);
+//    @PostMapping("/CrearTurno")
+//    private String calcularRangoFechas(@RequestParam String inicio, @RequestParam String fin, HttpSession session) throws MiException {
+//        LocalDate inicioRango = LocalDate.parse(inicio, formatter);
+//        LocalDate finRango = LocalDate.parse(fin, formatter);
+//
+//        turnoServicio.crearTurno(session.getId(), inicioRango,finRango);
+//
+//
+//        System.out.println("Llego llego " + inicioRango + " " + finRango);
+//        return "calificar-profesional.html";
+//    }
 
-        turnoServicio.crearTurno(session.getId(), inicioRango,finRango);
+//    @GetMapping("/lista")
+//    public String listar(ModelMap modelo) {
+//        List<Profesional> profesionales = profesionalServicio.listarProfesionales();
+//        modelo.addAttribute("profesionales", profesionales);
+//
+//        return "lista-profesional.html"; //Retorna vista con todos los pacientes persistidos en la DB (tabla, o card de pacientes)
+//    }
 
-
-        System.out.println("Llego llego " + inicioRango + " " + finRango);
-        return "calificar-profesional.html";
-    }
-
-    @GetMapping("/lista")
-    public String listar(ModelMap modelo) {
-        List<Profesional> profesionales = profesionalServicio.listarProfesionales();
-        modelo.addAttribute("profesionales", profesionales);
-
-        return "lista-profesional.html"; //Retorna vista con todos los pacientes persistidos en la DB (tabla, o card de pacientes)
-    }
-
-    @GetMapping("/eliminar/{id_profesional}")
-    public String eliminarPaciente(@PathVariable String id_profesional, ModelMap modelo) {
+    @GetMapping("/darseDeBaja/{id}")
+    public String darseDeBaja(@PathVariable String id, ModelMap modelo) {
 
         try {
-            profesionalServicio.eliminarProfesional(id_profesional);
-            modelo.put("exito", "Se elimino el Paciente correctamente.");
+            profesionalServicio.eliminarProfesional(id);
+            modelo.put("exito", "Se eliminó el profesional correctamente.");
 
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            
+            return "redirect:/profesional/inicio";
         }
-        return "redirect:../lista";
+        return "redirect:/profesional/inicio";
     }
 
+
+    //--------------------------------------------------- jornada------------------------------------------
+    @GetMapping("/CrearJornadaTurnos")
+    public String CrearJornadaTurno(@SessionAttribute("usuariosession") Profesional profesional, ModelMap modelo){
+        try {
+            List<Turno>listaTurnos = turnoServicio.ListarTurnoProfesional(profesional);
+            List<JornadaLaboral>listaDeJornadas = jornadaServicio.listarJornadas(profesional);
+            modelo.addAttribute("jornadas", listaDeJornadas);
+            modelo.addAttribute("turnos", listaTurnos);
+        } catch (MiException ex){
+            modelo.put("error", ex.getMessage());
+        }
+        return "formjornada.html";
+
+    }
+    @PostMapping("/jornadaLaboral")
+    public String crearJornada(@RequestParam String diaSemana, @RequestParam LocalTime horaInicio, @RequestParam LocalTime horaFin,
+                               @RequestParam Long duracionTurno, ModelMap modelo, @SessionAttribute("usuariosession") Profesional profesional) throws MiException {
+
+        try {
+            List<JornadaLaboral> jornadas = profesionalServicio.crearJ(profesional, diaSemana, horaInicio, horaFin, duracionTurno);
+            List<JornadaLaboral>listaDeJornadas = profesionalServicio.listarJornadas(profesional);
+            if (jornadas != null) {
+                modelo.put("jornadas", listaDeJornadas);
+                modelo.put("exito", "Jornada laboral creada exitosamente");
+            } else {
+                modelo.put("error", "No se pudo crear la jornada laboral");
+            }
+
+            return "redirect:/profesional/CrearJornadaTurnos";
+        } catch (MiException ex) {
+            Logger.getLogger(ProfesionalControlador.class.getName()).log(Level.SEVERE, null, ex);
+            modelo.put("error", "No se pudo crear la jornada laboral");
+            return "redirect:/profesional/CrearJornadaTurnos";
+        }
+    }
+
+    @GetMapping("/eliminar/jornada/{id_jornada}")
+    public String eliminarJornada(@SessionAttribute("usuariosession") Profesional profesional,
+                                  @PathVariable("id_jornada") String id_jornada, ModelMap modelo) throws MiException {
+        try {
+            jornadaServicio.eliminarJornada(id_jornada);
+            modelo.put("exito", "Jornada eliminada");
+            return "redirect:/profesional/CrearJornadaTurnos";
+        } catch (MiException e) {
+            modelo.put("error", "Error al eliminar la jornada");
+            return "redirect:/profesional/CrearJornadaTurnos";
+        }
+    }
+
+
+
+    @GetMapping("/listaTurno")
+    public String listarTurnos (@SessionAttribute("usuariosession") Profesional profesional, ModelMap modelo) {
+        List<Turno> turnos = turnoServicio.ListarTurnoProfesional(profesional.getId());
+        modelo.addAttribute("turnos", turnos);
+
+        return "lista-turnos-profesional.html";
+    }
+
+    @GetMapping("/buscarTurno")
+    public String buscarTurnos(ModelMap modelo) {
+        List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
+        List<Profesional> profesionales = profesionalServicio.listarProfesionales();
+        modelo.addAttribute("obraSociales", obraSociales);
+        modelo.addAttribute("profesionales", profesionales);
+        return "lista-turnos-profesional.html";
+    }
+
+    @PostMapping("/buscarTurno")
+    public String buscarTurnos(String idProfesional, String fecha, String horario, String nombre, Double valorConsulta, ModelMap modelo){
+
+        LocalTime horaioParse = null;
+        LocalDate fechaParse = null;
+
+
+        if(!fecha.isEmpty()){
+            fechaParse = LocalDate.parse(fecha, formatter);
+        }
+
+        if(!horario.isEmpty()){
+            horaioParse = LocalTime.parse(horario);
+        }
+
+
+        List<Turno>ListaTurnoFiltro = turnoServicio.buscarTurnosFiltro(idProfesional,fechaParse ,horaioParse , nombre, valorConsulta, EstadoTurno.DISPONIBLE);
+        List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
+        List<Profesional> profesionales = profesionalServicio.listarProfesionales();
+        modelo.addAttribute("turnos", ListaTurnoFiltro);
+        modelo.addAttribute("obraSociales", obraSociales);
+        modelo.addAttribute("profesionales", profesionales);
+
+        return "lista-turnos-profesional.html";
+
+    }
     
 }

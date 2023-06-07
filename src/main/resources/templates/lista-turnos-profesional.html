@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="master">
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+              integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+        <link th:href = "@{/css/headerstyle.css}" rel="stylesheet">
+        <link th:href = "@{/css/footerstyle.css}" rel="stylesheet">
+        <link rel="stylesheet" href="/css/paciente.css">
+        <!-- Fontawesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous"
+        referrerpolicy="no-referrer"/>
+    </head>
+    <body style="height: 100vh; display: flex; flex-direction: column;">
+        <header th:replace ="/fragments/header :: header"></header>
+        <main style="display: flex; flex-direction: column; flex-grow: 1; background-image: url('/img/fregistro.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover;">
+            <div class="col-12">
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 30px;">
+                    <h2 style="font-size: 2rem; font-weight: 700;"><i class="fa-solid fa-clipboard-list"></i> Listado de turnos</h2>
+                </div>
+                <form action="/profesional/buscarTurno" method="POST" style="display: flex; align-items: baseline; justify-content: center; margin-bottom: 10px; width: 100%; flex-wrap: wrap;">
+                    <!-- select speciality -->
+                    <div style="margin-right: 35px;">
+                        <select  name ="especialidad" class="custom-select custom-select-sm" style="margin-left: 0px; width: 150px;">
+                            <option selected>Especialidad</option>
+                            <option value="0">Pediatria</option>
+                            <option value="1">Ginecologia</option>
+                            <option value="2">Clinica</option>
+                            <option value="3">Cardiologia</option>
+                        </select>
+                        <!-- select reputation -->
+                        <select name ="reputacion" class="custom-select custom-select-sm" style="margin-left: 40px; width: 150px;">
+                            <option selected>Reputacion</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                        <!-- select professional -->
+                        <select name ="idProfesional" class="custom-select custom-select-sm" style=" margin-left: 40px; width: 150px;">
+                            <option th:value="${null}">Profesional</option>
+                            <option th:each="profesional : ${profesionales}" th:value="${profesional.id}" th:text="${profesional.nombre} + ' ' + ${profesional.apellido}"></option>
+                        </select>
+                    </div>
+                    <!-- input date -->
+                    <div>
+                        <label>Fecha</label>
+                        <input name="fecha" type="date" style="margin-top: 50px; margin-right: 35px; width: 150px">
+                    </div>
+                    <!-- input time -->
+                    <div>
+                        <label>Hora</label>
+                        <input name="horario" type="time" style="margin-top: 50px; margin-right: 35px; width: 150px">
+                    </div>
+                    <!-- btn search -->
+                    <button type="submit" style="padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff; border: transparent;">Buscar</button>
+                </form>
+                <div  class="table-responsive" style="display: flex; flex-direction: column; align-items: center;">
+                    <!-- table -->
+                    <table class="table table-bordered" style="width: 80%;">
+                        <thead>
+                        <tr>
+                            <th>Profesional</th>
+                            <th>Día</th>
+                            <th>Hora</th>
+                            <th>Estado</th>
+                            <th style="width: 25%;">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="turno : ${turnos}">
+                            <td th:text="${turno.medico.nombre} + ' ' + ${turno.medico.apellido}"></td>
+                            <td th:text="${turno.fecha}"></td>
+                            <td th:text="${turno.horario}"></td>
+                            <td th:text="${turno.estado}"></td>
+                            <td style="display: flex; align-items: center; justify-content: space-between;">
+                                <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).RESERVADO}" th:href= "@{/turno/eliminar/__${turno.id}__}">Cancelar</a> <!--Elimina el turno-->
+                                <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).ASISTIO}" th:href= "@{/paciente/calificar/turno/__${turno.id}__}">Calificar</a>
+                                <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).DISPONIBLE}" th:href= "@{/paciente/turno/reservar/__${turno.id}__}">Reservar</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+        <footer th:replace ="/fragments/footer :: footer"> </footer>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+                crossorigin="anonymous"></script>
+    </body>
+</html>

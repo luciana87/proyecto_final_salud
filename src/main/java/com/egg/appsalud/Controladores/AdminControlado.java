@@ -207,7 +207,7 @@ public class AdminControlado {
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter);
 
         try {
-            profesionalServicio.modificarProfesional(id, mail, password, nombre, apellido, dni, fechaNac, telefono, matricula, especialidad, valorConsulta, descripcionEspecialidad);
+            profesionalServicio.modificarProfesional(id, mail, nombre, apellido, dni, fechaNac, telefono, matricula, especialidad, valorConsulta, descripcionEspecialidad);
             modelo.put("exito", "Los datos fueron actualizados correctamente.");
 
         } catch (MiException ex) {
