@@ -6,6 +6,7 @@ import com.egg.appsalud.entidades.JornadaLaboral;
 //import com.egg.appsalud.entidades.JornadaLaboral;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.excepciones.MiException;
+import com.egg.appsalud.repositorios.JornadaLaboralRepositorio;
 import com.egg.appsalud.repositorios.ProfesionalRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,8 @@ public class ProfesionalServicio {
 
     @Autowired
     private JornadaLaboralServicio jornadaServicio;
+    @Autowired
+    private JornadaLaboralRepositorio jornadaLaboralRepositorio;
 
     @Transactional
     public void crearProfesional(String mail, String password, String nombre, String apellido,
@@ -181,13 +184,9 @@ public class ProfesionalServicio {
     }
 
     @Transactional
-    public void eliminarJornada(Profesional profesional, String id_jornada) throws MiException {
-
-        if (profesional != null) {
-
-            System.out.println("entro");
-            jornadaServicio.eliminarJornada(profesional, id_jornada);
-        }
+    public void eliminarJornada( String id_jornada) throws MiException {
+        JornadaLaboral jornada = jornadaLaboralRepositorio.getOne(id_jornada);
+        jornadaLaboralRepositorio.delete(jornada);
     }
 
 //    public List<Profesional> listarProfesionales() {
@@ -208,4 +207,28 @@ public class ProfesionalServicio {
         profesionalRepositorio.save(profesional);
     }
 
+
+//-------------------- contraseña ------------------
+
+    @Transactional
+    public void cambiarContrasenia(String idProfesional, String contraVieja, String contraNueva, String contraComparar) throws MiException {
+
+        Profesional profesional = profesionalRepositorio.getOne(idProfesional);
+        validarContraseña(contraVieja, profesional.getPassword(), contraNueva, contraComparar);
+
+        profesional.setPassword(new BCryptPasswordEncoder().encode(contraNueva));
+
+        profesionalRepositorio.save(profesional);
+
+    }
+
+    private void validarContraseña(String contraVieja, String contraBS, String contraNueva, String contraComparar) throws MiException {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if (!passwordEncoder.matches(contraVieja, contraBS)) {
+            throw new MiException("Ingrese devuelta su contraseña");
+        }
+        if (!contraNueva.equals(contraComparar)) {
+            throw new MiException("No coiciden las nuevas contraseñas");
+        }
+    }
 }

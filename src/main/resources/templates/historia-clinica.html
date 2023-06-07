@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="master">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+              integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        <link th:href = "@{/css/headerstyle.css}" rel="stylesheet">
+        <link th:href = "@{/css/footerstyle.css}" rel="stylesheet">
+    </head>
+    <body>
+        <header th:replace ="/fragments/header :: header"></header>
+        <h1>Notas medicas</h1>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Descripcon</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="nota : ${listaNotas}">
+                    <td th:text="${nota.descripcion}"></td>
+                    <td>
+                    <a th:href="@{/profesional/editarNotaClinica}"><i class="fas fa-feather-alt"></i> editar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <footer th:replace ="/fragments/footer :: footer"> </footer> 
+    </body>

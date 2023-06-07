@@ -132,7 +132,9 @@ public class TurnoServicio {
         return turnoRepositorio.BuscarTurnosProfecional(profesional);
     }
 
-
+    public List<Turno>ListarTurnoProfesional(Profesional profesional){
+        return turnoRepositorio.BuscarTurnosProfecional(profesional);
+    }
 //tira error en el repo
     
 //    public List<Turno> listarTurnosPorPacientes(Paciente paciente){
@@ -212,5 +214,11 @@ public class TurnoServicio {
     @Transactional
     public void eliminarTurno(Integer id) throws MiException {
         turnoRepositorio.deleteById(id);
+    }
+
+    @Transactional
+    public void BorraTurno(Integer id){
+        Turno turno = turnoRepositorio.getOne(id);
+        turnoRepositorio.delete(turno);
     }
 }
