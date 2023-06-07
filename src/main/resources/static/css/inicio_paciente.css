@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+
+body {
+    background : url(../img/fregistro.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.container{
+    margin: 0 auto;
+    width: 1200px;
+    height: 700px;
+    border-radius: 7px;
+    background-color: RGBA(13, 70, 83, .62);
+    }
+.shadow {
+    box-shadow:  2px 5px rgba(126, 1, 1, 0.1) !important;
+}
+
+.profile-tab-nav {
+    min-width: 250px;
+}
+
+.tab-content {
+    flex: 1;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+
+.nav-pills a.nav-link {
+    padding: 15px 20px;
+    border-bottom: 1px solid #3a3636;
+    border-radius: 0;
+    color: #0557b6;
+}
+
+.nav-pills a.nav-link i {
+    width: 20px;
+}
+
+.img-circle img {
+    height: 150px;
+    width: 150px;
+    border-radius: 100%;
+    border: 0px solid #181717;
+}

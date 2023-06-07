@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link th:href = "@{/css/headerstyle.css}" rel="stylesheet">
+    <link th:href = "@{/css/footerstyle.css}" rel="stylesheet">
+    <link rel="stylesheet" href="/css/registro.css">
+<!--    <link href="/css/registro2.css" rel="stylesheet" type="text/css">-->
+  <!-- Fontawesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous"
+  referrerpolicy="no-referrer"/>
+  <title>Modificar datos del profesional</title>
+</head>
+<body style="display: flex; flex-direction: column; height: 100vh;">
+    <header th:replace ="/fragments/header :: header"></header>
+    <main id="advanced-search-form" style="display: flex; flex-direction: column; align-items: center; flex-grow: 1; background-image: url('/img/fregistro.jpg');  background-size: cover; background-position: center;  background-repeat: no-repeat; background-color: transparent; max-width: none; margin: 0; padding: 0; box-shadow: none;">
+        <div style="background-color: #2a565c5c; padding: 20px 30px; margin: 30px 0 30px 0;">
+            <h1 class="text-center" style="margin: 20px 20px 30px 20px;">Modificar datos del perfil</h1>
+            <form th:action="@{/admin/dashboard/listaPacientes/modificar/__${paciente.id}__}" method="POST" enctype="multipart/form-data" style="width: 800px;">
+              <input hidden th:value= "${paciente.id}" name="id">
+              <!-- nombre y apellido -->
+              <div style="display: flex; align-items: center; justify-content: center;">
+                  <div class="form-group" style="width: 45%; margin-right: 5%;">
+                      <label for="nombre">Nombre</label>
+                      <input th:value="${paciente.nombre}" type="text" class="form-control" name="nombre" placeholder="" id="nombre" autofocus style="border-color: #1c4b5aa5; padding: 6px 12px;">
+                   </div>
+                   <div class="form-group" style="width: 45%;">
+                       <label for="surname">Apellido</label>
+                       <input th:value="${paciente.apellido}" type="text" class="form-control" name="apellido" placeholder="" id="surname" style="border-color: #1c4b5aa5; padding: 6px 12px;">
+                   </div>
+              </div>
+              <!-- mail y telefono -->
+              <div style="display: flex; align-items: center; justify-content: center;">
+                  <div class="form-group" style="width: 45%; margin-right: 5%;">
+                      <label for="mail">Email</label>
+                      <input th:value="${paciente.mail}" type="email" class="form-control" name="mail" placeholder="" id="mail" style="border-color: #1c4b5aa5; padding: 6px 12px;">
+                  </div>
+                  <div class="form-group" style="width: 45%;">
+                    <label for="telefono">Teléfono</label>
+                    <input th:value="${paciente.telefono}" type="number" class="form-control" name="telefono" placeholder="" id="telefono" style="border-color: #1c4b5aa5; padding: 6px 12px;">
+                </div>
+              </div>
+              <!-- obra social y numero de abra social-->
+              <div style="display: flex; align-items: center; justify-content: center;">
+                  <div class="form-group" style="display: flex; flex-direction: column; width: 45%; margin-right: 5%;">
+                      <label>Obra Social</label>
+                      <select name="idObraSocial" style="padding: 6px 12px;" id="select-OSocial">
+                          <option>Seleccione obra social</option>
+                          <option th:each="obraSocial : ${obrasSociales}" th:value="${obraSocial.id}" th:text="${obraSocial.nombre}" th:selected="(${obraSocial.id} == *{paciente.obraSocial.id})"></option>
+                      </select>
+                  </div>
+                  <div class="form-group" style="width: 45%;">
+                      <label for="nro-obra-social">N° Obra Social</label>
+                      <input th:value="${paciente.nroObraSocial}" name="nroObraSocial" type="text" class="form-control" placeholder="" id="nro-obra-social" style="border-color: #1c4b5aa5; padding: 6px 12px;">
+                  </div>
+              </div>
+              <!-- nacimiento y dni -->
+              <div style="display: flex; align-items: center; justify-content: center;">
+                  <div class="form-group" style="width: 45%; margin-right: 5%;">
+                      <label for="fechaNacimiento">Fecha de nacimiento</label>
+                      <input th:value="${paciente.fechaNacimiento}" type="date" class="form-control"  name="fechaNacimiento" placeholder="" id="fechaNacimiento" style="border-color: #1c4b5aa5; padding: 0 12px;">
+                  </div>
+                  <div class="form-group" style="width: 45%;">
+                      <label for="dni">DNI</label>
+                      <input th:value="${paciente.dni}" type="text" class="form-control" name="dni" placeholder="" id="dni" style="border-color: #1c4b5aa5; padding: 6px 12px;">
+                  </div>
+              </div>
+                <div style="display: flex; align-items: center; justify-content: center; ">
+                    <div class="form-group" style="width: 45%; margin-right: 5%;">
+                        <input type="file" class="form-control" name="archivo" style="border-color: #1c4b5aa5; padding: 6px 12px;">
+                    </div>
+                    <div class="form-group" style="width: 45%;">
+                        <button type="submit" class="btn-info btn-lg btn-responsive" id="search" style="background-color: #1c4a5a; border: transparent; margin-right: 30px;">Actualizar</button>
+                        <button type="button" onclick="window.location.href='/admin/dashboard/listaPacientes'" class="btn-info btn-lg btn-responsive" id="cancel" style=" background-color: #1c4a5a; border: transparent;">Cancelar</button>
+                    </div>
+                </div>
+
+                <!-- mensajes de error al guardar -->
+<!--               <div th:if="${exito}!=null">
+                  <span class="card-title"><i class="fa-solid fa-circle-check"></i> Exito</span>
+                  <span class="card-text" th:text="${exito}"></span>
+              </div>
+              <div th:if="${error}!=null">
+                    <span class="card-title"><i class="fa-solid fa-circle-exclamation"></i> Error</span>
+                    <span class="card-text" th:text="${error}"></span>
+              </div> -->
+            </form>
+        </div>
+    </main>
+    <footer th:replace ="/fragments/footer :: footer"></footer>
+</body>
+</html>

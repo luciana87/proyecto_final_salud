@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link th:href = "@{/css/headerstyle.css}" rel="stylesheet">
+    <link th:href = "@{/css/footerstyle.css}" rel="stylesheet">
+    <link rel="stylesheet" href="/css/paciente.css">
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous"
+    referrerpolicy="no-referrer"/>
+    <title>Calificar profesional</title>
+    <style>
+        main {
+            min-height: 350px;
+        }
+
+        main form {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding: 25px 20px;
+            border-radius: 7px;
+            text-align: center;
+        }
+
+        main form div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        main form div div {
+            margin: 1.5rem;
+            padding: 5px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: baseline;
+        }
+
+        main form div div label{
+            color: orange;
+        }
+
+        main form div div .enviar {
+            padding: 0;
+        }
+        /* <!-- HTML !--> */
+
+        /* BTN */
+        .button-68 {
+        appearance: none;
+        backface-visibility: hidden;
+        background-color: #27ae60;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+        font-size: 1.2rem;
+        font-weight: 600;
+        line-height: 1.5;
+        outline: none;
+        overflow: hidden;
+        padding: 8px 35px;
+        position: relative;
+        text-decoration: none;
+        transform: translate3d(0, 0, 0);
+        transition: all .3s;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: top;
+        white-space: nowrap;
+        }
+
+        .button-68:hover {
+        background-color: #1e8449;
+        opacity: 1;
+        transform: translateY(0);
+        transition-duration: .35s;
+        }
+
+        .button-68:active {
+        transform: translateY(2px);
+        transition-duration: .35s;
+        }
+
+        .button-68:hover {
+        box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
+        }
+
+    </style>
+</head>
+
+<body style="display: flex; flex-direction: column; height: 100vh;">
+    <header th:replace ="/fragments/header :: header"></header>
+    <main style="display: flex; flex-direction: column; flex-grow: 1; align-items: center; justify-content: center; background-image: url('/img/fregistro.jpg'); background-size: cover; background-position: center;  background-repeat: no-repeat;">
+        <h1 style="margin-bottom: 25px;">Calificar profesional</h1>
+        <form  th:action="@{/paciente/calificar/turno/{id}(id=${turno.id})}" method="POST" style="background-color: #fff;">
+            <div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="calificacion" value="1" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault"><i class="fa-solid fa-star"></i></label>
+                    <p>Muy malo</p>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="calificacion" value="2" id="flexCheckDefault2">
+                    <label class="form-check-label" for="flexCheckDefault2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></label>
+                    <p>Malo</p>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="calificacion" value="3" id="flexCheckDefault3">
+                    <label class="form-check-label" for="flexCheckDefault3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></label>
+                    <p>Normal</p>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="calificacion" value="4" id="flexCheckDefault4">
+                    <label class="form-check-label" for="flexCheckDefault4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></label>
+                    <p>Bueno</p>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="calificacion" value="5" id="flexCheckDefault5">
+                    <label class="form-check-label" for="flexCheckDefault5"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></label>
+                    <p>Muy bueno</p>
+                </div>
+            </div>
+            <div class="enviar">
+                <button class="button-68" type="submit">Enviar</button>
+            </div>
+        </form>
+    </main>
+
+    <footer th:replace ="/fragments/footer :: footer"></footer>
+</body>
+</html>

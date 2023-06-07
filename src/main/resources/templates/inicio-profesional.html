@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Perfil Profesional</title>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="stylesheet" type="text/css"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <link rel="stylesheet" type="text/css" href="/css/inicio_profesional.css">
+    </head>
+
+    <body>
+        <section class="py-5 my-5">
+            <!--            <h1 class="mb-5 text-center">Account Settings</h1>-->
+            <div class="container">
+                <div class="d-sm-flex">
+                    <div class="profile-tab-nav border-right">
+                        <div class="p-4">
+                            <h4 class="text-center">Profesional</h4>
+                        </div>
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">
+                                <i class="fa fa-home text-center mr-1"></i> 
+                                Cuenta
+                            </a>
+                            <a class="nav-link" id="password-tab" data-toggle="pill" href="#password" role="tab" aria-controls="password" aria-selected="false">
+                                <i class="bi bi-lock-fill"></i>
+                                Cambiar Contraseña
+                            </a>
+                            <a class="nav-link" id="security-tab" data-toggle="pill" href="#security" role="tab" aria-controls="security" aria-selected="false">
+                                <i class="bi bi-clipboard-check-fill"></i>
+                                Turnos
+                            </a>
+                            <a class="nav-link" href="/logout">
+                                <i class="bi bi-box-arrow-right"></i>
+                                Cerrara Sesion
+                            </a>
+                        </div>
+                    </div>
+                    <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+                            <h3 class="mb-4 text-center">Sus Datos</h3>
+                            <div>
+                                <form th:action="@{/profesional/modificar/__${session.usuariosession.id}__}" method="POST">
+                                    <div class="row">
+                                        <input hidden th:value="${id}" name="id">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Nombre</label>
+                                                <input type="text" class="form-control" id="nom" name="nombre"
+                                                       th:value="${session.usuariosession.nombre}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Apellido</label>
+                                                <input type="text" class="form-control" id="apel" name="apellido"
+                                                       th:value="${session.usuariosession.apellido}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class=" col-md-6">
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input type="email" class="form-control" id="corr" name="mail"
+                                                       th:value="${session.usuariosession.mail}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class=" col-md-6">
+                                            <div class="form-group">
+                                                <label>Telefono</label>
+                                                <input type="tel" class="form-control" id="cel" name="telefono"
+                                                       th:value="${session.usuariosession.telefono}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class=" col-md-6">
+                                            <div class="form-group">
+                                                <label>DNI</label>
+                                                <input type="number" class="form-control" id="dni" name="dni"
+                                                       th:value="${session.usuariosession.dni}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class=" col-md-6">
+                                            <div class="form-group">
+                                                <label>Fecha Nacimiento</label>
+                                                <input type="date" class="form-control" id="fnac" name="fechaNacimiento"
+                                                       th:value="${session.usuariosession.fechaNacimiento}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class=" col-md-6">
+                                            <div class="form-group">
+                                                <label>Matricula</label>
+                                                <input type="number" class="form-control" id="mat" name="matricula"
+                                                       th:value="${session.usuariosession.matricula}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class=" col-md-6">
+                                            <div class="form-group">
+                                                <label>Valor Consulta</label>
+                                                <input type="number" class="form-control" id="vcon" name="valorConsulta"
+                                                       th:value="${session.usuariosession.valorConsulta}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Descripcion Especialidad</label>
+                                                <input type="text" class="form-control" id="desc" name="descripcionEspecialidad"
+                                                       th:value="${session.usuariosession.descripcionEspecialidad}" disabled>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputPassword5" class="form-label">Contraseña
+                                                    Actual</label>
+                                                <input type="password" id="inputPassword5" class="form-control" name="password"
+                                                       aria-labelledby="passwordHelpBlock">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Especialidad</label>
+                                                <input type="text" class="form-control" id="esp"  name="especialidad"
+                                                       th:value="${session.usuariosession.especialidad}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="submit" class="btn btn-light" id="guarda"
+                                                    style="display: none;">Guardar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div>
+                                    <div class="row">
+                                        <button class="btn btn-primary col-ms-6" id="habilita"
+                                                onclick="habilitarInput()" style="margin-left: 110px;">Editar</button>
+                                        <div class="col-md-6 text-md-right">
+                                            <button class="btn btn-warning">Solicitar Baja</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+                            <h3 class="mb-4 text-center">Cambiar Contraseña</h3>
+                            <div>
+                                <div class="row justify-content-center">
+                                    <div class="col-sm-6">
+                                        <form class="text-center p-3" method="POST" th:action="@{/profesional/modificar/__${session.usuariosession.id}__}">
+                                            <div class="form-group">
+                                                <label for="inputPassword5" class="form-label">Contraseña
+                                                    Actual</label>
+                                                <input type="password" id="inputPassword5" class="form-control"
+                                                       aria-labelledby="passwordHelpBlock">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputPassword5" class="form-label">Nueva Contraseña</label>
+                                                <input type="password" id="inputPassword5" class="form-control"
+                                                       aria-labelledby="passwordHelpBlock">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputPassword5" class="form-label">Confirmar Contraseña</label>
+                                                <input type="password" id="inputPassword5" class="form-control"
+                                                       aria-labelledby="passwordHelpBlock">
+                                            </div>
+                                            <button type="submit" class="btn btn-light mt-3">Cambiar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+                            <h3 class="mb-4 text-center">Proximos Turnos</h3>
+                            <div>
+                                <div class="table-responsive-sm p-3">
+                                    <table class="table  table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Pac</th>
+                                                <th scope="col">Fecha</th>
+                                                <th scope="col">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody >
+                                            <tr th:each="paciente : ${pacientes}">
+                                                <td th:text="${paciente.nombre}"></td>
+                                                <td th:text="${paciente.apellido}"</td>
+                                                <td>
+                                                    <a class="" th:href= "@{/paciente/modificar/__${paciente.id}__}">Modificar</a>
+                                                    <a class="p-2" th:href= "@{/paciente/eliminar/__${paciente.id}__}">Eliminar</a>
+                                                </td> 
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script>
+            function habilitarInput() {
+            let inputs = ["nom", "apel", "corr", "cel", "dni", "fnac", "mat", "vcon", "desc", "esp"];
+            let habilita = document.getElementById("habilita");
+            let guardar = document.getElementById("guarda");
+
+            for (let i = 0; i < inputs.length; i++) {
+            let input = document.getElementById(inputs[i]);
+            input.disabled = !input.disabled;
+            }
+
+            if (habilita.innerText === "Editar") {
+
+            habilita.innerText = "Cancelar";
+            guardar.style.display = "inline-block";
+            } else {
+            habilita.innerText = "Editar";
+            guardar.style.display = "none";
+            }
+
+            }
+        </script>
+    </body>
+
+</html>
