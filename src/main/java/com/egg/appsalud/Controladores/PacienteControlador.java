@@ -1,6 +1,6 @@
 package com.egg.appsalud.Controladores;
 
-import com.egg.appsalud.Enumerativos.Especialidad;
+
 import com.egg.appsalud.entidades.ObraSocial;
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Profesional;
@@ -41,7 +41,8 @@ public class PacienteControlador {
 
     @Autowired
     private CalificacionServicio calificacionServicio;
-
+    @Autowired
+    private UsuarioServicio usuarioServicio;
     @Autowired
     private TurnoServicio turnoServicio;
 
@@ -171,24 +172,6 @@ public class PacienteControlador {
         return "redirect:../lista";
     }
     
-    @GetMapping("/formCambiarContrasenia")
-    public String formCambiarContrasenia(){
-        return "cambiar-contrasenia.html";
-    }
-    
-    @PostMapping("cambiarcontasenia/{id}")
-    public String cambiarContrasenia(@PathVariable String id, String contraVieja, String contraNueva, String contraComparar, ModelMap modelo) {
-        try {
-            pacienteServicio.cambiarContrasenia(id, contraVieja, contraNueva, contraComparar);
-        } catch (MiException e) {
-            System.out.println(e.getMessage());
-            modelo.put("error", e.getMessage());
-//            return "redirect:/inicio";
-            return "cambiar-contrasenia.html";
-        }
-        return "redirect:/inicio";
-
-    }
 
 
     //-------------------------- TURNOS PACIENTE ------------------------------
@@ -205,13 +188,15 @@ public class PacienteControlador {
     public String buscarTurnos(ModelMap modelo) {
         List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
         List<Profesional> profesionales = profesionalServicio.listarProfesionales();
+        List<Especialidad>listaEspecialidades = usuarioServicio.listarEspecialidad();
+        modelo.addAttribute("especialidades", listaEspecialidades);
         modelo.addAttribute("obraSociales", obraSociales);
         modelo.addAttribute("profesionales", profesionales);
         return "lista-turnos.html";
     }
 
     @PostMapping("/buscarTurnos")
-    public String buscarTurnos(String idProfesional,String fecha,String horario,  String nombre, Double valorConsulta, ModelMap modelo){
+    public String buscarTurnos(String idProfesional,String fecha,String horario,  String nombre, Double valorConsulta,Double reputacion, Integer especialidad, ModelMap modelo){
 
         LocalTime horaioParse = null;
         LocalDate fechaParse = null;
@@ -226,9 +211,11 @@ public class PacienteControlador {
         }
 
 
-        List<Turno>ListaTurnoFiltro = turnoServicio.buscarTurnosFiltro(idProfesional,fechaParse ,horaioParse , nombre, valorConsulta, EstadoTurno.DISPONIBLE);
+        List<Turno>ListaTurnoFiltro = turnoServicio.buscarTurnosFiltro(idProfesional,fechaParse ,horaioParse , nombre, valorConsulta, EstadoTurno.DISPONIBLE,reputacion,especialidad);
         List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
         List<Profesional> profesionales = profesionalServicio.listarProfesionales();
+        List<Especialidad>listaEspecialidades = usuarioServicio.listarEspecialidad();
+        modelo.addAttribute("especialidades", listaEspecialidades);
         modelo.addAttribute("turnos", ListaTurnoFiltro);
         modelo.addAttribute("obraSociales", obraSociales);
         modelo.addAttribute("profesionales", profesionales);
@@ -251,6 +238,36 @@ public class PacienteControlador {
         modelo.put("exito", "El profesional fue calificado correctamente");
 
         return "redirect:/inicio";
+    }
+    
+    @GetMapping("/ReservarTurno/{id}")
+    public String ReservarTurno(@PathVariable Integer id,@SessionAttribute("usuariosession") Paciente paciente){
+        turnoServicio.CambiarTurnoReservado(id, paciente);
+        return "redirect:/paciente/buscarTurno";
+    }
+    
+    @GetMapping("/CancelarTurno/{id}")
+    public String CancelarTurno(@PathVariable Integer id){
+        turnoServicio.CambiarTurnoCancelado(id);
+        return "redirect:/paciente/listaTurno";
+    }
+//-----------------------------------------contrasenia----------------------------------------------
+    @GetMapping("/formCambiarContrasenia")
+    public String CambiarContrasenia() {
+        return "cambiar-contrasenia.html";
+    }
+    
+    @PostMapping("cambiarcontasenia/{id}")
+    public String cambiarContrasenia(@PathVariable String id, String contraVieja, String contraNueva, String contraComparar, ModelMap modelo) {
+        try {
+            pacienteServicio.cambiarContrasenia(id, contraVieja, contraNueva, contraComparar);
+            modelo.put("exito", "Se cambio la contraseña");
+        } catch (MiException e) {
+            System.out.println(e.getMessage());
+            modelo.put("error", e.getMessage());
+            return "cambiar-contrasenia.html";
+        }
+        return "cambiar-contrasenia.html";
     }
 
 

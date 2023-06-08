@@ -1,6 +1,6 @@
 package com.egg.appsalud.entidades;
 
-import com.egg.appsalud.Enumerativos.Especialidad;
+
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,10 +21,7 @@ public class Profesional extends Usuario implements Serializable {
     @Column(nullable = false)
     private String matricula;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Especialidad especialidad;
-
+ 
     @Column
     private Double reputacion;
 
@@ -33,6 +30,10 @@ public class Profesional extends Usuario implements Serializable {
 
     @Column(name = "descripcion_especialidad", nullable = false)
     private String descripcionEspecialidad;
+    
+    
+    @OneToOne
+    private Especialidad especialidad ;
 
     /*
     @ManyToMany(cascade = CascadeType.ALL)

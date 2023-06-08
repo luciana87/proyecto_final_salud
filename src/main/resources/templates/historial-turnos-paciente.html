@@ -37,9 +37,9 @@
           <td th:text="${turno.horario}"></td>
           <td th:text="${turno.estado}"></td>
           <td>
-            <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).RESERVADO}" th:href= "@{/turno/eliminar/__${turno.id}__}"><i class="fa-regular fa-circle-xmark"></i> Cancelar</a> <!--Elimina el turno-->
+            <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).RESERVADO}" th:href= "@{/paciente/CancelarTurno/__${turno.id}__}"><i class="fa-regular fa-circle-xmark"></i> Cancelar</a> <!--Elimina el turno-->
             <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).ASISTIO}" th:href= "@{/paciente/calificar/turno/__${turno.id}__}"><i class="fa-solid fa-star"></i> Calificar</a>
-            <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).DISPONIBLE}" th:href= "@{/paciente/turno/reservar/__${turno.id}__}"><i class="fa-regular fa-calendar-check"></i> Reservar</a>
+            
           </td>
         </tr>
         </tbody>

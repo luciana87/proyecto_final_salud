@@ -1,6 +1,6 @@
 package com.egg.appsalud.Enumerativos;
 
-public enum Especialidad {
+public enum EspecialidadEnu {
 
     PEDIATRIA, GINECOLOGIA, CLINICA, CARDIOLOGIA;
 
