@@ -1,6 +1,7 @@
 package com.egg.appsalud.repositorios;
 
 import com.egg.appsalud.Enumerativos.EstadoTurno;
+import com.egg.appsalud.entidades.Especialidad;
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.entidades.Turno;
@@ -29,10 +30,10 @@ public interface TurnoRepositorio extends JpaRepository<Turno, Integer> {
             "AND (:estado IS NULL OR t.estado = :estado) " +
        "AND (:horario IS NULL OR t.horario = :horario) " +
        "AND (:nombre IS NULL OR p.nombre = :nombre) " +
-//       "AND (:especialidad IS NULL OR p.especialidad = :especialidad) " +
-//     "AND (:reputacion IS NULL OR p.reputacion = :reputacion)" +        
+       "AND (:especialidad IS NULL OR p.especialidad = :especialidad) " +
+       "AND (:reputacion IS NULL OR p.reputacion = :reputacion)" +        
        "AND (:valorConsulta IS NULL OR p.valorConsulta = :valorConsulta) "  +
        "AND (:medico IS NULL OR p = :medico)")
-    List<Turno> buscarTurnosFiltro(@Param("medico") Profesional medico, @Param("fecha") LocalDate fecha, @Param("horario") LocalTime horario, @Param("nombre") String nombre, @Param("valorConsulta") Double valorConsulta, @Param("estado") EstadoTurno estado);
+    List<Turno> buscarTurnosFiltro(@Param("medico") Profesional medico, @Param("fecha") LocalDate fecha, @Param("horario") LocalTime horario, @Param("nombre") String nombre, @Param("valorConsulta") Double valorConsulta, @Param("estado") EstadoTurno estado,@Param("reputacion") Double reputacion,@Param("especialidad") Especialidad especialidad);
 
 }

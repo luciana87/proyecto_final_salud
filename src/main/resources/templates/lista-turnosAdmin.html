@@ -12,75 +12,69 @@
         <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
     </head>
 
-    <body style="height: 100vh; display: flex; flex-direction: column;">
-    <header th:replace ="/fragments/header :: header"></header>
-    <main layout:fragment="contenido" style="display: flex; flex-direction: column; flex-grow: 1; padding: 50px 0; background-image: url('/img/fregistro.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover;">
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 25px;">Turnos</h2>
-            <form action="/admin/dashboard/buscarTurnos" method="POST">
-                <div style="display: flex; align-items: baseline;  flex-wrap: wrap;">
-                    <select  name ="especialidad" class="custom-select custom-select-sm" style="margin-right: 35px; width: 150px;">
-                        <option selected>Especialidad</option>
-                        <option value="0">Pediatria</option>
-                        <option value="1">Ginecologia</option>
-                        <option value="2">Clinica</option>
-                        <option value="3">Cardiologia</option>
-                    </select>
-                    <div style="margin-right: 35px; display: flex; align-items: baseline;">
-                        <select name ="reputacion" class="custom-select custom-select-sm" style="margin-left: 35px; width: 150px;">
-                            <option selected>Reputacion</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </div>
-                    <div style="margin-right: 35px; display: flex; align-items: baseline;">
-                        <select name ="idProfesional" class="custom-select custom-select-sm" style=" margin-left: 40px; width: 150px;">
-                            <option th:value="${null}">Profesional</option>
-                            <option th:each="profesional : ${profesionales}" th:value="${profesional.id}" th:selected="${profesional.id == profesionalId}" th:text="${profesional.nombre} + ' ' + ${profesional.apellido}"></option>
-                        </select>
-                    </div>
-                    <div style="margin-right: 35px; display: flex; align-items: baseline;">
-                        <label for="fecha" style="margin-right: 10px; font-weight: 500;">Fecha</label>
-                        <input name ="fecha" id="fecha" type="date" style="margin-top: 50px; margin-left: 35px; width: 150px">
-                    </div>
-                    <div style="margin-right: 35px; display: flex; align-items: baseline;">
-                        <label for="hora" style="margin-right: 10px; font-weight: 500;">Hora</label>
-                        <input name ="horario" type="time" id="hora" style="margin-top: 50px; margin-left: 35px; width: 150px">
-                    </div>
-                    <button type="submit">Buscar</button>
-                </div>
-            </form>
-            </div>
-            <div class="table-responsive" style="display: flex; flex-direction: column; align-items: center;">
-                <table class="table table-bordered" style="width: 80%; box-shadow: 0 0 3px 1px #1c4a5a52; background-color: #fff;">
-                    <thead>
-                        <tr>
-                            <th>Profesional</th>
-                            <th>Día</th>
-                            <th>Hora</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="turno : ${turnos}">
-                            <td th:text="${turno.medico.nombre} + ' ' + ${turno.medico.apellido}"></td>
-                            <td th:text="${turno.fecha}"></td>
-                            <td th:text="${turno.horario}"></td>
-                            <td th:text="${turno.estado}"></td>
-                            <td>
-                                <a th:href= "@{/admin/dashboard/listaTurno/eliminar/__${turno.id}__}"><i class="fa-solid fa-trash-can"></i></a> <!--Elimina el turno-->
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </main>
-    <footer th:replace ="/fragments/footer :: footer"> </footer>
+
+<body>
+<header th:replace ="/fragments/header :: header"></header>
+<div class="col-12">
+    <h2>Listado de turnos</h2>
+    <form action="/admin/dashboard/buscarTurnos" method="POST">
+        <select  name ="especialidad" class="custom-select custom-select-sm" style="margin-left: 0px; width: 150px;">
+               <option th:value="${null}">Especialiadad</option>
+                            <option th:each="esp : ${especialidades}" th:value="${esp.id}" th:text="${esp.nombre}"></option>
+        </select>
+        <select name ="reputacion" class="custom-select custom-select-sm" style="margin-left: 40px; width: 150px;">
+            <option th:value="${null}" selected>Reputacion</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+
+        <select name ="idProfesional" class="custom-select custom-select-sm" style=" margin-left: 40px; width: 150px;">
+            <option th:value="${null}">Profesional</option>
+            <option th:each="profesional : ${profesionales}" th:value="${profesional.id}" th:selected="${profesional.id == profesionalId}" th:text="${profesional.nombre} + ' ' + ${profesional.apellido}"></option>
+        </select>
+
+        <label>Fecha</label>
+        <input name ="fecha" type="date" style="margin-top: 50px; margin-left: 35px; width: 150px">
+
+
+        <label>Hora</label>
+        <input name ="horario" type="time" style="margin-top: 50px; margin-left: 35px; width: 150px">
+
+        <button type="submit">Buscar</button>
+    </form>
+
+    <div  class="table-responsive">
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Profesional</th>
+                <th>Día</th>
+                <th>Hora</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="turno : ${turnos}">
+                <td th:text="${turno.medico.nombre} + ' ' + ${turno.medico.apellido}"></td>
+                <td th:text="${turno.fecha}"></td>
+                <td th:text="${turno.horario}"></td>
+                <td th:text="${turno.estado}"></td>
+                <td>
+                    
+                    <a th:href= "@{/admin/dashboard/listaTurno/eliminar/__${turno.id}__}"><i class="fas fa-feather-alt"></i> Eliminar </a> <!--Elimina el turno-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<footer th:replace ="/fragments/footer :: footer"> </footer>
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

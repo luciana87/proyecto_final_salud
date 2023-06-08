@@ -55,9 +55,14 @@
                         <label for="matricula">Matricula</label>
                         <input type="text" class="form-control" name="matricula" id="matricula" style="border-color: #1c4b5aa5; padding: 6px 12px;">
                     </div>
+
                     <div class="form-group" style="display: flex; flex-direction: column; width: 45%; margin-right: 5%;">
-                        <label for="especialidad">Especialidad</label>
-                        <input type="text" class="form-control" name="especialidad" id="especialidad" style="border-color: #1c4b5aa5; padding: 6px 12px;">
+                        <label>Especialidad</label>
+
+                        <select name="especialidad">
+                            <option>Seleccione una Especialiadad</option>
+                            <option th:each="esp : ${especialidades}" th:value="${esp.id}" th:text="${esp.nombre}" ></option>
+                        </select>
                     </div>
                 </div>
                 <!-- teléfono y correo -->

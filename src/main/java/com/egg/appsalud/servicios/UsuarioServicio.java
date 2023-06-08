@@ -1,10 +1,13 @@
 package com.egg.appsalud.servicios;
 
+
+import com.egg.appsalud.entidades.Especialidad;
 import com.egg.appsalud.entidades.ObraSocial;
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.entidades.Usuario;
 import com.egg.appsalud.excepciones.MiException;
+import com.egg.appsalud.repositorios.EspecialidadRepositorio;
 import com.egg.appsalud.repositorios.PacienteRepositorio;
 import com.egg.appsalud.repositorios.ProfesionalRepositorio;
 import java.io.IOException;
@@ -24,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
@@ -40,6 +44,8 @@ public class UsuarioServicio implements UserDetailsService {
     private ProfesionalServicio profesionalServicio;
     @Autowired
     private ObraSocialServicio obraSocialServicio;
+    @Autowired
+    private EspecialidadRepositorio especialidadRepositorio;
 
     @Override
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
@@ -75,9 +81,9 @@ public class UsuarioServicio implements UserDetailsService {
 
 //------------------------------------Profesional-----------------------------------
     public void CrearProfesional(String mail, String password, String nombre, String apellido,
-            String dni, LocalDate fechaNacimiento, String telefono, String matricula,
-            String especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException {
-
+                                 String dni, LocalDate fechaNacimiento, String telefono, String matricula,
+                                 Integer especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException{
+        
         profesionalServicio.crearProfesional(mail, password, nombre, apellido, dni, fechaNacimiento, telefono, matricula, especialidad, valorConsulta, descripcionEspecialidad);
     }
 
@@ -123,6 +129,20 @@ public class UsuarioServicio implements UserDetailsService {
         return obraSocialServicio.listarObraSocial();
     }
 
+//-----------------------------Especialiada----------------------------
+    @Transactional
+    public void CrearEspecialiadad(String nombre){
+        Especialidad especialidad = new Especialidad();
+        especialidad.setNombre(nombre);
+        especialidadRepositorio.save(especialidad);
+            
+    }
+    
+    public List<Especialidad> listarEspecialidad(){
+        return especialidadRepositorio.findAll();
+    }
+
+
 //----------------- Reestablecer contraseña ----------------------------    
     public void solicitarContra(String mail) throws MiException{
         Profesional profesional = profesionalServicio.buscarPorMail(mail);
@@ -148,6 +168,7 @@ public class UsuarioServicio implements UserDetailsService {
         }else{
             throw new MiException("No se encontró ningún usuario con el correo electrónico proporcionado");
         }
+
 
     }
 

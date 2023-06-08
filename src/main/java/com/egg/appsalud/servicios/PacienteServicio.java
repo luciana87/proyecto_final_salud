@@ -5,7 +5,7 @@
  */
 package com.egg.appsalud.servicios;
 
-import com.egg.appsalud.Enumerativos.Especialidad;
+
 import com.egg.appsalud.Enumerativos.Rol;
 import com.egg.appsalud.entidades.Imagen;
 import com.egg.appsalud.entidades.ObraSocial;

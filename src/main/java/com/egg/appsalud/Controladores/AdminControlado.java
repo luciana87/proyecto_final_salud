@@ -6,8 +6,9 @@
 package com.egg.appsalud.Controladores;
 
 
-import com.egg.appsalud.Enumerativos.Especialidad;
+
 import com.egg.appsalud.Enumerativos.EstadoTurno;
+import com.egg.appsalud.entidades.Especialidad;
 import com.egg.appsalud.entidades.ObraSocial;
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Profesional;
@@ -153,7 +154,9 @@ public class AdminControlado {
 
     @PreAuthorize ("hasAnyRole('ROLE_ADMIN')")
     @GetMapping ("/dashboard/crearProfesional")
-    public String crearProfesional(){
+    public String crearProfesional(ModelMap modelo){
+        List<Especialidad>listaEspecialidades = usuarioServicio.listarEspecialidad();
+        modelo.addAttribute("especialidades", listaEspecialidades);
         
         return "registro-profesional.html";
     }
@@ -164,7 +167,7 @@ public class AdminControlado {
     public String crearProfesional (@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
 
             @RequestParam String password, @RequestParam String fechaNacimiento, @RequestParam String dni,
-            @RequestParam String telefono, @RequestParam String matricula, @RequestParam String especialidad,
+            @RequestParam String telefono, @RequestParam String matricula, @RequestParam Integer especialidad,
             @RequestParam Double valorConsulta, @RequestParam String descripcionEspecialidad, ModelMap modelo){
         
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter);
@@ -200,7 +203,7 @@ public class AdminControlado {
     @PreAuthorize ("hasAnyRole('ROLE_ADMIN')")
     @PostMapping ("/dashboard/listaProfesionales/modificar/{id}")
     public String modificarProfesional (@PathVariable String id, String mail, String password, String nombre, String apellido,
-                                       String dni, String fechaNacimiento, String telefono, String matricula, String especialidad,
+                                       String dni, String fechaNacimiento, String telefono, String matricula, Integer especialidad,
                                        Double valorConsulta, String descripcionEspecialidad, ModelMap modelo) {
 
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter);
@@ -330,7 +333,7 @@ public class AdminControlado {
 
 
     @PostMapping("/dashboard/buscarTurnos")
-    public String buscarTurnos(String idProfesional,String fecha,String horario,  String nombre, Double valorConsulta, ModelMap modelo){
+    public String buscarTurnos(String idProfesional,String fecha,String horario,  String nombre, Double valorConsulta,Double reputacion,Integer especialidad, ModelMap modelo){
 
         LocalTime horaioParse = null;
         LocalDate fechaParse = null;
@@ -345,9 +348,11 @@ public class AdminControlado {
         }
 
 
-        List<Turno>ListaTurnoFiltro = turnoServicio.buscarTurnosFiltro(idProfesional,fechaParse ,horaioParse , nombre, valorConsulta, EstadoTurno.DISPONIBLE);
+        List<Turno>ListaTurnoFiltro = turnoServicio.buscarTurnosFiltro(idProfesional,fechaParse ,horaioParse , nombre, valorConsulta, EstadoTurno.DISPONIBLE,reputacion,especialidad);
         List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
         List<Profesional> profesionales = profesionalServicio.listarProfesionales();
+        List<Especialidad>listaEspecialidades = usuarioServicio.listarEspecialidad();
+        modelo.addAttribute("especialidades", listaEspecialidades);
         modelo.addAttribute("turnos", ListaTurnoFiltro);
         modelo.addAttribute("obraSociales", obraSociales);
         modelo.addAttribute("profesionales", profesionales);
@@ -356,7 +361,20 @@ public class AdminControlado {
         return "lista-turnosAdmin.html";
 
     }
-
+//-------------------------------------------Especialidad----------------------------------------
+    @GetMapping("/dashboard/CrearEspecialidad")
+    public String CrearEspecialidad(ModelMap modelo){
+        List<Especialidad>listaEspecialidades = usuarioServicio.listarEspecialidad();
+        modelo.addAttribute("especialidades", listaEspecialidades);
+        return "crear-especialidad.html";
+    }
+    @PostMapping("/dashboard/CrearEspecialidad")
+    public String CrearEspecialiadad(@RequestParam String nombre){
+        usuarioServicio.CrearEspecialiadad(nombre);
+        return "redirect:/admin/dashboard/CrearEspecialidad";
+    }
+    
+    
 
 
 }
