@@ -1,12 +1,14 @@
 package com.egg.appsalud.servicios;
 
 
-import com.egg.appsalud.Enumerativos.Especialidad;
+
+import com.egg.appsalud.entidades.Especialidad;
 import com.egg.appsalud.entidades.ObraSocial;
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.entidades.Usuario;
 import com.egg.appsalud.excepciones.MiException;
+import com.egg.appsalud.repositorios.EspecialidadRepositorio;
 import com.egg.appsalud.repositorios.PacienteRepositorio;
 import com.egg.appsalud.repositorios.ProfesionalRepositorio;
 import java.io.IOException;
@@ -43,6 +45,8 @@ public class UsuarioServicio implements UserDetailsService {
     private ProfesionalServicio profesionalServicio;
     @Autowired
     private ObraSocialServicio obraSocialServicio;
+    @Autowired
+    private EspecialidadRepositorio especialidadRepositorio;
 
     @Override
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
@@ -80,7 +84,7 @@ public class UsuarioServicio implements UserDetailsService {
     
     public void CrearProfesional(String mail, String password, String nombre, String apellido,
                                  String dni, LocalDate fechaNacimiento, String telefono, String matricula,
-                                 String especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException{
+                                 Integer especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException{
         
         profesionalServicio.crearProfesional(mail, password, nombre, apellido, dni, fechaNacimiento, telefono, matricula, especialidad, valorConsulta, descripcionEspecialidad);
     }
@@ -131,6 +135,16 @@ public class UsuarioServicio implements UserDetailsService {
         return obraSocialServicio.listarObraSocial();
     }
     
-
+//-----------------------------Especialiada----------------------------
+    @Transactional
+    public void CrearEspecialiadad(String nombre){
+        Especialidad especialidad = new Especialidad();
+        especialidad.setNombre(nombre);
+        especialidadRepositorio.save(especialidad);
+            
+    }
+    public List<Especialidad> listarEspecialidad(){
+        return especialidadRepositorio.findAll();
+    }
 
 }

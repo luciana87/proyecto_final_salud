@@ -1,11 +1,13 @@
 package com.egg.appsalud.servicios;
 
-import com.egg.appsalud.Enumerativos.Especialidad;
+
 import com.egg.appsalud.Enumerativos.Rol;
+import com.egg.appsalud.entidades.Especialidad;
 import com.egg.appsalud.entidades.JornadaLaboral;
 //import com.egg.appsalud.entidades.JornadaLaboral;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.excepciones.MiException;
+import com.egg.appsalud.repositorios.EspecialidadRepositorio;
 import com.egg.appsalud.repositorios.JornadaLaboralRepositorio;
 import com.egg.appsalud.repositorios.ProfesionalRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +34,18 @@ public class ProfesionalServicio {
     private JornadaLaboralServicio jornadaServicio;
     @Autowired
     private JornadaLaboralRepositorio jornadaLaboralRepositorio;
+    @Autowired
+    private EspecialidadRepositorio especialidadRepositorio;
 
     @Transactional
     public void crearProfesional(String mail, String password, String nombre, String apellido,
             String dni, LocalDate fechaNacimiento, String telefono, String matricula,
-            String especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException {
+            Integer especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException {
 
         validar(mail, password, nombre, apellido, dni, fechaNacimiento);
 
         Profesional profesional = new Profesional();
+        Especialidad espec = especialidadRepositorio.getOne(especialidad);
 
         profesional.setNombre(nombre);
         profesional.setApellido(apellido);
@@ -50,7 +55,7 @@ public class ProfesionalServicio {
         profesional.setPassword(new BCryptPasswordEncoder().encode(password));
         profesional.setTelefono(telefono);
         profesional.setMatricula(matricula);
-        profesional.setEspecialidad(Especialidad.CARDIOLOGIA);
+        profesional.setEspecialidad(espec);
         profesional.setValorConsulta(valorConsulta);
         profesional.setDescripcionEspecialidad(descripcionEspecialidad);
         profesional.setRol(Rol.PROFESIONAL);
@@ -68,7 +73,7 @@ public class ProfesionalServicio {
 
     @Transactional
     public void modificarProfesional(String idProfesional, String mail, String nombre, String apellido,
-            String dni, LocalDate fechaNacimiento, String telefono, String matricula, String especialidad,
+            String dni, LocalDate fechaNacimiento, String telefono, String matricula, Integer especialidad,
             Double valorConsulta, String descripcionEspecialidad) throws MiException {
 
 //        validarModificar(mail, nombre, apellido, dni, telefono ,fechaNacimiento);
@@ -77,6 +82,7 @@ public class ProfesionalServicio {
 
         if (profesionalOptional.isPresent()) {
             Profesional profesional = profesionalOptional.get();
+            Especialidad espec = especialidadRepositorio.getOne(especialidad);
 
             profesional.setMail(mail);
             profesional.setNombre(nombre);
@@ -85,7 +91,7 @@ public class ProfesionalServicio {
             profesional.setFechaNacimiento(fechaNacimiento);
             profesional.setTelefono(telefono);
             profesional.setMatricula(matricula);
-            profesional.setEspecialidad(Especialidad.CARDIOLOGIA);
+            profesional.setEspecialidad(espec);
             profesional.setValorConsulta(valorConsulta);
             profesional.setDescripcionEspecialidad(descripcionEspecialidad);
 

@@ -22,15 +22,12 @@
                     <!-- select speciality -->
                     <div style="margin-right: 35px;">
                         <select  name ="especialidad" class="custom-select custom-select-sm" style="margin-left: 0px; width: 150px;">
-                            <option selected>Especialidad</option>
-                            <option value="0">Pediatria</option>
-                            <option value="1">Ginecologia</option>
-                            <option value="2">Clinica</option>
-                            <option value="3">Cardiologia</option>
+                            <option th:value="${null}">Especialiadad</option>
+                            <option th:each="esp : ${especialidades}" th:value="${esp.id}" th:text="${esp.nombre}"></option>
                         </select>
                         <!-- select reputation -->
                         <select name ="reputacion" class="custom-select custom-select-sm" style="margin-left: 40px; width: 150px;">
-                            <option selected>Reputacion</option>
+                            <option th:value="${null}"selected>Reputacion</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -62,6 +59,7 @@
                         <thead>
                         <tr>
                             <th>Profesional</th>
+                            <th>Especialidad</th>
                             <th>Reputacion</th>
                             <th>Valor Consulata</th>
                             <th>Día</th>
@@ -73,6 +71,7 @@
                         <tbody>
                         <tr th:each="turno : ${turnos}">
                             <td th:text="${turno.medico.nombre} + ' ' + ${turno.medico.apellido}"></td>
+                            <td th:text="${turno.medico.especialidad.nombre}"></td>
                             <td th:text="${turno.medico.reputacion}"></td>
                             <td th:text="${turno.medico.valorConsulta}"></td>
                             <td th:text="${turno.fecha}"></td>

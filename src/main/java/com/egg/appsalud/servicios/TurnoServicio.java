@@ -28,6 +28,7 @@ import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.entidades.Turno;
 import com.egg.appsalud.excepciones.MiException;
+import com.egg.appsalud.repositorios.EspecialidadRepositorio;
 import com.egg.appsalud.repositorios.PacienteRepositorio;
 import com.egg.appsalud.repositorios.TurnoRepositorio;
 import java.time.LocalDate;
@@ -52,6 +53,8 @@ public class TurnoServicio {
 
     @Autowired
     private ProfesionalRepositorio profesionalRepositorio;
+    @Autowired
+    private EspecialidadRepositorio especialidadRepositorio;
 
     public Turno getOne(Integer id) {
         return turnoRepositorio.getOne(id);
@@ -200,15 +203,20 @@ public class TurnoServicio {
         return turnoRepositorio.findById(id).orElse(null);
     }
 
-    public List<Turno>buscarTurnosFiltro( String idProfesional, LocalDate fecha, LocalTime horario,  String nombre,  Double valorConsulta, EstadoTurno estado,Double reputacion){
+    public List<Turno>buscarTurnosFiltro( String idProfesional, LocalDate fecha, LocalTime horario,  String nombre,  Double valorConsulta, EstadoTurno estado,Double reputacion,Integer especialidad){
         Profesional medico = null;
+        Especialidad espe = null;
         Optional<Profesional> medicoOptional = profesionalRepositorio.findById(idProfesional);
+        if(especialidad != null){
+            espe = especialidadRepositorio.getOne(especialidad);
+        }
+        
 
         if (medicoOptional.isPresent()){
             medico = medicoOptional.get();
         }
 
-        List<Turno>listaDeTurnos = turnoRepositorio.buscarTurnosFiltro(medico, fecha, horario, nombre, valorConsulta,estado,reputacion);
+        List<Turno>listaDeTurnos = turnoRepositorio.buscarTurnosFiltro(medico, fecha, horario, nombre, valorConsulta,estado,reputacion,espe);
         return listaDeTurnos;
     }
 

@@ -10,27 +10,27 @@
         <link href="/css/registro.css" rel="stylesheet" type="text/css">
         <title>Registro Profesional</title>
         <style>
-         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            list-style-type: none;
-            text-decoration: none;
-        }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                list-style-type: none;
+                text-decoration: none;
+            }
         </style>
     </head>
     <body class="container">
         <header class="header">
-        <div class="logoth">
-            <img src="/img/logo5t.png" alt="Logo de la marca">
-        </div>
-        <nav>
-            <ul class="nav-links">
-                <li><a th:href="@{/}">Inicio</a></li>
-            </ul>
-        </nav>
-        <a class="btnth" href="/logout"><button>Cerrar Sesión</button></a>
-    </header>
+            <div class="logoth">
+                <img src="/img/logo5t.png" alt="Logo de la marca">
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a th:href="@{/}">Inicio</a></li>
+                </ul>
+            </nav>
+            <a class="btnth" href="/logout"><button>Cerrar Sesión</button></a>
+        </header>
 
         <main>
             <div class="container" id="advanced-search-form">
@@ -71,8 +71,12 @@
                         <input type="text" class="form-control" name="matricula" placeholder="" id="matricula">
                     </div>
                     <div class="form-group">
-                        <label for="especialidad">Especialidad</label>
-                        <input type="text" class="form-control" name="especialidad" placeholder="" id="especialidad">
+                        <label>Especialidad</label>
+
+                        <select name="especialidad">
+                            <option>Seleccione una Especialiadad</option>
+                            <option th:each="esp : ${especialidades}" th:value="${esp.id}" th:text="${esp.nombre}" ></option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="telefono">Teléfono</label>

@@ -36,7 +36,8 @@ public class PacienteControlador {
 
     @Autowired
     private CalificacionServicio calificacionServicio;
-
+    @Autowired
+    private UsuarioServicio usuarioServicio;
     @Autowired
     private TurnoServicio turnoServicio;
 
@@ -188,13 +189,15 @@ public class PacienteControlador {
     public String buscarTurnos(ModelMap modelo) {
         List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
         List<Profesional> profesionales = profesionalServicio.listarProfesionales();
+        List<Especialidad>listaEspecialidades = usuarioServicio.listarEspecialidad();
+        modelo.addAttribute("especialidades", listaEspecialidades);
         modelo.addAttribute("obraSociales", obraSociales);
         modelo.addAttribute("profesionales", profesionales);
         return "lista-turnos.html";
     }
 
     @PostMapping("/buscarTurnos")
-    public String buscarTurnos(String idProfesional,String fecha,String horario,  String nombre, Double valorConsulta,Double reputacion, ModelMap modelo){
+    public String buscarTurnos(String idProfesional,String fecha,String horario,  String nombre, Double valorConsulta,Double reputacion, Integer especialidad, ModelMap modelo){
 
         LocalTime horaioParse = null;
         LocalDate fechaParse = null;
@@ -209,9 +212,11 @@ public class PacienteControlador {
         }
 
 
-        List<Turno>ListaTurnoFiltro = turnoServicio.buscarTurnosFiltro(idProfesional,fechaParse ,horaioParse , nombre, valorConsulta, EstadoTurno.DISPONIBLE,reputacion);
+        List<Turno>ListaTurnoFiltro = turnoServicio.buscarTurnosFiltro(idProfesional,fechaParse ,horaioParse , nombre, valorConsulta, EstadoTurno.DISPONIBLE,reputacion,especialidad);
         List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
         List<Profesional> profesionales = profesionalServicio.listarProfesionales();
+        List<Especialidad>listaEspecialidades = usuarioServicio.listarEspecialidad();
+        modelo.addAttribute("especialidades", listaEspecialidades);
         modelo.addAttribute("turnos", ListaTurnoFiltro);
         modelo.addAttribute("obraSociales", obraSociales);
         modelo.addAttribute("profesionales", profesionales);

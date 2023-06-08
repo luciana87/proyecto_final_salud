@@ -1,6 +1,6 @@
 package com.egg.appsalud.Controladores;
 
-import com.egg.appsalud.Enumerativos.Especialidad;
+
 import com.egg.appsalud.Enumerativos.EstadoTurno;
 import com.egg.appsalud.entidades.*;
 import com.egg.appsalud.excepciones.MiException;
@@ -39,6 +39,8 @@ public class ProfesionalControlador {
     JornadaLaboralServicio jornadaServicio;
     @Autowired
     private TurnoServicio turnoServicio;
+    @Autowired
+    private UsuarioServicio usuarioServicio;
 
     @Autowired
     private ObraSocialServicio obraSocialServicio;
@@ -46,7 +48,9 @@ public class ProfesionalControlador {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Formateo los valores de ingreso a: aÃ±o-mes-dia del LocalDate
 
     @GetMapping("/registrar") //Retorna vista para registrarse
-    public String registrar() {
+    public String registrar(ModelMap modelo) {
+        List<Especialidad>listaEspecialidades = usuarioServicio.listarEspecialidad();
+        modelo.addAttribute("especialidades", listaEspecialidades);
         return "registro-profesional.html";
     }
 
@@ -54,7 +58,7 @@ public class ProfesionalControlador {
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
 
             @RequestParam String password, @RequestParam String fechaNacimiento, @RequestParam String dni,
-            @RequestParam String telefono, @RequestParam String matricula, @RequestParam String especialidad,
+            @RequestParam String telefono, @RequestParam String matricula, @RequestParam Integer especialidad,
             @RequestParam Double valorConsulta, @RequestParam String descripcionEspecialidad, ModelMap modelo/*, MultipartFile archivo*/) {
 
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter); //Convierte el String de fechaNacimiento a LocalDate, si pongo directamente tipo LocalDate genera conflicto
@@ -89,7 +93,7 @@ public class ProfesionalControlador {
 
     @PostMapping("/modificar/{id}")
     public String modificarProfesional(@PathVariable String id, String mail, String nombre, String apellido,
-                                       String dni, String fechaNacimiento, String telefono, String matricula, String especialidad,
+                                       String dni, String fechaNacimiento, String telefono, String matricula, Integer especialidad,
                                        Double valorConsulta, String descripcionEspecialidad, ModelMap modelo) {
 
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter);
@@ -280,6 +284,8 @@ public class ProfesionalControlador {
         List<Turno> turnos = turnoServicio.ListarTurnoProfesional(profesional.getId());
         List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
         List<Profesional> profesionales = profesionalServicio.listarProfesionales();
+        List<Especialidad>listaEspecialidades = usuarioServicio.listarEspecialidad();
+        modelo.addAttribute("especialidades", listaEspecialidades);
         modelo.addAttribute("obraSociales", obraSociales);
         modelo.addAttribute("profesionales", profesionales);
         modelo.addAttribute("turnos", turnos);
@@ -288,7 +294,7 @@ public class ProfesionalControlador {
     }
 
     @PostMapping("/buscarTurno")
-    public String buscarTurnos(String idProfesional, String fecha, String horario, String nombre, Double valorConsulta,Double reputacion, ModelMap modelo){
+    public String buscarTurnos(String idProfesional, String fecha, String horario, String nombre, Double valorConsulta,Double reputacion,Integer especialidad, ModelMap modelo){
 
         LocalTime horaioParse = null;
         LocalDate fechaParse = null;
@@ -300,9 +306,11 @@ public class ProfesionalControlador {
             horaioParse = LocalTime.parse(horario);
         }
 
-        List<Turno>ListaTurnoFiltro = turnoServicio.buscarTurnosFiltro(idProfesional,fechaParse ,horaioParse , nombre, valorConsulta, EstadoTurno.DISPONIBLE,reputacion);
+        List<Turno>ListaTurnoFiltro = turnoServicio.buscarTurnosFiltro(idProfesional,fechaParse ,horaioParse , nombre, valorConsulta, EstadoTurno.DISPONIBLE,reputacion,especialidad);
         List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
         List<Profesional> profesionales = profesionalServicio.listarProfesionales();
+        List<Especialidad>listaEspecialidades = usuarioServicio.listarEspecialidad();
+        modelo.addAttribute("especialidades", listaEspecialidades);
         modelo.addAttribute("turnos", ListaTurnoFiltro);
         modelo.addAttribute("obraSociales", obraSociales);
         modelo.addAttribute("profesionales", profesionales);
