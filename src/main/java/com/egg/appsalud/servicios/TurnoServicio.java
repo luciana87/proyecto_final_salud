@@ -164,9 +164,10 @@ public class TurnoServicio {
         turnoRepositorio.save(turno);
     }
     @Transactional
-    public void CambiarTurnoReservado(Integer idTurno){
+    public void CambiarTurnoReservado(Integer idTurno, Paciente paciente){
         Turno turno = turnoRepositorio.getOne(idTurno);
         turno.setEstado(EstadoTurno.RESERVADO);
+        turno.setPaciente(paciente);
         turnoRepositorio.save(turno);
     }
     
@@ -199,7 +200,7 @@ public class TurnoServicio {
         return turnoRepositorio.findById(id).orElse(null);
     }
 
-    public List<Turno>buscarTurnosFiltro( String idProfesional, LocalDate fecha, LocalTime horario,  String nombre,  Double valorConsulta, EstadoTurno estado){
+    public List<Turno>buscarTurnosFiltro( String idProfesional, LocalDate fecha, LocalTime horario,  String nombre,  Double valorConsulta, EstadoTurno estado,Double reputacion){
         Profesional medico = null;
         Optional<Profesional> medicoOptional = profesionalRepositorio.findById(idProfesional);
 
@@ -207,7 +208,7 @@ public class TurnoServicio {
             medico = medicoOptional.get();
         }
 
-        List<Turno>listaDeTurnos = turnoRepositorio.buscarTurnosFiltro(medico, fecha, horario, nombre, valorConsulta,estado);
+        List<Turno>listaDeTurnos = turnoRepositorio.buscarTurnosFiltro(medico, fecha, horario, nombre, valorConsulta,estado,reputacion);
         return listaDeTurnos;
     }
 

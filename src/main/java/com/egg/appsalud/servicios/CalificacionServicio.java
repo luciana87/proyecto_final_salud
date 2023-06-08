@@ -63,6 +63,9 @@ public class CalificacionServicio {
         }
 
         promedio = Math.round((suma/calificaciones.size()) * 100.0) / 100.0;
+        if(promedio>5D){
+            promedio = 5D;
+        }
         profesionalServicio.actualizarReputacion(promedio, profesional);
     }
 }

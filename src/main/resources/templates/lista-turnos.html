@@ -62,6 +62,8 @@
                         <thead>
                         <tr>
                             <th>Profesional</th>
+                            <th>Reputacion</th>
+                            <th>Valor Consulata</th>
                             <th>Día</th>
                             <th>Hora</th>
                             <th>Estado</th>
@@ -71,13 +73,15 @@
                         <tbody>
                         <tr th:each="turno : ${turnos}">
                             <td th:text="${turno.medico.nombre} + ' ' + ${turno.medico.apellido}"></td>
+                            <td th:text="${turno.medico.reputacion}"></td>
+                            <td th:text="${turno.medico.valorConsulta}"></td>
                             <td th:text="${turno.fecha}"></td>
                             <td th:text="${turno.horario}"></td>
                             <td th:text="${turno.estado}"></td>
                             <td style="display: flex; align-items: center; justify-content: space-between;">
-                                <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).RESERVADO}" th:href= "@{/turno/eliminar/__${turno.id}__}">Cancelar</a> <!--Elimina el turno-->
-                                <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).ASISTIO}" th:href= "@{/paciente/calificar/turno/__${turno.id}__}">Calificar</a>
-                                <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).DISPONIBLE}" th:href= "@{/paciente/turno/reservar/__${turno.id}__}">Reservar</a>
+                               <!--Elimina el turno
+                                <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).ASISTIO}" th:href= "@{/paciente/calificar/turno/__${turno.id}__}">Calificar</a>-->
+                                <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).DISPONIBLE}" th:href= "@{/paciente/ReservarTurno/__${turno.id}__}">Reservar</a>
                             </td>
                         </tr>
                         </tbody>
