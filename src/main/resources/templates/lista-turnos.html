@@ -70,11 +70,11 @@
                         </thead>
                         <tbody>
                         <tr th:each="turno : ${turnos}">
-                            <td th:text="${turno.medico.nombre} + ' ' + ${turno.medico.apellido}"></td>
-                            <td th:text="${turno.medico.especialidad.nombre}"></td>
-                            <td th:text="${turno.medico.reputacion}"></td>
-                            <td th:text="${turno.medico.valorConsulta}"></td>
-                            <td th:text="${turno.fecha}"></td>
+                            <td th:text="${turno.medico?.nombre} + ' ' + ${turno.medico?.apellido}"></td>
+                            <td th:text="${turno.medico?.especialidad?.nombre}"></td>
+                            <td th:text="${turno.medico?.reputacion}"></td>
+                            <td th:text="${turno.medico?.valorConsulta}"></td>
+                            <td th:text="${{turno.fecha}}"></td>
                             <td th:text="${turno.horario}"></td>
                             <td th:text="${turno.estado}"></td>
                             <td style="display: flex; align-items: center; justify-content: space-between;">

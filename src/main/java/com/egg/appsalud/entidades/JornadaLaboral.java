@@ -51,6 +51,21 @@ public class JornadaLaboral {
         return diaSemana;
     }
 
+    public String getLocalDiaSemana() {
+        String dia;
+        switch (diaSemana) {
+            case "MONDAY": dia = "Lunes"; break;
+            case "TUESDAY": dia = "Martes";break;
+            case "WEDNESDAY": dia = "Miércoles";break;
+            case "THURSDAY": dia = "Jueves";break;
+            case "FRIDAY": dia = "Viernes";break;
+            case "SATURDAY": dia = "Sábado"; break;
+            case "SUNDAY": dia = "Domingo"; break;
+            default: dia = "No encontrado"; break;
+        }
+        return dia;
+    }
+
     public LocalTime getHoraInicio() {
         return horaInicio;
     }

@@ -75,7 +75,7 @@
                       </thead>
                       <tbody>
                           <tr th:each="jornada : ${jornadas}">
-                              <td th:text="${jornada.getDiaSemana}"></td>
+                              <td th:text="${jornada.getLocalDiaSemana}"></td>
                               <td th:text="${jornada.getHoraInicio}"></td>
                               <td th:text="${jornada.getHoraFin}"></td>
                               <td th:text="${jornada.getDuracionTurno}"></td>
@@ -117,7 +117,7 @@
                 </thead>
                 <tbody>
                   <tr th:each="turno : ${turnos}">
-                    <td th:text="${turno.fecha}"></td>
+                    <td th:text="${{turno.fecha}}"></td>
                     <td th:text="${turno.horario}"></td>
                     <td th:text="${turno.estado}"></td>
                     <td style="display: flex; align-items: center; justify-content: center;">

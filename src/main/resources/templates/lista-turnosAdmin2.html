@@ -18,27 +18,27 @@
                 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 30px;">
                     <h2 style="font-size: 2rem; font-weight: 700;"><i class="fa-solid fa-clipboard-list"></i> Listado de turnos</h2>
                 </div>
-                <form action="/profesional/buscarTurno" method="POST" style="display: flex; align-items: baseline; justify-content: center; margin-bottom: 10px; width: 100%; flex-wrap: wrap;">
+                <form action="/admin/dashboard/buscarTurnos" method="POST" style="display: flex; align-items: baseline; justify-content: center; margin-bottom: 10px; width: 100%; flex-wrap: wrap;">
                     <!-- select speciality -->
                     <div style="margin-right: 35px;">
-<!--                        <select  name ="especialidad" class="custom-select custom-select-sm" style="margin-left: 0px; width: 150px;">-->
-<!--                            <option th:value="${null}">Especialiadad</option>-->
-<!--                            <option th:each="esp : ${especialidades}" th:value="${esp.id}" th:text="${esp.nombre}"></option>-->
-<!--                        </select>-->
+                        <select  name ="especialidad" class="custom-select custom-select-sm" style="margin-left: 0px; width: 150px;">
+                            <option th:value="${null}">Especialiadad</option>
+                            <option th:each="esp : ${especialidades}" th:value="${esp.id}" th:text="${esp.nombre}"></option>
+                        </select>
                         <!-- select reputation -->
-<!--                        <select name ="reputacion" class="custom-select custom-select-sm" style="margin-left: 40px; width: 150px;">-->
-<!--                            <option th:value="${null}" selected>Reputacion</option>-->
-<!--                            <option value="1">1</option>-->
-<!--                            <option value="2">2</option>-->
-<!--                            <option value="3">3</option>-->
-<!--                            <option value="4">4</option>-->
-<!--                            <option value="5">5</option>-->
-<!--                        </select>-->
+                        <select name ="reputacion" class="custom-select custom-select-sm" style="margin-left: 40px; width: 150px;">
+                            <option th:value="${null}"selected>Reputacion</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
                         <!-- select professional -->
-              <!--          <select name ="idProfesional" class="custom-select custom-select-sm" style=" margin-left: 40px; width: 150px;">
+                        <select name ="idProfesional" class="custom-select custom-select-sm" style=" margin-left: 40px; width: 150px;">
                             <option th:value="${null}">Profesional</option>
                             <option th:each="profesional : ${profesionales}" th:value="${profesional.id}" th:text="${profesional.nombre} + ' ' + ${profesional.apellido}"></option>
-                        </select>-->
+                        </select>
                     </div>
                     <!-- input date -->
                     <div>
@@ -58,7 +58,10 @@
                     <table class="table table-bordered" style="width: 80%;">
                         <thead>
                         <tr>
-                            <th>Paciente</th>
+                            <th>Profesional</th>
+                            <th>Especialidad</th>
+                            <th>Reputacion</th>
+                            <th>Valor Consulata</th>
                             <th>Día</th>
                             <th>Hora</th>
                             <th>Estado</th>
@@ -67,13 +70,15 @@
                         </thead>
                         <tbody>
                         <tr th:each="turno : ${turnos}">
-                            <td th:text="${turno.paciente} ? ${turno.paciente.nombre} + ' ' + ${turno.paciente.apellido} : '-'"></td>
+                            <td th:text="${turno.medico?.nombre} + ' ' + ${turno.medico?.apellido}"></td>
+                            <td th:text="${turno.medico?.especialidad?.nombre}"></td>
+                            <td th:text="${turno.medico?.reputacion}"></td>
+                            <td th:text="${turno.medico?.valorConsulta}"></td>
                             <td th:text="${{turno.fecha}}"></td>
                             <td th:text="${turno.horario}"></td>
                             <td th:text="${turno.estado}"></td>
                             <td style="display: flex; align-items: center; justify-content: space-between;">
-                                <a th:if="${turno.paciente != null}" th:href= "@{/profesional/buscarHistoriaClinica/__${turno.paciente.id}__}"><i class="fa-solid fa-file-waveform"></i> Historia clinica</a>
-                                <span th:unless="${turno.paciente != null}" > - </span>
+                                <a th:href= "@{/admin/dashboard/listaTurno/eliminar/__${turno.id}__}"><i class="fa-solid fa-trash-can"></i> Eliminar </a><!--Elimina el turno -->
                             </td>
                         </tr>
                         </tbody>

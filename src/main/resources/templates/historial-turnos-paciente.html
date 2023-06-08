@@ -33,7 +33,7 @@
         <tbody>
         <tr th:each="turno : ${turnos}">
           <td th:text="${turno.medico.nombre} + ' ' + ${turno.medico.apellido}"></td>
-          <td th:text="${turno.fecha}"></td>
+          <td th:text="${{turno.fecha}}"></td>
           <td th:text="${turno.horario}"></td>
           <td th:text="${turno.estado}"></td>
           <td>

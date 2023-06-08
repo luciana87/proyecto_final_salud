@@ -315,7 +315,7 @@ public class AdminControlado {
         modelo.addAttribute("obraSociales", obraSociales);
         modelo.addAttribute("profesionales", profesionales);
 
-        return "lista-turnosAdmin.html";
+        return "lista-turnosAdmin2.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
@@ -358,7 +358,7 @@ public class AdminControlado {
         modelo.addAttribute("profesionales", profesionales);
         modelo.addAttribute("profesionalId", idProfesional);
 
-        return "lista-turnosAdmin.html";
+        return "lista-turnosAdmin2.html";
 
     }
 //-------------------------------------------Especialidad----------------------------------------
