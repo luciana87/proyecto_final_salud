@@ -121,20 +121,20 @@ public class TurnoServicio {
     }
 
 
-
-
-    
-    
-    
     //fran
     public List<Turno> listarTurnosPaciente(String pacieteId){
         Paciente paciente = pacienteRepositorio.getOne(pacieteId);
         return turnoRepositorio.BuscarTurnosPaciente(paciente);
     }
-    
-    
-    
-    
+
+    public List<Turno>ListarTurnoProfesional(String profesionalId){
+        Profesional profesional = profesionalRepositorio.getReferenceById(profesionalId);
+        return turnoRepositorio.BuscarTurnosProfecional(profesional);
+    }
+
+    public List<Turno>ListarTurnoProfesional(Profesional profesional){
+        return turnoRepositorio.BuscarTurnosProfecional(profesional);
+    }
 //tira error en el repo
     
 //    public List<Turno> listarTurnosPorPacientes(Paciente paciente){
@@ -170,15 +170,6 @@ public class TurnoServicio {
         turnoRepositorio.save(turno);
     }
     
-    
-    public List<Turno>ListarTurnoProfesional(Profesional profesional){
-        
-        return turnoRepositorio.BuscarTurnosProfecional(profesional);
-    }
-    
-    
-    
-    
     private List<LocalDate> listarFechasSegunRango (LocalDate inicioRango, LocalDate finRango){
         List<LocalDate> dates = Stream.iterate(inicioRango, date -> date.plusDays(1))
                 .limit(ChronoUnit.DAYS.between(inicioRango, finRango))
@@ -206,5 +197,28 @@ public class TurnoServicio {
     }
     public Turno buscarPorId(Integer id) {
         return turnoRepositorio.findById(id).orElse(null);
+    }
+
+    public List<Turno>buscarTurnosFiltro( String idProfesional, LocalDate fecha, LocalTime horario,  String nombre,  Double valorConsulta, EstadoTurno estado){
+        Profesional medico = null;
+        Optional<Profesional> medicoOptional = profesionalRepositorio.findById(idProfesional);
+
+        if (medicoOptional.isPresent()){
+            medico = medicoOptional.get();
+        }
+
+        List<Turno>listaDeTurnos = turnoRepositorio.buscarTurnosFiltro(medico, fecha, horario, nombre, valorConsulta,estado);
+        return listaDeTurnos;
+    }
+
+    @Transactional
+    public void eliminarTurno(Integer id) throws MiException {
+        turnoRepositorio.deleteById(id);
+    }
+
+    @Transactional
+    public void BorraTurno(Integer id){
+        Turno turno = turnoRepositorio.getOne(id);
+        turnoRepositorio.delete(turno);
     }
 }

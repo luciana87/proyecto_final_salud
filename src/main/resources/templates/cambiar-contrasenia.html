@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Panel</title>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <!-- Fontawesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous"
+              referrerpolicy="no-referrer"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link th:href = "@{/css/headerstyle.css}" rel="stylesheet">
+        <link th:href = "@{/css/footerstyle.css}" rel="stylesheet">
+        <style>
+            * {
+                box-sizing: border-box;
+                text-decoration: none;
+                margin: o;
+                padding: 0;
+            }
+            input:focus {
+                border: none;
+                outline: none;
+                color: #000;
+            }
+        </style>
+    </head>
+    <body>
+        <header th:replace ="/fragments/header :: header"></header>
+
+        <div sec:authorize="hasRole('ROLE_PROFESIONAL')">
+            <form method="POST" th:action="@{/profesional/cambiarcontasenia/__${session.usuariosession.id}__}">
+                <label>Ingrese la contraseña antiguaS</label>
+                <input type="password"  class="form-control" th:name="contraVieja">
+
+                <label for="inputPassword5" class="form-label">Ingrese la nueva contraseña</label>
+                <input type="password" th:name="contraNueva" class="form-control">
+
+                <label for="inputPassword5" class="form-label">Repita la nueva contraseña</label>
+                <input type="password" th:name="contraComparar" class="form-control">
+
+                <button type="submit">Modificar</button>
+
+                <div th:if="${error != null}" class="card text-white bg-danger mb-3" >
+                    <div class="card-body">
+                        <h5 class="card-title">Error 👎</h5>
+                        <p class="card-text" th:text="${error}"></p>
+                    </div>
+                </div>
+                <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3" >
+                    <div class="card-body">
+                        <h5 class="card-title">Exito!</h5>
+                        <p class="card-text" th:text="${exito}"></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div sec:authorize="hasRole('ROLE_PACIENTE')">
+            <form method="POST" th:action="@{/paciente/cambiarcontasenia/__${session.usuariosession.id}__}">
+                <label >Ingrese la contraseña vieja</label>
+                <input type="password"  class="form-control" th:name="contraVieja">
+
+                <label>Ingrese la nueva contraseña</label>
+                <input type="password" th:name="contraNueva" class="form-control">
+
+                <label>Repita la nueva contraseña</label>
+                <input type="password" th:name="contraComparar" class="form-control">
+
+                <button type="submit">Modificar</button>
+
+                <div th:if="${error != null}" class="card text-white bg-danger mb-3" >
+                    <div class="card-body">
+                        <h5 class="card-title">Error 👎</h5>
+                        <p class="card-text" th:text="${error}"></p>
+                    </div>
+                </div>
+                <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3" >
+                    <div class="card-body">
+                        <h5 class="card-title">Exito!</h5>
+                        <p class="card-text" th:text="${exito}"></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <footer th:replace ="/fragments/footer :: footer"></footer>
+    </body>
+
+</html>

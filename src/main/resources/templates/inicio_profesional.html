@@ -4,10 +4,10 @@
         <meta charset="UTF-8">
         <title>Panel</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- Fontawesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous"
-        referrerpolicy="no-referrer"/>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+              referrerpolicy="no-referrer"/>
         <link th:href = "@{/css/headerstyle.css}" rel="stylesheet">
         <link th:href = "@{/css/footerstyle.css}" rel="stylesheet">
         <style>
@@ -31,80 +31,81 @@
             <section style="margin: 30px 50px;">
                 <div style="display: flex; align-items: center; justify-content: center;">
                     <a href="#" style="margin-right: 20px; padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff;"><i class="fa fa-home" style="margin-right: 5px;"></i>Cuenta</a>
-                    <a href="/paciente/buscarTurno" style="margin-right: 20px; padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff;"><i class="fa-regular fa-calendar" style="margin-right: 5px;"></i>Sacar turno</a>
-                    <a href="/paciente/listaTurno" style="margin-right: 20px; padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff;"><i class="fa-solid fa-pen-to-square" style="margin-right: 5px;"></i>Historial de turnos</a>
-                    <a href="#" style="margin-right: 20px; padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff;"><i class="fa fa-key" style="margin-right: 5px;"></i>Cambiar contraseña</a>
+                    <a href="/profesional/CrearJornadaTurnos" style="margin-right: 20px; padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff;"><i class="fa-regular fa-calendar" style="margin-right: 5px;"></i>Generar turnos</a>
+                    <a href="/profesional/listaTurno" style="margin-right: 20px; padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff;"><i class="fa-solid fa-pen-to-square" style="margin-right: 5px;"></i>Lista de turnos</a>
+<!--                    <a href="/profesional/listaTurno" style="margin-right: 20px; padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff;"><i class="fa-solid fa-pen-to-square" style="margin-right: 5px;"></i>Jornada laboral</a>-->
+                    <a href="/profesional/formCambiarContrasenia" style="margin-right: 20px; padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff;"><i class="fa fa-key" style="margin-right: 5px;"></i>Cambiar contraseña</a>
 <!--                    <a href="/logout" style="margin-right: 20px; padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff;"><i class="fa-solid fa-right-from-bracket" style="margin-right: 5px;"></i>Cerrar sesión</a>-->
                 </div>
             </section>
             <!-- usuario container -->
             <section style="padding: 20px 30px; background-color: #2a565c5c; border-radius: 5px; box-shadow: 0 0 4px 1px #000000a1; margin-bottom: 40px;">
-                <!-- titulo bienvenida + foto perfil usuario -->
+                <!-- titulo bienvenida -->
                 <div style="display: flex; flex-direction: column; align-items: center; padding: 0px 20px;">
                     <div style="display: flex; flex-direction: column; align-items: center;">
-                        <div style="width: 30%">
-                            <img class="logo" th:if="${paciente.tieneImagen}" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" style="width: 100%; border-radius: 50%;">
-                        </div>
-                        <div style="width: 40%">
-                            <img class="logo" th:unless="${paciente.tieneImagen}" src="/img/img-default.jpg" style="width: 100%; border-radius: 50%;">
-                        </div>
-                        <h4  th:text="${paciente.nombre}" style="font-size: 1.2rem; margin: 5px 0; color: #1c4a5a"></h4>
+<!--                        <div style="width: 30%">-->
+<!--                            <img class="logo" th:if="${profesional.tieneImagen}" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" style="width: 100%; border-radius: 50%;">-->
+<!--                        </div>-->
+<!--                        <div style="width: 40%">-->
+<!--                            <img class="logo" th:unless="${profesional.tieneImagen}" src="/img/img-default.jpg" style="width: 100%; border-radius: 50%;">-->
+<!--                        </div>-->
+                        <h4  th:text="${profesional.nombre}" style="font-size: 1.2rem; margin: 5px 0; color: #1c4a5a"></h4>
                     </div>
                 </div>
                 <div style="border-bottom: 1px solid #1c4a5a;"></div>
                 <!-- formulario con datos de usuario -->
-                <form  enctype="multipart/form-data" method="POST" th:action="@{/paciente/modificar/__${session.usuariosession.id}__} " style="padding: 25px 50px; color: #1c4a5a;">
+                <form method="POST" th:action="@{/profesional/modificar/__${session.usuariosession.id}__} " style="padding: 25px 50px; color: #1c4a5a;">
                     <div style="display: flex; padding: 15px;">
                         <!-- nombre y apellido -->
                         <div style="display: flex; flex-direction: column; margin-right: 50px;">
                             <div style="display: flex; flex-direction: row;">
                                 <div style="display: flex; flex-direction: column; margin-bottom: 20px; width: 45%; margin-right: 10%;">
                                     <label style="margin-bottom: 6px; font-weight: 600;">Nombre</label>
-                                    <input name="nombre" id="nombre" type="text" th:value="${paciente.nombre}" disabled style="border: 1px solid gray; padding: 5px 8px; border-radius: 5px;" autofocus>
+                                    <input name="nombre" id="nombre" type="text" th:value="${profesional.nombre}" disabled style="border: 1px solid gray; padding: 5px 8px; border-radius: 5px;" autofocus>
                                 </div>
                                 <div style="display: flex; flex-direction: column; margin-bottom: 20px; width: 45%;">
                                     <label style="margin-bottom: 6px; font-weight: 600;">Apellido</label>
-                                    <input  name="apellido" id="apellido" type="text" th:value="${paciente.apellido}" disabled style="border: 1px solid gray; padding: 5px 8px; border-radius: 5px;">
+                                    <input  name="apellido" id="apellido" type="text" th:value="${profesional.apellido}" disabled style="border: 1px solid gray; padding: 5px 8px; border-radius: 5px;">
                                 </div>
                             </div>
                             <div style="display: flex; flex-direction: column; margin-bottom: 20px;">
                                 <label style="margin-bottom: 6px; font-weight: 600;">Email</label>
-                                <input name="mail" id="mail" type="text" th:value="${paciente.mail}" disabled style="border: 1px solid gray; padding: 5px 8px; border-radius: 5px;">
+                                <input name="mail" id="mail" type="text" th:value="${profesional.mail}" disabled style="border: 1px solid gray; padding: 5px 8px; border-radius: 5px;">
                             </div>
                             <div style="display: flex; flex-direction: row;">
                                 <div style="display: flex; flex-direction: column; margin-bottom: 20px; width: 45%; margin-right: 10%;">
                                     <label style="margin-bottom: 6px; font-weight: 600;">Telefono</label>
-                                    <input name="telefono" id="telefono" type="text" th:value="${paciente.telefono}" disabled style="border: 1px solid gray; padding: 5px 8px; border-radius: 5px;">
+                                    <input name="telefono" id="telefono" type="text" th:value="${profesional.telefono}" disabled style="border: 1px solid gray; padding: 5px 8px; border-radius: 5px;">
                                 </div>
                                 <div style="display: flex; flex-direction: column; margin-bottom: 20px; width: 45%;">
                                     <label style="margin-bottom: 6px; font-weight: 600;">DNI</label>
-                                    <input name="dni" id="dni" type="text" th:value="${paciente.dni}" disabled style="border: 1px solid gray; padding: 5px 8px; border-radius: 5px;">
+                                    <input name="dni" id="dni" type="text" th:value="${profesional.dni}" disabled style="border: 1px solid gray; padding: 5px 8px; border-radius: 5px;">
                                 </div>
                             </div>
                         </div>
-                        <!-- fecha de nacimiento, obras sociales, numero de obra social, imagen de perfil-->
+                        <!-- fecha de nacimiento, matrícula, especialidad -->
                         <div style="display: flex; flex-direction: column;">
                             <div style="display: flex; flex-direction: row; align-items: center;">
                                 <div style="display: flex; flex-direction: column; margin-bottom: 26px; width: 45%; margin-right: 10%;">
                                     <label style="margin-bottom: 6px; font-weight: 600;">Fecha Nacimiento</label>
-                                    <input name="fechaNacimiento" id="fechaNacimiento" type="date" th:value="${paciente.fechaNacimiento}" disabled style="border: 1px solid gray; padding: 4px 8px; border-radius: 5px;">
+                                    <input name="fechaNacimiento" id="fechaNacimiento" type="date" th:value="${profesional.fechaNacimiento}" disabled style="border: 1px solid gray; padding: 4px 8px; border-radius: 5px;">
                                 </div>
-                                <select name="idObraSocial" style="border: 1px solid gray; padding: 6px 8px; width: 45%; border-radius: 5px; color: #000;">
-                                    <option>Obra social</option>
-                                    <option name="obraSocial" th:each="obraSocial : ${obraSociales}" th:value="${obraSocial.id}" th:text="${obraSocial.nombre}" th:selected="${obraSocial.id == paciente.obraSocial.getId}"></option>
-                                </select>
+                                <div style="display: flex; flex-direction: column; margin-bottom: 26px; width: 45%; margin-right: 10%;">
+                                    <label style="margin-bottom: 6px; font-weight: 600;">Matrícula</label>
+                                    <input name="matricula" id="matricula" type="text" th:value="${profesional.matricula}" disabled style="border: 1px solid gray; padding: 5px 8px; border-radius: 5px;"></input>
+                                </div>
                             </div>
                             <div style="display: flex; flex-direction: column; margin-bottom: 20px;">
-                                <label style="margin-bottom: 6px; font-weight: 600;">N° Obra Social</label>
-                                <input name="nroObraSocial" id="nro-obra-social" type="text" th:value="${paciente.nroObraSocial}" disabled style="border: 1px solid gray; padding: 5px 8px; border-radius: 5px;">
+                                <label style="margin-bottom: 6px; font-weight: 600;">Valor consulta</label>
+                                <input name="valorConsulta" id="valor-consulta" type="number" th:value="${profesional.valorConsulta}" disabled style="border: 1px solid gray; padding: 5px 8px; border-radius: 5px;">
                             </div>
                             <div style="display: flex; flex-direction: column; margin-bottom: 20px;">
-                                <label style="margin-bottom: 6px; font-weight: 600;">Imagen</label>
-                                <input id="imagen-perfil" type="file" name="archivo" disabled style="padding: 5px 0px; border-radius: 5px;">
+                                <label style="margin-bottom: 6px; font-weight: 600;">Descripción</label>
+                                <input id="descripcion" type="text" th:value="${profesional.descripcionEspecialidad}" name="descripcionEspecialidad" disabled style="padding: 5px 0px; border-radius: 5px;">
                             </div>
-                            <div>
-                                <input name="password" type="password" id="nom" th:value="${session.usuariosession.password}" disabled style="display: none;">
-                            </div>
+<!--                            <div>-->
+<!--                                <input name="password" type="password" id="nom" th:value="${session.usuariosession.password}" disabled style="display: none;">-->
+<!--                            </div>-->
                             <div>
                                 <button type="submit" id="guarda" style="padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff; display: none;">Guardar</button>
                             </div>
@@ -126,7 +127,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script>
             function habilitarInput() {
-                let inputs = ["nombre", "apellido", "mail", "telefono", "dni", "fechaNacimiento", "nro-obra-social", "imagen-perfil"];
+                let inputs = ["nombre", "apellido", "mail", "telefono", "dni", "fechaNacimiento", "matricula", "descripcion", "valor-consulta"];
                 let habilita = document.getElementById("habilita");
                 let guardar = document.getElementById("guarda");
 

@@ -1,5 +1,6 @@
 package com.egg.appsalud.servicios;
 
+import com.egg.appsalud.Enumerativos.EstadoTurno;
 import com.egg.appsalud.entidades.Calificacion;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.entidades.Turno;
@@ -27,7 +28,7 @@ public class CalificacionServicio {
 
         Turno turno = turnoServicio.getOne(turnoId);
         if (turno != null) {
-
+            turno.setEstado(EstadoTurno.CALIFICADO);
             Profesional profesional = turno.getMedico();
             if (profesional != null){
 

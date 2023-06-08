@@ -5,9 +5,14 @@
  */
 package com.egg.appsalud.repositorios;
 
+import com.egg.appsalud.entidades.HistoriaClinica;
 import com.egg.appsalud.entidades.NotaMedica;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  *
@@ -15,5 +20,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface NotaMedicaRepositorio extends JpaRepository<NotaMedica, Integer> {
-    
+
+    @Query("SELECT n FROM NotaMedica n WHERE n.historiaClinica = :historiaClinica")
+    public List<NotaMedica>buscarPorHistoria(@Param("historiaClinica") HistoriaClinica historiaClinica);
 }
