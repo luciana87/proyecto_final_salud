@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <!-- BUSCAR PROFESIONAL POR ESPECIALIDAD -->
+
+        <div>
+            <form action="/paciente/buscar" method="POST">
+                <select class="custom-select custom-select-sm" th:name="especialidad" style="margin-left: 0px; width: 150px;">
+                    <option selected>Especialidad</option>
+                    <option th:value="PEDIATRIA">Pediatria</option>
+                    <option th:value="GINECOLOGIA">Ginecologia</option>
+                    <option th:value="CLINICA">Clinica</option>
+                    <option th:value="CARDIOLOGIA">Cardiologia</option>
+                </select>
+
+                <select th:name="valorConsulta">
+                    <option selected>Valor de la consulta</option>
+                    <option th:value="20000">20.000 o menos</option>
+                    <option th:value="30000">30.000 o menos</option>
+                </select>
+
+                <button type="submit">Buscar</button>
+            </form>
+            <h2>Profesionales encontrados:</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Especialidad</th>
+                        <th>Valor de consulta</th>
+                        <th>Reputación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Iterar sobre la lista de profesionales -->
+                    <tr th:each="profesional : ${profesionalSeleccionado}">
+                        <td th:text="${profesional.nombre}"></td>
+                        <td th:text="${profesional.especialidad}"></td>
+                        <td th:text="${profesional.valorConsulta}"></td>
+                        <td th:text="${profesional.reputacion}"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <!-- AQUI TERMINA -->
+    </body>
+</html>

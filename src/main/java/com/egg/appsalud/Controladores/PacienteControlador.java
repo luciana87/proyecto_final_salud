@@ -1,5 +1,10 @@
 package com.egg.appsalud.Controladores;
 
+import com.egg.appsalud.Enumerativos.Especialidad;
+import com.egg.appsalud.entidades.ObraSocial;
+import com.egg.appsalud.entidades.Paciente;
+import com.egg.appsalud.entidades.Profesional;
+
 import com.egg.appsalud.Enumerativos.EstadoTurno;
 import com.egg.appsalud.entidades.*;
 import com.egg.appsalud.excepciones.MiException;
@@ -18,7 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import org.hibernate.annotations.Parameter;
+
 
 @Controller
 @RequestMapping("/paciente")
@@ -53,11 +58,9 @@ public class PacienteControlador {
 
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
-
             @RequestParam String password, @RequestParam String idObraSocial, @RequestParam String nroObraSocial,
             @RequestParam String fechaNacimiento, @RequestParam String dni,
             @RequestParam String telefono, ModelMap modelo, MultipartFile archivo) throws IOException {
-
 
         Integer idObraSocialInt = Integer.valueOf(idObraSocial);
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter); //Convierte el String de fechaNacimiento a LocalDate, si pongo directamente tipo LocalDate genera conflicto
@@ -76,26 +79,24 @@ public class PacienteControlador {
         }
         return "redirect:/inicio";
     }
-
-
+    
     @GetMapping("/inicio")
-    public String inicio(HttpSession session, ModelMap modelo){
+    public String inicio(HttpSession session, ModelMap modelo) {
         //TODO: eliminar esto cuando este el listado de turnos es una prueba para ver si funciona
         List<Paciente> pacientes = pacienteServicio.listarPacientes();
         List<ObraSocial> obraSociales = obraSocialServicio.listarObraSocial();
         List<Profesional> profesionales = profesionalServicio.listarProfesionales();
         Paciente paciente = pacienteRepositorio.BuscarPorEmail(session.getAttribute("mail").toString());
+
         modelo.put("paciente", paciente);
         modelo.addAttribute("pacientes", pacientes);
         modelo.addAttribute("obraSociales", obraSociales);
         modelo.addAttribute("profesionales", profesionales);
-        
 
         //obtengo el usuario logueado
 //        Paciente logueado = (Paciente) session.getAttribute("usuariosession");
 //        boolean tieneImagen= ((Paciente)logueado).tieneImagen(); //Casteo la variable 'logueado' de tipo usuario a tipo 'Paciente' para poder acceder al metodo 'tieneImagen()'
 //        modelo.put("tieneImagen", tieneImagen); //Envío a la vista si posee o no imágen.
-
         return "inicio_paciente_2.html";
     }
 
@@ -136,17 +137,14 @@ public class PacienteControlador {
 
     @PostMapping("/modificar/{id_paciente}")
     public String modificarPaciente(@PathVariable String id_paciente, String mail, String nombre, String apellido,
-
             String dni, String fechaNacimiento, String telefono, String nroObraSocial, Integer idObraSocial, ModelMap modelo, MultipartFile archivo) {
-        
 
         LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formatter);
 
         try {
 
-            
-            pacienteServicio.modificarPaciente(archivo,id_paciente, mail,
-                    nombre, apellido, dni, fechaNac, telefono,nroObraSocial,idObraSocial);
+            pacienteServicio.modificarPaciente(archivo, id_paciente, mail,
+                    nombre, apellido, dni, fechaNac, telefono, nroObraSocial, idObraSocial);
 
             modelo.put("exito", "Los datos fueron actualizados correctamente.");
 
@@ -158,7 +156,7 @@ public class PacienteControlador {
         }
         return "redirect:/inicio";
     }
-    
+
     @GetMapping("/eliminar/{id_paciente}")
     public String eliminarPaciente(@PathVariable String id_paciente, ModelMap modelo) {
 
@@ -168,10 +166,16 @@ public class PacienteControlador {
 
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            
+
         }
         return "redirect:../lista";
     }
+    
+    @GetMapping("/formCambiarContrasenia")
+    public String formCambiarContrasenia(){
+        return "cambiar-contrasenia.html";
+    }
+    
     @PostMapping("cambiarcontasenia/{id}")
     public String cambiarContrasenia(@PathVariable String id, String contraVieja, String contraNueva, String contraComparar, ModelMap modelo) {
         try {
@@ -179,7 +183,8 @@ public class PacienteControlador {
         } catch (MiException e) {
             System.out.println(e.getMessage());
             modelo.put("error", e.getMessage());
-            return "redirect:/inicio";
+//            return "redirect:/inicio";
+            return "cambiar-contrasenia.html";
         }
         return "redirect:/inicio";
 
@@ -247,5 +252,6 @@ public class PacienteControlador {
 
         return "redirect:/inicio";
     }
+
 
 }

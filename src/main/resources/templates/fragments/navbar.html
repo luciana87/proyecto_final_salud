@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navBar">
+<nav class="navbar navbar-expand-lg navBar" th:fragment="navbar">
             <div class="containerImg">
                 <a href="/" class="navbar-brand d-flex align-items-center">
                     <img class="logo"  alt="Img logo egg">
@@ -11,11 +11,11 @@
                 <ul class="navbar-nav ms-auto elementos">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Libros
+                            Inicio
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                            <li><a class="dropdown-item" sec:authorize="hasAuthority('ADMIN')" th:href="@{/libro/registrar}">Crear Libro</a></li>
+                            <li><a class="dropdown-item" sec:authorize="hasAuthority('PACIENTE')" th:href="@{/profesional/registrar}">Crear </a></li>
                             <li><hr class="dropdown-divider"></li>
 
                             <li><a class="dropdown-item" th:href="@{/libro/lista}">Listar Libros</a></li>
