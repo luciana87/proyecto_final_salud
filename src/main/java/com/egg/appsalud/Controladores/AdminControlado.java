@@ -90,7 +90,7 @@ public class AdminControlado {
 
             throw new RuntimeException(e);
         }
-        return "redirect:/inicio";
+        return "redirect:/dashboard";
     }
 
     
@@ -129,7 +129,7 @@ public class AdminControlado {
         } catch (IOException e){
             throw new RuntimeException(e);
         }
-        return "redirect:/admin/dashboard/listaPacientes";
+        return "redirect:/dashboard/listaPacientes";
     }
     
     
@@ -176,7 +176,7 @@ public class AdminControlado {
             modelo.put("error", e.getMessage());
             return "redirect:/admin/dashboard";
         }
-        return "redirect:/admin/dashboard";
+        return "redirect:/admin/dashboard/listaProfesionales";
     }
 
 
@@ -252,7 +252,7 @@ public class AdminControlado {
             System.out.println(e.getMessage());
             return "registro-os.html";
         }
-        return "redirect:/inicio";
+        return "redirect:/admin/dashboard/listaObraSociales";
     }
     
     @PreAuthorize ("hasAnyRole('ROLE_ADMIN')")
@@ -328,6 +328,7 @@ public class AdminControlado {
         }
         return "redirect:/admin/dashboard/listaTurno";
     }
+
 
     @PostMapping("/dashboard/buscarTurnos")
     public String buscarTurnos(String idProfesional,String fecha,String horario,  String nombre, Double valorConsulta, ModelMap modelo){

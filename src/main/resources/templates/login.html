@@ -18,7 +18,19 @@
     </head>
 
     <body>
-    <header th:replace ="/fragments/header :: header"> </header>
+
+    <header class="header">
+        <div class="logoth">
+            <img src="/img/logo5t.png" alt="Logo de la marca">
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a th:href="@{/}">Inicio</a></li>
+                <li sec:authorize="isAnonymous()"><a href="#">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <section class="form-02-main">
         <div class="centrar">
             <div class="container">

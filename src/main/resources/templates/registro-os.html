@@ -9,18 +9,34 @@
     <link th:href = "@{/css/headerstyle.css}" rel="stylesheet">
     <link th:href = "@{/css/footerstyle.css}" rel="stylesheet">
 
-    <title>OS</title>
+    <title>Obra Social</title>
 </head>
-<body>
-    <header th:include="fragments/header :: header"> </header>
-    <main>
-        <form action="/obra-social/registro-os" method="POST">
+<body style="display: flex; flex-direction: column; height: 100vh;">
+
+<header class="header">
+    <div class="logoth">
+        <img src="/img/logo5t.png" alt="Logo de la marca">
+    </div>
+    <nav>
+        <ul class="nav-links">
+            <li><a th:href="@{/inicio}">Inicio</a></li>
+        </ul>
+    </nav>
+    <a class="btnth" href="/logout"><button>Cerrar Sesión</button></a>
+</header>
+    <main style="display: flex; flex-direction: column; align-items: center; flex-grow: 1; background-image: url('/img/fregistro.jpg');  background-size: cover; background-position: center;  background-repeat: no-repeat;">
+        <h1 style="margin: 30px 20px 15px 20px; font-size: 1.8rem;">Ingrese nueva Obra Social</h1>
+        <form action="/admin/dashboard/crearObraSocial" method="POST" style="width: 800px; background-color: #fff; padding: 20px; border-radius: 5px;">
             <div class="form-group">
                 <label for="nombre">Nombre</label>
-                <input type="text" class="form-control" name="nombre" placeholder="" id="nombre">
+                <input type="text" class="form-control" name="nombre" id="nombre" style="border-color: #1c4b5aa5; box-shadow: none;">
             </div>
             <div class="clearfix"></div>
-            <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>Registrar</button>
+            <div class="form-group" style="width: 45%;">
+                <button type="submit" class="btn-info btn-lg btn-responsive" id="search" style="background-color: #1c4a5a; border: transparent; margin-right: 30px;">Guardar</button>
+                <button type="button" onclick="window.location.href='/admin/dashboard'" class="btn-info btn-lg btn-responsive" id="cancel" style=" background-color: #1c4a5a; border: transparent;">Cancelar</button>
+            </div>
+<!--            <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search" style="margin-top: 15px;">Registrar</button>-->
         </form>
     </main>
     <footer th:replace ="/fragments/footer :: footer"></footer>

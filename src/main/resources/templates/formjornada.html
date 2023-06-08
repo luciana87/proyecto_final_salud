@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="master">
     <head>
-        <title>TODO supply a title</title>
+        <title>Turnos</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Fontawesome -->
@@ -12,114 +12,147 @@
               integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
         <link th:href = "@{/css/headerstyle.css}" rel="stylesheet">
         <link th:href = "@{/css/footerstyle.css}" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
     </head>
-    <body>
-        <header th:replace ="/fragments/header :: header"></header>
-        <h1 th:if="${session.usuariosession != null}" th:text="${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}"></h1>
-        <h2>Cargar Jornada</h2>
-
-        <form th:method="POST" th:action="@{/profesional/jornadaLaboral}">
-            <select name="diaSemana" class="custom-select custom-select-sm" style="margin-left: 0px; width: 150px;">
-                <option value="MONDAY">Lunes</option>
-                <option value="TUESDAY">Martes</option>
-                <option value="WEDNESDAY">Miércoles</option>
-                <option value="THURSDAY">Jueves</option>
-                <option value="FRIDAY">Viernes</option>
-                <option value="SATURDAY">Sábado</option>
-            </select>
-            <input type="time" name="horaInicio">
-            <input type="time" name="horaFin">
-            <select name="duracionTurno" class="custom-select custom-select-sm" style="margin-left: 0px; width: 150px;">
-                <option value="15">15 min</option>
-                <option value="20">20 min</option>
-                <option value="25">25 min</option>
-                <option value="30">30 min</option>
-                <option value="60">60 min</option>
-                
-            </select>
-            <button type="submit">Enviar</button>
-
-            <div th:if="${error != null}" class="card text-white bg-danger mb-3" >
-                <div class="card-body">
-                    <h5 class="card-title">Error 👎</h5>
-                    <p class="card-text" th:text="${error}"></p>
-                </div>
+    <body style="height: 100vh; display: flex; flex-direction: column;">
+      <header th:replace ="/fragments/header :: header"></header>
+      <main style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; background-image: url('/img/fregistro.jpg'); background-size: contain;">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 40px;">
+              <h1 th:if="${session.usuariosession != null}" th:text="${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}"></h1>
+                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 25px; margin-top: 60px;">Cargar jornada</h2>
             </div>
-            <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3" >
-                <div class="card-body">
-                    <h5 class="card-title">Exito!</h5>
-                    <p class="card-text" th:text="${exito}"></p>
+            <form th:method="POST" th:action="@{/profesional/jornadaLaboral}" style="display: flex; align-items: baseline; justify-content: center; margin-bottom: 10px; width: 100%; margin-bottom: 25px;">
+                <!-- dia jornada -->
+                <div style="display: flex; align-items: baseline;  flex-wrap: wrap;">
+                  <select name="diaSemana" class="custom-select custom-select-sm" style="margin-right: 35px; width: 150px;">
+                    <option value="MONDAY">Lunes</option>
+                    <option value="TUESDAY">Martes</option>
+                    <option value="WEDNESDAY">Miércoles</option>
+                    <option value="THURSDAY">Jueves</option>
+                    <option value="FRIDAY">Viernes</option>
+                    <option value="SATURDAY">Sábado</option>
+                  </select>
+                  <!-- hora desde -->
+                  <div style="margin-right: 35px; display: flex; align-items: baseline;">
+                    <label for="horaInicio" style="margin-right: 10px; font-weight: 500;">Desde</label>
+                    <input type="time" name="horaInicio">
+                  </div>
+                  <!-- hora hasta -->
+                  <div style="margin-right: 35px; display: flex; align-items: baseline;">
+                    <label for="horaFin" style="margin-right: 10px; font-weight: 500;">Hasta</label>
+                    <input type="time" name="horaFin">
+                  </div>
+                  <!-- duracion turno -->
+                  <div style="margin-right: 35px; display: flex; align-items: baseline;">
+                    <label for="duracionTurno" style="margin-right: 10px; font-weight: 500;">Turno</label>
+                    <select name="duracionTurno" class="custom-select custom-select-sm" style="width: 150px;">
+                      <option value="15">15 min</option>
+                      <option value="20">20 min</option>
+                      <option value="25">25 min</option>
+                      <option value="30">30 min</option>
+                      <option value="60">60 min</option>
+                    </select>
+                  </div>
+                  <!-- btn enviar -->
+                  <button type="submit" style="padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff; border: transparent;">Enviar</button>
                 </div>
-            </div>
-        </form>
-            
-        <h1>Mis Jornadas</h1>
-
-        <table class="table table-bordered">
-            <thead>
-                <tr>
+            </form>
+            <!-- Mis jornadas -->
+            <div class="col-12" style="flex: 0;">
+  <!--            <a class="btn btn-primary mb-2" th:href="@{/pacientes/agregar}">Agregar</a>-->
+              <div class="table-responsive" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 100px;">
+                  <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 25px;">Mis jornadas</h2>
+                  <table class="table table-bordered" style="box-shadow: 0 0 3px 1px #1c4a5a52; background-color: #fff;">
+                      <thead style="background-color: #94b1b8;">
+                          <tr>
+                              <th>Día</th>
+                              <th>Hora-Inicio</th>
+                              <th>Hora-Fin</th>
+                              <th>Duracion del Turno</th>
+                              <th style="width: 7%;">Accion</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr th:each="jornada : ${jornadas}">
+                              <td th:text="${jornada.getDiaSemana}"></td>
+                              <td th:text="${jornada.getHoraInicio}"></td>
+                              <td th:text="${jornada.getHoraFin}"></td>
+                              <td th:text="${jornada.getDuracionTurno}"></td>
+                              <td style="display: flex; align-items: center; justify-content: start;"><a th:href="@{/profesional/eliminar/jornada/__${jornada.getId}__}"><i class="fa-solid fa-trash-can"></i></a></td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+          <!-- Generar turnos -->
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 25px;">Generar Turnos</h2>
+            <form th:method="POST" th:action="@{/profesional/CrearTurnos}" style="display: flex; align-items: baseline; justify-content: center; margin-bottom: 10px; width: 100%; margin-bottom: 100px;">
+              <div style="display: flex; align-items: baseline; flex-wrap: wrap;">
+                <div style="margin-right: 35px; display: flex; align-items: baseline;">
+                  <label for="inicio" style="margin-right: 10px; font-weight: bold;">Inicio</label>
+                  <input type="date" name="inicio" style="padding: 3px;">
+                </div>
+                <div style="margin-right: 35px; display: flex; align-items: baseline;">
+                  <label for="fin" style="margin-right: 10px; font-weight: bold;">Fin</label>
+                  <input type="date" name="fin" style="padding: 3px;">
+                </div>
+                <button type="submit" style="padding: 4px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff; border: transparent;">Crear Turnos</button>
+              </div>
+            </form>
+          </div>
+          <!-- Mis turnos -->
+          <div class="col-12" style="flex: 0;">
+            <div class="table-responsive" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 100px;">
+              <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 25px;">Mis turnos</h2>
+              <table class="table table-bordered" style="box-shadow: 0 0 3px 1px #1c4a5a52; background-color: #fff;">
+                <thead style="background-color: #94b1b8;">
+                  <tr>
                     <th>Día</th>
-                    <th>Hora-Inicio</th>
-                    <th>Hora-Fin</th>
-                    <th>Duracion del Turno</th>
-                    <th>Accion</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="jornada : ${jornadas}">
-                    <td th:text="${jornada.getDiaSemana}"></td>
-                    <td th:text="${jornada.getHoraInicio}"></td>
-                    <td th:text="${jornada.getHoraFin}"></td>
-                    <td th:text="${jornada.getDuracionTurno}"></td>
-                    <td>
-                    <a th:href="@{/profesional/eliminar/jornada/__${jornada.getId}__}"><i class="fa-regular fa-trash-can"></i> Eliminar</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <h1>Generar Turnos</h1>
-        <form th:method="POST" th:action="@{/profesional/CrearTurnos}">
-            <input type="date" name="inicio">
-            <input type="date" name="fin">
-            <button type="submit">Crear Turnos</button>
-        </form>
-        <h1>Mis turnos</h1>
-        <div  class="table-responsive">
-
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-
-                        <th>Día</th>
-                        <th>Hora</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
+                    <th>Hora</th>
+                    <th>Estado</th>
+                    <th style=" width: 40%;">Acciones</th>
+                  </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="turno : ${turnos}">
-
-                        <td th:text="${turno.fecha}"></td>
-                        <td th:text="${turno.horario}"></td>
-                        <td th:text="${turno.estado}"></td>
-                        <td>
-                            <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).ASISTIO}" th:href= "@{/profesional/finalizarTurno/__${turno.id}__}"><i class="fa-regular fa-square-check"></i> Finalizar Turno </a> <!--Elimina el turno-->
-                            <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).RESERVADO}" th:href= "@{/profesional/CargarNotaMedica/__${turno.id}__}"><i class="fa-regular fa-square-plus"></i> Crear Nota Medica </a>
-                            <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).DISPONIBLE}" th:href= "@{/profesional/borrarTurno/__${turno.id}__}"><i class="fa-regular fa-trash-can"></i>Eliminar</a>
-                            <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).ASISTIO}" th:href= "@{/profesional/buscarHistoriaClinica/__${turno.paciente.id}__}"><i class="fa-solid fa-right-to-bracket"></i> Historia Clinica </a>
-                        </td>
-                    </tr>
+                  <tr th:each="turno : ${turnos}">
+                    <td th:text="${turno.fecha}"></td>
+                    <td th:text="${turno.horario}"></td>
+                    <td th:text="${turno.estado}"></td>
+                    <td style="display: flex; align-items: center; justify-content: center;">
+                      <!-- Finalizar turno y crear nota medica -->
+                      <div style="display: flex; align-items: baseline; margin-right: 15px; width: 100%;">
+                        <div style="display: flex; flex-direction: column; align-items: center; margin-right: 10%; margin-left: 10%; margin-bottom: 10px;">
+                          <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).ASISTIO}" th:href= "@{/profesional/finalizarTurno/__${turno.id}__}"><i class="fa-regular fa-square-check"></i> Finalizar turno</a>
+                        </div>
+                        <div>
+                          <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).RESERVADO}" th:href= "@{/profesional/CargarNotaMedica/__${turno.id}__}"><i class="fa-regular fa-square-plus"></i> Nota medica</a>
+                        </div>
+                      </div>
+                      <!-- Eliminar turni y ver historia clinica -->
+                      <div style="display: flex; align-items: baseline; margin-right: 15px; width: 100%;">
+                        <div style="display: flex; flex-direction: column; align-items: center; margin-right: 10%; margin-left: 10%;">
+                          <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).ASISTIO}" th:href= "@{/profesional/buscarHistoriaClinica/__${turno.paciente.id}__}"><i class="fa-solid fa-file-waveform"></i> Historia clinica</a>
+                        </div>
+                        <div>
+                          <a th:if="${turno.estado == T(com.egg.appsalud.Enumerativos.EstadoTurno).DISPONIBLE}" th:href= "@{/profesional/borrarTurno/__${turno.id}__}"><i class="fa-solid fa-trash-can"></i> Eliminar</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
                 </tbody>
-            </table>
+              </table>
+            </div>
+          </div>
         </div>
-
-
-        <footer th:replace ="/fragments/footer :: footer"> </footer> 
+      </main>
+      <footer th:replace ="/fragments/footer :: footer"></footer>
+      <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+crossorigin="anonymous"></script>
     </body>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-    crossorigin="anonymous"></script>
 </html>
