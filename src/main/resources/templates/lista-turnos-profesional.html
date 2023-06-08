@@ -59,6 +59,7 @@
                         <thead>
                         <tr>
                             <th>Profesional</th>
+                            <th>Especialidad</th>
                             <th>Día</th>
                             <th>Hora</th>
                             <th>Estado</th>
@@ -68,6 +69,7 @@
                         <tbody>
                         <tr th:each="turno : ${turnos}">
                             <td th:text="${turno.medico.nombre} + ' ' + ${turno.medico.apellido}"></td>
+                            <td th:text="${turno.medico.especialidad.nombre}"></td>
                             <td th:text="${turno.fecha}"></td>
                             <td th:text="${turno.horario}"></td>
                             <td th:text="${turno.estado}"></td>
