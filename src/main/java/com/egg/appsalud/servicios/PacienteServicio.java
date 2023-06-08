@@ -61,6 +61,12 @@ public class PacienteServicio implements UserDetailsService {
             String nroObraSocial, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
             String telefono) throws MiException, IOException {
 
+        // Verificar si ya existe otro paciente con el mismo correo electrónico
+        Paciente pacienteExistente = buscarPorMail(mail);
+        if (pacienteExistente != null) {
+            throw new MiException("Ya existe un paciente registrado con el mismo correo electrónico");
+        }
+
         validar(mail, password, nombre, apellido, dni, fechaNacimiento, telefono, nroObraSocial);
 
         Paciente paciente = new Paciente();
@@ -196,15 +202,13 @@ public class PacienteServicio implements UserDetailsService {
             String apellido, String dni, LocalDate fechaNacimiento, String telefono, String nroObraSocial, Integer idObraSocial) throws MiException, IOException {
 
         validarModificar(mail, nombre, apellido, dni, fechaNacimiento, telefono, nroObraSocial);
-       
+
         Optional<Paciente> pacienteOptional = pacienteRepositorio.findById(id_paciente);
-        
+
         if (pacienteOptional.isPresent()) {
             Paciente paciente = pacienteOptional.get();
             ObraSocial obraSocial = obraSocialServicio.getOne(idObraSocial);
-                
-                
-            
+
             paciente.setMail(mail);
             paciente.setObraSocial(obraSocial);
             paciente.setNombre(nombre);
@@ -212,7 +216,7 @@ public class PacienteServicio implements UserDetailsService {
             paciente.setDni(dni);
             paciente.setFechaNacimiento(fechaNacimiento);
             paciente.setTelefono(telefono);
-            
+
             String idImagen = null;
             if (paciente.getImagen() != null) {
                 idImagen = paciente.getImagen().getId();
@@ -237,48 +241,43 @@ public class PacienteServicio implements UserDetailsService {
 
     }
 
-    // FILTRO DE BUSQUEDA
-    
-    // Buscar profesionales
-//    public List<Profesional> buscarProfesionales(Especialidad especialidad, Double valorConsulta, Double reputacion) {
-//
-//        List<Profesional> profesionales = profesionalServicio.buscarPorfesional(especialidad, valorConsulta, reputacion);
-//
-//        return profesionales;
-//
-//    }
-//    
-//    // Uso el id del profesional seleccionado para buscarlo en la DB 
-//    public Profesional seleccionarProfesional(String id_profesional){
-//        Profesional pro = profesionalServicio.seleccionarProfesional(id_profesional);
-//        
-//        return pro;
-//    }
-
+    // ---------------------- CAMBIAR CONTRASEÑA ----------------------
     @Transactional
-    public void cambiarContrasenia(String idPaciente, String contraVieja, String contraNueva, String contraComparar) throws MiException{
-        
-             Paciente paciente = pacienteRepositorio.getOne(idPaciente);
-             validarContraseña(contraVieja, paciente.getPassword(), contraNueva, contraComparar);
-             
-             paciente.setPassword(new BCryptPasswordEncoder().encode(contraNueva));
-             
-             pacienteRepositorio.save(paciente);
-           
+    public void cambiarContrasenia(String idPaciente, String contraVieja, String contraNueva, String contraComparar) throws MiException {
+
+        Paciente paciente = pacienteRepositorio.getOne(idPaciente);
+        validarContraseña(contraVieja, paciente.getPassword(), contraNueva, contraComparar);
+
+        paciente.setPassword(new BCryptPasswordEncoder().encode(contraNueva));
+
+        pacienteRepositorio.save(paciente);
+
     }
-    
-    private void validarContraseña(String contraVieja,String contraBS, String contraNueva, String contraComparar) throws MiException {
+
+    private void validarContraseña(String contraVieja, String contraBS, String contraNueva, String contraComparar) throws MiException {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        if(!passwordEncoder.matches(contraVieja, contraBS)){
+        if (!passwordEncoder.matches(contraVieja, contraBS)) {
             throw new MiException("Ingrese devuelta su contraseña");
         }
-        if(!contraNueva.equals(contraComparar)){
+        if (!contraNueva.equals(contraComparar)) {
             throw new MiException("No coiciden las nuevas contraseñas");
         }
     }
-    
-    private void solicitarBaja(String idPaciente){
-        
-    }
-}
 
+    private void solicitarBaja(String idPaciente) {
+
+    }
+
+    // ---------------------- BUSCAR POR MAIL ----------------------
+    public Paciente buscarPorMail(String mail) {
+        Paciente paciente = pacienteRepositorio.BuscarPorEmail(mail);
+        if (paciente != null) {
+            return paciente;
+        } else {
+            return null;
+        }
+
+//        return pacienteRepositorio.BuscarPorEmail(mail);
+    }
+
+}

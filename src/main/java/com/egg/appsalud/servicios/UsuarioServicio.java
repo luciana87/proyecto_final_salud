@@ -1,7 +1,5 @@
 package com.egg.appsalud.servicios;
 
-
-import com.egg.appsalud.Enumerativos.Especialidad;
 import com.egg.appsalud.entidades.ObraSocial;
 import com.egg.appsalud.entidades.Paciente;
 import com.egg.appsalud.entidades.Profesional;
@@ -22,11 +20,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
-import java.util.Optional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
@@ -36,7 +33,7 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Autowired
     private PacienteRepositorio pacienteRepositorio;
-    
+
     @Autowired
     private PacienteServicio pacienteServicio;
     @Autowired
@@ -75,62 +72,83 @@ public class UsuarioServicio implements UserDetailsService {
         }
 
     }
-    
+
 //------------------------------------Profesional-----------------------------------
-    
     public void CrearProfesional(String mail, String password, String nombre, String apellido,
-                                 String dni, LocalDate fechaNacimiento, String telefono, String matricula,
-                                 String especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException{
-        
+            String dni, LocalDate fechaNacimiento, String telefono, String matricula,
+            String especialidad, Double valorConsulta, String descripcionEspecialidad) throws MiException {
+
         profesionalServicio.crearProfesional(mail, password, nombre, apellido, dni, fechaNacimiento, telefono, matricula, especialidad, valorConsulta, descripcionEspecialidad);
     }
-    
-    public List<Profesional> listarProfesionales(){
+
+    public List<Profesional> listarProfesionales() {
         return profesionalServicio.listarProfesionales();
     }
-    
+
 //--------------------------------Paciente--------------------------------
-    
     public void CrearPaciente(MultipartFile archivo, String mail, String password, Integer idObraSocial,
-                              String nroObraSocial, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
-                              String telefono) throws MiException, IOException{
-        
+            String nroObraSocial, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
+            String telefono) throws MiException, IOException {
+
         pacienteServicio.CrearPaciente(archivo, mail, password, idObraSocial, nroObraSocial, nombre, apellido, dni, fechaNacimiento, telefono);
-}
-    
-    public List<Paciente> listarPacientes(){
+    }
+
+    public List<Paciente> listarPacientes() {
         return pacienteServicio.listarPacientes();
     }
-    
-    public Paciente buscarPorId(String idPaciente) throws MiException{
+
+    public Paciente buscarPorId(String idPaciente) throws MiException {
         return pacienteServicio.buscarPorId(idPaciente);
     }
-    
+
     public void modificarPaciente(MultipartFile archivo, String id_paciente, String mail, String nombre,
-            String apellido, String dni, LocalDate fechaNacimiento, String telefono, String nroObraSocial,Integer idObraSocial) throws MiException, IOException{
-       pacienteServicio.modificarPaciente(archivo, id_paciente, mail, nombre, apellido, dni, fechaNacimiento, telefono, nroObraSocial,idObraSocial);
+            String apellido, String dni, LocalDate fechaNacimiento, String telefono, String nroObraSocial, Integer idObraSocial) throws MiException, IOException {
+        pacienteServicio.modificarPaciente(archivo, id_paciente, mail, nombre, apellido, dni, fechaNacimiento, telefono, nroObraSocial, idObraSocial);
     }
-    
-    public Paciente getOne(String id_paciente){
+
+    public Paciente getOne(String id_paciente) {
         return pacienteServicio.getOne(id_paciente);
     }
-    
-    public void eliminarPaciente(String id_paciente) throws MiException{
+
+    public void eliminarPaciente(String id_paciente) throws MiException {
         pacienteServicio.eliminarPaciente(id_paciente);
     }
-    
-
 
 //-----------------Obra Social----------------------------
-    
-    public void CrearObraSocial(String nombre) throws MiException{
+    public void CrearObraSocial(String nombre) throws MiException {
         obraSocialServicio.CrearObraSocial(nombre);
     }
-    
-    public List<ObraSocial> listarObraSociales(){
+
+    public List<ObraSocial> listarObraSociales() {
         return obraSocialServicio.listarObraSocial();
     }
-    
 
+//----------------- Reestablecer contraseña ----------------------------    
+    public void solicitarContra(String mail) throws MiException{
+        Profesional profesional = profesionalServicio.buscarPorMail(mail);
+
+        Paciente paciente = pacienteServicio.buscarPorMail(mail);
+
+        if (profesional != null) {
+            String nuevaContra = "12345678";
+
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            String hashContra = encoder.encode(nuevaContra);
+
+            profesional.setPassword(hashContra);
+            profesionalRepositorio.save(profesional);
+        } else if (paciente != null) {
+            String nuevaContra = "12345678";
+
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            String hashContra = encoder.encode(nuevaContra);
+
+            paciente.setPassword(hashContra);
+            pacienteRepositorio.save(paciente);
+        }else{
+            throw new MiException("No se encontró ningún usuario con el correo electrónico proporcionado");
+        }
+
+    }
 
 }
