@@ -66,15 +66,6 @@ public class ProfesionalControlador {
         return "redirect:/inicio";
     }
 
-    @GetMapping("/inicio")
-    public String inicio(HttpSession session, ModelMap modelo) {
-        
-        List<Paciente> pacientes = pacienteServicio.listarPacientes();
-        modelo.addAttribute("pacientes", pacientes);
-        return "inicio-profesional.html";
-
-    }
-
     @GetMapping("/modificar/{id}")
     public String mostrarFormularioModificar(@PathVariable String id, ModelMap model) {
 
