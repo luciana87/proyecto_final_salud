@@ -1,104 +1,116 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
     <head>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-              integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-        <link href="/css/headerstyle.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link th:href = "@{/css/headerstyle.css}" rel="stylesheet">
         <link th:href = "@{/css/footerstyle.css}" rel="stylesheet">
-        <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
-        <link href="/css/registro.css" rel="stylesheet" type="text/css">
+        <!-- Fontawesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous"
+              referrerpolicy="no-referrer"/>
         <title>Registro Profesional</title>
-        <style>
-         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            list-style-type: none;
-            text-decoration: none;
-        }
-        </style>
     </head>
-    <body class="container">
-        <header class="header">
+    <body style="display: flex; flex-direction: column; height: 100vh;">
+
+    <header class="header">
         <div class="logoth">
             <img src="/img/logo5t.png" alt="Logo de la marca">
         </div>
         <nav>
             <ul class="nav-links">
-                <li><a th:href="@{/}">Inicio</a></li>
+                <li><a th:href="@{/inicio}">Inicio</a></li>
             </ul>
         </nav>
         <a class="btnth" href="/logout"><button>Cerrar Sesión</button></a>
     </header>
-
-        <main>
-            <div class="container" id="advanced-search-form">
-                <h2 class="text-center header" style="color: white;">Registro Profesional</h2>
-                <form action="/profesional/registroP" method="POST">
-
-                    <div th:if="${error != null}" class="card text-white bg-danger mb-3" >
-                        <div class="card-body">
-                            <h5 class="card-title">Error 👎</h5>
-                            <p class="card-text" th:text="${error}"></p>
-                        </div>
+    <main id="advanced-search-form" style="display: flex; flex-direction: column; align-items: center; flex-grow: 1; background-image: url('/img/fregistro.jpg');  background-size: cover; background-position: center;  background-repeat: no-repeat;">
+        <div style="background-color: #2a565c5c; padding: 20px 30px; margin-top: 30px; width: 50%; margin-bottom: 30px;">
+            <h2 class="text-center" style="margin-bottom: 35px;">Registro Profesional</h2>
+            <form action="/admin/dashboard/crearProfesional" method="POST">
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <div class="form-group" style="width: 45%; margin-right: 5%; margin-left: 5%;">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" autofocus style="border-color: #1c4b5aa5; padding: 6px 12px;">
                     </div>
-                    <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3" >
-                        <div class="card-body">
-                            <h5 class="card-title">Exito!</h5>
-                            <p class="card-text" th:text="${exito}"></p>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="first-name">Nombre</label>
-                        <input type="text" class="form-control" name="nombre" placeholder="" id="first-name">
-                    </div>
-                    <div class="form-group">
+                    <div class="form-group" style="width: 45%; margin-right: 5%;">
                         <label for="surname">Apellido</label>
-                        <input type="text" class="form-control" name="apellido" placeholder="" id="surname">
+                        <input type="text" class="form-control" name="apellido" id="surname" style="border-color: #1c4b5aa5; padding: 6px 12px;">
                     </div>
-                    <div class="form-group">
+                </div>
+                <!-- dni y fecha de nacimiento -->
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <div class="form-group" style="width: 45%; margin-right: 5%; margin-left: 5%;">
                         <label for="dni">DNI</label>
-                        <input type="text" class="form-control" name="dni" placeholder="" id="dni">
+                        <input type="text" class="form-control" name="dni" id="dni" style="border-color: #1c4b5aa5; padding: 6px 12px;">
                     </div>
-                    <div class="form-group">
-                        <label for="age">Fecha de nacimiento</label>
-                        <input type="date" class="form-control"  name="fechaNacimiento" placeholder="" id="age">
+                    <div class="form-group" style="width: 45%; margin-right: 5%;">
+                        <label for="fechaNacimiento">Fecha de nacimiento</label>
+                        <input type="date" class="form-control"  name="fechaNacimiento" id="fechaNacimiento" style="border-color: #1c4b5aa5; padding: 6px 12px;">
                     </div>
-                    <div class="form-group">
+                </div>
+                <!-- matrícula y fespecialidad -->
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <div class="form-group" style="display: flex; flex-direction: column; width: 45%; margin-right: 5%; margin-left: 5%;">
                         <label for="matricula">Matricula</label>
-                        <input type="text" class="form-control" name="matricula" placeholder="" id="matricula">
+                        <input type="text" class="form-control" name="matricula" id="matricula" style="border-color: #1c4b5aa5; padding: 6px 12px;">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display: flex; flex-direction: column; width: 45%; margin-right: 5%;">
                         <label for="especialidad">Especialidad</label>
-                        <input type="text" class="form-control" name="especialidad" placeholder="" id="especialidad">
+                        <input type="text" class="form-control" name="especialidad" id="especialidad" style="border-color: #1c4b5aa5; padding: 6px 12px;">
                     </div>
-                    <div class="form-group">
+                </div>
+                <!-- teléfono y correo -->
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <div class="form-group" style="display: flex; flex-direction: column; width: 45%; margin-right: 5%; margin-left: 5%;">
                         <label for="telefono">Teléfono</label>
-                        <input type="number" class="form-control" name="telefono" placeholder="" id="telefono">
+                        <input type="number" class="form-control" name="telefono"  id="telefono" style="border-color: #1c4b5aa5; padding: 6px 12px;">
                     </div>
-                    <div class="form-group">
-                        <label for="correo">Email</label>
-                        <input type="email" class="form-control" name="mail" placeholder="" id="correo">
+                    <div class="form-group" style="display: flex; flex-direction: column; width: 45%; margin-right: 5%;">
+                        <label for="mail">Email</label>
+                        <input type="email" class="form-control" name="mail" id="mail" style="border-color: #1c4b5aa5; padding: 6px 12px;">
                     </div>
-                    <div class="form-group">
-                        <label for="last-name">Contraseña</label>
-                        <input type="password" class="form-control" name="password" placeholder="" id="last-name">
-                    </div>
-                    <div class="form-group">
+                </div>
+                <!-- Valor consulta y descripción especialidad -->
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <div class="form-group" style="display: flex; flex-direction: column; width: 45%; margin-right: 5%; margin-left: 5%;">
                         <label for="valor-consulta">Valor consulta</label>
-                        <input type="number" class="form-control" name="valorConsulta" placeholder="" id="valor-consulta">
+                        <input type="number" class="form-control" name="valorConsulta" id="valor-consulta" style="border-color: #1c4b5aa5; padding: 6px 12px;">
                     </div>
-                    <div class="form-group">
-                        <label for="descripcion">Descripción especialidad:</label>
-                        <input type="text" class="form-control" name="descripcionEspecialidad" placeholder="" id="descripcion">
+                    <div class="form-group" style="display: flex; flex-direction: column; width: 45%; margin-right: 5%;">
+                        <label for="password">Contraseña:</label>
+                        <input type="password" class="form-control" name="password" id="password" style="border-color: #1c4b5aa5; padding: 6px 12px;">
                     </div>
-                    <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>
-                        Registrar</button>
-                </form>
+                </div>
+                <div>
+                    <div class="form-group" >
+                        <label for="descripcionEspecialidad" style="margin-left: 45px;">Descripción especialidad</label>
+                        <textarea class="form-control" name="descripcionEspecialidad" rows="5" id="descripcionEspecialidad" style="width: 70%; margin-left: 5%; border-color: #1c4b5aa5;"></textarea>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <div class="form-group" style="display: flex; width: 45%; justify-content: space-evenly;">
+                        <button type="submit" class="btn-info btn-lg btn-responsive" id="search" style="background-color: #1c4a5a; border: transparent; margin-right: 30px;">Enviar</button>
+                        <button type="button" onclick="window.location.href='/admin/dashboard'" class="btn-info btn-lg btn-responsive" id="cancel" style=" background-color: #1c4a5a; border: transparent;">Cancelar</button>
+                    </div>
+                </div>
+<!--                <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search" style="margin: 20px; background-color: #1c4a5a; border: transparent;">Registrar</button>-->
+
+            </form>
+            <!--<div th:if="${error != null}" class="card text-white bg-danger mb-3" >-->
+                <!--                    <div class="card-body">-->
+                <!--                        <h5 class="card-title">Error 👎</h5>-->
+                <!--                        <p class="card-text" th:text="${error}"></p>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--                <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3" >-->
+                <!--                    <div class="card-body">-->
+                <!--                        <h5 class="card-title">Exito!</h5>-->
+                <!--                        <p class="card-text" th:text="${exito}"></p>-->
+                <!--                    </div>-->
+                <!--                </div>-->
             </div>
         </main>
         <footer th:replace ="/fragments/footer :: footer"></footer>
     </body>
-</html>
+    </html>

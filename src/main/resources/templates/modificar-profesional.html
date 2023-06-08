@@ -5,85 +5,99 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link href="/css/registro.css" rel="stylesheet" type="text/css">
+    <link th:href = "@{/css/headerstyle.css}" rel="stylesheet">
+    <link th:href = "@{/css/footerstyle.css}" rel="stylesheet">
+    <link rel="stylesheet" href="/css/registro.css">
+<!--    <link href="/css/registro2.css" rel="stylesheet" type="text/css">-->
+  <!-- Fontawesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous"
+  referrerpolicy="no-referrer"/>
   <title>Modificar datos del profesional</title>
 </head>
-<body class="container">
+<body style="display: flex; flex-direction: column; height: 100vh;">
+ <header th:replace ="/fragments/header :: header"></header>
+ <main id="advanced-search-form" style="display: flex; flex-direction: column; align-items: center; flex-grow: 1; background-image: url('/img/fregistro.jpg');  background-size: cover; background-position: center;  background-repeat: no-repeat; background-color: transparent; max-width: none; margin: 0; padding: 0; box-shadow: none;">
+     <div style="background-color: #2a565c5c; padding: 20px 30px; margin: 30px 0 30px 0;">
+         <h1 class="text-center" style="margin: 20px 20px 30px 20px;">Modificar datos del perfil</h1>
+       <form th:action="@{/profesional/modificar/__${profesional.id}__}" method="POST" style="width: 800px;">
+           <input hidden th:value= "${id}" name="id">
+           <!-- nombre y apellido -->
+           <div style="display: flex; align-items: center; justify-content: center;">
+               <div class="form-group" style="width: 45%; margin-right: 5%;">
+                   <label for="nombre">Nombre</label>
+                   <input th:value="${profesional.nombre}" type="text" class="form-control" name="nombre" id="nombre" autofocus style="border-color: #1c4b5aa5; padding: 6px 12px;">
+               </div>
+               <div class="form-group" style="width: 45%; margin-right: 5%;">
+                   <label for="surname">Apellido</label>
+                   <input th:value="${profesional.apellido}" type="text" class="form-control" name="apellido" id="surname" style="border-color: #1c4b5aa5; padding: 6px 12px;">
+               </div>
+           </div>
+           <!-- dni y fecha de nacimiento -->
+           <div style="display: flex; align-items: center; justify-content: center;">
+               <div class="form-group" style="width: 45%; margin-right: 5%;">
+                   <label for="dni">DNI</label>
+                   <input th:value="${profesional.dni}" type="text" class="form-control" name="dni" id="dni" style="border-color: #1c4b5aa5; padding: 6px 12px;">
+               </div>
+               <div class="form-group" style="width: 45%; margin-right: 5%;">
+                   <label for="fechaNacimiento">Fecha de nacimiento</label>
+                   <input th:value="${profesional.fechaNacimiento}" type="date" class="form-control"  name="fechaNacimiento" id="fechaNacimiento" style="border-color: #1c4b5aa5; padding: 6px 12px;">
+               </div>
+           </div>
+           <!-- matrícula y fespecialidad -->
+           <div style="display: flex; align-items: center; justify-content: center;">
+               <div class="form-group" style="display: flex; flex-direction: column; width: 45%; margin-right: 5%;">
+                   <label for="matricula">Matricula</label>
+                   <input th:value="${profesional.matricula}" type="text" class="form-control" name="matricula" id="matricula" style="border-color: #1c4b5aa5; padding: 6px 12px;">
+               </div>
+               <div class="form-group" style="display: flex; flex-direction: column; width: 45%; margin-right: 5%;">
+                   <label for="especialidad">Especialidad</label>
+                   <input th:value="${profesional.especialidad}" type="text" class="form-control" name="especialidad" id="especialidad" style="border-color: #1c4b5aa5; padding: 6px 12px;">
+               </div>
+           </div>
+           <!-- teléfono y correo -->
+           <div style="display: flex; align-items: center; justify-content: center;">
+               <div class="form-group" style="display: flex; flex-direction: column; width: 45%; margin-right: 5%;">
+                   <label for="telefono">Teléfono</label>
+                   <input th:value="${profesional.telefono}" type="number" class="form-control" name="telefono"  id="telefono" style="border-color: #1c4b5aa5; padding: 6px 12px;">
+               </div>
+               <div class="form-group" style="display: flex; flex-direction: column; width: 45%; margin-right: 5%;">
+                   <label for="mail">Email</label>
+                   <input th:value="${profesional.mail}" type="email" class="form-control" name="mail" id="mail" style="border-color: #1c4b5aa5; padding: 6px 12px;">
+               </div>
+           </div>
+           <!-- Valor consulta y descripción especialidad -->
+           <div style="display: flex; align-items: center; justify-content: center;">
+               <div class="form-group" style="display: flex; flex-direction: column; width: 45%; margin-right: 5%;">
+                   <label for="valor-consulta">Valor consulta</label>
+                   <input th:value="${profesional.valorConsulta}" type="number" class="form-control" name="valorConsulta" id="valor-consulta" style="border-color: #1c4b5aa5; padding: 6px 12px;">
+               </div>
+               <div class="form-group" style="display: flex; flex-direction: column; width: 45%; margin-right: 5%;">
+                   <label for="descripcion">Descripción especialidad:</label>
+                   <input th:value="${profesional.descripcionEspecialidad}" type="text" class="form-control" name="descripcionEspecialidad" id="descripcion" style="border-color: #1c4b5aa5; padding: 6px 12px;">
+               </div>
+           </div>
+           <div style="display: flex; align-items: center; justify-content: center;">
+               <div class="form-group" style="width: 45%;">
+                   <button type="submit" class="btn-info btn-lg btn-responsive" id="search" style="background-color: #1c4a5a; border: transparent; margin-right: 30px;">Actualizar</button>
+                   <button type="button" onclick="window.location.href='/admin/dashboard/listaProfesionales'" class="btn-info btn-lg btn-responsive" id="cancel" style=" background-color: #1c4a5a; border: transparent;">Cancelar</button>
+               </div>
+           </div>
 
-  <div class="container" id="advanced-search-form">
-    <h2 class="text-center header">Modificar datos del perfil</h2>
-   <form th:action="@{/profesional/modificar/__${profesional.id}__}" method="POST">
-    <input hidden th:value= "${id}" name="id">
-
-    <div class="form-group">
-      <label for="nombre">Nombre</label>
-      <input th:value="${profesional.nombre}" type="text" class="form-control" name="nombre" placeholder="" id="nombre">
-    </div>
-    <div class="form-group">
-      <label for="surname">Apellido</label>
-      <input th:value="${profesional.apellido}" type="text" class="form-control" name="apellido" placeholder="" id="surname">
-    </div>
-    <div class="form-group">
-      <label for="dni">DNI</label>
-      <input th:value="${profesional.dni}" type="text" class="form-control" name="dni" placeholder="" id="dni">
-    </div>
-    <div class="form-group">
-      <label for="fechaNacimiento">Fecha de nacimiento</label>
-      <input th:value="${profesional.fechaNacimiento}" type="date" class="form-control"  name="fechaNacimiento" placeholder="" id="fechaNacimiento">
-    </div>
-    <div class="form-group">
-      <label for="matricula">Matricula</label>
-      <input th:value="${profesional.matricula}" type="text" class="form-control" name="matricula" placeholder="" id="matricula">
-    </div>
-    <div class="form-group">
-      <label for="especialidad">Especialidad</label>
-      <input th:value="${profesional.especialidad}" type="text" class="form-control" name="especialidad" placeholder="" id="especialidad">
-    </div>
-    <div class="form-group">
-      <label for="telefono">Teléfono</label>
-      <input th:value="${profesional.telefono}" type="number" class="form-control" name="telefono" placeholder="" id="telefono">
-    </div>
-    <div class="form-group">
-      <label for="mail">Email</label>
-      <input th:value="${profesional.mail}" type="email" class="form-control" name="mail" placeholder="" id="mail">
-    </div>
-    <div class="form-group">
-      <label for="password">Contraseña</label>
-      <input th:value="${profesional.password}" type="password" class="form-control" name="password" placeholder="" id="password">
-    </div>
-    <!-- <div class="form-group">
-         <label for="obra-social">Obra Social</label>
-         <input type="text" class="form-control" name="" placeholder="" id="obra-social">
-     </div>-->
-    <div class="form-group">
-      <label for="valor-consulta">Valor consulta</label>
-      <input th:value="${profesional.valorConsulta}" type="number" class="form-control" name="valorConsulta" placeholder="" id="valor-consulta">
-    </div>
-    <div class="form-group">
-      <label for="descripcion">Descripción especialidad:</label>
-      <input th:value="${profesional.descripcionEspecialidad}" type="text" class="form-control" name="descripcionEspecialidad" placeholder="" id="descripcion">
-    </div>
-    <div class="clearfix"></div>
-    <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class=""></span>
-      Actualizar</button>
-
-
-       <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3" >
-         <div class="card-body">
-           <h5 class="card-title">Exito 👍</h5>
-           <p class="card-text" th:text="${exito}"></p>
-         </div>
-       </div>
-       <div th:if="${error}!=null" class="card text-white bg-danger mb-3" >
-         <div class="card-body">
-           <h5 class="card-title">Error 👎</h5>
-           <p class="card-text" th:text="${error}"></p>
-         </div>
-       </div>
-  </form>
-
-
-
-</div>
+<!--               <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3" >-->
+<!--                 <div class="card-body">-->
+<!--                   <h5 class="card-title">Exito 👍</h5>-->
+<!--                   <p class="card-text" th:text="${exito}"></p>-->
+<!--                 </div>-->
+<!--               </div>-->
+<!--               <div th:if="${error}!=null" class="card text-white bg-danger mb-3" >-->
+<!--                 <div class="card-body">-->
+<!--                   <h5 class="card-title">Error 👎</h5>-->
+<!--                   <p class="card-text" th:text="${error}"></p>-->
+<!--                 </div>-->
+<!--               </div>-->
+       </form>
+     </div>
+ </main>
+ <footer th:replace ="/fragments/footer :: footer"></footer>
 </body>
 </html>

@@ -18,19 +18,31 @@
     </head>
 
     <body>
-        <header th:replace ="/fragments/header :: header"> </header>
-        <section class="form-02-main">
-            <div class="centrar">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="_lk_de">
-                                <div class="form-03-main">
-                                    <div class="logo" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100px; height: 100px; margin-bottom: 15px;">
-                                        <img style=" width: 200%; heigth: 200%; align-self: center;" src="/img/logo4t.png">
-                                    </div>
-                                    <form th:action="@{/logincheck}" method="POST">
-                                        <div class="form-group">
+
+    <header class="header">
+        <div class="logoth">
+            <img src="/img/logo5t.png" alt="Logo de la marca">
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a th:href="@{/}">Inicio</a></li>
+                <li sec:authorize="isAnonymous()"><a href="#">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="form-02-main">
+        <div class="centrar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="_lk_de">
+                            <div class="form-03-main">
+                                <div class="logo" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100px; height: 100px; margin-bottom: 15px;">
+                                    <img style=" width: 200%; heigth: 200%; align-self: center;" src="/img/logo4t.png">
+                                </div>
+                                <form th:action="@{/logincheck}" method="POST">
+                                    <div class="form-group">
 
                                             <input type="email"  name="mail" class="form-control" id="example@example.com"
                                                    placeholder="Ingrese Email" required>
@@ -51,7 +63,7 @@
                                                 <button type="submit">Iniciar Sesión</button>
                                             </div>
                                         </div>
-                                       
+
                                     </form>
                                 </div>
                             </div>
