@@ -39,7 +39,7 @@ public class UsuarioControlador {
     // ------------------------------------------ REESTABLECER CONTRASEÑA ------------------------------------------
     @GetMapping("/reestablecerContrasenia")
     public String reestablecerContra() {
-        return "reestablecer.html";
+        return "login-reestablecer-contrasenia.html";
     }
 
     @PostMapping("/reestableciendoContrasenia")

@@ -7,10 +7,6 @@
 </head>
 
 <body>
-<!--    <h1 th:if="${session.usuariosession != null}" th:text="${session.usuariosession.mail}"></h1>-->
-
-    <!--<form th:action="@{/profesional/modificandoJornada/{id_jornada}(id_jornada=${jornada.id_jornada})}"-->
-        <!--method="post">-->
         <form th:action="@{/profesional/modificandoJornada/__${id_jornada}__}"
         method="post">
 
@@ -22,19 +18,19 @@
         
         <button type="submit">Modificar</button>
 
-        <div th:if="${exito} != null" class="card text-white bg-success mb-3 mt-3 mensajeExito">
-            <div class="card-body">
-                <h5 class="card-title">Éxito</h5>
-                <p class="card-text" th:text="${exito}"></p>
-            </div>
-        </div>
+<!--        <div th:if="${exito} != null" class="card text-white bg-success mb-3 mt-3 mensajeExito">-->
+<!--            <div class="card-body">-->
+<!--                <h5 class="card-title">Éxito</h5>-->
+<!--                <p class="card-text" th:text="${exito}"></p>-->
+<!--            </div>-->
+<!--        </div>-->
 
-        <div th:if="${error} != null" class="card text-white bg-danger mb-3 mensajeError">
-            <div class="card-body">
-                <h5 class="card-title">Error</h5>
-                <p class="card-text" th:text="${error}"></p>
-            </div>
-        </div>
+<!--        <div th:if="${error} != null" class="card text-white bg-danger mb-3 mensajeError">-->
+<!--            <div class="card-body">-->
+<!--                <h5 class="card-title">Error</h5>-->
+<!--                <p class="card-text" th:text="${error}"></p>-->
+<!--            </div>-->
+<!--        </div>-->
     </form>
 
 </body>
