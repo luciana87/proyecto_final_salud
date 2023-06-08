@@ -121,7 +121,7 @@ public class PacienteServicio implements UserDetailsService {
         if (fechaNacimiento == null) {
             throw new MiException("La fecha de naciemiento no puede ser nulo o estar vacio");
         }
-        if (telefono.isEmpty() || !ComprobarString(telefono, "^(11|0|15)\\d{8}$")) {
+        if (telefono.isEmpty() || !ComprobarString(telefono, "^(?:(?:00)?549?)?0?(?:11|[2368]\\d)(?:(?=\\d{0,2}15)\\d{2})??\\d{8}$")) {
             throw new MiException("Debe inicar un telefono valido");
         }
         if (nroObraSocial.isEmpty() || nroObraSocial == null)// hay que validar bien al nro de ObraSocial

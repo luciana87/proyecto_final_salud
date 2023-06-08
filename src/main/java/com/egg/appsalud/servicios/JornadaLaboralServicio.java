@@ -21,8 +21,15 @@ public class JornadaLaboralServicio {
     @Transactional
     public JornadaLaboral crearJornadaLaboral(Profesional profesional, String diaSemana, LocalTime horaInicio,
                                               LocalTime horaFin, Long duracionTurno) {
+        //me fijo si ya existe la
+        Optional<JornadaLaboral> jornada = jornadaLRepositorio.buscarJornada(profesional, diaSemana);
+        JornadaLaboral jornadaLaboral;
 
-        JornadaLaboral jornadaLaboral = new JornadaLaboral();
+        if (jornada.isPresent()) {
+            jornadaLaboral = jornada.get();
+        } else {
+            jornadaLaboral = new JornadaLaboral();
+        }
 
         jornadaLaboral.setProfesional(profesional);
         jornadaLaboral.setDiaSemana(diaSemana);
@@ -70,7 +77,7 @@ public class JornadaLaboralServicio {
     }
 
     @Transactional
-    public void eliminarJornada(Profesional profesional, String id_jornada) throws MiException{
+    public void eliminarJornada(String id_jornada) throws MiException{
 
         Optional<JornadaLaboral> jornada = jornadaLRepositorio.findById(id_jornada);
         

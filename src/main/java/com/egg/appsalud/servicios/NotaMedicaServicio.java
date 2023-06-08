@@ -20,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  *
  * @author carel
@@ -91,5 +93,10 @@ public class NotaMedicaServicio {
     @Transactional
     public void eliminarNotaMedica(Integer idNotaMedica){
         notaMedicaRepositorio.deleteById(idNotaMedica);
+    }
+
+    public List<NotaMedica>buscarPorHistoria(HistoriaClinica historiaClinica){
+        return notaMedicaRepositorio.buscarPorHistoria(historiaClinica);
+
     }
 }

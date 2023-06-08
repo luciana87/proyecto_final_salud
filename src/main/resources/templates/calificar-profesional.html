@@ -9,6 +9,9 @@
     <link th:href = "@{/css/headerstyle.css}" rel="stylesheet">
     <link th:href = "@{/css/footerstyle.css}" rel="stylesheet">
     <link rel="stylesheet" href="/css/paciente.css">
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous"
+    referrerpolicy="no-referrer"/>
     <title>Calificar profesional</title>
     <style>
         main {
@@ -16,11 +19,12 @@
         }
 
         main form {
-            width: 50%;
             display: flex;
             align-items: center;
-            margin-top: 10%;
-            margin-left: 20%;
+            flex-direction: column;
+            padding: 25px 20px;
+            border-radius: 7px;
+            text-align: center;
         }
 
         main form div {
@@ -30,7 +34,11 @@
         }
 
         main form div div {
-            margin: 2em;
+            margin: 1.5rem;
+            padding: 5px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: baseline;
         }
 
         main form div div label{
@@ -40,92 +48,95 @@
         main form div div .enviar {
             padding: 0;
         }
-        <!-- HTML !-->
+        /* <!-- HTML !--> */
 
-/* BTN */
-.button-68 {
-  appearance: none;
-  backface-visibility: hidden;
-  background-color: #27ae60;
-  border-radius: 8px;
-  border-style: none;
-  box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: normal;
-  line-height: 1.5;
-  outline: none;
-  overflow: hidden;
-  padding: 13px 20px;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  transform: translate3d(0, 0, 0);
-  transition: all .3s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: top;
-  white-space: nowrap;
-}
+        /* BTN */
+        .button-68 {
+        appearance: none;
+        backface-visibility: hidden;
+        background-color: #27ae60;
+        border-radius: 8px;
+        border-style: none;
+        box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+        font-size: 1.2rem;
+        font-weight: 600;
+        line-height: 1.5;
+        outline: none;
+        overflow: hidden;
+        padding: 8px 35px;
+        position: relative;
+        text-decoration: none;
+        transform: translate3d(0, 0, 0);
+        transition: all .3s;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: top;
+        white-space: nowrap;
+        }
 
-.button-68:hover {
-  background-color: #1e8449;
-  opacity: 1;
-  transform: translateY(0);
-  transition-duration: .35s;
-}
+        .button-68:hover {
+        background-color: #1e8449;
+        opacity: 1;
+        transform: translateY(0);
+        transition-duration: .35s;
+        }
 
-.button-68:active {
-  transform: translateY(2px);
-  transition-duration: .35s;
-}
+        .button-68:active {
+        transform: translateY(2px);
+        transition-duration: .35s;
+        }
 
-.button-68:hover {
-  box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
-}
+        .button-68:hover {
+        box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
+        }
 
     </style>
 </head>
 
-<body>
-<header th:replace ="/fragments/header :: header"></header>
-Calificar profesional
-<main>
-    <form  th:action="@{/paciente/calificar/turno/{id}(id=${turno.id})}" method="POST">
-       <div>
-           <div class="form-check">
-               <input class="form-check-input" type="radio" name="calificacion" value="1" id="flexCheckDefault">
-               <label class="form-check-label" for="flexCheckDefault">★</label>
-           </div>
-           <div class="form-check">
-               <input class="form-check-input" type="radio" name="calificacion" value="2" id="flexCheckDefault2">
-               <label class="form-check-label" for="flexCheckDefault2">★★</label>
-           </div>
-           <div class="form-check">
-               <input class="form-check-input" type="radio" name="calificacion" value="3" id="flexCheckDefault3">
-               <label class="form-check-label" for="flexCheckDefault3">★★★</label>
-           </div>
-           <div class="form-check">
-               <input class="form-check-input" type="radio" name="calificacion" value="4" id="flexCheckDefault4">
-               <label class="form-check-label" for="flexCheckDefault4">★★★★</label>
-           </div>
-           <div class="form-check">
-               <input class="form-check-input" type="radio" name="calificacion" value="5" id="flexCheckDefault5">
-               <label class="form-check-label" for="flexCheckDefault5">★★★★★</label>
-           </div>
-           <div class="enviar">
-               <button class="button-68" type="submit">Enviar</button>
-           </div>
-       </div>
-    </form>
-</main>
+<body style="display: flex; flex-direction: column; height: 100vh;">
+    <header th:replace ="/fragments/header :: header"></header>
+    <main style="display: flex; flex-direction: column; flex-grow: 1; align-items: center; justify-content: center; background-image: url('/img/fregistro.jpg'); background-size: cover; background-position: center;  background-repeat: no-repeat;">
+        <h1 style="margin-bottom: 25px;">Calificar profesional</h1>
+        <form  th:action="@{/paciente/calificar/turno/{id}(id=${turno.id})}" method="POST" style="background-color: #fff;">
+            <div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="calificacion" value="1" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault"><i class="fa-solid fa-star"></i></label>
+                    <p>Muy malo</p>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="calificacion" value="2" id="flexCheckDefault2">
+                    <label class="form-check-label" for="flexCheckDefault2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></label>
+                    <p>Malo</p>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="calificacion" value="3" id="flexCheckDefault3">
+                    <label class="form-check-label" for="flexCheckDefault3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></label>
+                    <p>Normal</p>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="calificacion" value="4" id="flexCheckDefault4">
+                    <label class="form-check-label" for="flexCheckDefault4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></label>
+                    <p>Bueno</p>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="calificacion" value="5" id="flexCheckDefault5">
+                    <label class="form-check-label" for="flexCheckDefault5"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></label>
+                    <p>Muy bueno</p>
+                </div>
+            </div>
+            <div class="enviar">
+                <button class="button-68" type="submit">Enviar</button>
+            </div>
+        </form>
+    </main>
 
-<footer th:replace ="/fragments/footer :: footer"></footer>
+    <footer th:replace ="/fragments/footer :: footer"></footer>
 </body>
 </html>
