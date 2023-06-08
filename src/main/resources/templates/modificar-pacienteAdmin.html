@@ -8,7 +8,7 @@
     <link th:href = "@{/css/headerstyle.css}" rel="stylesheet">
     <link th:href = "@{/css/footerstyle.css}" rel="stylesheet">
     <link rel="stylesheet" href="/css/registro.css">
-<!--    <link href="/css/registro2.css" rel="stylesheet" type="text/css">-->
+
   <!-- Fontawesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous"
   referrerpolicy="no-referrer"/>
@@ -25,22 +25,22 @@
               <div style="display: flex; align-items: center; justify-content: center;">
                   <div class="form-group" style="width: 45%; margin-right: 5%;">
                       <label for="nombre">Nombre</label>
-                      <input th:value="${paciente.nombre}" type="text" class="form-control" name="nombre" placeholder="" id="nombre" autofocus style="border-color: #1c4b5aa5; padding: 6px 12px;">
+                      <input th:value="${paciente.nombre}" type="text" class="form-control" name="nombre" id="nombre" autofocus style="border-color: #1c4b5aa5; padding: 6px 12px;">
                    </div>
                    <div class="form-group" style="width: 45%;">
                        <label for="surname">Apellido</label>
-                       <input th:value="${paciente.apellido}" type="text" class="form-control" name="apellido" placeholder="" id="surname" style="border-color: #1c4b5aa5; padding: 6px 12px;">
+                       <input th:value="${paciente.apellido}" type="text" class="form-control" name="apellido" id="surname" style="border-color: #1c4b5aa5; padding: 6px 12px;">
                    </div>
               </div>
               <!-- mail y telefono -->
               <div style="display: flex; align-items: center; justify-content: center;">
                   <div class="form-group" style="width: 45%; margin-right: 5%;">
                       <label for="mail">Email</label>
-                      <input th:value="${paciente.mail}" type="email" class="form-control" name="mail" placeholder="" id="mail" style="border-color: #1c4b5aa5; padding: 6px 12px;">
+                      <input th:value="${paciente.mail}" type="email" class="form-control" name="mail" id="mail" style="border-color: #1c4b5aa5; padding: 6px 12px;">
                   </div>
                   <div class="form-group" style="width: 45%;">
                     <label for="telefono">Teléfono</label>
-                    <input th:value="${paciente.telefono}" type="number" class="form-control" name="telefono" placeholder="" id="telefono" style="border-color: #1c4b5aa5; padding: 6px 12px;">
+                    <input th:value="${paciente.telefono}" type="number" class="form-control" name="telefono" id="telefono" style="border-color: #1c4b5aa5; padding: 6px 12px;">
                 </div>
               </div>
               <!-- obra social y numero de abra social-->

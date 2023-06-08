@@ -6,6 +6,7 @@
 package com.egg.appsalud.Controladores;
 
 
+
 import com.egg.appsalud.Enumerativos.EstadoTurno;
 import com.egg.appsalud.entidades.Especialidad;
 import com.egg.appsalud.entidades.ObraSocial;
@@ -21,10 +22,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.convert.JMoleculesConverters;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -91,7 +90,7 @@ public class AdminControlado {
 
             throw new RuntimeException(e);
         }
-        return "redirect:/inicio";
+        return "redirect:/dashboard";
     }
 
     
@@ -130,7 +129,7 @@ public class AdminControlado {
         } catch (IOException e){
             throw new RuntimeException(e);
         }
-        return "redirect:/admin/dashboard/listaPacientes";
+        return "redirect:/dashboard/listaPacientes";
     }
     
     
@@ -179,7 +178,7 @@ public class AdminControlado {
             modelo.put("error", e.getMessage());
             return "redirect:/admin/dashboard";
         }
-        return "redirect:/admin/dashboard";
+        return "redirect:/admin/dashboard/listaProfesionales";
     }
 
 
@@ -199,7 +198,7 @@ public class AdminControlado {
             Profesional profesional = profesionalServicio.getOne(id);
             modelo.put("profesional", profesional);
 
-            return "modificar-profesionalAdmin.html";
+            return "modificar-profesional.html";
     }
     @PreAuthorize ("hasAnyRole('ROLE_ADMIN')")
     @PostMapping ("/dashboard/listaProfesionales/modificar/{id}")
@@ -255,7 +254,7 @@ public class AdminControlado {
             System.out.println(e.getMessage());
             return "registro-os.html";
         }
-        return "redirect:/inicio";
+        return "redirect:/admin/dashboard/listaObraSociales";
     }
     
     @PreAuthorize ("hasAnyRole('ROLE_ADMIN')")
@@ -331,6 +330,7 @@ public class AdminControlado {
         }
         return "redirect:/admin/dashboard/listaTurno";
     }
+
 
     @PostMapping("/dashboard/buscarTurnos")
     public String buscarTurnos(String idProfesional,String fecha,String horario,  String nombre, Double valorConsulta,Double reputacion,Integer especialidad, ModelMap modelo){

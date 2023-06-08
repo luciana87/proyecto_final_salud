@@ -77,7 +77,6 @@ public class ProfesionalServicio {
             Double valorConsulta, String descripcionEspecialidad) throws MiException {
 
 //        validarModificar(mail, nombre, apellido, dni, telefono ,fechaNacimiento);
-
         Optional<Profesional> profesionalOptional = profesionalRepositorio.findById(idProfesional);
 
         if (profesionalOptional.isPresent()) {
@@ -126,7 +125,7 @@ public class ProfesionalServicio {
         }
     }
 
-    private void validarModificar (String mail, String nombre, String apellido, String dni, String telefono, LocalDate fechaNacimiento) throws MiException {
+    private void validarModificar(String mail, String nombre, String apellido, String dni, String telefono, LocalDate fechaNacimiento) throws MiException {
         if (nombre.isEmpty() || !ComprobarString(nombre, "^[a-zA-Z]+$")) {
             throw new MiException("Error en el formato de nombre, o es nulo");
         }
@@ -157,7 +156,7 @@ public class ProfesionalServicio {
     //Crear jornada laboral
     @Transactional
     public List<JornadaLaboral> crearJ(Profesional profesional, String diaSemana, LocalTime horaInicio,
-                                       LocalTime horaFin, Long duracion) throws MiException {
+            LocalTime horaFin, Long duracion) throws MiException {
         if (profesional != null) {
 
             List<JornadaLaboral> jornadas = new ArrayList();
@@ -190,7 +189,7 @@ public class ProfesionalServicio {
     }
 
     @Transactional
-    public void eliminarJornada( String id_jornada) throws MiException {
+    public void eliminarJornada(String id_jornada) throws MiException {
         JornadaLaboral jornada = jornadaLaboralRepositorio.getOne(id_jornada);
         jornadaLaboralRepositorio.delete(jornada);
     }
@@ -200,7 +199,6 @@ public class ProfesionalServicio {
 //        List<Profesional> profesionales = profesionalRepositorio.findAll();
 //        return profesionales.stream().collect(Collectors.toList());
 //    }
-
     @Transactional
     public void eliminarProfesional(String id_profesional) throws MiException {
 
@@ -213,9 +211,7 @@ public class ProfesionalServicio {
         profesionalRepositorio.save(profesional);
     }
 
-
 //-------------------- contraseña ------------------
-
     @Transactional
     public void cambiarContrasenia(String idProfesional, String contraVieja, String contraNueva, String contraComparar) throws MiException {
 
@@ -237,4 +233,18 @@ public class ProfesionalServicio {
             throw new MiException("No coiciden las nuevas contraseñas");
         }
     }
+
+    // ---------------------- BUSCAR POR MAIL ----------------------
+    
+    public Profesional buscarPorMail(String mail) {
+        Profesional profesional = profesionalRepositorio.BuscarPorEmail(mail);
+        
+        if(profesional != null){
+            return profesional;
+        }else{
+            return null;
+        }
+
+    }
+
 }

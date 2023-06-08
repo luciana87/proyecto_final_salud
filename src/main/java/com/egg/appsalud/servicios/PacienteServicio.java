@@ -5,10 +5,12 @@
  */
 package com.egg.appsalud.servicios;
 
+
 import com.egg.appsalud.Enumerativos.Rol;
 import com.egg.appsalud.entidades.Imagen;
 import com.egg.appsalud.entidades.ObraSocial;
 import com.egg.appsalud.entidades.Paciente;
+import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.excepciones.MiException;
 import com.egg.appsalud.repositorios.PacienteRepositorio;
 
@@ -47,6 +49,7 @@ public class PacienteServicio implements UserDetailsService {
 
     @Autowired
     private ImagenServicio imagenServicio;
+
     @Autowired
     private ObraSocialServicio obraSocialServicio;
 
@@ -57,6 +60,12 @@ public class PacienteServicio implements UserDetailsService {
     public void CrearPaciente(MultipartFile archivo, String mail, String password, Integer idObraSocial,
             String nroObraSocial, String nombre, String apellido, String dni, LocalDate fechaNacimiento,
             String telefono) throws MiException, IOException {
+
+        // Verificar si ya existe otro paciente con el mismo correo electrónico
+        Paciente pacienteExistente = buscarPorMail(mail);
+        if (pacienteExistente != null) {
+            throw new MiException("Ya existe un paciente registrado con el mismo correo electrónico");
+        }
 
         validar(mail, password, nombre, apellido, dni, fechaNacimiento, telefono, nroObraSocial);
 
@@ -193,15 +202,13 @@ public class PacienteServicio implements UserDetailsService {
             String apellido, String dni, LocalDate fechaNacimiento, String telefono, String nroObraSocial, Integer idObraSocial) throws MiException, IOException {
 
         validarModificar(mail, nombre, apellido, dni, fechaNacimiento, telefono, nroObraSocial);
-       
+
         Optional<Paciente> pacienteOptional = pacienteRepositorio.findById(id_paciente);
-        
+
         if (pacienteOptional.isPresent()) {
             Paciente paciente = pacienteOptional.get();
             ObraSocial obraSocial = obraSocialServicio.getOne(idObraSocial);
-                
-                
-            
+
             paciente.setMail(mail);
             paciente.setObraSocial(obraSocial);
             paciente.setNombre(nombre);
@@ -209,7 +216,7 @@ public class PacienteServicio implements UserDetailsService {
             paciente.setDni(dni);
             paciente.setFechaNacimiento(fechaNacimiento);
             paciente.setTelefono(telefono);
-            
+
             String idImagen = null;
             if (paciente.getImagen() != null) {
                 idImagen = paciente.getImagen().getId();
@@ -233,26 +240,44 @@ public class PacienteServicio implements UserDetailsService {
         pacienteRepositorio.deleteById(id_paciente);
 
     }
+
+    // ---------------------- CAMBIAR CONTRASEÑA ----------------------
     @Transactional
-    public void cambiarContrasenia(String idPaciente, String contraVieja, String contraNueva, String contraComparar) throws MiException{
-        
-             Paciente paciente = pacienteRepositorio.getOne(idPaciente);
-             validarContraseña(contraVieja, paciente.getPassword(), contraNueva, contraComparar);
-             
-             paciente.setPassword(new BCryptPasswordEncoder().encode(contraNueva));
-             
-             pacienteRepositorio.save(paciente);
-           
+    public void cambiarContrasenia(String idPaciente, String contraVieja, String contraNueva, String contraComparar) throws MiException {
+
+        Paciente paciente = pacienteRepositorio.getOne(idPaciente);
+        validarContraseña(contraVieja, paciente.getPassword(), contraNueva, contraComparar);
+
+        paciente.setPassword(new BCryptPasswordEncoder().encode(contraNueva));
+
+        pacienteRepositorio.save(paciente);
+
     }
-    
-    private void validarContraseña(String contraVieja,String contraBS, String contraNueva, String contraComparar) throws MiException {
+
+    private void validarContraseña(String contraVieja, String contraBS, String contraNueva, String contraComparar) throws MiException {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        if(!passwordEncoder.matches(contraVieja, contraBS)){
+        if (!passwordEncoder.matches(contraVieja, contraBS)) {
             throw new MiException("Ingrese devuelta su contraseña");
         }
-        if(!contraNueva.equals(contraComparar)){
+        if (!contraNueva.equals(contraComparar)) {
             throw new MiException("No coiciden las nuevas contraseñas");
         }
     }
-}
 
+    private void solicitarBaja(String idPaciente) {
+
+    }
+
+    // ---------------------- BUSCAR POR MAIL ----------------------
+    public Paciente buscarPorMail(String mail) {
+        Paciente paciente = pacienteRepositorio.BuscarPorEmail(mail);
+        if (paciente != null) {
+            return paciente;
+        } else {
+            return null;
+        }
+
+//        return pacienteRepositorio.BuscarPorEmail(mail);
+    }
+
+}
