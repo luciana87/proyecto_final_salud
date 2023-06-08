@@ -76,6 +76,8 @@ public class ProfesionalControlador {
     @GetMapping("/inicio")
     public String inicio(HttpSession session, ModelMap modelo) {
         Profesional profesional = profesionalRepositorio.BuscarPorEmail(session.getAttribute("mail").toString());
+        List<Especialidad>listaEspecialidades = usuarioServicio.listarEspecialidad();
+        modelo.addAttribute("especialidades", listaEspecialidades);
 
         modelo.put("profesional", profesional);
         return "inicio_profesional.html";

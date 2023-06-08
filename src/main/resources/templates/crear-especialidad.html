@@ -12,7 +12,19 @@
         <title>OS</title>
     </head>
     <body>
-        <header th:include="fragments/header :: header"> </header>
+        <header class="header">
+            <div class="logoth">
+                <img src="/img/logo5t.png" alt="Logo de la marca">
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a th:href="@{/inicio}">Inicio</a></li>
+
+                    <li sec:authorize="isAnonymous()"><a href="#">Login</a></li>
+                </ul>
+            </nav>
+            <a class="btnth" href="/logout"><button>Cerrar Sesión</button></a>
+        </header>
         <main>
             <form th:action="@{/admin/dashboard/CrearEspecialidad}" method="POST">
                 <div class="form-group">

@@ -10,41 +10,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous"
               referrerpolicy="no-referrer"/>
         <title>Registro Profesional</title>
-<<<<<<< HEAD
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-                list-style-type: none;
-                text-decoration: none;
-            }
-        </style>
-    </head>
-    <body class="container">
-        <header class="header">
-            <div class="logoth">
-                <img src="/img/logo5t.png" alt="Logo de la marca">
-            </div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a th:href="@{/}">Inicio</a></li>
-                </ul>
-            </nav>
-            <a class="btnth" href="/logout"><button>Cerrar Sesión</button></a>
-        </header>
-
-        <main>
-            <div class="container" id="advanced-search-form">
-                <h2 class="text-center header" style="color: white;">Registro Profesional</h2>
-                <form action="/profesional/registroP" method="POST">
-
-                    <div th:if="${error != null}" class="card text-white bg-danger mb-3" >
-                        <div class="card-body">
-                            <h5 class="card-title">Error 👎</h5>
-                            <p class="card-text" th:text="${error}"></p>
-                        </div>
-=======
     </head>
     <body style="display: flex; flex-direction: column; height: 100vh;">
 
@@ -67,7 +32,6 @@
                     <div class="form-group" style="width: 45%; margin-right: 5%; margin-left: 5%;">
                         <label for="nombre">Nombre</label>
                         <input type="text" class="form-control" name="nombre" id="nombre" autofocus style="border-color: #1c4b5aa5; padding: 6px 12px;">
->>>>>>> main
                     </div>
                     <div class="form-group" style="width: 45%; margin-right: 5%;">
                         <label for="surname">Apellido</label>
@@ -91,19 +55,14 @@
                         <label for="matricula">Matricula</label>
                         <input type="text" class="form-control" name="matricula" id="matricula" style="border-color: #1c4b5aa5; padding: 6px 12px;">
                     </div>
-<<<<<<< HEAD
-                    <div class="form-group">
+
+                    <div class="form-group" style="display: flex; flex-direction: column; width: 45%; margin-right: 5%;">
                         <label>Especialidad</label>
 
                         <select name="especialidad">
                             <option>Seleccione una Especialiadad</option>
                             <option th:each="esp : ${especialidades}" th:value="${esp.id}" th:text="${esp.nombre}" ></option>
                         </select>
-=======
-                    <div class="form-group" style="display: flex; flex-direction: column; width: 45%; margin-right: 5%;">
-                        <label for="especialidad">Especialidad</label>
-                        <input type="text" class="form-control" name="especialidad" id="especialidad" style="border-color: #1c4b5aa5; padding: 6px 12px;">
->>>>>>> main
                     </div>
                 </div>
                 <!-- teléfono y correo -->

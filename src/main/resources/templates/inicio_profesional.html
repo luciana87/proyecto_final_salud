@@ -25,7 +25,7 @@
         </style>
     </head>
     <body style="display: flex; flex-direction: column; height: 100vh; margin: 0; padding: 0;">
-    <header th:replace ="/fragments/header :: header"></header>
+        <header th:replace ="/fragments/header :: header"></header>
         <main style="display: flex; flex-direction: column; flex-grow: 1; align-items: center; justify-content: center; color: #212529; background-image: url('/img/fregistro.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover;">
             <!-- menu usuario -->
             <section style="margin: 30px 50px;">
@@ -33,9 +33,9 @@
                     <a href="#" style="margin-right: 20px; padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff;"><i class="fa fa-home" style="margin-right: 5px;"></i>Cuenta</a>
                     <a href="/profesional/CrearJornadaTurnos" style="margin-right: 20px; padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff;"><i class="fa-regular fa-calendar" style="margin-right: 5px;"></i>Generar turnos</a>
                     <a href="/profesional/listaTurno" style="margin-right: 20px; padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff;"><i class="fa-solid fa-pen-to-square" style="margin-right: 5px;"></i>Lista de turnos</a>
-<!--                    <a href="/profesional/listaTurno" style="margin-right: 20px; padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff;"><i class="fa-solid fa-pen-to-square" style="margin-right: 5px;"></i>Jornada laboral</a>-->
+                    <!--                    <a href="/profesional/listaTurno" style="margin-right: 20px; padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff;"><i class="fa-solid fa-pen-to-square" style="margin-right: 5px;"></i>Jornada laboral</a>-->
                     <a href="/profesional/formCambiarContrasenia" style="margin-right: 20px; padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff;"><i class="fa fa-key" style="margin-right: 5px;"></i>Cambiar contraseña</a>
-<!--                    <a href="/logout" style="margin-right: 20px; padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff;"><i class="fa-solid fa-right-from-bracket" style="margin-right: 5px;"></i>Cerrar sesión</a>-->
+                    <!--                    <a href="/logout" style="margin-right: 20px; padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff;"><i class="fa-solid fa-right-from-bracket" style="margin-right: 5px;"></i>Cerrar sesión</a>-->
                 </div>
             </section>
             <!-- usuario container -->
@@ -97,9 +97,12 @@
                                 <label style="margin-bottom: 6px; font-weight: 600;">Descripción</label>
                                 <input id="descripcion" type="text" th:value="${profesional.descripcionEspecialidad}" name="descripcionEspecialidad" disabled style="padding: 5px 0px; border-radius: 5px;">
                             </div>
-<!--                            <div>-->
-<!--                                <input name="password" type="password" id="nom" th:value="${session.usuariosession.password}" disabled style="display: none;">-->
-<!--                            </div>-->
+                            <div>
+                                <select  name ="especialidad" class="custom-select custom-select-sm" style="margin-left: 0px; width: 150px;">
+                                   
+                                    <option th:each="esp : ${especialidades}" th:value="${esp.id}" th:text="${esp.nombre}"></option>
+                                </select>
+                            </div>
                             <div>
                                 <button type="submit" id="guarda" style="padding: 5px 10px; background-color: #1c4a5a; border-radius: 5px; color: #fff; display: none;">Guardar</button>
                             </div>
@@ -121,22 +124,22 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script>
             function habilitarInput() {
-                let inputs = ["nombre", "apellido", "mail", "telefono", "dni", "fechaNacimiento", "matricula", "descripcion", "valor-consulta"];
-                let habilita = document.getElementById("habilita");
-                let guardar = document.getElementById("guarda");
+            let inputs = ["nombre", "apellido", "mail", "telefono", "dni", "fechaNacimiento", "matricula", "descripcion", "valor-consulta"];
+            let habilita = document.getElementById("habilita");
+            let guardar = document.getElementById("guarda");
 
-                for (let i = 0; i < inputs.length; i++) {
-                    let input = document.getElementById(inputs[i]);
-                    input.disabled = !input.disabled;
-                }
+            for (let i = 0; i < inputs.length; i++) {
+            let input = document.getElementById(inputs[i]);
+            input.disabled = !input.disabled;
+            }
 
-                if (habilita.innerText === "Editar") {
-                    habilita.innerText = "Cancelar";
-                    guardar.style.display = "inline-block";
-                } else {
-                    habilita.innerText = "Editar";
-                    guardar.style.display = "none";
-                }
+            if (habilita.innerText === "Editar") {
+            habilita.innerText = "Cancelar";
+            guardar.style.display = "inline-block";
+            } else {
+            habilita.innerText = "Editar";
+            guardar.style.display = "none";
+            }
 
             }
         </script>

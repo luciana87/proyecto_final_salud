@@ -1,6 +1,7 @@
 package com.egg.appsalud.repositorios;
 
-import com.egg.appsalud.Enumerativos.Especialidad;
+
+import com.egg.appsalud.entidades.Especialidad;
 import com.egg.appsalud.entidades.JornadaLaboral;
 import com.egg.appsalud.entidades.Profesional;
 import com.egg.appsalud.entidades.Turno;
