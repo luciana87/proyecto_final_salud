@@ -196,7 +196,7 @@ public class AdminControlado {
             Profesional profesional = profesionalServicio.getOne(id);
             modelo.put("profesional", profesional);
 
-            return "modificar-profesionalAdmin.html";
+            return "modificar-profesional.html";
     }
     @PreAuthorize ("hasAnyRole('ROLE_ADMIN')")
     @PostMapping ("/dashboard/listaProfesionales/modificar/{id}")
