@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html style=" min-height: 100%; position: relative;" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Iniciar Sesión</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+
+
+        <link th:href = "@{/css/headerstyle.css}" rel="stylesheet"> 
+        <link href="/css/login.css" rel="stylesheet">
+        <link th:href = "@{/css/footerstyle.css}" rel="stylesheet"> 
+        <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+    </head>
+
+    <body style="  margin: 0  margin-bottom: 40px;">
+
+    <header class="header">
+        <div class="logoth">
+            <img src="/img/logo5t.png" alt="Logo de la marca">
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a th:href="@{/}">Inicio</a></li>
+                <li sec:authorize="isAnonymous()"><a th:href="@{/login}">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="form-02-main" style="heigth: auto;">
+                        <div class="_lk_de"style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                            <div style="width: 40%;" class="form-03-main">
+                                <div class="logo" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100px; height: 100px; margin-bottom: 15px;">
+                                    <img style=" width: 200%; heigth: 200%; align-self: center;" src="/img/logo4t.png">
+                                </div>
+                                    <div class="container">
+                                        <div class="row justify-content-center">
+                                            <div class="col-md-6" style="width: 80%;">
+                                                <form action="/usuario/reestableciendoContrasenia" method="POST">
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputEmail1" class="form-label" style=" color: white;">Ingrese su dirección de correo electrónico</label>
+                                                        <input style="min-height: 35px;; height: 20px;" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="mail">
+                                                        <div id="emailHelp" class="form-text"style=" color: white;">Su contraseña será restablecida automáticamente a '12345678'</div>
+                                                    </div>
+                                                    <button style="height: 42px;" type="submit">Reestablecer</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        </section>
+    <footer class="pie-pagina" style="  position: absolute;  bottom: 0;">
+        <div class="grupo-1" style="display: flex; justify-content: space-between; align-items: center; height: 120px;">
+            <div class="boxth" style="align-self: normal;">
+                <figure>
+                    <a href="#">
+                        <img src="/img/logo4t.png" alt="Logo de Medilyg">
+                    </a>
+                </figure>
+            </div>
+
+            <div class="boxth" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                <div class="red-social" style="display: flex;">
+                    <a href="#" class="fa fa-facebook" style="height: 40px; width: 40px;"></a>
+                    <a href="#" class="fa fa-instagram" style="height: 40px; width: 40px;"></a>
+                    <a href="#" class="fa fa-twitter" style="height: 40px; width: 40px;"></a>
+                    <a href="#" class="fa fa-youtube" style="height: 40px; width: 40px;"></a>
+                </div>
+            </div>
+        </div>
+        <div class="grupo-2">
+            <small>&copy; 2023 <b>Grupo 2 G&L</b> - Todos los Derechos Reservados.</small>
+        </div>
+    </footer>
+    </body>
+
+</html>
